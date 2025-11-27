@@ -30,7 +30,8 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
 
         const fileMap: Record<string, string> = {
             'about': 'src > view > about > About.tsx',
-            'projects': 'src > view > projects > Projects.tsx'
+            'projects': 'src > view > projects > Projects.tsx',
+            'certifications': 'src > view > certifications > Certifications.tsx'
         };
 
         return fileMap[segments[0]] || `src > view > ${segments[0]} > ${segments[0].charAt(0).toUpperCase() + segments[0].slice(1)}.tsx`;

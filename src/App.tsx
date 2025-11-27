@@ -4,6 +4,7 @@ import Home from './view/home/Home';
 import About from './view/about/About';
 import Projects from './view/projects/Projects';
 import ProjectDetail from './view/projects/ProjectDetail';
+import Certifications from './view/certifications/Certifications';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="projects" element={<Projects />} />
           <Route path="projects/:slug" element={<ProjectDetail />} />
+          <Route path="certifications" element={<Certifications />} />
           <Route path="about" element={<About />} />
         </Route>
       </Routes>

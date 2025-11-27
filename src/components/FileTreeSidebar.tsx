@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope } from "react-icons/sl";
+import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope, SlBadge } from "react-icons/sl";
 import { FiFolder } from "react-icons/fi";
 
 interface FileTreeSidebarProps {
@@ -36,6 +36,12 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                     {!isCollapsed && "About"}
                 </Link>
             </li>
+            <li>
+                <Link to="/certifications" className={getLinkClass("/certifications")}>
+                    <SlBadge size={20} />
+                    {!isCollapsed && "Certifications"}
+                </Link>
+            </li>
             <li className={isCollapsed ? "tooltip tooltip-right" : ""} data-tip="Contacts">
                 {isCollapsed ? (
                     <a className="justify-center">
@@ -48,9 +54,9 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                             Contacts
                         </summary>
                         <ul>
-                            <li><a><SlSocialInstagram size={16} /> Instagram</a></li>
-                            <li><a><SlSocialLinkedin size={16} /> LinkedIn</a></li>
-                            <li><a><SlEnvolope size={16} /> Gmail</a></li>
+                            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><SlSocialInstagram size={16} /> Instagram</a></li>
+                            <li><a href="https://linkedin.com/in/adityavahlevynugraha/" target="_blank" rel="noopener noreferrer"><SlSocialLinkedin size={16} /> LinkedIn</a></li>
+                            <li><a href="mailto:adityavahlevy1003@gmail.com"><SlEnvolope size={16} /> Gmail</a></li>
                         </ul>
                     </details>
                 )}
