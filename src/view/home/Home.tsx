@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { SlRocket, SlUser, SlStar, SlBriefcase, SlBadge } from "react-icons/sl";
+import { SlRocket, SlUser, SlStar, SlBriefcase, SlBadge, SlSocialLinkedin, SlSocialInstagram, SlEnvolope } from "react-icons/sl";
 import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import { projectsData } from "../projects/Projects";
@@ -20,13 +20,34 @@ export default function Home() {
 
                 <div className="hero-content text-center z-10">
                     <div className="max-w-4xl">
-                        <div className="badge badge-primary badge-outline mb-4 font-mono">Open to Work & Collaboration</div>
-                        <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-                            Aditya Vahlevy <span className="text-primary">Nugraha</span>
+
+                        <div className="flex flex-col items-center gap-3 mb-6">
+                            <div className="badge badge-primary badge-outline font-mono">Open to Collaboration</div>
+                            <div className="flex gap-4">
+                                <a href="https://www.linkedin.com/in/adityavahlevynugraha/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-primary hover:bg-primary/10">
+                                    <SlSocialLinkedin size={20} />
+                                </a>
+                                <a href="https://www.instagram.com/adityavhlvy/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-pink-500 hover:bg-pink-500/10">
+                                    <SlSocialInstagram size={20} />
+                                </a>
+                                <a href="mailto:adityavhlvy1003@gmail.com" className="btn btn-ghost btn-circle btn-sm text-red-500 hover:bg-red-500/10">
+                                    <SlEnvolope size={20} />
+                                </a>
+                            </div>
+                        </div>
+
+                        <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
+                            <span className="text-primary">Adit</span>ya Vahlevy Nugraha
                         </h1>
-                        <p className="text-2xl md:text-3xl font-light text-base-content/80 mb-8">
-                            Jr. Fullstack Developer <span className="text-base-content/30 mx-2">|</span> Data Science Enthusiast
-                        </p>
+
+                        <div className="mb-8 space-y-2">
+                            <p className="text-3xl md:text-4xl font-bold text-base-content">
+                                Jr. Fullstack Developer
+                            </p>
+                            <p className="text-xl md:text-2xl font-light text-base-content/60">
+                                Project Management <span className="text-base-content/30 mx-2">|</span> Data Science Enthusiast
+                            </p>
+                        </div>
 
                         <p className="py-6 text-lg leading-relaxed max-w-2xl mx-auto text-base-content/70">
                             Building the bridge between <span className="font-semibold text-base-content">complex data</span> and <span className="font-semibold text-base-content">intuitive user experiences</span>.
