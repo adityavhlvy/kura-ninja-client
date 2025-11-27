@@ -1,5 +1,5 @@
 import { SlGraduation, SlBriefcase, SlLayers, SlUser } from "react-icons/sl";
-import { FaCalendar, FaMapMarkerAlt, FaBuilding, FaLinkedin } from "react-icons/fa";
+import { FaMapMarkerAlt, FaBuilding, FaLinkedin } from "react-icons/fa";
 import {
     SiPython, SiGo, SiJavascript, SiTypescript,
     SiNextdotjs, SiVuedotjs, SiTailwindcss,
