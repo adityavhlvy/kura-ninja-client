@@ -2,7 +2,8 @@ import { useParams, Link, Navigate } from "react-router-dom";
 import { projectsData } from "./Projects";
 import { SlArrowLeft, SlGlobe, SlLock } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
-import { motion } from "framer-motion";
+
+import PageTransition from "../../components/PageTransition";
 
 export default function ProjectDetail() {
     const { slug } = useParams<{ slug: string }>();
@@ -21,12 +22,7 @@ export default function ProjectDetail() {
     const isPrivate = project.visibility === 'private';
 
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3 }}
-            className="container mx-auto max-w-4xl"
-        >
+        <PageTransition className="container mx-auto max-w-4xl">
             {/* Back Button */}
             <Link to="/projects" className="btn btn-ghost btn-sm gap-2 mb-6">
                 <SlArrowLeft />
@@ -97,19 +93,16 @@ export default function ProjectDetail() {
             )}
 
             {/* Additional Details Section */}
-            <div className="card bg-base-200 shadow-xl p-6">
-                <h2 className="text-2xl font-bold mb-4">Project Details</h2>
-                <p className="text-base-content/70">
-                    More detailed information about this project can be added here, such as:
-                </p>
-                <ul className="list-disc list-inside mt-4 space-y-2 text-base-content/70">
-                    <li>Development timeline and milestones</li>
-                    <li>Key features and functionality</li>
-                    <li>Challenges faced and solutions implemented</li>
-                    <li>Performance metrics or achievements</li>
-                    <li>Future plans and roadmap</li>
-                </ul>
-            </div>
-        </motion.div>
+            {project.details && project.details.length > 0 && (
+                <div className="card bg-base-200 shadow-xl p-6">
+                    <h2 className="text-2xl font-bold mb-4">Project Details</h2>
+                    <ul className="list-disc list-inside space-y-2 text-base-content/70">
+                        {project.details.map((detail, index) => (
+                            <li key={index}>{detail}</li>
+                        ))}
+                    </ul>
+                </div>
+            )}
+        </PageTransition>
     );
 }
