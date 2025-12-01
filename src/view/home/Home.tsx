@@ -61,11 +61,11 @@ export default function Home() {
 
                         {/* Music Section */}
                         <section className="container mx-auto max-w-6xl p-4">
-                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
-                                <div className="w-full md:w-auto">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start max-w-4xl mx-auto">
+                                <div className="w-full h-full">
                                     <SpotifyNowPlaying />
                                 </div>
-                                <div className="w-full md:w-auto">
+                                <div className="w-full h-full">
                                     <SpotifyTopTracks />
                                 </div>
                             </div>
