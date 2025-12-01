@@ -48,9 +48,9 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
                 <Link to="/" className="btn btn-ghost text-xl">Logo</Link>
             </div>
             <div className='navbar-center'>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-base-200 text-base-content text-xs md:text-sm font-mono border border-base-300">
+                <div className="flex items-center gap-2 px-2 md:px-3 py-1 rounded-md bg-base-200 text-base-content text-xs md:text-sm font-mono border border-base-300">
                     <SlDoc size={16} className="shrink-0" />
-                    <span className="font-bold truncate max-w-[150px] md:max-w-none">{getBreadcrumbs(location.pathname)}</span>
+                    <span className="font-bold truncate max-w-[100px] md:max-w-none">{getBreadcrumbs(location.pathname)}</span>
                 </div>
             </div>
             <div className='navbar-end'>
