@@ -40,7 +40,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
     const currentThemeIcon = THEMES.find(t => t.name === currentTheme)?.icon;
 
     return (
-        <div className="navbar border-b">
+        <div className="navbar border-b bg-base-100 z-30 min-h-[4rem]">
             <div className='navbar-start'>
                 <button className="btn btn-ghost btn-circle mr-2" onClick={toggleSidebar}>
                     {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
