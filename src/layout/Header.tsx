@@ -47,7 +47,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
                 </button>
                 <Link to="/" className="btn btn-ghost text-xl">Logo</Link>
             </div>
-            <div className='navbar-center'>
+            <div className='navbar-center hidden md:flex'>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-base-200 text-base-content text-sm font-mono border border-base-300">
                     <SlDoc size={16} />
                     <span className="font-bold">{getBreadcrumbs(location.pathname)}</span>
@@ -57,7 +57,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn m-1 flex items-center gap-2">
                         {currentThemeIcon}
-                        <span className="capitalize">{currentTheme}</span>
+                        <span className="capitalize hidden sm:inline">{currentTheme}</span>
                         <SlArrowDown size={12} className="opacity-60" />
                     </div>
                     <ul tabIndex={0} className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52 max-h-96 overflow-y-auto">
