@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { THEMES } from "../config/theme";
-import { SlArrowLeft, SlDoc, SlArrowDown, SlArrowRight } from "react-icons/sl";
+import { SlArrowLeft, SlDoc, SlArrowDown, SlMenu } from "react-icons/sl";
 
 interface HeaderProps {
     isSidebarOpen: boolean;
@@ -43,7 +43,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         <div className="navbar border-b">
             <div className='navbar-start'>
                 <button className="btn btn-ghost btn-circle mr-2" onClick={toggleSidebar}>
-                    {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlArrowRight size={24} />}
+                    {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
                 </button>
                 <Link to="/" className="btn btn-ghost text-xl">Logo</Link>
             </div>
