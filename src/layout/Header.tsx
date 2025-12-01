@@ -42,10 +42,10 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
     return (
         <div className="navbar border-b bg-base-100 z-30 min-h-[4rem]">
             <div className='navbar-start'>
-                <button className="btn btn-ghost btn-circle mr-2" onClick={toggleSidebar}>
+                <button className="btn btn-ghost btn-circle btn-sm md:btn-md mr-1 md:mr-2" onClick={toggleSidebar}>
                     {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
                 </button>
-                <Link to="/" className="btn btn-ghost text-xl">Logo</Link>
+                <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2">Logo</Link>
             </div>
             <div className='navbar-center'>
                 <div className="flex items-center gap-2 px-2 md:px-3 py-1 rounded-md bg-base-200 text-base-content text-xs md:text-sm font-mono border border-base-300">
@@ -55,7 +55,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
             </div>
             <div className='navbar-end'>
                 <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn m-1 flex items-center gap-2">
+                    <div tabIndex={0} role="button" className="btn btn-sm md:btn-md m-0 md:m-1 flex items-center gap-2">
                         {currentThemeIcon}
                         <span className="capitalize hidden sm:inline">{currentTheme}</span>
                         <SlArrowDown size={12} className="opacity-60" />
