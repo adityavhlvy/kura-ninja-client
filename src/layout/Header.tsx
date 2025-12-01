@@ -40,12 +40,14 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
     const currentThemeIcon = THEMES.find(t => t.name === currentTheme)?.icon;
 
     return (
-        <div className="navbar border-b bg-base-100 z-30 min-h-[4rem]">
+        <div className="navbar border-b bg-base-100 z-30 min-h-16">
             <div className='navbar-start'>
                 <button className="btn btn-ghost btn-circle btn-sm md:btn-md mr-1 md:mr-2" onClick={toggleSidebar}>
                     {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
                 </button>
-                <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2">Logo</Link>
+                <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-1">
+                    <span className="line-through decoration-2 decoration-red-500 opacity-50">Logo</span> 🐢
+                </Link>
             </div>
             <div className='navbar-center'>
                 <div className="flex items-center gap-2 px-2 md:px-3 py-1 rounded-md bg-base-200 text-base-content text-xs md:text-sm font-mono border border-base-300">
@@ -60,7 +62,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
                         <span className="capitalize hidden sm:inline">{currentTheme}</span>
                         <SlArrowDown size={12} className="opacity-60" />
                     </div>
-                    <ul tabIndex={0} className="dropdown-content z-[1] p-2 shadow-2xl bg-base-300 rounded-box w-52 max-h-96 overflow-y-auto">
+                    <ul tabIndex={0} className="dropdown-content z-1 p-2 shadow-2xl bg-base-300 rounded-box w-52 max-h-96 overflow-y-auto">
 
                         {
                             THEMES.map((theme) => (
