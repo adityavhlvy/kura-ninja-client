@@ -57,7 +57,7 @@ export default function Layout() {
                         border-r bg-base-200 transition-all duration-300 flex flex-col overflow-hidden
                     `}
                 >
-                    <div className="h-full w-64"> {/* Inner container to prevent content squishing */}
+                    <div className={isMobile ? "h-full w-64" : "h-full"}> {/* Inner container to prevent content squishing on mobile */}
                         <FileTreeSidebar isCollapsed={!isSidebarOpen && !isMobile} />
                     </div>
                 </aside>
