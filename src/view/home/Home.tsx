@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom";
-import { SlRocket, SlUser, SlStar, SlBriefcase, SlBadge, SlSocialLinkedin, SlSocialInstagram, SlEnvolope } from "react-icons/sl";
+import { SlRocket, SlUser, SlStar, SlBriefcase, SlBadge, SlSocialLinkedin, SlSocialInstagram, SlEnvolope, SlSocialSpotify } from "react-icons/sl";
 import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import { projectsData } from "../projects/Projects";
 import SEO from "../../components/SEO";
+import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
+import SpotifyTopTracks from "../../components/SpotifyTopTracks";
 
 export default function Home() {
     // Get featured projects
@@ -23,8 +25,8 @@ export default function Home() {
                     <div className="absolute bottom-10 right-10 w-64 h-64 bg-secondary rounded-full blur-3xl"></div>
                 </div>
 
-                <div className="hero-content text-center z-10">
-                    <div className="max-w-4xl">
+                <div className="hero-content text-center z-10 flex-col w-full">
+                    <div className="max-w-4xl w-full flex flex-col items-center">
 
                         <div className="flex flex-col items-center gap-3 mb-6">
                             <div className="badge badge-primary badge-outline font-mono">Open to Collaboration</div>
@@ -34,6 +36,9 @@ export default function Home() {
                                 </a>
                                 <a href="https://www.instagram.com/adityavhlvy/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-pink-500 hover:bg-pink-500/10">
                                     <SlSocialInstagram size={20} />
+                                </a>
+                                <a href="https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-[#1DB954] hover:bg-[#1DB954]/10">
+                                    <SlSocialSpotify size={20} />
                                 </a>
                                 <a href="mailto:adityavhlvy1003@gmail.com" className="btn btn-ghost btn-circle btn-sm text-red-500 hover:bg-red-500/10">
                                     <SlEnvolope size={20} />
@@ -54,6 +59,18 @@ export default function Home() {
                             </p>
                         </div>
 
+                        {/* Music Section */}
+                        <section className="container mx-auto max-w-6xl p-4">
+                            <div className="flex flex-col md:flex-row gap-8 items-center justify-center">
+                                <div className="w-full md:w-auto">
+                                    <SpotifyNowPlaying />
+                                </div>
+                                <div className="w-full md:w-auto">
+                                    <SpotifyTopTracks />
+                                </div>
+                            </div>
+                        </section>
+
                         <p className="py-6 text-lg leading-relaxed max-w-2xl mx-auto text-base-content/70">
                             Building the bridge between <span className="font-semibold text-base-content">complex data</span> and <span className="font-semibold text-base-content">intuitive user experiences</span>.
                             <br />
@@ -72,7 +89,7 @@ export default function Home() {
                         </div>
 
                         {/* Quick Stats */}
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-base-content/10 pt-8">
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-base-content/10 pt-8 w-full">
                             <div className="flex flex-col items-center">
                                 <span className="text-3xl font-bold text-primary">7+</span>
                                 <span className="text-sm opacity-60 flex items-center gap-1"><SlRocket size={12} /> Projects</span>
@@ -116,8 +133,6 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* Spotify Section */}
-            {/* TODO */}
         </PageTransition>
     );
 }
