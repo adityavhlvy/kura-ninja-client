@@ -8,12 +8,23 @@ export default function SpotifyNowPlaying() {
     const [result, setResult] = useState<any>({});
 
     useEffect(() => {
-        Promise.all([
-            getNowPlayingItem(),
-        ]).then((results) => {
-            setResult(results[0]);
-            setLoading(false);
-        });
+        const fetchData = () => {
+            // Only fetch if the tab is visible
+            if (document.hidden) return;
+
+            getNowPlayingItem().then((data) => {
+                setResult(data);
+                setLoading(false);
+            });
+        };
+
+        // Initial fetch
+        fetchData();
+
+        // Poll every 5 seconds
+        const interval = setInterval(fetchData, 5000);
+
+        return () => clearInterval(interval);
     }, []);
 
     return (

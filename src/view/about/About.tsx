@@ -83,7 +83,7 @@ const experiences: Experience[] = [
         skills: ["C#", "SQL", "Visual Basic", "Oracle Database", "ASP.NET"]
     },
     {
-        title: "Wakil Ketua Himpunan",
+        title: "Vice President of Computer Science Student Association",
         company: "Himpunan Mahasiswa Ilmu Komputer",
         type: "Part-time",
         period: "Jan 2024 - Dec 2024",
