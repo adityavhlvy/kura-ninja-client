@@ -28,39 +28,43 @@ export default function Home() {
                 <div className="hero-content text-center z-10 flex-col w-full">
                     <div className="max-w-4xl w-full flex flex-col items-center">
 
-                        <div className="flex flex-col items-center gap-3 mb-6">
-                            <div className="badge badge-primary badge-outline font-mono">Open to Collaboration</div>
-                            <div className="flex gap-4">
-                                <a href="https://www.linkedin.com/in/adityavahlevynugraha/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-primary hover:bg-primary/10">
-                                    <SlSocialLinkedin size={20} />
-                                </a>
-                                <a href="https://www.instagram.com/adityavhlvy/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-pink-500 hover:bg-pink-500/10">
-                                    <SlSocialInstagram size={20} />
-                                </a>
-                                <a href="https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-[#1DB954] hover:bg-[#1DB954]/10">
-                                    <SlSocialSpotify size={20} />
-                                </a>
-                                <a href="mailto:adityavhlvy1003@gmail.com" className="btn btn-ghost btn-circle btn-sm text-red-500 hover:bg-red-500/10">
-                                    <SlEnvolope size={20} />
-                                </a>
-                            </div>
-                        </div>
-
                         <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
                             <span className="text-primary">Aditya</span> Vahlevy Nugraha
                         </h1>
 
-                        <div className="mb-8 space-y-2">
-                            <p className="text-3xl md:text-4xl font-bold text-base-content">
-                                Jr. Fullstack Developer
-                            </p>
-                            <p className="text-xl md:text-2xl font-light text-base-content/60">
+                        <div className="mb-8 space-y-4 flex flex-col items-center">
+                            <div className="flex flex-col md:flex-row items-center justify-center gap-3 md:gap-4">
+                                <p className="text-3xl md:text-4xl font-bold text-base-content text-center md:text-left">
+                                    Jr. Fullstack Developer
+                                </p>
+                                <div className="flex items-center gap-3">
+                                    <div className="badge badge-success gap-2 animate-pulse shadow-lg shadow-success/20 whitespace-nowrap">
+                                        <div className="w-2 h-2 bg-current rounded-full"></div>
+                                        Open to collaboration
+                                    </div>
+                                    <div className="flex gap-2">
+                                        <a href="https://www.linkedin.com/in/adityavahlevynugraha/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-primary hover:bg-primary/10">
+                                            <SlSocialLinkedin size={18} />
+                                        </a>
+                                        <a href="https://www.instagram.com/adityavhlvy/" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-pink-500 hover:bg-pink-500/10">
+                                            <SlSocialInstagram size={18} />
+                                        </a>
+                                        <a href="https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu" target="_blank" rel="noopener noreferrer" className="btn btn-ghost btn-circle btn-sm text-[#1DB954] hover:bg-[#1DB954]/10">
+                                            <SlSocialSpotify size={18} />
+                                        </a>
+                                        <a href="mailto:adityavhlvy1003@gmail.com" className="btn btn-ghost btn-circle btn-sm text-red-500 hover:bg-red-500/10">
+                                            <SlEnvolope size={18} />
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <p className="text-xl md:text-2xl font-light text-base-content/60 text-center">
                                 Project Management <span className="text-base-content/30 mx-2">|</span> Data Science Enthusiast
                             </p>
                         </div>
 
                         {/* Music Section */}
-                        <section className="container mx-auto max-w-6xl p-4">
+                        <section className="container mx-auto max-w-6xl p-4 mb-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
                                 <div className="w-full h-full">
                                     <SpotifyNowPlaying />
@@ -71,8 +75,9 @@ export default function Home() {
                             </div>
                         </section>
 
-                        <p className="py-6 text-lg leading-relaxed max-w-2xl mx-auto text-base-content/70">
-                            Building the bridge between <span className="font-semibold text-base-content">complex data</span> and <span className="font-semibold text-base-content">intuitive user experiences</span>.
+                        <p className="pb-6 text-lg leading-relaxed max-w-3xl mx-auto text-base-content/70">
+                            Fullstack Developer & Software Engineer. I turn coffee into code and <span className="line-through opacity-50 decoration-red-500">bugs</span> features.
+                            I also dabble in <span className="font-semibold text-base-content">Data Science</span> and <span className="font-semibold text-base-content">Project Management</span>, mostly to confuse myself in new ways.
                             <br />
                             Currently engineering solutions at <span className="font-semibold text-primary">PT Pupuk Indonesia</span>.
                         </p>
@@ -90,21 +95,21 @@ export default function Home() {
 
                         {/* Quick Stats */}
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 border-t border-base-content/10 pt-8 w-full">
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-primary">7+</span>
-                                <span className="text-sm opacity-60 flex items-center gap-1"><SlRocket size={12} /> Projects</span>
+                            <div className="flex flex-col items-center group cursor-default">
+                                <span className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-br from-primary to-primary-focus group-hover:scale-110 transition-transform duration-300">9+</span>
+                                <span className="text-sm font-medium opacity-70 flex items-center gap-1.5 mt-2"><SlRocket size={14} className="text-primary" /> Projects</span>
                             </div>
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-secondary">1 Yr</span>
-                                <span className="text-sm opacity-60 flex items-center gap-1"><SlBriefcase size={12} /> Experience</span>
+                            <div className="flex flex-col items-center group cursor-default">
+                                <span className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-br from-secondary to-secondary-focus group-hover:scale-110 transition-transform duration-300">1 Yr</span>
+                                <span className="text-sm font-medium opacity-70 flex items-center gap-1.5 mt-2"><SlBriefcase size={14} className="text-secondary" /> Experience</span>
                             </div>
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-accent">3.58</span>
-                                <span className="text-sm opacity-60 flex items-center gap-1"><SlStar size={12} /> GPA (Cum Laude)</span>
+                            <div className="flex flex-col items-center group cursor-default">
+                                <span className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-br from-accent to-accent-focus group-hover:scale-110 transition-transform duration-300">3.58</span>
+                                <span className="text-sm font-medium opacity-70 flex items-center gap-1.5 mt-2"><SlStar size={14} className="text-accent" /> GPA (Cum Laude)</span>
                             </div>
-                            <div className="flex flex-col items-center">
-                                <span className="text-3xl font-bold text-info">20+</span>
-                                <span className="text-sm opacity-60 flex items-center gap-1"><SlBadge size={12} /> Certifications</span>
+                            <div className="flex flex-col items-center group cursor-default">
+                                <span className="text-4xl font-black text-transparent bg-clip-text bg-linear-to-br from-info to-info-focus group-hover:scale-110 transition-transform duration-300">20+</span>
+                                <span className="text-sm font-medium opacity-70 flex items-center gap-1.5 mt-2"><SlBadge size={14} className="text-info" /> Certifications</span>
                             </div>
                         </div>
                     </div>
@@ -119,7 +124,7 @@ export default function Home() {
                             <SlStar className="text-yellow-500" />
                             Featured Projects
                         </h2>
-                        <p className="text-base-content/60 mt-1">Some of my best work.</p>
+                        <p className="text-base-content/60 mt-1">Handcrafted with humility and mild confusion.</p>
                     </div>
                     <Link to="/projects" className="btn btn-ghost btn-sm gap-2">
                         View All <SlRocket size={12} />
