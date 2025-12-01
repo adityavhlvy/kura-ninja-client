@@ -3,6 +3,7 @@ import { SlRocket, SlUser, SlStar, SlBriefcase, SlBadge, SlSocialLinkedin, SlSoc
 import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import { projectsData } from "../projects/Projects";
+import SEO from "../../components/SEO";
 
 export default function Home() {
     // Get featured projects
@@ -10,6 +11,10 @@ export default function Home() {
 
     return (
         <PageTransition className="space-y-20 pb-10">
+            <SEO
+                title="Aditya Vahlevy Nugraha - Kura Ninja | Home"
+                description="Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja). Explore innovative web projects and software engineering skills."
+            />
             {/* Hero Section */}
             <section className="hero min-h-[80vh] bg-base-100 relative overflow-hidden">
                 {/* Background Decoration */}
@@ -37,7 +42,7 @@ export default function Home() {
                         </div>
 
                         <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tight">
-                            <span className="text-primary">Adit</span>ya Vahlevy Nugraha
+                            <span className="text-primary">Aditya</span> Vahlevy Nugraha
                         </h1>
 
                         <div className="mb-8 space-y-2">
