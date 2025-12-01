@@ -14,7 +14,7 @@ export default function SpotifyTopTracks() {
     }, []);
 
     return (
-        <div className="w-full max-w-md bg-base-100/50 backdrop-blur-sm rounded-2xl p-6 border border-base-content/5">
+        <div className="w-full bg-base-100/50 backdrop-blur-sm rounded-2xl p-6 border border-base-content/5">
             <div className="flex items-center gap-2 mb-6">
                 <SlSocialSpotify className="text-[#1DB954] text-2xl" />
                 <h3 className="font-bold text-xl">On Repeat</h3>

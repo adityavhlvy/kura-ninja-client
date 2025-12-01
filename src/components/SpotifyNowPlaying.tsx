@@ -30,7 +30,7 @@ export default function SpotifyNowPlaying() {
     return (
         <div className="relative group">
             <div className={`absolute inset-0 ${result.isPlaying ? 'bg-[#1DB954]' : 'bg-base-content/20'} rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500`}></div>
-            <div className="relative card bg-base-100/80 backdrop-blur-md shadow-xl border border-base-content/10 overflow-hidden w-full max-w-sm hover:scale-[1.02] transition-transform duration-300">
+            <div className="relative card bg-base-100/80 backdrop-blur-md shadow-xl border border-base-content/10 overflow-hidden w-full hover:scale-[1.02] transition-transform duration-300">
                 <div className="card-body p-4 flex flex-row items-center gap-4">
                     <div className="relative shrink-0">
                         {loading ? (
