@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope, SlBadge } from "react-icons/sl";
+import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope, SlBadge, SlSocialSpotify } from "react-icons/sl";
 import { FiFolder } from "react-icons/fi";
 
 interface FileTreeSidebarProps {
@@ -54,9 +54,10 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                             Contacts
                         </summary>
                         <ul>
-                            <li><a href="https://instagram.com" target="_blank" rel="noopener noreferrer"><SlSocialInstagram size={16} /> Instagram</a></li>
+                            <li><a href="https://instagram.com/adityavhlvy" target="_blank" rel="noopener noreferrer"><SlSocialInstagram size={16} /> Instagram</a></li>
                             <li><a href="https://linkedin.com/in/adityavahlevynugraha/" target="_blank" rel="noopener noreferrer"><SlSocialLinkedin size={16} /> LinkedIn</a></li>
-                            <li><a href="mailto:adityavahlevy1003@gmail.com"><SlEnvolope size={16} /> Gmail</a></li>
+                            <li><a href="https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu" target="_blank" rel="noopener noreferrer"><SlSocialSpotify size={16} /> Spotify</a></li>
+                            <li><a href="mailto:adityavhlvy1003@gmail.com"><SlEnvolope size={16} /> Gmail</a></li>
                         </ul>
                     </details>
                 )}
