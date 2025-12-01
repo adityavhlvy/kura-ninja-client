@@ -14,51 +14,58 @@ export default function SpotifyTopTracks() {
     }, []);
 
     return (
-        <div className="w-full h-full bg-base-100/50 backdrop-blur-sm rounded-2xl p-6 border border-base-content/5">
-            <div className="flex items-center gap-2 mb-6">
-                <SlSocialSpotify className="text-[#1DB954] text-2xl" />
-                <h3 className="font-bold text-xl">On Repeat</h3>
-            </div>
+        <div className="relative card bg-base-100/80 backdrop-blur-md shadow-xl border border-base-content/10 overflow-hidden w-full h-full hover:scale-[1.02] transition-transform duration-300">
+            <div className="card-body p-4 h-full flex flex-col">
+                <div className="flex items-center justify-between mb-2 shrink-0">
+                    <h3 className="font-bold text-sm md:text-base flex items-center gap-2">
+                        <SlSocialSpotify className="text-[#1DB954]" />
+                        On Repeat
+                    </h3>
+                    <span className="text-[10px] font-bold opacity-50 uppercase tracking-widest">Top Tracks</span>
+                </div>
 
-            <div className="space-y-4">
-                {loading ? (
-                    Array(5).fill(0).map((_, i) => (
-                        <div key={i} className="flex items-center gap-4 animate-pulse">
-                            <div className="w-6 h-6 bg-base-300 rounded-full"></div>
-                            <div className="w-12 h-12 bg-base-300 rounded-md"></div>
-                            <div className="flex-1 space-y-2">
-                                <div className="h-4 bg-base-300 rounded w-3/4"></div>
-                                <div className="h-3 bg-base-300 rounded w-1/2"></div>
+                <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
+                    {loading ? (
+                        Array(5).fill(0).map((_, i) => (
+                            <div key={i} className="flex items-center gap-3 p-2 rounded-lg bg-base-200/50 animate-pulse">
+                                <div className="w-8 h-8 bg-base-300 rounded-md"></div>
+                                <div className="flex-1 space-y-1">
+                                    <div className="h-3 bg-base-300 rounded w-3/4"></div>
+                                    <div className="h-2 bg-base-300 rounded w-1/2"></div>
+                                </div>
                             </div>
-                        </div>
-                    ))
-                ) : (
-                    tracks.map((track, index) => (
-                        <div key={index} className="flex items-center gap-4 group">
-                            <div className="font-mono text-lg font-bold text-base-content/30 w-6 text-right group-hover:text-[#1DB954] transition-colors">
-                                {index + 1}
-                            </div>
-                            <a href={track.songUrl} target="_blank" rel="noopener noreferrer" className="relative block shrink-0">
-                                <img
-                                    src={track.albumImageUrl}
-                                    alt={track.title}
-                                    className="w-12 h-12 rounded-md object-cover shadow-sm group-hover:scale-105 transition-transform"
-                                />
+                        ))
+                    ) : (
+                        tracks.slice(0, 4).map((track, index) => (
+                            <a
+                                key={index}
+                                href={track.songUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="flex items-center gap-3 p-1.5 rounded-lg hover:bg-base-content/5 transition-colors group"
+                            >
+                                <div className="relative shrink-0">
+                                    <img
+                                        src={track.albumImageUrl}
+                                        alt={track.title}
+                                        className="w-8 h-8 rounded-md object-cover shadow-sm group-hover:scale-105 transition-transform"
+                                    />
+                                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 rounded-md transition-colors flex items-center justify-center">
+                                        <SlSocialSpotify className="text-white opacity-0 group-hover:opacity-100 transition-opacity transform scale-0 group-hover:scale-100" size={12} />
+                                    </div>
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                    <h4 className="font-bold text-xs md:text-sm truncate group-hover:text-[#1DB954] transition-colors">
+                                        {track.title}
+                                    </h4>
+                                    <p className="text-[10px] md:text-xs text-base-content/60 truncate">
+                                        {track.artist}
+                                    </p>
+                                </div>
                             </a>
-                            <div className="flex-1 min-w-0">
-                                <a
-                                    href={track.songUrl}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="font-bold text-sm hover:text-[#1DB954] truncate block transition-colors"
-                                >
-                                    {track.title}
-                                </a>
-                                <p className="text-xs text-base-content/60 truncate">{track.artist}</p>
-                            </div>
-                        </div>
-                    ))
-                )}
+                        ))
+                    )}
+                </div>
             </div>
         </div>
     );
