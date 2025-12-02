@@ -114,5 +114,6 @@ export default async function getNowPlayingItem() {
         isPlaying,
         songUrl,
         title,
+        isRecent: !isPlaying,
     };
 }

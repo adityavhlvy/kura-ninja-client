@@ -13,7 +13,7 @@ export default function SpotifyNowPlaying() {
             if (document.hidden) return;
 
             getNowPlayingItem().then((data) => {
-                setResult(data);
+                setResult(data || {});
                 setLoading(false);
             });
         };
