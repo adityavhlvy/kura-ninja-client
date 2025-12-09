@@ -6,6 +6,8 @@ import Projects from './view/projects/Projects';
 import ProjectDetail from './view/projects/ProjectDetail';
 import Certifications from './view/certifications/Certifications';
 
+import DesignSystem from './view/design-system/DesignSystem';
+
 function App() {
   return (
     <BrowserRouter>
@@ -16,6 +18,7 @@ function App() {
           <Route path="projects/:slug" element={<ProjectDetail />} />
           <Route path="certifications" element={<Certifications />} />
           <Route path="about" element={<About />} />
+          <Route path="design" element={<DesignSystem />} />
         </Route>
       </Routes>
     </BrowserRouter>

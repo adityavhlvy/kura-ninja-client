@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope, SlBadge, SlSocialSpotify } from "react-icons/sl";
+import { SlHome, SlInfo, SlPhone, SlSocialInstagram, SlSocialLinkedin, SlEnvolope, SlBadge, SlSocialSpotify, SlLayers } from "react-icons/sl";
 import { FiFolder } from "react-icons/fi";
 
 interface FileTreeSidebarProps {
@@ -42,13 +42,19 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                     {!isCollapsed && "Certifications"}
                 </Link>
             </li>
+            <li>
+                <Link to="/design" className={getLinkClass("/design")}>
+                    <SlLayers size={20} />
+                    {!isCollapsed && "Design System"}
+                </Link>
+            </li>
             <li className={isCollapsed ? "tooltip tooltip-right" : ""} data-tip="Contacts">
                 {isCollapsed ? (
                     <a className="justify-center">
                         <SlPhone size={20} />
                     </a>
                 ) : (
-                    <details open>
+                    <details>
                         <summary>
                             <SlPhone size={20} />
                             Contacts
