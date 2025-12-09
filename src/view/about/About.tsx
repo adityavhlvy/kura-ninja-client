@@ -1,5 +1,5 @@
-import { SlGraduation, SlBriefcase, SlLayers, SlUser } from "react-icons/sl";
-import { FaMapMarkerAlt, FaBuilding, FaLinkedin } from "react-icons/fa";
+import { SlGraduation, SlBriefcase, SlLayers, SlUser, SlRocket } from "react-icons/sl";
+import { FaLinkedin } from "react-icons/fa";
 import {
     SiPython, SiGo, SiJavascript, SiTypescript,
     SiNextdotjs, SiVuedotjs, SiTailwindcss,
@@ -198,7 +198,8 @@ const skillsData: SkillCategory[] = [
         items: [
             { name: "Docker", icon: <SiDocker /> },
             { name: "Figma", icon: <SiFigma /> },
-            { name: "Git", icon: <SiGit /> }
+            { name: "Git", icon: <SiGit /> },
+            { name: "Antigravity", icon: <SlRocket /> }
         ]
     }
 ];
@@ -207,165 +208,45 @@ export default function About() {
     return (
         <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20">
             {/* Hero / About Me Section */}
+            {/* Hero / About Me Section */}
             <section className="flex flex-col md:flex-row gap-8 items-start">
                 <div className="flex-1 space-y-6">
                     <div>
-                        <h2 className="text-4xl font-bold mb-2 flex items-center gap-3">
-                            <SlUser className="text-primary" />
-                            About Me
+                        <h2 className="text-5xl font-black mb-6 relative inline-block">
+                            Who am I?
+                            <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-primary/50 rounded-full"></span>
                         </h2>
-                        <div className="h-1 w-20 bg-primary rounded-full"></div>
                     </div>
 
                     <div className="prose prose-lg max-w-none text-base-content/80">
                         <p>
-                            I am a <span className="font-bold text-base-content">Computer Science graduate</span> from Universitas Pertamina (Cum Laude) and currently working as a <span className="font-bold text-primary">Jr. Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
+                            Hey there! I'm <span className="font-bold text-primary">Aditya</span>.
+                            I'm a Computer Science grad from Universitas Pertamina (yes, the one with Cum Laude, but who's counting?) and currently a <span className="font-bold text-primary">Jr. Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
                         </p>
-                        <br />
                         <p>
-                            My journey is driven by a passion for building impactful solutions, whether it's optimizing agricultural yields through <span className="font-semibold">Machine Learning</span> or creating intuitive dashboards for corporate operations. I thrive at the intersection of <span className="font-semibold">Data Science</span> and <span className="font-semibold">Fullstack Development</span>, constantly exploring new technologies to solve real-world problems.
+                            Honestly? I just love building stuff. Whether it's training a model to count rice fields from space (literally) or piecing together a dashboard that actually makes sense, I get a kick out of solving puzzles.
+                            I sit right in that weird, fun middle ground between <span className="font-semibold text-secondary">Data Science</span> and <span className="font-semibold text-accent">Fullstack Dev</span>.
                         </p>
-                        <blockquote className="border-l-4 border-primary pl-4 italic my-6 text-base-content/70">
-                            “The best of you are those who have the best manners and character”
-                        </blockquote>
-                    </div>
-                </div>
-            </section>
+                        <p>
+                            When I'm not coding, I'm probably listening to music that's too loud or thinking about my next side project.
+                        </p>
 
-            {/* Experience Timeline */}
-            <section>
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
-                    <div className="flex items-center gap-3">
-                        <SlBriefcase className="text-3xl text-primary" />
-                        <h2 className="text-3xl font-bold">Working Experience</h2>
-                    </div>
-                    <a
-                        href="https://www.linkedin.com/in/adityavahlevynugraha/details/experience/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm gap-2"
-                    >
-                        <FaLinkedin size={16} />
-                        Verify on LinkedIn
-                    </a>
-                </div>
-
-                <div className="relative">
-                    {/* Vertical Line for Desktop */}
-                    <div className="hidden md:block absolute left-[200px] top-2 bottom-0 w-px bg-base-300"></div>
-
-                    <div className="space-y-12">
-                        {experiences.map((exp, index) => (
-                            <div key={index} className="relative flex flex-col md:flex-row gap-4 md:gap-0 group">
-                                {/* Date Section (Left) */}
-                                <div className="md:w-[200px] md:text-right md:pr-10 shrink-0 pt-1">
-                                    <div className="font-mono text-sm font-bold text-primary">{exp.period}</div>
-                                    <div className="text-xs opacity-60 mt-1 hidden md:block">{exp.type}</div>
-                                </div>
-
-                                {/* Dot (Center) */}
-                                <div className="hidden md:block absolute left-[193px] top-1.5 w-3.5 h-3.5 rounded-full bg-primary border-2 border-base-100 shadow-sm z-10 group-hover:scale-125 transition-transform duration-300"></div>
-
-                                {/* Content Section (Right) */}
-                                <div className="flex-1 md:pl-10 relative border-l-2 border-base-300 md:border-l-0 ml-2 md:ml-0 pl-6 pb-2">
-                                    {/* Mobile Dot */}
-                                    <div className="md:hidden absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-primary"></div>
-
-                                    <div className="card bg-base-200/40 hover:bg-base-200 border border-transparent hover:border-base-300 transition-all duration-300 -mt-2">
-                                        <div className="card-body p-5">
-                                            <div className="flex justify-between items-start gap-2">
-                                                <div>
-                                                    <h3 className="text-xl font-bold text-base-content leading-tight">{exp.title}</h3>
-                                                    <div className="flex items-center gap-2 mt-1 mb-3">
-                                                        <FaBuilding className="text-base-content/50 text-xs" />
-                                                        <span className="font-semibold text-base-content/80">{exp.company}</span>
-                                                    </div>
-                                                </div>
-                                                <div className="md:hidden text-xs font-mono opacity-60 bg-base-300 px-2 py-1 rounded">
-                                                    {exp.type}
-                                                </div>
-                                            </div>
-
-                                            <div className="flex items-center gap-2 text-sm opacity-60 mb-3">
-                                                <FaMapMarkerAlt size={12} />
-                                                <span>{exp.location}</span>
-                                            </div>
-
-                                            <ul className="list-disc list-outside ml-4 space-y-1.5 text-base-content/80 text-sm mb-4">
-                                                {exp.description.map((desc, idx) => (
-                                                    <li key={idx} className="pl-1 leading-relaxed">{desc}</li>
-                                                ))}
-                                            </ul>
-
-                                            {exp.skills && exp.skills.length > 0 && (
-                                                <div className="flex flex-wrap gap-2 pt-2 border-t border-base-content/5">
-                                                    {exp.skills.map((skill, idx) => (
-                                                        <span key={idx} className="badge badge-xs badge-outline opacity-70 py-2">
-                                                            {skill}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            )}
-                                        </div>
-                                    </div>
-                                </div>
+                        <div className="alert bg-base-200/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4">
+                            <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
+                            <div>
+                                <h3 className="font-bold text-primary font-mono mb-0">"The best of you are those who have the best manners and character"</h3>
+                                <div className="text-xs opacity-50">A reminder I try to live by.</div>
                             </div>
-                        ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* Education Timeline */}
+            {/* Skills Section (Moved Up) */}
             <section>
                 <div className="flex items-center gap-3 mb-10">
-                    <SlGraduation className="text-3xl text-secondary" />
-                    <h2 className="text-3xl font-bold">Education</h2>
-                </div>
-
-                <div className="relative">
-                    {/* Vertical Line for Desktop */}
-                    <div className="hidden md:block absolute left-[200px] top-2 bottom-0 w-px bg-base-300"></div>
-
-                    <div className="space-y-12">
-                        {educationData.map((edu, index) => (
-                            <div key={index} className="relative flex flex-col md:flex-row gap-4 md:gap-0 group">
-                                {/* Date Section (Left) */}
-                                <div className="md:w-[200px] md:text-right md:pr-10 shrink-0 pt-1">
-                                    <div className="font-mono text-sm font-bold text-secondary">{edu.period}</div>
-                                </div>
-
-                                {/* Dot (Center) */}
-                                <div className="hidden md:block absolute left-[193px] top-1.5 w-3.5 h-3.5 rounded-full bg-secondary border-2 border-base-100 shadow-sm z-10 group-hover:scale-125 transition-transform duration-300"></div>
-
-                                {/* Content Section (Right) */}
-                                <div className="flex-1 md:pl-10 relative border-l-2 border-base-300 md:border-l-0 ml-2 md:ml-0 pl-6 pb-2">
-                                    {/* Mobile Dot */}
-                                    <div className="md:hidden absolute -left-[5px] top-2 w-2.5 h-2.5 rounded-full bg-secondary"></div>
-
-                                    <div className="card bg-base-200/40 hover:bg-base-200 border border-transparent hover:border-base-300 transition-all duration-300 -mt-2">
-                                        <div className="card-body p-5">
-                                            <h3 className="text-xl font-bold text-base-content leading-tight">{edu.school}</h3>
-                                            <div className="text-lg font-semibold text-secondary/90 mb-2">{edu.degree}</div>
-
-                                            <ul className="list-disc list-outside ml-4 space-y-1.5 text-base-content/80 text-sm leading-relaxed">
-                                                {edu.details.map((detail, idx) => (
-                                                    <li key={idx} className="pl-1">{detail}</li>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
-
-            {/* Skills Section */}
-            <section>
-                <div className="flex items-center gap-3 mb-8">
                     <SlLayers className="text-3xl text-primary" />
-                    <h2 className="text-3xl font-bold">Technical Skills</h2>
+
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {skillsData.map((category, index) => (
@@ -387,6 +268,95 @@ export default function About() {
                         </div>
                     ))}
                 </div>
+            </section>
+
+            {/* Experience Timeline */}
+            <section>
+                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
+                    <div className="flex items-center gap-3">
+                        <SlBriefcase className="text-3xl text-secondary" />
+                        <h2 className="text-4xl font-bold relative inline-block">
+                            Journey So Far
+                            <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-secondary/50 rounded-full"></span>
+                        </h2>
+                    </div>
+                    <a
+                        href="https://www.linkedin.com/in/adityavahlevynugraha/details/experience/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn btn-primary btn-outline btn-sm gap-2 rounded-full"
+                    >
+                        <FaLinkedin size={16} />
+                        LinkedIn
+                    </a>
+                </div>
+
+                <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                    {experiences.map((exp, index) => (
+                        <li key={index}>
+                            <div className="timeline-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                            <div className={index % 2 === 0 ? "timeline-start md:text-end mb-10" : "timeline-end mb-10"}>
+                                <div className="font-mono text-sm italic opacity-60 mb-1">{exp.period}</div>
+                                <div className="text-lg font-black text-primary">{exp.company}</div>
+                                <div className="text-base font-bold mb-2">{exp.title}</div>
+                                <div className="text-xs font-mono opacity-50 mb-3 bg-base-200 inline-block px-2 py-1 rounded">{exp.type} • {exp.location}</div>
+                                <div className="text-sm opacity-80 leading-relaxed max-w-md">
+                                    <ul className="list-disc list-outside ml-4 text-left">
+                                        {exp.description.map((desc, idx) => (
+                                            <li key={idx} className="mb-1">{desc}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                                {exp.skills && (
+                                    <div className="flex flex-wrap gap-2 mt-3 justify-start md:justify-end">
+                                        {exp.skills.map((skill, idx) => (
+                                            <span key={idx} className="badge badge-xs badge-ghost opacity-60">{skill}</span>
+                                        ))}
+                                    </div>
+                                )}
+                            </div>
+                            <hr className="bg-primary/20" />
+                        </li>
+                    ))}
+                </ul>
+            </section>
+
+            {/* Education Timeline */}
+            <section>
+                <div className="flex items-center gap-3 mb-10">
+                    <SlGraduation className="text-3xl text-accent" />
+                    <h2 className="text-4xl font-bold relative inline-block">
+                        Education
+                        <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-accent/50 rounded-full"></span>
+                    </h2>
+                </div>
+
+                <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
+                    {educationData.map((edu, index) => (
+                        <li key={index}>
+                            <div className="timeline-middle">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-secondary">
+                                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
+                                </svg>
+                            </div>
+                            <div className={index % 2 === 0 ? "timeline-start md:text-end mb-10" : "timeline-end mb-10"}>
+                                <div className="font-mono text-sm italic opacity-60 mb-1">{edu.period}</div>
+                                <div className="text-lg font-black text-secondary">{edu.school}</div>
+                                <div className="text-base font-bold mb-2">{edu.degree}</div>
+                                <ul className="list-disc list-outside ml-4 text-left text-sm opacity-80">
+                                    {edu.details.map((detail, idx) => (
+                                        <li key={idx}>{detail}</li>
+                                    ))}
+                                </ul>
+                            </div>
+                            <hr className="bg-secondary/20" />
+                        </li>
+                    ))}
+                </ul>
             </section>
         </PageTransition>
     );

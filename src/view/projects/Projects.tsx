@@ -245,22 +245,36 @@ import PageTransition from "../../components/PageTransition";
 
 export default function Projects() {
     return (
-        <PageTransition className="container mx-auto max-w-6xl p-4">
-            <div className="mb-8">
-                <h1 className="text-3xl font-bold mb-2">Projects</h1>
-                <p className="text-base-content/70">A collection of my work in Data Science, Web Development, and AI.</p>
+        <PageTransition className="container mx-auto max-w-6xl p-4 relative min-h-screen">
+            {/* Background Decoration */}
+            <div className="fixed inset-0 z-0 pointer-events-none">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-primary/5 via-base-100/50 to-base-100 opacity-60"></div>
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
             </div>
 
-            <motion.div
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ staggerChildren: 0.1 }}
-            >
-                {projectsData.map((project, index) => (
-                    <ProjectCard key={index} {...project} />
-                ))}
-            </motion.div>
+            <div className="relative z-10">
+                <div className="mb-12 text-center md:text-left">
+                    <h1 className="text-4xl md:text-5xl font-black mb-4 relative inline-block">
+                        My Work
+                        <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-secondary/50 rounded-full"></span>
+                    </h1>
+                    <p className="text-xl text-base-content/80 max-w-2xl leading-relaxed">
+                        Here's a collection of what I've been building. From <span className="font-bold text-primary">enterprise dashboards</span> to <span className="font-bold text-accent">weird AI experiments</span>.
+                        I believe code should either be useful or fun (ideally both).
+                    </p>
+                </div>
+
+                <motion.div
+                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ staggerChildren: 0.1 }}
+                >
+                    {projectsData.map((project, index) => (
+                        <ProjectCard key={index} {...project} />
+                    ))}
+                </motion.div>
+            </div>
         </PageTransition>
     );
 }
