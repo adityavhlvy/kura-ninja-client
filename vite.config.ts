@@ -9,4 +9,26 @@ export default defineConfig({
     host: '0.0.0.0',
     port: 6969,
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            if (id.includes('react-icons')) {
+              return 'icons';
+            }
+            if (id.includes('framer-motion')) {
+              return 'animations';
+            }
+            if (id.includes('react-hot-toast') || id.includes('react-helmet-async')) {
+              return 'ui';
+            }
+            if (id.includes('react') || id.includes('react-dom') || id.includes('react-router-dom')) {
+              return 'vendor';
+            }
+          }
+        },
+      },
+    },
+  },
 })
