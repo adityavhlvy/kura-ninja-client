@@ -6,7 +6,11 @@ import {
     SiNodedotjs, SiLaravel,
     SiPostgresql, SiDocker, SiFigma, SiGit
 } from "react-icons/si";
+import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
+import PageHeader from "../../components/PageHeader";
+import BackgroundEffects from "../../components/BackgroundEffects";
+import SpotlightCard from "../../components/SpotlightCard";
 import type { ReactNode } from "react";
 
 interface Experience {
@@ -206,72 +210,86 @@ const skillsData: SkillCategory[] = [
 
 export default function About() {
     return (
-        <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20">
+        <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20 relative">
+
+            {/* Global Background Effects */}
+            <BackgroundEffects />
+
             {/* Hero / About Me Section */}
-            {/* Hero / About Me Section */}
-            <section className="flex flex-col md:flex-row gap-8 items-start">
-                <div className="flex-1 space-y-6">
-                    <div>
-                        <h2 className="text-5xl font-black mb-6 relative inline-block">
-                            Who am I?
-                            <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-primary/50 rounded-full"></span>
-                        </h2>
-                    </div>
+            <motion.section
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="relative z-10"
+            >
+                <PageHeader
+                    title="Who am I?"
+                    description={
+                        <div className="space-y-4">
+                            <p>
+                                Hey there! I'm <span className="font-bold text-primary">Aditya</span>.
+                                I'm a Computer Science grad from Universitas Pertamina (yes, the one with Cum Laude, but who's counting?) and currently a <span className="font-bold text-primary">Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
+                            </p>
+                            <p>
+                                Honestly? I just love building stuff. Whether it's training a model to count rice fields from space (literally) or piecing together a dashboard that actually makes sense, I get a kick out of solving puzzles.
+                                I sit right in that weird, fun middle ground between <span className="font-semibold text-secondary">Data Science</span> and <span className="font-semibold text-accent">Fullstack Dev</span>.
+                            </p>
+                            <p>
+                                When I'm not coding, I'm probably listening to music that's too loud or thinking about my next side project.
+                            </p>
 
-                    <div className="prose prose-lg max-w-none text-base-content/80">
-                        <p>
-                            Hey there! I'm <span className="font-bold text-primary">Aditya</span>.
-                            I'm a Computer Science grad from Universitas Pertamina (yes, the one with Cum Laude, but who's counting?) and currently a <span className="font-bold text-primary">Jr. Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
-                        </p>
-                        <p>
-                            Honestly? I just love building stuff. Whether it's training a model to count rice fields from space (literally) or piecing together a dashboard that actually makes sense, I get a kick out of solving puzzles.
-                            I sit right in that weird, fun middle ground between <span className="font-semibold text-secondary">Data Science</span> and <span className="font-semibold text-accent">Fullstack Dev</span>.
-                        </p>
-                        <p>
-                            When I'm not coding, I'm probably listening to music that's too loud or thinking about my next side project.
-                        </p>
-
-                        <div className="alert bg-base-200/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4">
-                            <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
-                            <div>
-                                <h3 className="font-bold text-primary font-mono mb-0">"The best of you are those who have the best manners and character"</h3>
-                                <div className="text-xs opacity-50">A reminder I try to live by.</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Skills Section (Moved Up) */}
-            <section>
-                <div className="flex items-center gap-3 mb-10">
-                    <SlLayers className="text-3xl text-primary" />
-
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {skillsData.map((category, index) => (
-                        <div key={index} className="card bg-base-200/50 border border-base-300 shadow-sm hover:shadow-md transition-all">
-                            <div className="card-body p-5">
-                                <h3 className="font-bold border-b border-base-content/10 pb-3 mb-4 text-lg flex items-center justify-between">
-                                    {category.category}
-                                    <span className="text-xs font-normal opacity-50">{category.items.length} items</span>
-                                </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {category.items.map((item, idx) => (
-                                        <div key={idx} className="badge badge-lg gap-2 pl-2 pr-3 py-4 h-auto bg-base-100 border-base-200">
-                                            <span className="text-lg">{item.icon}</span>
-                                            <span className="text-sm font-medium">{item.name}</span>
-                                        </div>
-                                    ))}
+                            <div className="alert bg-base-200/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4 hover:bg-base-200 transition-colors">
+                                <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
+                                <div>
+                                    <h3 className="font-bold text-primary font-mono mb-0">"The best of you are those who have the best manners and character"</h3>
+                                    <div className="text-xs opacity-50">A reminder I try to live by.</div>
                                 </div>
                             </div>
                         </div>
+                    }
+                />
+            </motion.section>
+
+            {/* Skills Section (Moved Up) */}
+            <section className="relative z-10">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    className="flex items-center gap-3 mb-10"
+                >
+                    <SlLayers className="text-3xl text-primary" />
+                </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {skillsData.map((category, index) => (
+                        <SpotlightCard
+                            key={index}
+                            title={category.category}
+                            badge={`${category.items.length} items`}
+                            delay={index * 0.1}
+                            className="h-full"
+                        >
+                            <div className="flex flex-wrap gap-2">
+                                {category.items.map((item, idx) => (
+                                    <div key={idx} className="badge badge-lg gap-2 pl-2 pr-3 py-4 h-auto bg-base-100/50 border-base-content/10">
+                                        <span className="text-lg">{item.icon}</span>
+                                        <span className="text-sm font-medium">{item.name}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </SpotlightCard>
                     ))}
                 </div>
             </section>
 
             {/* Experience Timeline */}
-            <section>
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative z-10"
+            >
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-10">
                     <div className="flex items-center gap-3">
                         <SlBriefcase className="text-3xl text-secondary" />
@@ -284,7 +302,7 @@ export default function About() {
                         href="https://www.linkedin.com/in/adityavahlevynugraha/details/experience/"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="btn btn-primary btn-outline btn-sm gap-2 rounded-full"
+                        className="btn btn-primary btn-outline btn-sm gap-2 rounded-full hover:scale-105 transition-transform"
                     >
                         <FaLinkedin size={16} />
                         LinkedIn
@@ -293,7 +311,13 @@ export default function About() {
 
                 <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     {experiences.map((exp, index) => (
-                        <li key={index}>
+                        <motion.li
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                        >
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-primary">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
@@ -320,13 +344,19 @@ export default function About() {
                                 )}
                             </div>
                             <hr className="bg-primary/20" />
-                        </li>
+                        </motion.li>
                     ))}
                 </ul>
-            </section>
+            </motion.section>
 
             {/* Education Timeline */}
-            <section>
+            <motion.section
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.8 }}
+                className="relative z-10"
+            >
                 <div className="flex items-center gap-3 mb-10">
                     <SlGraduation className="text-3xl text-accent" />
                     <h2 className="text-4xl font-bold relative inline-block">
@@ -337,7 +367,13 @@ export default function About() {
 
                 <ul className="timeline timeline-snap-icon max-md:timeline-compact timeline-vertical">
                     {educationData.map((edu, index) => (
-                        <li key={index}>
+                        <motion.li
+                            key={index}
+                            initial={{ opacity: 0, y: 20 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ delay: index * 0.1 }}
+                        >
                             <div className="timeline-middle">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5 text-secondary">
                                     <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clipRule="evenodd" />
@@ -354,10 +390,10 @@ export default function About() {
                                 </ul>
                             </div>
                             <hr className="bg-secondary/20" />
-                        </li>
+                        </motion.li>
                     ))}
                 </ul>
-            </section>
+            </motion.section>
         </PageTransition>
     );
 }

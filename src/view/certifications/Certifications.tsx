@@ -1,6 +1,9 @@
 import { SlBadge, SlLayers } from "react-icons/sl";
 import { FaLinkedin } from "react-icons/fa";
+import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
+import PageHeader from "../../components/PageHeader";
+import BackgroundEffects from "../../components/BackgroundEffects";
 
 interface Certification {
     name: string;
@@ -208,60 +211,72 @@ const certificationGroups: CertificationGroup[] = [
 
 export default function Certifications() {
     return (
-        <PageTransition className="container mx-auto max-w-6xl p-4 relative min-h-screen">
-            {/* Background Decoration */}
-            <div className="fixed inset-0 z-0 pointer-events-none">
-                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-primary/5 via-base-100/50 to-base-100 opacity-60"></div>
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)]"></div>
-            </div>
+        <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
+
+            {/* Global Background Effects */}
+            <BackgroundEffects />
 
             <div className="relative z-10">
-                <div className="mb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
-                    <div>
-                        <h1 className="text-4xl md:text-5xl font-black mb-6 relative inline-block">
+                <motion.div
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
+                >
+                    <PageHeader
+                        title={
                             <span className="flex items-center gap-3">
                                 <SlBadge className="text-primary" />
                                 Certifications
                             </span>
-                            <span className="absolute -bottom-2 left-0 w-1/2 h-2 bg-primary/50 rounded-full"></span>
-                        </h1>
-                        <p className="text-base-content/70">
-                            Professional training and certifications.
-                        </p>
-                    </div>
-                    <a
-                        href="https://www.linkedin.com/in/adityavahlevynugraha/details/certifications/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="btn btn-primary btn-sm gap-2"
+                        }
+                        description="Professional training and certifications."
+                        accentColor="primary"
                     >
-                        <FaLinkedin size={16} />
-                        Verify on LinkedIn
-                    </a>
-                </div>
+                        <a
+                            href="https://www.linkedin.com/in/adityavahlevynugraha/details/certifications/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="btn btn-primary btn-sm gap-2 hover:scale-105 transition-transform"
+                        >
+                            <FaLinkedin size={16} />
+                            Verify on LinkedIn
+                        </a>
+                    </PageHeader>
+                </motion.div>
 
-                <div className="space-y-10">
+                <div className="space-y-12">
                     {certificationGroups.map((group, groupIndex) => (
-                        <section key={groupIndex}>
-                            <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-secondary">
+                        <motion.section
+                            key={groupIndex}
+                            initial={{ opacity: 0, y: 30 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
+                        >
+                            <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-secondary/80">
                                 <SlLayers size={20} />
                                 {group.category}
                             </h2>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                                 {group.items.map((cert, index) => (
-                                    <div key={index} className="card bg-base-200 border border-base-300 shadow-sm hover:shadow-md hover:border-primary/50 transition-all duration-300 group">
-                                        <div className="card-body p-4">
+                                    <motion.div
+                                        key={index}
+                                        whileHover={{ y: -5 }}
+                                        transition={{ duration: 0.2 }}
+                                        className="card bg-base-200/50 backdrop-blur-sm border border-base-content/10 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300 group h-full"
+                                    >
+                                        <div className="card-body p-5">
                                             <div className="flex flex-col h-full justify-between gap-3">
                                                 <div>
-                                                    <div className="flex justify-between items-start gap-2 mb-1">
-                                                        <h3 className="font-bold text-sm leading-snug group-hover:text-primary transition-colors">{cert.name}</h3>
+                                                    <div className="flex justify-between items-start gap-2 mb-2">
+                                                        <h3 className="font-bold text-sm leading-snug group-hover:text-primary transition-colors line-clamp-2">{cert.name}</h3>
                                                     </div>
-                                                    <p className="text-xs text-base-content/60 mb-2">{cert.issuer} • {cert.date}</p>
+                                                    <p className="text-xs text-base-content/60 mb-3 font-mono">{cert.issuer} • {cert.date}</p>
 
                                                     {cert.skills && cert.skills.length > 0 && (
-                                                        <div className="flex flex-wrap gap-1">
+                                                        <div className="flex flex-wrap gap-1.5">
                                                             {cert.skills.map((skill, idx) => (
-                                                                <span key={idx} className="badge badge-xs badge-ghost text-[9px] px-1.5 py-0.5 bg-base-100 border-base-content/10">
+                                                                <span key={idx} className="badge badge-xs badge-neutral text-[9px] px-1.5 py-1 bg-base-100/50 border-base-content/10 opacity-70">
                                                                     {skill}
                                                                 </span>
                                                             ))}
@@ -270,10 +285,10 @@ export default function Certifications() {
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
-                        </section>
+                        </motion.section>
                     ))}
                 </div>
             </div>
