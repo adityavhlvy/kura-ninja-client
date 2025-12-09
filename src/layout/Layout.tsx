@@ -38,7 +38,7 @@ export default function Layout() {
     }, [location.pathname, isMobile]);
 
     return (
-        <div className="min-h-screen flex flex-col">
+        <div className="h-screen flex flex-col overflow-hidden">
             <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
             <div className="flex flex-1 overflow-hidden relative">
                 {/* Mobile Sidebar Overlay */}
@@ -62,13 +62,13 @@ export default function Layout() {
                     </div>
                 </aside>
 
-                <main className="flex-1 p-4 overflow-y-auto bg-base-100 relative w-full">
+                <main className="flex-1 p-0 overflow-y-auto bg-base-100 relative w-full scroll-smooth">
                     <AnimatePresence mode="wait">
                         {element && cloneElement(element, { key: location.pathname })}
                     </AnimatePresence>
+                    <Footer />
                 </main>
             </div>
-            <Footer />
         </div>
     );
 }

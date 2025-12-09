@@ -43,7 +43,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                 </Link>
             </li>
             <li>
-                <Link to="/design" className={getLinkClass("/design")}>
+                <Link to="/design-system" className={getLinkClass("/design-system")}>
                     <SlLayers size={20} />
                     {!isCollapsed && "Design System"}
                 </Link>

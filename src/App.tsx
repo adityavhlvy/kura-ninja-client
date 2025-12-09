@@ -18,7 +18,7 @@ function App() {
           <Route path="projects/:slug" element={<ProjectDetail />} />
           <Route path="certifications" element={<Certifications />} />
           <Route path="about" element={<About />} />
-          <Route path="design" element={<DesignSystem />} />
+          <Route path="design-system" element={<DesignSystem />} />
         </Route>
       </Routes>
     </BrowserRouter>
