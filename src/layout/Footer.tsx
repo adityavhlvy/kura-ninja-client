@@ -19,35 +19,35 @@ export default function Footer() {
     }, []);
 
     return (
-        <footer className="bg-primary text-primary-content text-xs flex items-center justify-between px-2 py-1 select-none z-50 relative">
+        <footer className="fixed bottom-0 left-0 w-full bg-[#007acc] text-white text-xs flex items-center justify-between px-3 py-1 select-none z-50 shadow-lg font-mono">
             <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors">
-                    <VscSourceControl />
+                <div className="flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
+                    <VscSourceControl className="text-sm" />
                     <span>main*</span>
                 </div>
-                <div className="flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors">
-                    <VscCheck />
+                <div className="flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
+                    <VscCheck className="text-sm" />
                     <span>0 errors</span>
                 </div>
-                <div className="hidden md:flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors border-l border-primary-content/10 pl-4">
+                <div className="hidden md:flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors border-l border-white/20 pl-4 ml-2">
                     <FooterSpotify />
                 </div>
             </div>
             <div className="flex items-center gap-4">
-                <div className="flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors min-w-[80px] justify-end">
+                <div className="hidden sm:flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
                     <span>Ln {mousePos.y}, Col {mousePos.x}</span>
                 </div>
-                <div className="hidden sm:flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors">
+                <div className="hidden sm:flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
                     <span>UTF-8</span>
                 </div>
-                <div className="hidden sm:flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors">
+                <div className="hidden sm:flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
                     <span>TypeScript React</span>
                 </div>
-                <div className="flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors border-l border-primary-content/10 pl-4">
+                <div className="flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors border-l border-white/20 pl-4 ml-2">
                     <LiveClock />
                 </div>
-                <div className="flex items-center gap-1 hover:bg-primary-focus cursor-pointer px-1 rounded transition-colors">
-                    <VscBell />
+                <div className="flex items-center gap-1 hover:bg-white/10 cursor-pointer px-2 py-0.5 rounded transition-colors">
+                    <VscBell className="text-sm" />
                 </div>
             </div>
         </footer>

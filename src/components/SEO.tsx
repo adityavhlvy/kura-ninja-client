@@ -7,6 +7,7 @@ interface SEOProps {
     type?: string;
     image?: string;
     url?: string;
+    keywords?: string;
 }
 
 export default function SEO({
@@ -16,12 +17,14 @@ export default function SEO({
     type = 'website',
     image = 'https://kura-ninja.com/og-image.jpg',
     url = 'https://kura-ninja.com/',
+    keywords,
 }: SEOProps) {
     return (
         <Helmet>
             {/* Standard metadata tags */}
             <title>{title}</title>
             <meta name='description' content={description} />
+            {keywords && <meta name='keywords' content={keywords} />}
 
             {/* Facebook tags */}
             <meta property='og:type' content={type} />
