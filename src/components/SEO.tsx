@@ -15,8 +15,8 @@ export default function SEO({
     description,
     name = 'Aditya Vahlevy Nugraha',
     type = 'website',
-    image = 'https://kura-ninja.com/og-image.jpg',
-    url = 'https://kura-ninja.com/',
+    image = 'https://kuraninja.vercel.app/og-image.jpg',
+    url = 'https://kuraninja.vercel.app/',
     keywords,
 }: SEOProps) {
     return (
