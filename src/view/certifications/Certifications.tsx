@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { SlBadge, SlLayers } from "react-icons/sl";
 import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
@@ -212,6 +213,14 @@ const certificationGroups: CertificationGroup[] = [
 export default function Certifications() {
     return (
         <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
+            <Helmet>
+                <title>Certifications & Awards | Aditya Vahlevy Nugraha</title>
+                <meta name="description" content="View the professional certifications and awards achieved by Aditya Vahlevy Nugraha in Project Management, AI, Data Science, and Software Engineering." />
+                <meta name="keywords" content="Aditya Vahlevy Nugraha Certifications, Google Project Management, AI Essentials, Scrum, ITIL, Awards" />
+                <meta property="og:title" content="Certifications & Awards | Aditya Vahlevy Nugraha" />
+                <meta property="og:description" content="View the professional certifications and awards achieved by Aditya Vahlevy Nugraha." />
+                <meta property="og:url" content="https://kuraninja.vercel.app/certifications" />
+            </Helmet>
 
             {/* Global Background Effects */}
             <BackgroundEffects />
@@ -226,7 +235,7 @@ export default function Certifications() {
                         title={
                             <span className="flex items-center gap-3">
                                 <SlBadge className="text-primary" />
-                                Certifications
+                                <span className="text-primary-content">Certifications</span>
                             </span>
                         }
                         description="Professional training and certifications."

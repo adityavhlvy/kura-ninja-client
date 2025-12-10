@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { SlGraduation, SlBriefcase, SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import { FaLinkedin } from "react-icons/fa";
 import {
@@ -211,6 +212,14 @@ const skillsData: SkillCategory[] = [
 export default function About() {
     return (
         <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20 relative">
+            <Helmet>
+                <title>About Aditya Vahlevy Nugraha | Software Engineer & Data Scientist</title>
+                <meta name="description" content="Learn more about Aditya Vahlevy Nugraha (Kura Ninja). A Fullstack Developer and Data Science enthusiast with experience in Machine Learning, Web Development, and Project Management." />
+                <meta name="keywords" content="Aditya Vahlevy Nugraha, Kura Ninja, About Me, Software Engineer, Data Scientist, Resume, Experience, Education" />
+                <meta property="og:title" content="About Aditya Vahlevy Nugraha | Software Engineer & Data Scientist" />
+                <meta property="og:description" content="Learn more about Aditya Vahlevy Nugraha (Kura Ninja). A Fullstack Developer and Data Science enthusiast." />
+                <meta property="og:url" content="https://kuraninja.vercel.app/about" />
+            </Helmet>
 
             {/* Global Background Effects */}
             <BackgroundEffects />
