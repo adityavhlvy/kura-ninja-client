@@ -24,6 +24,7 @@ export default function SEO({
             {/* Standard metadata tags */}
             <title>{title}</title>
             <meta name='description' content={description} />
+            <link rel="canonical" href={url} />
             {keywords && <meta name='keywords' content={keywords} />}
 
             {/* Facebook tags */}
