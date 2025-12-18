@@ -1,4 +1,4 @@
-import { Helmet } from "react-helmet-async";
+import SEO from "../../components/SEO";
 import ProjectCard, { type ProjectCardProps } from "../../components/ProjectCard";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
@@ -248,14 +248,12 @@ export const projectsData: ProjectCardProps[] = [
 export default function Projects() {
     return (
         <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
-            <Helmet>
-                <title>Projects by Aditya Vahlevy Nugraha | Web Dev, AI & ML Portfolio</title>
-                <meta name="description" content="Explore the portfolio of Aditya Vahlevy Nugraha. Featuring projects in Fullstack Web Development (Next.js, Go, React) and Machine Learning (Deep Learning, NLP)." />
-                <meta name="keywords" content="Aditya Vahlevy Nugraha Projects, Portfolio, Web Development, Machine Learning, AI, Software Engineering, Case Studies" />
-                <meta property="og:title" content="Projects by Aditya Vahlevy Nugraha | Web Dev, AI & ML Portfolio" />
-                <meta property="og:description" content="Explore the portfolio of Aditya Vahlevy Nugraha. Featuring projects in Fullstack Web Development and Machine Learning." />
-                <meta property="og:url" content="https://kuraninja.vercel.app/projects" />
-            </Helmet>
+            <SEO
+                title="Projects by Aditya Vahlevy Nugraha | Web Dev, AI & ML Portfolio"
+                description="Explore the portfolio of Aditya Vahlevy Nugraha. Featuring projects in Fullstack Web Development (Next.js, Go, React) and Machine Learning (Deep Learning, NLP)."
+                keywords="Aditya Vahlevy Nugraha Projects, Portfolio, Web Development, Machine Learning, AI, Software Engineering, Case Studies"
+                url="https://kuraninja.vercel.app/projects"
+            />
 
             {/* Extended Background */}
             <BackgroundEffects />
