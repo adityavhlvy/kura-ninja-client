@@ -27,41 +27,43 @@ export const projectsData: ProjectCardProps[] = [
     },
     {
         slug: "geomap-dashboard-client",
-        title: "Geomap Dashboard Client",
-        description: "Comprehensive Next.js application for visualizing fertilizer distribution. Features interactive maps with Deck.gl, vector tiles, and dynamic data filtering.",
-        techStack: ["Next.js", "React", "Deck.gl", "Tailwind CSS", "Daisy UI", "Chart.js", "Bun"],
+        title: "GAIA: Geomap Dashboard Client",
+        description: "A comprehensive Next.js application designed to visualize geospatial data related to fertilizer distribution and requirements. It serves as a powerful dashboard for monitoring and analyzing data across different administrative levels (Province, Regency, District) in Indonesia.",
+        techStack: ["Next.js 16", "TypeScript", "Tailwind CSS v4", "DaisyUI v5", "Deck.gl", "Bun", "SWR", "Lucide React"],
         links: [],
-        status: "in-progress",
+        status: "active",
         visibility: "private",
         image: "/assets/dashboard-geomap-client.png",
         date: "2025",
         featured: true,
         details: [
-            "Built a responsive dashboard using Next.js 16 and Bun runtime.",
-            "Integrated Deck.gl for high-performance interactive map visualizations with custom vector tiles.",
-            "Implemented dynamic coloring for fertilizer data (Urea, NPK, Organik) based on tonnage.",
-            "Developed advanced search functionality with auto-fly to regions (Province, Regency, District).",
-            "Created detailed popup summaries and sidebar controls for data filtering and aggregation.",
-            "Designed a modern UI with Tailwind CSS v4 and DaisyUI v5, supporting dark/light modes."
+            "GAIA (Geospatial Analysis & Intelligence Application) accommodates the dashboard to visualize: Fertilizer Requirements, Commodities, Planting Phase, Soil Map, and Farm Land.",
+            "Mythological Origin: Named after Gaia, the primordial goddess of Earth, representing the living, self-generating foundation of existence.",
+            "Features customizable interactive map visualization with Deck.gl and dynamic coloring based on fertilizer data.",
+            "Integrates specialized vector tiles and smart zooming (Province → Regency → District) for high performance.",
+            "Robust authentication secure access via Pismart credentials and session management.",
+            "Advanced data analysis with filtering by Year, Commodity, and Fertilizer Type.",
+            "Tech stack features Next.js 16 (App Router), Bun runtime, and Tailwind CSS v4."
         ]
     },
     {
         slug: "geomap-dashboard-service",
-        title: "Dashboard Geomap Service",
-        description: "High-performance backend service for the Geomap Dashboard. Handles data ingestion, geospatial queries, and serves aggregated fertilizer data.",
-        techStack: ["Go", "Fiber", "PostgreSQL", "PostGIS", "Docker", "Python"],
+        title: "Dashboard Geomap & IAM Service",
+        description: "A production-grade, standardized backend service combining Geospatial Dashboarding and Identity and Access Management (IAM). Built with Go (Fiber v3) and Clean Architecture principles, this service is designed for high performance, scalability, and maintainability.",
+        techStack: ["Go 1.25+", "Fiber v3", "PostgreSQL 16", "PostGIS", "Docker", "dbr", "Goose", "Zerolog", "Viper"],
         links: [],
-        status: "in-progress",
+        status: "active",
         visibility: "private",
         image: "https://placehold.co/600x400/0ea5e9/ffffff?text=Geomap+Service",
         date: "2025",
+        featured: true,
         details: [
-            "Developed a REST API using Go and Fiber v3 for high performance.",
-            "Utilized PostgreSQL with PostGIS for efficient geospatial data storage and querying.",
-            "Implemented data ingestion scripts in Python to process CSV and shapefiles.",
-            "Created endpoints for aggregated fertilizer needs data at National, Provincial, Regency, and District levels.",
-            "Containerized the application using Docker for easy deployment.",
-            "Implemented Clean Architecture principles for maintainability and scalability."
+            "Implemented JWT-based Stateless Authentication with short-lived Access Tokens (15m) and long-lived Refresh Tokens (7d).",
+            "Integrated PI Smart for specialized credential authentication and automatic user synchronization.",
+            "Built comprehensive user management with Soft Delete (archive) and Hard Delete (GDPR compliance) capabilities.",
+            "Developed aggregated geospatial endpoints for fertilizer needs analysis across multiple administrative levels (National to District).",
+            "Delivers complex fertilizer data filtered by Commodity (Rice, Corn, etc.), Fertilizer Type (Urea, NPK), and Period.",
+            "Implemented standard Clean Architecture with separation of Transport, Business, and Data layers using Fiber v3 and dbr SQL builder."
         ]
     },
     {
@@ -104,7 +106,6 @@ export const projectsData: ProjectCardProps[] = [
         visibility: "public",
         image: "/assets/weird-weather-translator.png",
         date: "2025",
-        featured: true,
         details: [
             "Developed a web app that turns real-time weather into absurd, funny one-liners.",
             "Collected weather data via Open-Meteo API.",
