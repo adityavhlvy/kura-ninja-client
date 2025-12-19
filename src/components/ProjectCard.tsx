@@ -26,7 +26,7 @@ export interface ProjectCardProps {
     techStack: string[];
     links: ProjectLink[];
     image?: string;
-    status: 'completed' | 'in-progress' | 'archived';
+    status: 'completed' | 'in-progress' | 'archived' | 'active';
     visibility: 'public' | 'private';
     date: string;
     details?: string[];
@@ -92,7 +92,8 @@ export default function ProjectCard({
     const statusColors = {
         'completed': 'badge-success',
         'in-progress': 'badge-warning',
-        'archived': 'badge-ghost'
+        'archived': 'badge-ghost',
+        'active': 'badge-success'
     };
 
     return (
