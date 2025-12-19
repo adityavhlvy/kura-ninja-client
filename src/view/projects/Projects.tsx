@@ -7,6 +7,30 @@ import BackgroundEffects from "../../components/BackgroundEffects";
 
 export const projectsData: ProjectCardProps[] = [
     {
+        slug: "dapoer-aybun",
+        title: "Dapoer Aybun Client",
+        description: "Frontend web app for a family-run catering, snack, and drink business. It showcases the business, menu items, customer testimonials, and provides contact information for orders.",
+        techStack: ["Vite", "Vue 3", "Tailwind CSS", "DaisyUI"],
+        links: [
+            {
+                label: "GitHub",
+                url: "https://github.com/adityavhlvy/dapoer-aybun-client"
+            }
+        ],
+        status: "active",
+        visibility: "public",
+        image: "/assets/dapoer-aybun.png",
+        date: "2025",
+        details: [
+            "Showcases catering services, snacks, and drinks (e.g., Kerupuk kangkung, Rendang).",
+            "Features a Business profile and service overview.",
+            "Includes a Shopping Cart System with validation.",
+            "Integrates Direct Checkout via WhatsApp.",
+            "Displays Customer testimonials and Contact information.",
+            "Built with Vite, Vue 3, Tailwind CSS, and DaisyUI."
+        ]
+    },
+    {
         slug: "land-delineation-training",
         title: "Land Delineation Training",
         description: "Deep learning model training pipeline for delineating land from satellite imagery. Features preprocessing, BsiNet model implementation, and custom loss functions.",
