@@ -62,7 +62,7 @@ export default function Layout() {
                     </div>
                 </aside>
 
-                <main className="flex-1 p-0 overflow-y-auto bg-base-100 relative w-full scroll-smooth">
+                <main className="flex-1 p-0 overflow-y-auto bg-base-100 relative w-full scroll-smooth scrollbar-cyberpunk">
                     <AnimatePresence mode="wait">
                         {element && cloneElement(element, { key: location.pathname })}
                     </AnimatePresence>
