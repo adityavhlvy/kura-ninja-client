@@ -9,6 +9,7 @@ import SEO from "../../components/SEO";
 import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
+import GlitchText from "../../components/GlitchText";
 
 export default function Home() {
     // Get featured projects
@@ -116,10 +117,13 @@ export default function Home() {
 
                             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9] text-base-content">
                                 Hi, I'm <br />
-                                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-secondary to-accent animate-gradient-x">Aditya.</span>
+                                <GlitchText 
+                                    text="Aditya." 
+                                    className="text-transparent bg-clip-text bg-linear-to-r from-primary via-info to-primary animate-gradient-x" 
+                                />
                             </h1>
 
-                            <p className="text-lg md:text-xl lg:text-2xl font-bold text-base-content/80 mt-2 flex flex-wrap justify-center lg:justify-start items-center gap-2">
+                            <p className="text-lg md:text-xl lg:text-2xl font-bold text-base-content/80 mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-2">
                                 <span className="line-through decoration-error decoration-2 opacity-40 text-base-content/60">Full-stuck</span>
                                 <span className="text-primary font-mono">&lt;</span> Fullstack Developer <span className="text-primary font-mono">/&gt;</span>
                             </p>
@@ -182,20 +186,24 @@ export default function Home() {
                     <div className="lg:col-span-12 xl:col-span-7 w-full h-full">
                         <SpotlightCard title="At a Glance" className="h-full">
                             <div className="grid grid-cols-2 gap-4">
-                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-primary/20 transition-colors group">
-                                    <div className="text-3xl font-black text-primary mb-1 group-hover:scale-110 origin-left transition-transform">9+</div>
+                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-primary/20 transition-colors group justify-center text-center">
+                                    <div className="text-3xl font-black text-primary mb-1 group-hover:scale-110 origin-left transition-transform">
+                                        {projectsData.length}+
+                                    </div>
                                     <div className="text-sm font-semibold opacity-70">Shipped Projects</div>
                                 </div>
-                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-secondary/20 transition-colors group">
-                                    <div className="text-3xl font-black text-secondary mb-1 group-hover:scale-110 origin-left transition-transform">3.58</div>
-                                    <div className="text-sm font-semibold opacity-70">GPA (Cum Laude)</div>
+                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-secondary/20 transition-colors group justify-center text-center">
+                                    <div className="text-3xl font-black text-secondary mb-1 group-hover:scale-110 origin-left transition-transform font-mono">NaN</div>
+                                    <div className="text-sm font-semibold opacity-70">Sleep Hours</div>
                                 </div>
-                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-accent/20 transition-colors group">
+                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-accent/20 transition-colors group justify-center text-center">
                                     <div className="text-3xl font-black text-accent mb-1 group-hover:scale-110 origin-left transition-transform">20+</div>
                                     <div className="text-sm font-semibold opacity-70">Certifications</div>
                                 </div>
                                 <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 flex items-center justify-center text-center italic opacity-80">
-                                    <span className="text-sm font-mono">"always learning, always sleeping."</span>
+                                    <span className="text-sm font-mono">
+                                        "always learning, <br /> always <span className="line-through decoration-error decoration-2 opacity-50">sleeping</span> <span className="text-primary not-italic font-bold">shipping</span>."
+                                    </span>
                                 </div>
                             </div>
                         </SpotlightCard>
