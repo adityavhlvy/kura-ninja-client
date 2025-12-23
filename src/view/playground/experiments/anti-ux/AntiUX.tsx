@@ -1,12 +1,10 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
-  RiErrorWarningLine,
   RiVolumeUpLine,
   RiPaletteLine,
-  RiQuestionMark,
   RiPhoneLine,
-  RiFileTextLine,
+  RiErrorWarningLine,
 } from "react-icons/ri";
 
 const AntiUX = () => {

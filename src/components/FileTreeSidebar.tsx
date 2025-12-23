@@ -127,7 +127,7 @@ const GlitchItem = ({ isCollapsed }: { isCollapsed: boolean }) => {
     // Initial glitch faster to prove it works
     const initialDelay = 1000;
 
-    let timeoutId: NodeJS.Timeout;
+    let timeoutId: ReturnType<typeof setTimeout>;
 
     const loop = () => {
       // Random glitch effect (3-6 seconds)
