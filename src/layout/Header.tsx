@@ -10,10 +10,10 @@ interface HeaderProps {
 
 export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
   const location = useLocation();
-  const [currentTheme, setCurrentTheme] = useState("dark");
+  const [currentTheme, setCurrentTheme] = useState("senja");
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "dark";
+    const savedTheme = localStorage.getItem("theme") || "senja";
     document.documentElement.setAttribute("data-theme", savedTheme);
     setCurrentTheme(savedTheme);
   }, []);
@@ -51,8 +51,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
 
     return (
       fileMap[segments[0]] ||
-      `src > view > ${segments[0]} > ${
-        segments[0].charAt(0).toUpperCase() + segments[0].slice(1)
+      `src > view > ${segments[0]} > ${segments[0].charAt(0).toUpperCase() + segments[0].slice(1)
       }.tsx`
     );
   };
@@ -68,11 +67,9 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         >
           {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
         </button>
-        <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-1">
-          <span className="line-through decoration-2 decoration-red-500 opacity-50">
-            Logo
-          </span>{" "}
-          🐢
+        <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-2">
+          <span className="text-xl">🐢</span>
+          <span className="font-bold text-base-content/80 hidden sm:inline">Kura Ninja</span>
         </Link>
       </div>
       <div className="navbar-center">
@@ -101,9 +98,8 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
             {THEMES.map((theme) => (
               <li key={theme.name}>
                 <button
-                  className={`btn btn-sm btn-block btn-ghost justify-start ${
-                    currentTheme === theme.name ? "btn-active" : ""
-                  }`}
+                  className={`btn btn-sm btn-block btn-ghost justify-start ${currentTheme === theme.name ? "btn-active" : ""
+                    }`}
                   onClick={() => changeTheme(theme.name)}
                 >
                   <span className="text-lg">{theme.icon}</span>

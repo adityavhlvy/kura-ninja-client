@@ -6,7 +6,16 @@ const basic = btoa(`${client_id}:${client_secret}`);
 const NOW_PLAYING_ENDPOINT = `https://api.spotify.com/v1/me/player/currently-playing`;
 const TOKEN_ENDPOINT = `https://accounts.spotify.com/api/token`;
 
+// Token caching mechanism
+let cachedToken: string | null = null;
+let tokenExpiryTime: number = 0;
+
 const getAccessToken = async () => {
+    const now = Date.now();
+    if (cachedToken && now < tokenExpiryTime) {
+        return { access_token: cachedToken };
+    }
+
     const response = await fetch(TOKEN_ENDPOINT, {
         method: 'POST',
         headers: {
@@ -17,18 +26,28 @@ const getAccessToken = async () => {
             grant_type: 'refresh_token',
             refresh_token,
         }),
+        cache: 'no-store'
     });
 
-    return response.json();
+    const data = await response.json();
+    if (data.access_token) {
+        cachedToken = data.access_token;
+        // Spotify tokens expire in 3600s usually. Set a safe margin (e.g., 3500s)
+        const expiresIn = data.expires_in || 3600;
+        tokenExpiryTime = now + (expiresIn * 1000) - 60000; // 1 min buffer
+    }
+
+    return data;
 };
 
 export const getNowPlaying = async () => {
     const { access_token } = await getAccessToken();
 
-    return fetch(NOW_PLAYING_ENDPOINT, {
+    return fetch(`${NOW_PLAYING_ENDPOINT}?ts=${Date.now()}`, {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
+        cache: 'no-store'
     });
 };
 
@@ -38,22 +57,51 @@ const RECENTLY_PLAYED_ENDPOINT = `https://api.spotify.com/v1/me/player/recently-
 export const getTopTracks = async () => {
     const { access_token } = await getAccessToken();
 
-    return fetch(TOP_TRACKS_ENDPOINT, {
+    return fetch(`${TOP_TRACKS_ENDPOINT}&ts=${Date.now()}`, {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
+        cache: 'no-store'
     });
 };
 
 export const getRecentlyPlayed = async () => {
     const { access_token } = await getAccessToken();
 
-    return fetch(RECENTLY_PLAYED_ENDPOINT, {
+    return fetch(`${RECENTLY_PLAYED_ENDPOINT}&ts=${Date.now()}`, {
         headers: {
             Authorization: `Bearer ${access_token}`,
         },
+        cache: 'no-store'
     });
 };
+
+// Spotify API Types
+interface SpotifyImage {
+    url: string;
+}
+
+interface SpotifyArtist {
+    name: string;
+}
+
+interface SpotifyAlbum {
+    images: SpotifyImage[];
+}
+
+interface SpotifyTrack {
+    name: string;
+    artists: SpotifyArtist[];
+    album: SpotifyAlbum;
+    external_urls: {
+        spotify: string;
+    };
+}
+
+interface SpotifyNowPlaying {
+    is_playing: boolean;
+    item: SpotifyTrack;
+}
 
 export async function getTopTracksItems() {
     const response = await getTopTracks();
@@ -63,8 +111,8 @@ export async function getTopTracksItems() {
 
     const { items } = await response.json();
 
-    return items.map((track: any) => ({
-        artist: track.artists.map((_artist: any) => _artist.name).join(', '),
+    return items.map((track: SpotifyTrack) => ({
+        artist: track.artists.map((_artist) => _artist.name).join(', '),
         songUrl: track.external_urls.spotify,
         title: track.name,
         albumImageUrl: track.album.images[0].url,
@@ -75,6 +123,7 @@ export default async function getNowPlayingItem() {
     const response = await getNowPlaying();
 
     if (response.status === 204 || response.status > 400) {
+        console.warn("Spotify: No content (204) or Error. Falling back to Recently Played.");
         // Fallback to recently played
         const recentResponse = await getRecentlyPlayed();
         if (recentResponse.status !== 200) {
@@ -85,9 +134,9 @@ export default async function getNowPlayingItem() {
             return false;
         }
 
-        const track = recent.items[0].track;
+        const track: SpotifyTrack = recent.items[0].track;
         const albumImageUrl = track.album.images[0].url;
-        const artist = track.artists.map((_artist: any) => _artist.name).join(', ');
+        const artist = track.artists.map((_artist) => _artist.name).join(', ');
         const songUrl = track.external_urls.spotify;
         const title = track.name;
 
@@ -101,9 +150,9 @@ export default async function getNowPlayingItem() {
         };
     }
 
-    const song = await response.json();
+    const song: SpotifyNowPlaying = await response.json();
     const albumImageUrl = song.item.album.images[0].url;
-    const artist = song.item.artists.map((_artist: any) => _artist.name).join(', ');
+    const artist = song.item.artists.map((_artist) => _artist.name).join(', ');
     const isPlaying = song.is_playing;
     const songUrl = song.item.external_urls.spotify;
     const title = song.item.name;
