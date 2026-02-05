@@ -10,10 +10,22 @@ import BackgroundEffects from "../../components/BackgroundEffects";
 export const projectsData: ProjectCardProps[] = [
   {
     slug: "sam3-dashboard",
-    title: "SAM3 Dashboard & Full System",
+    title: "SAM3 Dashboard",
     description:
-      "A comprehensive environment for the SAM3 model, featuring a dashboard for inference and training management.",
-    techStack: ["Python 3.12", "PyTorch", "Bun", "React", "CUDA"],
+      "An interactive full-stack dashboard for Segment Anything Model 3 (SAM3), providing a complete pipeline for image segmentation, model fine-tuning, data labeling, and performance evaluation on geospatial/satellite imagery.",
+    techStack: [
+      "Next.js 16",
+      "React 19",
+      "TypeScript",
+      "TailwindCSS 4",
+      "DaisyUI 5",
+      "Fabric.js",
+      "Chart.js",
+      "FastAPI",
+      "SQLAlchemy",
+      "PyTorch",
+      "CUDA 12.6",
+    ],
     links: [
       {
         label: "Dashboard GitHub",
@@ -24,17 +36,20 @@ export const projectsData: ProjectCardProps[] = [
         url: "https://github.com/adityavhlvy/sam3",
       },
     ],
-    status: "active",
+    status: "in-progress",
     visibility: "public",
     image: "/assets/sam3-playground.png",
     date: "2025",
     featured: true,
     details: [
-      "Setup complete SAM3 environment with Dashboard, Model, and Inference resources.",
-      "Features a Python-based API server with PyTorch and CUDA support.",
-      "Includes a modern frontend dashboard for uploading images and managing training.",
-      "Supports real-time inference and fine-tuning via the UI.",
-      "Designed for Windows with specialized NVIDIA GPU support.",
+      "Built a complete SAM3 environment with Dashboard (system health), Inference (text/box/point prompts), Training (fine-tuning with TensorBoard), and Evaluation (IoU metrics).",
+      "Implemented a 3-phase Data Engine pipeline: Batch Processing → Human Verification (accept/reject/flag) → Polygon Correction with Fabric.js editor.",
+      "Developed a Polygon Editor with vertex editing, simplification, multi-select, keyboard shortcuts (V/E/H/D modes), undo/redo, and zoom/pan controls.",
+      "Created Dataset management for uploading ZIP datasets (COCO format), converting image+mask folders, and validating local paths.",
+      "Exports COCO-format datasets with RLE encoding ready for SAM3 training.",
+      "Backend built with FastAPI, SQLAlchemy (SQLite), and OpenCV for image processing.",
+      "Frontend built with Next.js 16, React 19, TypeScript, TailwindCSS v4, DaisyUI v5, Fabric.js, and Chart.js.",
+      "Supports TIFF, PNG, JPG formats with real-time mask visualization overlays.",
     ],
   },
   {
@@ -98,7 +113,7 @@ export const projectsData: ProjectCardProps[] = [
       "Lucide React",
     ],
     links: [],
-    status: "active",
+    status: "in-progress",
     visibility: "private",
     image: "/assets/dashboard-geomap-client.png",
     date: "2025",
@@ -115,7 +130,7 @@ export const projectsData: ProjectCardProps[] = [
   },
   {
     slug: "geomap-dashboard-service",
-    title: "Dashboard Geomap & IAM Service",
+    title: "GAIA: Geomap Dashboard Service & IAM Service",
     description:
       "A production-grade, standardized backend service combining Geospatial Dashboarding and Identity and Access Management (IAM). Built with Go (Fiber v3) and Clean Architecture principles, this service is designed for high performance, scalability, and maintainability.",
     techStack: [
@@ -130,7 +145,7 @@ export const projectsData: ProjectCardProps[] = [
       "Viper",
     ],
     links: [],
-    status: "active",
+    status: "in-progress",
     visibility: "private",
     image: "https://placehold.co/600x400/0ea5e9/ffffff?text=Geomap+Service",
     date: "2025",
