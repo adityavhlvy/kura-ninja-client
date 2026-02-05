@@ -1,162 +1,203 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-    themes: all;
-    base: false;
+  themes: senja, dark, dracula;
 }
 
-/* Glitch Animation Keyframes */
-@keyframes glitch-skew {
-  0% { transform: skew(0deg); }
-  10% { transform: skew(-2deg); }
-  20% { transform: skew(2deg); }
-  30% { transform: skew(0deg); }
-  40% { transform: skew(1deg); }
-  50% { transform: skew(-1deg); }
-  60% { transform: skew(0deg); }
-  70% { transform: skew(0deg); }
-  80% { transform: skew(0deg); }
-  90% { transform: skew(0deg); }
-  100% { transform: skew(0deg); }
+/* ========================================
+   SENJA THEME - Custom DaisyUI Theme
+   Inspired by: Skyrim mist, Witcher mystery, RDR warmth
+   ======================================== */
+
+@theme senja {
+  --color-primary: #4a6fa5;
+  --color-primary-content: #e8e6e3;
+  --color-secondary: #6b4c8a;
+  --color-secondary-content: #e8e6e3;
+  --color-accent: #c17f59;
+  --color-accent-content: #0a0a0f;
+  --color-neutral: #1a1a24;
+  --color-neutral-content: #8a8a9a;
+  --color-base-100: #0a0a0f;
+  --color-base-200: #121218;
+  --color-base-300: #1a1a24;
+  --color-base-content: #e8e6e3;
+  --color-info: #6b8cce;
+  --color-info-content: #0a0a0f;
+  --color-success: #4a6fa5;
+  --color-success-content: #e8e6e3;
+  --color-warning: #e8a87c;
+  --color-warning-content: #0a0a0f;
+  --color-error: #a86b4d;
+  --color-error-content: #e8e6e3;
 }
 
-@keyframes glitch-clip-a {
-  0% { clip-path: inset(10% 0 80% 0); transform: translate(-2px, 1px); }
-  10% { clip-path: inset(80% 0 10% 0); transform: translate(2px, -1px); }
-  20% { clip-path: inset(40% 0 50% 0); transform: translate(-1px, 2px); }
-  30% { clip-path: inset(20% 0 70% 0); transform: translate(1px, -2px); }
-  40% { clip-path: inset(60% 0 20% 0); transform: translate(0px, 1px); }
-  50% { clip-path: inset(10% 0 90% 0); transform: translate(-1px, 0px); }
-  60% { clip-path: polygon(0 0, 0 0, 0 0); transform: translate(0, 0); }
-  100% { clip-path: polygon(0 0, 0 0, 0 0); transform: translate(0, 0); }
+/* ========================================
+   CUSTOM PROPERTIES - Extended Palette
+   ======================================== */
+
+:root {
+  /* Extended Senja colors */
+  --senja-void: #0a0a0f;
+  --senja-night: #121218;
+  --senja-dusk: #1a1a24;
+  --senja-mist: #4a6fa5;
+  --senja-frost: #6b8cce;
+  --senja-ice: #a8c5e2;
+  --senja-omen: #3d2a5c;
+  --senja-elixir: #6b4c8a;
+  --senja-sign: #9d7cbf;
+  --senja-ember: #c17f59;
+  --senja-lantern: #e8a87c;
+  --senja-smoke: #8a8a9a;
+  --senja-bone: #e8e6e3;
+
+  /* Transition timing */
+  --transition-senja: 400ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-@keyframes glitch-clip-b {
-  0% { clip-path: inset(80% 0 10% 0); transform: translate(2px, -1px); }
-  10% { clip-path: inset(10% 0 90% 0); transform: translate(-2px, 2px); }
-  20% { clip-path: inset(50% 0 30% 0); transform: translate(1px, -1px); }
-  30% { clip-path: inset(30% 0 60% 0); transform: translate(-1px, 1px); }
-  40% { clip-path: inset(70% 0 20% 0); transform: translate(1px, 1px); }
-  50% { clip-path: inset(20% 0 50% 0); transform: translate(-1px, -1px); }
-  60% { clip-path: polygon(0 0, 0 0, 0 0); transform: translate(0, 0); }
-  100% { clip-path: polygon(0 0, 0 0, 0 0); transform: translate(0, 0); }
+/* ========================================
+   ATMOSPHERIC BACKGROUND ANIMATIONS
+   ======================================== */
+
+@keyframes blob-bounce {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+  }
+
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
 }
 
-@keyframes glitch-flash {
-    0%, 5% { opacity: 0.1; }
-    10% { opacity: 1; }
-    100% { opacity: 1; }
+.animate-blob-bounce {
+  animation: blob-bounce 10s infinite ease-in-out;
 }
 
-.glitch-wrapper {
-    display: inline-block;
-    position: relative;
-    /* mix-blend-mode: lighten; */
+.animation-delay-2000 {
+  animation-delay: 2s;
 }
 
-/* Base text */
-.glitch-base {
-    position: relative;
-    display: inline-block;
-    z-index: 10;
+.animation-delay-4000 {
+  animation-delay: 4s;
 }
 
-/* Glitch layers */
-.glitch-layer {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0; 
-    pointer-events: none;
+/* Subtle breathing animation for status indicators */
+@keyframes breathe {
+
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+
+  50% {
+    opacity: 0.8;
+  }
 }
 
-.glitch-wrapper:hover .glitch-layer, 
-.glitch-active .glitch-layer {
-    opacity: 1;
+.animate-breathe {
+  animation: breathe 3s infinite ease-in-out;
 }
 
-/* Permanent glitch effect if desired, or on hover/interval. 
-   User asked for "flickering", so maybe continuous but subtle, or strong. 
-   Let's make it continuous but randomized.
-*/
+/* Float animation for particles */
+@keyframes float {
 
-.cyber-glitch-1 {
-    animation: glitch-clip-a 3s infinite linear alternate-reverse;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    filter: drop-shadow(-2px 0 oklch(var(--p) / 0.5));
-    opacity: 0.7;
-    z-index: 9;
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+
+  25% {
+    transform: translateY(-10px) translateX(5px);
+  }
+
+  50% {
+    transform: translateY(-5px) translateX(-5px);
+  }
+
+  75% {
+    transform: translateY(-15px) translateX(3px);
+  }
 }
 
-.cyber-glitch-2 {
-    animation: glitch-clip-b 2.3s infinite linear alternate-reverse;
-    background-clip: text;
-    -webkit-background-clip: text;
-    color: transparent;
-    filter: drop-shadow(2px 0 oklch(var(--in) / 0.5));
-    opacity: 0.7;
-    z-index: 8;
-}
-
-/* Flicker effect */
-.cyber-flicker {
-    animation: glitch-flash 5s infinite;
-}
-
-/* Custom Scrollbar - Cyberpunk/Playful Style */
-
-/* Custom Scrollbar - Cyberpunk/Holographic Style */
+/* ========================================
+   SCROLLBAR - Atmospheric Dark Style
+   ======================================== */
 
 /* Utility Class for specific containers */
-.scrollbar-cyberpunk {
-    scrollbar-width: thin;
-    scrollbar-color: #00f2ff #050505;
+.scrollbar-senja {
+  scrollbar-width: thin;
+  scrollbar-color: var(--senja-mist) var(--senja-void);
 }
 
-.scrollbar-cyberpunk::-webkit-scrollbar {
-    width: 14px;
-    height: 14px;
-    background: #050505;
+.scrollbar-senja::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background: var(--senja-void);
 }
 
-.scrollbar-cyberpunk::-webkit-scrollbar-track {
-    background: #050505;
-    border-left: 1px solid #222;
+.scrollbar-senja::-webkit-scrollbar-track {
+  background: var(--senja-void);
+  border-left: 1px solid var(--senja-dusk);
 }
 
-.scrollbar-cyberpunk::-webkit-scrollbar-thumb {
-    /* Holographic Glass Effect */
-    background: linear-gradient(180deg, rgba(0, 242, 255, 0.2), rgba(0, 114, 255, 0.2));
-    border: 2px solid #00f2ff;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 242, 255, 0.5);
-    backdrop-filter: blur(5px);
+.scrollbar-senja::-webkit-scrollbar-thumb {
+  background: var(--senja-dusk);
+  border: 2px solid var(--senja-void);
+  border-radius: 10px;
 }
 
-.scrollbar-cyberpunk::-webkit-scrollbar-thumb:hover {
-    /* solid neon on hover */
-    background: linear-gradient(180deg, #00f2ff, #0072ff);
-    border: 2px solid #fff;
-    box-shadow: 0 0 20px rgba(0, 242, 255, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.5);
+.scrollbar-senja::-webkit-scrollbar-thumb:hover {
+  background: var(--senja-mist);
+  border-color: var(--senja-void);
 }
 
-.scrollbar-cyberpunk::-webkit-scrollbar-corner {
-    background: #050505;
+.scrollbar-senja::-webkit-scrollbar-corner {
+  background: var(--senja-void);
 }
 
-/* Fallback for global (optional, but kept for consistency) */
+/* Global scrollbar fallback */
 ::-webkit-scrollbar {
-    width: 14px;
-    height: 14px;
+  width: 10px;
+  height: 10px;
 }
+
 ::-webkit-scrollbar-track {
-    background: #050505;
+  background: var(--senja-void);
 }
+
 ::-webkit-scrollbar-thumb {
-    background: #222;
-    border-radius: 10px;
+  background: var(--senja-dusk);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--senja-mist);
+}
+
+/* ========================================
+   GRADIENT UTILITIES
+   ======================================== */
+
+.gradient-senja {
+  background: linear-gradient(135deg, var(--senja-mist) 0%, var(--senja-elixir) 50%, var(--senja-ember) 100%);
+}
+
+.gradient-mist {
+  background: linear-gradient(180deg, var(--senja-void) 0%, var(--senja-dusk) 100%);
+}
+
+.gradient-frost-text {
+  background: linear-gradient(90deg, var(--senja-frost) 0%, var(--senja-sign) 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }
