@@ -9,7 +9,7 @@ import SEO from "../../components/SEO";
 import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
-import GlitchText from "../../components/GlitchText";
+import StatusBar from "../../components/StatusBar";
 
 export default function Home() {
     // Get featured projects
@@ -65,8 +65,7 @@ export default function Home() {
                             <ThreeDCard className="w-64 md:w-72 lg:w-96 xl:w-104 max-h-[50vh] lg:max-h-[60vh] aspect-4/5 cursor-pointer">
                                 <div className="h-full w-full rounded-2xl overflow-hidden border border-base-content/10 bg-base-200/40 backdrop-blur-md shadow-2xl relative group-hover:shadow-[0_0_50px_-10px_rgba(var(--p),0.4)] transition-all duration-500">
                                     <div className="bg-base-300 relative h-full w-full overflow-hidden group-hover:brightness-110 transition-all">
-                                        {/* Scanline Overlay */}
-                                        <div className="absolute inset-0 bg-[linear-gradient(transparent_2px,var(--base-300)_2px)] bg-size-[100%_4px] opacity-20 pointer-events-none z-20"></div>
+                                        {/* Subtle gradient overlay */}
                                         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-transparent to-transparent z-10"></div>
 
                                         <img
@@ -75,15 +74,14 @@ export default function Home() {
                                             className="w-full h-full object-cover object-top transform group-hover:scale-110 transition-transform duration-700 ease-out"
                                         />
 
-                                        {/* Tech Badge Overlay */}
+                                        {/* Subtle status indicator */}
                                         <div className="absolute bottom-5 left-5 z-40 flex flex-col items-start gap-1 text-white/90">
                                             <div className="flex items-center gap-2">
-                                                <div className="h-2 w-2 rounded-full bg-success animate-ping"></div>
-                                                <div className="h-2 w-2 rounded-full bg-success absolute"></div>
-                                                <span className="text-[10px] font-mono tracking-widest opacity-80 pl-1">NET.STATUS: ONLINE</span>
-                                            </div>
-                                            <div className="text-xs font-bold font-mono bg-black/60 px-3 py-1.5 rounded-lg backdrop-blur-md border border-white/10 mt-2 shadow-lg">
-                                                ID: ADITYA-VHLVY
+                                                <span className="relative flex h-2 w-2">
+                                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+                                                </span>
+                                                <span className="text-[10px] font-mono tracking-widest opacity-60 pl-1">// aktif jam 2 pagi</span>
                                             </div>
                                         </div>
                                     </div>
@@ -96,8 +94,8 @@ export default function Home() {
                                 transition={{ repeat: Infinity, duration: 4, ease: "easeInOut" }}
                                 className="absolute -bottom-4 -left-8 z-40"
                             >
-                                <div className="badge badge-lg bg-base-100 text-primary border-primary p-4 shadow-[5px_5px_0px_0px_rgba(var(--p),1)] font-black tracking-tight text-sm hover:scale-105 transition-transform">
-                                    <SlRocket className="mr-2 animate-bounce w-3 h-3" /> SIDE QUESTS?
+                                <div className="badge badge-lg bg-base-100 text-primary border-primary/30 p-4 shadow-lg font-medium tracking-tight text-sm hover:scale-105 transition-transform">
+                                    🐢 Kura Ninja
                                 </div>
                             </motion.div>
                         </div>
@@ -117,10 +115,7 @@ export default function Home() {
 
                             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9] text-base-content">
                                 Hi, I'm <br />
-                                <GlitchText 
-                                    text="Aditya." 
-                                    className="text-transparent bg-clip-text bg-linear-to-r from-primary via-info to-primary animate-gradient-x" 
-                                />
+                                <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-info to-secondary">Aditya.</span>
                             </h1>
 
                             <p className="text-lg md:text-xl lg:text-2xl font-bold text-base-content/80 mt-6 flex flex-wrap justify-center lg:justify-start items-center gap-2">
@@ -138,8 +133,9 @@ export default function Home() {
                         </motion.div>
 
                         <motion.p variants={itemVariants} className="text-base md:text-lg leading-relaxed text-base-content/70 max-w-lg text-balance opacity-80">
-                            I craft <span className="font-bold text-base-content">digital experiences</span> that just work.
-                            Currently engineering the future of agritech at <span className="font-bold text-primary">Pupuk Indonesia</span>.
+                            I build things that <span className="font-bold text-base-content">(mostly) work</span>.
+                            Currently teaching machines to understand <span className="font-bold text-primary">rice fields from space</span>.
+                            It's going... interestingly.
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
@@ -176,21 +172,26 @@ export default function Home() {
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full items-stretch">
 
                     {/* Left: Music (Spotlight Effect) */}
-                    <div className="lg:col-span-12 xl:col-span-5 w-full flex flex-col gap-4 h-full">
+                    <div className="lg:col-span-6 xl:col-span-4 w-full flex flex-col gap-4 h-full">
                         <SpotlightCard title="Vibe Check" className="h-full">
                             <SpotifyNowPlaying />
                         </SpotlightCard>
                     </div>
 
+                    {/* Center: Status Bar (RPG Stats) */}
+                    <div className="lg:col-span-6 xl:col-span-4 w-full h-full">
+                        <StatusBar />
+                    </div>
+
                     {/* Right: Quick Highlights (Spotlight Effect) */}
-                    <div className="lg:col-span-12 xl:col-span-7 w-full h-full">
+                    <div className="lg:col-span-12 xl:col-span-4 w-full h-full">
                         <SpotlightCard title="At a Glance" className="h-full">
                             <div className="grid grid-cols-2 gap-4">
                                 <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-primary/20 transition-colors group justify-center text-center">
                                     <div className="text-3xl font-black text-primary mb-1 group-hover:scale-110 origin-left transition-transform">
                                         {projectsData.length}+
                                     </div>
-                                    <div className="text-sm font-semibold opacity-70">Shipped Projects</div>
+                                    <div className="text-sm font-semibold opacity-70">Quests Done</div>
                                 </div>
                                 <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-secondary/20 transition-colors group justify-center text-center">
                                     <div className="text-3xl font-black text-secondary mb-1 group-hover:scale-110 origin-left transition-transform font-mono">NaN</div>
@@ -198,12 +199,10 @@ export default function Home() {
                                 </div>
                                 <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 hover:border-accent/20 transition-colors group justify-center text-center">
                                     <div className="text-3xl font-black text-accent mb-1 group-hover:scale-110 origin-left transition-transform">20+</div>
-                                    <div className="text-sm font-semibold opacity-70">Certifications</div>
+                                    <div className="text-sm font-semibold opacity-70">Badges</div>
                                 </div>
-                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 flex items-center justify-center text-center italic opacity-80">
-                                    <span className="text-sm font-mono">
-                                        "always learning, <br /> always <span className="line-through decoration-error decoration-2 opacity-50">sleeping</span> <span className="text-primary not-italic font-bold">shipping</span>."
-                                    </span>
+                                <div className="p-4 bg-base-100/50 rounded-xl border border-base-content/5 flex items-center justify-center text-center">
+                                    <span className="text-[10px] font-mono opacity-60">Press Ctrl+K</span>
                                 </div>
                             </div>
                         </SpotlightCard>
