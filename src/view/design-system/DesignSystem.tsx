@@ -1,11 +1,13 @@
 
+"use client";
+
 import { useState } from "react";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
 import { toast } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FaReact } from "react-icons/fa";
-import { SiVite, SiTailwindcss, SiDaisyui, SiFramer, SiTypescript } from "react-icons/si";
+import { SiTailwindcss, SiDaisyui, SiFramer, SiTypescript, SiNextdotjs } from "react-icons/si";
 import SpotlightCard from "../../components/SpotlightCard";
 import BackgroundEffects from "../../components/BackgroundEffects";
 
@@ -94,6 +96,51 @@ export default function DesignSystem() {
                                         <div className="badge badge-ghost">Ghost</div>
                                     </div>
                                 </div>
+
+                                <div className="space-y-4 pt-4 border-t border-base-content/10">
+                                    <div className="flex items-center gap-2 opacity-50 border-b border-base-content/10 pb-1">
+                                        <span className="text-xs font-mono uppercase tracking-widest">Premium Inputs & Controls</span>
+                                    </div>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        {/* Standard Input */}
+                                        <div className="form-control w-full">
+                                            <label className="label">
+                                                <span className="label-text font-bold">What is your name?</span>
+                                            </label>
+                                            <input type="text" placeholder="Type here" className="input input-bordered w-full bg-base-100/50 backdrop-blur-md focus:border-primary focus:ring-2 ring-primary/20 transition-all duration-300" />
+                                        </div>
+
+                                        {/* Select */}
+                                        <div className="form-control w-full">
+                                            <label className="label">
+                                                <span className="label-text font-bold">Pick your main role</span>
+                                            </label>
+                                            <select className="select select-bordered bg-base-100/50 backdrop-blur-md focus:border-secondary focus:ring-2 ring-secondary/20 transition-all duration-300">
+                                                <option disabled selected>Pick one</option>
+                                                <option>Frontend Developer</option>
+                                                <option>Backend Developer</option>
+                                                <option>Fullstack Ninja</option>
+                                            </select>
+                                        </div>
+
+                                        {/* Toggle */}
+                                        <div className="form-control w-fit">
+                                            <label className="label cursor-pointer gap-4 bg-base-200/50 p-3 rounded-xl border border-base-content/5 hover:bg-base-200 transition-colors">
+                                                <span className="label-text font-bold">Enable Ultra Mode</span>
+                                                <input type="checkbox" className="toggle toggle-primary shadow-lg shadow-primary/20" defaultChecked />
+                                            </label>
+                                        </div>
+
+                                        {/* Range Slider */}
+                                        <div className="form-control w-full">
+                                            <label className="label">
+                                                <span className="label-text font-bold">Aesthetic Level</span>
+                                            </label>
+                                            <input type="range" min="0" max="100" defaultValue="80" className="range range-xs range-accent" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </SpotlightCard>
                     </div>
@@ -103,8 +150,8 @@ export default function DesignSystem() {
                         {/* Tech Stack */}
                         <SpotlightCard title="Tech Stack" badge="Pro Dependencies" delay={0.3}>
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                <TechItem name="React 19" description="Core UI" icon={<FaReact className="w-5 h-5 text-[#61DAFB]" />} />
-                                <TechItem name="Vite" description="Bundler" icon={<SiVite className="w-5 h-5 text-[#646CFF]" />} />
+                                <TechItem name="React 15+" description="Core UI" icon={<FaReact className="w-5 h-5 text-[#61DAFB]" />} />
+                                <TechItem name="Next.js" description="Framework" icon={<SiNextdotjs className="w-5 h-5 text-white" />} />
                                 <TechItem name="Tailwind" description="Styling" icon={<SiTailwindcss className="w-5 h-5 text-[#38B2AC]" />} />
                                 <TechItem name="DaisyUI" description="Components" icon={<SiDaisyui className="w-5 h-5 text-[#1AD1A5]" />} />
                                 <TechItem name="Motion" description="Animation" icon={<SiFramer className="w-5 h-5 text-white" />} />
