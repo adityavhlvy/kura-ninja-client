@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { SlRocket, SlUser, SlStar, SlSocialLinkedin, SlSocialInstagram, SlEnvolope, SlSocialSpotify } from "react-icons/sl";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
@@ -139,11 +141,11 @@ export default function Home() {
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
-                            <Link to="/projects" className="btn btn-primary btn-lg rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all group">
+                            <Link href="/projects" className="btn btn-primary btn-lg rounded-full px-8 shadow-lg shadow-primary/20 hover:shadow-primary/40 hover:-translate-y-1 transition-all group">
                                 View Projects
                                 <SlRocket className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform" />
                             </Link>
-                            <Link to="/about" className="btn btn-ghost btn-lg border border-base-content/10 rounded-full px-8 hover:bg-base-200 hover:-translate-y-1 transition-all">
+                            <Link href="/about" className="btn btn-ghost btn-lg border border-base-content/10 rounded-full px-8 hover:bg-base-200 hover:-translate-y-1 transition-all">
                                 <SlUser className="w-4 h-4 mr-2" />
                                 About Me
                             </Link>
@@ -231,7 +233,7 @@ export default function Home() {
                             Handcrafted with humility and mild confusion.
                         </motion.p>
                     </div>
-                    <Link to="/projects" className="btn btn-ghost gap-2 group">
+                    <Link href="/projects" className="btn btn-ghost gap-2 group">
                         View All <SlRocket size={16} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                     </Link>
                 </div>

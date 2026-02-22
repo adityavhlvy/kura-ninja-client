@@ -1,7 +1,11 @@
+"use client";
+
 import SEO from "../../components/SEO";
 import ProjectCard, {
   type ProjectCardProps,
 } from "../../components/ProjectCard";
+
+import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
@@ -10,7 +14,7 @@ import BackgroundEffects from "../../components/BackgroundEffects";
 export const projectsData: ProjectCardProps[] = [
   {
     slug: "sam3-dashboard",
-    title: "SAM3 Dashboard",
+    title: "SAM3 Dashboard & Playground",
     description:
       "An interactive full-stack dashboard for Segment Anything Model 3 (SAM3), providing a complete pipeline for image segmentation, model fine-tuning, data labeling, and performance evaluation on geospatial/satellite imagery.",
     techStack: [
@@ -39,7 +43,7 @@ export const projectsData: ProjectCardProps[] = [
     status: "in-progress",
     visibility: "public",
     image: "/assets/sam3-playground.png",
-    date: "2025",
+    date: "2026",
     featured: true,
     details: [
       "Built a complete SAM3 environment with Dashboard (system health), Inference (text/box/point prompts), Training (fine-tuning with TensorBoard), and Evaluation (IoU metrics).",
@@ -116,7 +120,7 @@ export const projectsData: ProjectCardProps[] = [
     status: "in-progress",
     visibility: "private",
     image: "/assets/dashboard-geomap-client.png",
-    date: "2025",
+    date: "2026",
     featured: true,
     details: [
       "GAIA (Geospatial Analysis & Intelligence Application) accommodates the dashboard to visualize: Fertilizer Requirements, Commodities, Planting Phase, Soil Map, and Farm Land.",
@@ -148,7 +152,7 @@ export const projectsData: ProjectCardProps[] = [
     status: "in-progress",
     visibility: "private",
     image: "https://placehold.co/600x400/0ea5e9/ffffff?text=Geomap+Service",
-    date: "2025",
+    date: "2026",
     featured: true,
     details: [
       "Implemented JWT-based Stateless Authentication with short-lived Access Tokens (15m) and long-lived Refresh Tokens (7d).",

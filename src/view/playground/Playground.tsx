@@ -1,4 +1,6 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
 import { PLAYGROUND_ITEMS } from "./playground.config";
 import { RiGamepadLine } from "react-icons/ri";
@@ -45,7 +47,7 @@ const Playground = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {PLAYGROUND_ITEMS.map((item, index) => (
             <Link
-              to={item.path}
+              href={item.path}
               key={item.id}
               className="group relative block h-full"
             >

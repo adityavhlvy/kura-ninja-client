@@ -1,4 +1,7 @@
-import { useParams, Link, Navigate } from "react-router-dom";
+"use client";
+
+import { useParams, redirect } from "next/navigation";
+import Link from "next/link";
 import { projectsData } from "./Projects";
 import { SlArrowLeft, SlGlobe, SlLock, SlCheck } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
@@ -11,7 +14,8 @@ export default function ProjectDetail() {
     const project = projectsData.find((p) => p.slug === slug);
 
     if (!project) {
-        return <Navigate to="/projects" replace />;
+        redirect("/projects");
+        return null;
     }
 
     const statusColors = {
@@ -34,7 +38,7 @@ export default function ProjectDetail() {
             />
             {/* Back Button */}
             <div className="mb-8 pt-4">
-                <Link to="/projects" className="btn btn-ghost btn-sm gap-2 hover:bg-base-200">
+                <Link href="/projects" className="btn btn-ghost btn-sm gap-2 hover:bg-base-200">
                     <SlArrowLeft />
                     Back to Projects
                 </Link>
@@ -51,7 +55,7 @@ export default function ProjectDetail() {
                             {project.description}
                         </p>
                     </div>
-                    
+
                     <div className="flex flex-wrap gap-2 md:justify-end min-w-fit">
                         <div className={`badge ${statusColors[project.status]} badge-lg uppercase font-bold tracking-wide py-4 px-4`}>
                             {project.status}
@@ -68,10 +72,10 @@ export default function ProjectDetail() {
             {project.image && (
                 <figure className="rounded-2xl overflow-hidden mb-12 shadow-2xl ring-1 ring-base-content/10 bg-base-200 aspect-video relative group">
                     <div className="absolute inset-0 bg-gradient-to-t from-base-100/20 to-transparent pointer-events-none" />
-                    <img 
-                        src={project.image} 
-                        alt={project.title} 
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" 
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                 </figure>
             )}
@@ -88,7 +92,7 @@ export default function ProjectDetail() {
                             </h2>
                             <div className="grid gap-4">
                                 {project.details.map((detail, index) => (
-                                    <div 
+                                    <div
                                         key={index}
                                         className="card bg-base-200/50 hover:bg-base-200 transition-colors border-l-4 border-l-primary/20 hover:border-l-primary duration-300"
                                     >
@@ -109,7 +113,7 @@ export default function ProjectDetail() {
 
                 {/* Right Column: Meta Info */}
                 <div className="lg:col-span-1 space-y-8">
-                     {/* Tech Stack */}
+                    {/* Tech Stack */}
                     <div className="card bg-base-100 shadow-lg border border-base-200">
                         <div className="card-body p-6">
                             <h3 className="card-title text-xl font-bold mb-4 opacity-90">Tech Stack</h3>

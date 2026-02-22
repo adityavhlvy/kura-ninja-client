@@ -1,6 +1,9 @@
+"use client";
+
 import SEO from "../../components/SEO";
 import { SlBadge, SlLayers } from "react-icons/sl";
 import { FaLinkedin } from "react-icons/fa";
+
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";

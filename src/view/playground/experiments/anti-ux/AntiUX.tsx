@@ -1,4 +1,6 @@
-import { useState, useEffect } from "react";
+"use client";
+
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   RiVolumeUpLine,
@@ -150,9 +152,8 @@ const AntiUX = () => {
                     </span>
                   </div>
                   <button
-                    className={`btn btn-xs ${
-                      isRolling ? "btn-error" : "btn-success"
-                    } w-12`}
+                    className={`btn btn-xs ${isRolling ? "btn-error" : "btn-success"
+                      } w-12`}
                     onClick={toggleRoll}
                     disabled={phone.length >= 12 && !isRolling}
                   >

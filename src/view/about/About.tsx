@@ -1,3 +1,5 @@
+"use client";
+
 import SEO from "../../components/SEO";
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import {
@@ -6,6 +8,7 @@ import {
     SiNodedotjs, SiLaravel,
     SiPostgresql, SiDocker, SiFigma, SiGit
 } from "react-icons/si";
+
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
