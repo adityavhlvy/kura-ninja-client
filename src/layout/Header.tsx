@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { THEMES } from "../config/theme";
 import { SlArrowLeft, SlDoc, SlArrowDown, SlMenu } from "react-icons/sl";
@@ -9,7 +10,7 @@ interface HeaderProps {
 }
 
 export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
-  const location = useLocation();
+  const pathname = usePathname() || "";
   const [currentTheme, setCurrentTheme] = useState("senja");
 
   useEffect(() => {
@@ -67,7 +68,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         >
           {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
         </button>
-        <Link to="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-2">
+        <Link href="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-2">
           <span className="text-xl">🐢</span>
           <span className="font-bold text-base-content/80 hidden sm:inline">Kura Ninja</span>
         </Link>
@@ -76,7 +77,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         <div className="flex items-center gap-2 text-base-content text-xs md:text-sm font-mono opacity-70">
           <SlDoc size={16} className="shrink-0" />
           <span className="font-bold truncate max-w-[100px] md:max-w-none">
-            {getBreadcrumbs(location.pathname)}
+            {getBreadcrumbs(pathname)}
           </span>
         </div>
       </div>

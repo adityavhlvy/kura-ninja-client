@@ -1,14 +1,15 @@
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Breadcrumbs() {
-    const location = useLocation();
-    const pathnames = location.pathname.split('/').filter((x) => x);
+    const pathname = usePathname() || "";
+    const pathnames = pathname.split('/').filter((x) => x);
 
     return (
         <div className="text-sm breadcrumbs mb-4">
             <ul>
                 <li>
-                    <Link to="/">Home</Link>
+                    <Link href="/">Home</Link>
                 </li>
                 {pathnames.map((value, index) => {
                     const to = `/${pathnames.slice(0, index + 1).join('/')}`;
@@ -19,7 +20,7 @@ export default function Breadcrumbs() {
                             {isLast ? (
                                 <span className="capitalize">{value}</span>
                             ) : (
-                                <Link to={to} className="capitalize">{value}</Link>
+                                <Link href={to} className="capitalize">{value}</Link>
                             )}
                         </li>
                     );

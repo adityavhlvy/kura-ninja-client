@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     SlHome, SlFolder, SlUser, SlBadge, SlMagnifier,
@@ -24,7 +24,7 @@ interface CommandPaletteProps {
 export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
     const [search, setSearch] = useState('');
     const [selectedIndex, setSelectedIndex] = useState(0);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const commands: Command[] = useMemo(() => [
         {
@@ -32,7 +32,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Home',
             description: 'Go to homepage',
             icon: <SlHome />,
-            action: () => navigate('/'),
+            action: () => router.push('/'),
             keywords: ['home', 'beranda', 'main', 'start'],
             category: 'navigation',
         },
@@ -41,7 +41,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Projects',
             description: 'View quest log',
             icon: <SlFolder />,
-            action: () => navigate('/projects'),
+            action: () => router.push('/projects'),
             keywords: ['projects', 'quests', 'work', 'portfolio', 'quest log'],
             category: 'navigation',
         },
@@ -50,7 +50,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'About',
             description: 'Who is this person?',
             icon: <SlUser />,
-            action: () => navigate('/about'),
+            action: () => router.push('/about'),
             keywords: ['about', 'me', 'siapa', 'who', 'bio', 'journey'],
             category: 'navigation',
         },
@@ -59,7 +59,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Certifications',
             description: 'Achievements unlocked',
             icon: <SlBadge />,
-            action: () => navigate('/certifications'),
+            action: () => router.push('/certifications'),
             keywords: ['certifications', 'certs', 'badges', 'achievements'],
             category: 'navigation',
         },
@@ -68,7 +68,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Playground',
             description: 'Experiments & side quests',
             icon: <SlSettings />,
-            action: () => navigate('/playground'),
+            action: () => router.push('/playground'),
             keywords: ['playground', 'experiments', 'lab', 'side quests'],
             category: 'navigation',
         },
@@ -83,7 +83,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             keywords: ['sudo', 'hire', 'secret', 'easter', 'contact'],
             category: 'easter-egg',
         },
-    ], [navigate]);
+    ], [router]);
 
     const filteredCommands = useMemo(() => {
         if (!search) return commands.filter(c => c.category !== 'easter-egg');

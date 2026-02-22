@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { SlGlobe, SlLock, SlLink } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
 import {
@@ -101,7 +101,7 @@ export default function ProjectCard({
             whileHover={{ y: -5 }}
             className="card bg-base-200 shadow-xl overflow-hidden border border-base-300 hover:border-primary transition-all duration-300 flex flex-col h-full"
         >
-            <Link to={`/projects/${slug}`} className="block flex-grow">
+            <Link href={`/projects/${slug}`} className="block flex-grow">
                 {image && (
                     <figure className="h-48 w-full overflow-hidden relative group">
                         <img

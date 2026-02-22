@@ -1,4 +1,5 @@
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import {
   SlHome,
@@ -18,8 +19,8 @@ interface FileTreeSidebarProps {
 }
 
 function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
+  const pathname = usePathname() || "";
+  const isActive = (path: string) => pathname === path;
 
   const getLinkClass = (path: string) => {
     const baseClass = isCollapsed ? "justify-center" : "";
@@ -32,31 +33,31 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
   return (
     <ul className="menu bg-base-200 w-full h-full rounded-box">
       <li>
-        <Link to="/" className={getLinkClass("/")}>
+        <Link href="/" className={getLinkClass("/")}>
           <SlHome size={20} />
           {!isCollapsed && "Home"}
         </Link>
       </li>
       <li>
-        <Link to="/projects" className={getLinkClass("/projects")}>
+        <Link href="/projects" className={getLinkClass("/projects")}>
           <FiFolder size={20} />
           {!isCollapsed && "Projects"}
         </Link>
       </li>
       <li>
-        <Link to="/about" className={getLinkClass("/about")}>
+        <Link href="/about" className={getLinkClass("/about")}>
           <SlInfo size={20} />
           {!isCollapsed && "About"}
         </Link>
       </li>
       <li>
-        <Link to="/certifications" className={getLinkClass("/certifications")}>
+        <Link href="/certifications" className={getLinkClass("/certifications")}>
           <SlBadge size={20} />
           {!isCollapsed && "Certifications"}
         </Link>
       </li>
       <li>
-        <Link to="/design-system" className={getLinkClass("/design-system")}>
+        <Link href="/design-system" className={getLinkClass("/design-system")}>
           <SlLayers size={20} />
           {!isCollapsed && "Design System"}
         </Link>
@@ -156,10 +157,9 @@ const GlitchItem = ({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
     <li className="border-t border-error/20 mt-2">
       <Link
-        to="/playground"
-        className={`text-error font-mono font-bold bg-error/10 ${
-          isCollapsed ? "justify-center" : ""
-        }`}
+        href="/playground"
+        className={`text-error font-mono font-bold bg-error/10 ${isCollapsed ? "justify-center" : ""
+          }`}
         title="SYSTEM_FAILURE"
       >
         <span className="loading loading-xs text-error"></span>
