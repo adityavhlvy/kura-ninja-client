@@ -1,5 +1,6 @@
 import HomeView from "@/view/home/Home";
 import { Metadata } from 'next';
+import Script from 'next/script';
 
 export const metadata: Metadata = {
   title: "Aditya Vahlevy Nugraha - Fullstack Developer",
@@ -8,5 +9,29 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return <HomeView />;
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Aditya Vahlevy Nugraha',
+    alternateName: 'Kura Ninja',
+    url: 'https://kuraninja.vercel.app',
+    image: 'https://kuraninja.vercel.app/assets/profile.png',
+    sameAs: [
+      'https://www.linkedin.com/in/adityavahlevynugraha/',
+      'https://github.com/adityavhlvy',
+      'https://www.instagram.com/adityavhlvy/'
+    ],
+    jobTitle: 'Fullstack Developer',
+    worksFor: {
+      '@type': 'Organization',
+      name: 'PT Pupuk Indonesia (Persero)'
+    }
+  };
+
+  return (
+    <>
+      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <HomeView />
+    </>
+  );
 }

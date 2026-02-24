@@ -19,6 +19,28 @@ export const metadata: Metadata = {
   keywords: "Aditya Vahlevy Nugraha, Kura Ninja, Software Engineer, Web Developer, Portfolio, React, TypeScript, Go, Full Stack Developer",
   authors: [{ name: "Aditya Vahlevy Nugraha" }],
   formatDetection: { email: false, address: false, telephone: false },
+  openGraph: {
+    title: "Aditya Vahlevy Nugraha - Kura Ninja | Portfolio & Projects",
+    description: "Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja). Explore innovative web projects, software engineering skills, and creative works.",
+    url: "https://kuraninja.vercel.app",
+    siteName: "Kura Ninja Portfolio",
+    images: [
+      {
+        url: "/assets/profile.png",
+        width: 1200,
+        height: 630,
+        alt: "Aditya Vahlevy Nugraha Profile",
+      },
+    ],
+    locale: "id_ID",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Aditya Vahlevy Nugraha - Kura Ninja",
+    description: "Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja).",
+    images: ["/assets/profile.png"],
+  },
   icons: {
     icon: "/favicon.svg",
   },
