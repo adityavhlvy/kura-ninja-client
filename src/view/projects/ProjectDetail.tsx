@@ -7,7 +7,6 @@ import { SlArrowLeft, SlGlobe, SlLock, SlCheck } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
 
 import PageTransition from "../../components/PageTransition";
-import SEO from "../../components/SEO";
 
 export default function ProjectDetail() {
     const { slug } = useParams<{ slug: string }>();
@@ -29,13 +28,6 @@ export default function ProjectDetail() {
 
     return (
         <PageTransition className="container mx-auto max-w-5xl pb-32"> {/* Increased max-width and added pb-32 */}
-            <SEO
-                title={`${project.title} | Projects by Aditya Vahlevy Nugraha`}
-                description={project.description}
-                keywords={`Aditya Vahlevy Nugraha, Project, ${project.title}, ${project.techStack.join(', ')}`}
-                url={`https://kuraninja.vercel.app/projects/${project.slug}`}
-                image={project.image && !project.image.startsWith('http') ? `https://kuraninja.vercel.app${project.image}` : project.image}
-            />
             {/* Back Button */}
             <div className="mb-8 pt-4">
                 <Link href="/projects" className="btn btn-ghost btn-sm gap-2 hover:bg-base-200">

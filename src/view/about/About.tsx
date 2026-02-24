@@ -1,6 +1,5 @@
 "use client";
 
-import SEO from "../../components/SEO";
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import {
     SiPython, SiGo, SiJavascript, SiTypescript,
@@ -70,12 +69,6 @@ const skillsData: SkillCategory[] = [
 export default function About() {
     return (
         <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20 relative">
-            <SEO
-                title="About Aditya Vahlevy Nugraha | Software Engineer & Data Scientist"
-                description="Learn more about Aditya Vahlevy Nugraha (Kura Ninja). A Fullstack Developer and Data Science enthusiast with experience in Machine Learning, Web Development, and Project Management."
-                keywords="Aditya Vahlevy Nugraha, Kura Ninja, About Me, Software Engineer, Data Scientist, Resume, Experience, Education"
-                url="https://kuraninja.vercel.app/about"
-            />
 
             {/* Global Background Effects */}
             <BackgroundEffects />
@@ -91,23 +84,21 @@ export default function About() {
                     title="Who am I?"
                     description={
                         <div className="space-y-4">
-                            <p>
-                                Hey there! I'm <span className="font-bold text-primary">Aditya</span>.
-                                Computer Science grad from Universitas Pertamina (yes, with Cum Laude, but who's counting?) and currently a <span className="font-bold text-primary">Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
-                            </p>
+                            Hey there! I&apos;m <span className="font-bold text-primary">Aditya</span>.
+                            Computer Science grad from Universitas Pertamina (yes, with Cum Laude, but who&apos;s counting?) and currently a <span className="font-bold text-primary">Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
                             <p>
                                 Stuck somewhere in the fog between <span className="font-semibold text-secondary">Data Science</span> and <span className="font-semibold text-accent">Fullstack Dev</span>.
                                 Still trying to figure out which direction is forward. I code things, break things, fix things—repeat.
                             </p>
                             <p>
-                                When I'm not coding, I'm probably listening to music that's too loud, reading novels, or thinking about my next side project at 2am.
+                                When I&apos;m not coding, I&apos;m probably listening to music that&apos;s too loud, reading novels, or thinking about my next side project at 2am.
                             </p>
 
                             <div className="alert bg-base-200/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4 hover:bg-base-200 transition-colors">
                                 <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
                                 <div>
-                                    <h3 className="font-serif italic text-primary mb-0">"Not all those who wander are lost—but I definitely should've documented that function."</h3>
-                                    <div className="text-xs opacity-50">A reminder I probably should've taken earlier.</div>
+                                    <h3 className="font-serif italic text-primary mb-0">&quot;Not all those who wander are lost—but I definitely should&apos;ve documented that function.&quot;</h3>
+                                    <div className="text-xs opacity-50">A reminder I probably should&apos;ve taken earlier.</div>
                                 </div>
                             </div>
                         </div>

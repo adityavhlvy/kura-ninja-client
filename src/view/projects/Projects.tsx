@@ -1,11 +1,9 @@
 "use client";
 
-import SEO from "../../components/SEO";
 import ProjectCard, {
   type ProjectCardProps,
 } from "../../components/ProjectCard";
 
-import { useState, useMemo } from "react";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
@@ -373,12 +371,6 @@ export const projectsData: ProjectCardProps[] = [
 export default function Projects() {
   return (
     <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
-      <SEO
-        title="Projects by Aditya Vahlevy Nugraha | Web Dev, AI & ML Portfolio"
-        description="Explore the portfolio of Aditya Vahlevy Nugraha. Featuring projects in Fullstack Web Development (Next.js, Go, React) and Machine Learning (Deep Learning, NLP)."
-        keywords="Aditya Vahlevy Nugraha Projects, Portfolio, Web Development, Machine Learning, AI, Software Engineering, Case Studies"
-        url="https://kuraninja.vercel.app/projects"
-      />
 
       {/* Extended Background */}
       <BackgroundEffects />
@@ -388,7 +380,7 @@ export default function Projects() {
           title="My Work"
           description={
             <>
-              Here's a collection of what I've been building. From{" "}
+              Here&apos;s a collection of what I&apos;ve been building. From{" "}
               <span className="font-bold text-primary">
                 enterprise dashboards
               </span>{" "}

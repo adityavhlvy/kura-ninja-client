@@ -7,7 +7,6 @@ import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDCard from "../../components/ThreeDCard";
 import { projectsData } from "../projects/Projects";
-import SEO from "../../components/SEO";
 import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
@@ -36,11 +35,6 @@ export default function Home() {
 
     return (
         <PageTransition>
-            <SEO
-                title="Aditya Vahlevy Nugraha - Fullstack Developer"
-                description="Aditya Vahlevy Nugraha is a Fullstack Developer, Software Engineer, and Data Science Enthusiast based in Indonesia. Explore his projects and learn more about his work."
-                keywords="Aditya Vahlevy Nugraha, Fullstack Developer, Software Engineer, Data Science, Project Manager, Project Management, Beasiswa APERTI BUMN 2021, Jakarta, Dumai, Riau, Indonesia, SMAN PLUS Provinsi Riau, Golang, Go Fiber, Fiber, React, Next.js, Python, Portfolio"
-            />
 
             {/* Global Background Effects */}
             <BackgroundEffects />
@@ -83,7 +77,7 @@ export default function Home() {
                                                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
                                                     <span className="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
                                                 </span>
-                                                <span className="text-[10px] font-mono tracking-widest opacity-60 pl-1">// aktif jam 2 pagi</span>
+                                                <span className="text-[10px] font-mono tracking-widest opacity-60 pl-1">{"// aktif jam 2 pagi"}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -116,7 +110,7 @@ export default function Home() {
                             </p>
 
                             <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black tracking-tight leading-[0.9] text-base-content">
-                                Hi, I'm <br />
+                                Hi, I&apos;m <br />
                                 <span className="text-transparent bg-clip-text bg-linear-to-r from-primary via-info to-secondary">Aditya.</span>
                             </h1>
 
@@ -137,7 +131,7 @@ export default function Home() {
                         <motion.p variants={itemVariants} className="text-base md:text-lg leading-relaxed text-base-content/70 max-w-lg text-balance opacity-80">
                             I build things that <span className="font-bold text-base-content">(mostly) work</span>.
                             Currently teaching machines to understand <span className="font-bold text-primary">rice fields from space</span>.
-                            It's going... interestingly.
+                            It&apos;s going... interestingly.
                         </motion.p>
 
                         <motion.div variants={itemVariants} className="flex flex-wrap gap-4 pt-4">
