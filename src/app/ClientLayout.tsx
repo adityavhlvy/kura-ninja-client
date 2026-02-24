@@ -6,7 +6,6 @@ import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import FileTreeSidebar from "../components/FileTreeSidebar";
 import Background from "../components/Background";
-import { AnimatePresence, motion } from "framer-motion";
 import AtmosphereIndicator from "../components/AtmosphereIndicator";
 import ParticleField from "../components/ParticleField";
 import CommandPalette from "../components/CommandPalette";

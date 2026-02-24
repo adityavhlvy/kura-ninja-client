@@ -190,7 +190,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
                                 {filteredCommands.length === 0 ? (
                                     <div className="px-4 py-8 text-center text-base-content/50">
                                         <p>No commands found</p>
-                                        <p className="text-xs mt-1">Try "sudo hire-me" 😉</p>
+                                        <p className="text-xs mt-1">Try &quot;sudo hire-me&quot; 😉</p>
                                     </div>
                                 ) : (
                                     filteredCommands.map((cmd, index) => (

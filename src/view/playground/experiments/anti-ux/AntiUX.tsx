@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   RiVolumeUpLine,
@@ -85,7 +85,7 @@ const AntiUX = () => {
                 FATAL ERROR: Success
               </h2>
               <p className="opacity-70 text-xs">
-                We didn't expect anyone to get this far.
+                We didn&apos;t expect anyone to get this far.
               </p>
               <button
                 onClick={() => {

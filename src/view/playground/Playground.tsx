@@ -40,7 +40,7 @@ const Playground = () => {
             className="text-xl text-neutral-400 leading-relaxed"
           >
             A collection of weird experiments, absurd interfaces, and code that
-            probably shouldn't exist. Proceed with curiosity.
+            probably shouldn&apos;t exist. Proceed with curiosity.
           </motion.p>
         </div>
 
