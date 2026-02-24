@@ -29,7 +29,7 @@ export default function AtmosphereIndicator() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 1 }}
-            className="fixed top-20 right-4 z-40 hidden md:block"
+            className="fixed top-20 right-4 z-30 hidden md:block"
         >
             <div className="group relative">
                 {/* Main indicator */}
