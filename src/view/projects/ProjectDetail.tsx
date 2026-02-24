@@ -2,7 +2,7 @@
 
 import { useParams, redirect } from "next/navigation";
 import Link from "next/link";
-import { projectsData } from "./Projects";
+import { projectsData } from "../../data/projects";
 import { SlArrowLeft, SlGlobe, SlLock, SlCheck } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
 

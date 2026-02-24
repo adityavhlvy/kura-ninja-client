@@ -1,6 +1,6 @@
 import ProjectDetailView from "@/view/projects/ProjectDetail";
 import { Metadata } from 'next';
-import { projectsData } from "@/view/projects/Projects";
+import { projectsData } from "@/data/projects";
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
     const project = projectsData.find((p) => p.slug === params.slug);

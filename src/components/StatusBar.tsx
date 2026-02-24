@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useTime } from '../context/TimeContext';
-import { projectsData } from '../view/projects/Projects';
+import { projectsData } from '../data/projects';
 
 // Calculate "stats" based on real data
 function useCharacterStats() {

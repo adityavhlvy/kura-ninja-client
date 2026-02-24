@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import ThreeDCard from "../../components/ThreeDCard";
-import { projectsData } from "../projects/Projects";
+import { projectsData } from "../../data/projects";
 import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
