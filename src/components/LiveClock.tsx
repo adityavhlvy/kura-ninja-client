@@ -20,7 +20,7 @@ export default function LiveClock() {
     }
 
     return (
-        <span suppressHydrationWarning>
+        <span>
             {time.toLocaleTimeString([], { hour12: false })}
         </span>
     );

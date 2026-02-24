@@ -97,18 +97,37 @@ function formatTime(hour: number, minute: number): string {
     return `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
 }
 
+const TIMEZONE = 'Asia/Jakarta';
+
+const hourFormatter = new Intl.DateTimeFormat('en-GB', {
+    hour: 'numeric',
+    hour12: false,
+    timeZone: TIMEZONE,
+});
+
+const minuteFormatter = new Intl.DateTimeFormat('en-GB', {
+    minute: 'numeric',
+    timeZone: TIMEZONE,
+});
+
 const TimeContext = createContext<TimeContextType | null>(null);
 
 export function TimeProvider({ children }: { children: ReactNode }) {
     const [time, setTime] = useState(() => {
         const now = new Date();
-        return { hour: now.getHours(), minute: now.getMinutes() };
+        return {
+            hour: parseInt(hourFormatter.format(now)),
+            minute: parseInt(minuteFormatter.format(now))
+        };
     });
 
     useEffect(() => {
         const updateTime = () => {
             const now = new Date();
-            setTime({ hour: now.getHours(), minute: now.getMinutes() });
+            setTime({
+                hour: parseInt(hourFormatter.format(now)),
+                minute: parseInt(minuteFormatter.format(now))
+            });
         };
 
         // Update every minute

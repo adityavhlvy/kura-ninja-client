@@ -19,6 +19,9 @@ export const metadata: Metadata = {
   keywords: "Aditya Vahlevy Nugraha, Kura Ninja, Software Engineer, Web Developer, Portfolio, React, TypeScript, Go, Full Stack Developer",
   authors: [{ name: "Aditya Vahlevy Nugraha" }],
   formatDetection: { email: false, address: false, telephone: false },
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
@@ -27,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ClientLayout>{children}</ClientLayout>
       </body>
