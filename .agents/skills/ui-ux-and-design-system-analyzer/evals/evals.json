@@ -1,0 +1,26 @@
+{
+  "skill_name": "ui-ux-design-system-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "name": "no-design-system",
+      "prompt": "I have a React app I've been building for months and the CSS is a complete mess — I have like 6 different shades of blue all hardcoded, the spacing is random everywhere, and I think I have 3 different font sizes for body text. Can you audit my UI and tell me where to start?",
+      "expected_output": "Structured audit report with a Health Score, at least one CRITICAL finding around hardcoded colors and inconsistent spacing, a priority recommendation list, and a follow-up question asking for constraints before proceeding.",
+      "files": ["examples/no-design-system/styles.css", "examples/no-design-system/App.jsx"]
+    },
+    {
+      "id": 2,
+      "name": "partial-system",
+      "prompt": "We have a partial design system — colors are done but spacing is inconsistent and our button component is missing hover and disabled states. Please audit what we have and propose a plan to finish the system.",
+      "expected_output": "Audit that correctly identifies good color work, calls out spacing issues as WARNING, and flags missing button states as CRITICAL. Proposal should include token completion plan and before/after button variants.",
+      "files": ["examples/partial-system/tokens.css", "examples/partial-system/Button.jsx"]
+    },
+    {
+      "id": 3,
+      "name": "accessibility-check",
+      "prompt": "My designer picked this color scheme: white text (#ffffff) on a medium blue (#4a90e2) for body copy, and light gray (#f0f0f0) text on white (#ffffff) for secondary labels. Does this pass accessibility standards?",
+      "expected_output": "Contrast ratio calculations for both pairs, clear WCAG AA/AAA pass/fail status, and specific hex alternatives if a pair fails — without overhauling the whole design.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DesignSystemAudit",
+  "description": "Schema for the audit JSON file consumed by score_calculator.py and token_generator.py",
+  "type": "object",
+  "required": ["project_name", "color_system", "typography", "spacing_layout", "component_consistency", "accessibility_motion"],
+  "properties": {
+    "project_name": {
+      "type": "string",
+      "description": "Human-readable name of the project being audited"
+    },
+    "version": {
+      "type": "string",
+      "description": "Version tag for this audit snapshot",
+      "default": "1.0.0"
+    },
+    "audited_at": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of audit in YYYY-MM-DD format"
+    },
+    "color_system": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "maximum": 100 },
+        {
+          "type": "object",
+          "required": ["score"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "notes": { "type": "string" },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ],
+      "description": "Score for the color system category (0–100), or an object with score + notes"
+    },
+    "typography": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "maximum": 100 },
+        {
+          "type": "object",
+          "required": ["score"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "notes": { "type": "string" },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "spacing_layout": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "maximum": 100 },
+        {
+          "type": "object",
+          "required": ["score"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "notes": { "type": "string" },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "component_consistency": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "maximum": 100 },
+        {
+          "type": "object",
+          "required": ["score"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "notes": { "type": "string" },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "accessibility_motion": {
+      "oneOf": [
+        { "type": "number", "minimum": 0, "maximum": 100 },
+        {
+          "type": "object",
+          "required": ["score"],
+          "properties": {
+            "score": { "type": "number", "minimum": 0, "maximum": 100 },
+            "notes": { "type": "string" },
+            "issues": { "type": "array", "items": { "type": "string" } }
+          }
+        }
+      ]
+    },
+    "tokens": {
+      "type": "object",
+      "description": "Optional token config consumed by token_generator.py",
+      "properties": {
+        "colors":     { "type": "object" },
+        "typography": { "type": "object" },
+        "spacing":    { "type": "object" },
+        "radius":     { "type": "object" },
+        "shadows":    { "type": "object" },
+        "motion":     { "type": "object" }
+      }
+    }
+  }
+}
