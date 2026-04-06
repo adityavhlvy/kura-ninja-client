@@ -1,3 +1,5 @@
+"use client";
+
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
@@ -12,6 +14,8 @@ import {
 } from "react-icons/si";
 import { FaDatabase, FaRobot, FaBrain, FaChartBar, FaCode, FaLeaf, FaCloudSun, FaPencilRuler } from "react-icons/fa";
 import { MdOutlineTranslate } from "react-icons/md";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 export interface ProjectLink {
     label: string;
@@ -26,6 +30,11 @@ export interface ProjectCardProps {
     techStack: string[];
     links: ProjectLink[];
     image?: string;
+    images?: string[];
+    rationale?: string;
+    competencies?: string[];
+    technicalChallenges?: string[];
+    readiness?: { tests: number; docs: number; quality: number };
     status: 'completed' | 'in-progress' | 'archived' | 'active';
     visibility: 'public' | 'private';
     date: string;
@@ -85,87 +94,91 @@ export default function ProjectCard({
     techStack,
     links,
     image,
+    images,
     status,
     visibility,
     date
 }: ProjectCardProps) {
-    const statusColors = {
-        'completed': 'badge-success',
-        'in-progress': 'badge-warning',
-        'archived': 'badge-ghost',
-        'active': 'badge-success'
-    };
+    const displayImage = image || (images && images.length > 0 ? images[0] : undefined);
+    const statusVariants = {
+        'completed': 'success',
+        'active': 'success',
+        'in-progress': 'warning',
+        'archived': 'secondary',
+    } as const;
 
     return (
         <motion.div
-            whileHover={{ y: -5 }}
-            className="card bg-base-200 shadow-xl overflow-hidden border border-base-300 hover:border-primary transition-all duration-300 flex flex-col h-full"
+            whileHover={{ y: -2 }}
+            className="group flex flex-col h-full bg-zinc-900/20 backdrop-blur-sm border border-white/5 hover:border-primary/50 rounded-sm overflow-hidden transition-all duration-500"
         >
             <Link href={`/projects/${slug}`} className="block flex-grow">
-                {image && (
-                    <figure className="h-48 w-full overflow-hidden relative group">
+                {displayImage && (
+                    <div className="h-48 w-full overflow-hidden relative border-b border-white/5">
                         <img
-                            src={image}
+                            src={displayImage}
                             alt={title}
-                            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                            className="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100"
                         />
-                        <div className="absolute top-2 right-2 flex gap-1">
-                            <div className={`badge ${statusColors[status]} badge-sm uppercase font-semibold text-[10px] shadow-md`}>
+                        <div className="absolute top-3 right-3 flex gap-2">
+                            <Badge variant={statusVariants[status]} className="uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-black/60 backdrop-blur-md border-white/10">
                                 {status}
-                            </div>
-                            <div className="badge badge-neutral badge-sm gap-1 uppercase font-semibold text-[10px] shadow-md">
+                            </Badge>
+                            <Badge variant="outline" className="gap-1 uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-black/60 backdrop-blur-md border-white/10 text-white/60">
                                 {visibility === 'public' ? <SlGlobe size={10} /> : <SlLock size={10} />}
                                 {visibility}
-                            </div>
+                            </Badge>
                         </div>
-                    </figure>
+                    </div>
                 )}
-                <div className="card-body p-5">
-                    <div className="flex justify-between items-baseline gap-2 mb-2">
-                        <h2 className="card-title text-lg font-bold leading-tight group-hover:text-primary transition-colors">
+                <div className="p-6 flex flex-col h-full">
+                    <div className="flex justify-between items-start gap-4 mb-4">
+                        <h2 className="text-xl font-mono font-bold leading-tight group-hover:text-primary transition-colors uppercase tracking-tight">
                             {title}
                         </h2>
-                        <span className="text-xs font-mono text-base-content/50 shrink-0">{date}</span>
+                        <span className="text-[10px] font-mono text-white/30 shrink-0 mt-1 uppercase tracking-widest">{date}</span>
                     </div>
 
-                    <p className="text-sm text-base-content/70 mb-4 line-clamp-3">
+                    <p className="text-sm text-zinc-400 mb-6 line-clamp-3 leading-relaxed">
                         {description}
                     </p>
 
-                    <div className="flex flex-wrap gap-2 mt-auto">
+                    <div className="flex flex-wrap gap-1.5 mt-auto">
                         {techStack.slice(0, 5).map((tech, index) => (
-                            <span key={index} className="badge badge-outline badge-sm font-mono opacity-80 gap-1.5 pl-1.5 pr-2 py-2.5">
-                                <span className="text-base-content/70 text-xs">
-                                    {getTechIcon(tech)}
-                                </span>
+                            <Badge key={index} variant="outline" className="font-mono text-[10px] uppercase border-white/5 py-0 px-2 bg-white/5 text-zinc-500 group-hover:text-primary/70 transition-colors">
                                 {tech}
-                            </span>
+                            </Badge>
                         ))}
                         {techStack.length > 5 && (
-                            <span className="badge badge-outline badge-sm font-mono opacity-60 py-2.5">+{techStack.length - 5}</span>
+                            <Badge variant="outline" className="font-mono text-[10px] border-white/5 bg-white/5 text-zinc-600">+{techStack.length - 5}</Badge>
                         )}
                     </div>
                 </div>
             </Link>
 
             {links.length > 0 && (
-                <div className="p-4 pt-0 mt-auto border-t border-base-300/50 bg-base-200/50">
+                <div className="p-4 pt-0 mt-auto border-t border-border/50 bg-muted/30">
                     <div className="flex justify-end gap-2 pt-3">
                         {links.map((link, index) => {
                             const isPrivate = visibility === 'private';
                             return (
-                                <a
+                                <Button
                                     key={index}
-                                    href={isPrivate ? undefined : link.url}
-                                    target={isPrivate ? undefined : "_blank"}
-                                    rel={isPrivate ? undefined : "noopener noreferrer"}
-                                    className={`btn btn-xs btn-ghost gap-2 ${isPrivate ? 'btn-disabled opacity-50 cursor-not-allowed' : ''}`}
-                                    aria-disabled={isPrivate}
+                                    variant="ghost"
+                                    size="sm"
+                                    asChild
+                                    className={`h-7 px-2 gap-2 text-xs ${isPrivate ? 'pointer-events-none opacity-50' : ''}`}
                                     onClick={(e) => e.stopPropagation()}
                                 >
-                                    {link.icon || (link.url.includes('github') ? <VscGithub /> : <SlLink />)}
-                                    {link.label}
-                                </a>
+                                    <a
+                                        href={isPrivate ? undefined : link.url}
+                                        target={isPrivate ? undefined : "_blank"}
+                                        rel={isPrivate ? undefined : "noopener noreferrer"}
+                                    >
+                                        {link.icon || (link.url.includes('github') ? <VscGithub /> : <SlLink />)}
+                                        {link.label}
+                                    </a>
+                                </Button>
                             );
                         })}
                     </div>

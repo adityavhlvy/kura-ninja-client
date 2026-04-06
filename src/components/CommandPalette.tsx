@@ -1,10 +1,18 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
 import {
     SlHome, SlFolder, SlUser, SlBadge, SlMagnifier,
     SlArrowRight, SlSettings, SlQuestion
 } from 'react-icons/sl';
+import {
+    CommandDialog,
+    CommandEmpty,
+    CommandGroup,
+    CommandInput,
+    CommandItem,
+    CommandList,
+    CommandSeparator,
+} from "@/components/ui/command";
 
 interface Command {
     id: string;
@@ -22,8 +30,6 @@ interface CommandPaletteProps {
 }
 
 export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
-    const [search, setSearch] = useState('');
-    const [selectedIndex, setSelectedIndex] = useState(0);
     const router = useRouter();
 
     const commands: Command[] = useMemo(() => [
@@ -85,152 +91,70 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
         },
     ], [router]);
 
-    const filteredCommands = useMemo(() => {
-        if (!search) return commands.filter(c => c.category !== 'easter-egg');
-
-        const query = search.toLowerCase();
-        return commands.filter(cmd =>
-            cmd.label.toLowerCase().includes(query) ||
-            cmd.keywords.some(k => k.includes(query))
-        );
-    }, [search, commands]);
-
     const executeCommand = useCallback((command: Command) => {
         command.action();
         onClose();
-        setSearch('');
     }, [onClose]);
 
-    // Keyboard navigation
-    useEffect(() => {
-        if (!isOpen) return;
-
-        const handleKeyDown = (e: KeyboardEvent) => {
-            switch (e.key) {
-                case 'ArrowDown':
-                    e.preventDefault();
-                    setSelectedIndex(prev =>
-                        prev < filteredCommands.length - 1 ? prev + 1 : 0
-                    );
-                    break;
-                case 'ArrowUp':
-                    e.preventDefault();
-                    setSelectedIndex(prev =>
-                        prev > 0 ? prev - 1 : filteredCommands.length - 1
-                    );
-                    break;
-                case 'Enter':
-                    e.preventDefault();
-                    if (filteredCommands[selectedIndex]) {
-                        executeCommand(filteredCommands[selectedIndex]);
-                    }
-                    break;
-                case 'Escape':
-                    e.preventDefault();
-                    onClose();
-                    break;
-            }
-        };
-
-        window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
-    }, [isOpen, filteredCommands, selectedIndex, executeCommand, onClose]);
-
-    // Reset selection when search changes
-    useEffect(() => {
-        setSelectedIndex(0);
-    }, [search]);
-
-    // Reset when closed
-    useEffect(() => {
-        if (!isOpen) {
-            setSearch('');
-            setSelectedIndex(0);
-        }
-    }, [isOpen]);
-
     return (
-        <AnimatePresence>
-            {isOpen && (
-                <>
-                    {/* Backdrop */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        onClick={onClose}
-                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50"
-                    />
-
-                    {/* Palette */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: -20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        exit={{ opacity: 0, scale: 0.95, y: -20 }}
-                        transition={{ duration: 0.15 }}
-                        className="fixed top-[20%] left-1/2 -translate-x-1/2 w-full max-w-lg z-50"
-                    >
-                        <div className="bg-base-200 border border-base-content/10 rounded-xl shadow-2xl overflow-hidden">
-                            {/* Search Input */}
-                            <div className="flex items-center gap-3 px-4 py-3 border-b border-base-content/10">
-                                <SlMagnifier className="text-base-content/50" />
-                                <input
-                                    type="text"
-                                    placeholder="Type a command or search..."
-                                    value={search}
-                                    onChange={(e) => setSearch(e.target.value)}
-                                    autoFocus
-                                    className="flex-1 bg-transparent outline-none text-base-content placeholder:text-base-content/40"
-                                />
-                                <kbd className="kbd kbd-sm opacity-50">esc</kbd>
-                            </div>
-
-                            {/* Commands List */}
-                            <div className="max-h-80 overflow-y-auto p-2">
-                                {filteredCommands.length === 0 ? (
-                                    <div className="px-4 py-8 text-center text-base-content/50">
-                                        <p>No commands found</p>
-                                        <p className="text-xs mt-1">Try &quot;sudo hire-me&quot; 😉</p>
-                                    </div>
-                                ) : (
-                                    filteredCommands.map((cmd, index) => (
-                                        <button
-                                            key={cmd.id}
-                                            onClick={() => executeCommand(cmd)}
-                                            className={`
-                        w-full flex items-center gap-3 px-3 py-2.5 rounded-lg
-                        text-left transition-colors duration-150
-                        ${index === selectedIndex
-                                                    ? 'bg-primary/20 text-primary'
-                                                    : 'hover:bg-base-300 text-base-content'
-                                                }
-                      `}
-                                        >
-                                            <span className="text-lg opacity-70">{cmd.icon}</span>
-                                            <div className="flex-1 min-w-0">
-                                                <div className="font-medium truncate">{cmd.label}</div>
-                                                {cmd.description && (
-                                                    <div className="text-xs opacity-50 truncate">{cmd.description}</div>
-                                                )}
-                                            </div>
-                                            <SlArrowRight className={`
-                        opacity-0 transition-opacity
-                        ${index === selectedIndex ? 'opacity-50' : ''}
-                      `} />
-                                        </button>
-                                    ))
+        <CommandDialog 
+            open={isOpen} 
+            onOpenChange={(open) => !open && onClose()}
+            className="bg-card border-border shadow-2xl"
+        >
+            <CommandInput placeholder="Type a command or search..." />
+            <CommandList className="max-h-80">
+                <CommandEmpty>
+                    <div className="py-6 text-center">
+                        <p className="text-foreground/50">No commands found</p>
+                        <p className="text-xs mt-1 text-foreground/30">Try &quot;sudo hire-me&quot; 😉</p>
+                    </div>
+                </CommandEmpty>
+                
+                <CommandGroup heading="Navigation">
+                    {commands.filter(c => c.category === 'navigation').map((cmd) => (
+                        <CommandItem
+                            key={cmd.id}
+                            onSelect={() => executeCommand(cmd)}
+                            className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
+                        >
+                            <span className="text-lg opacity-70">{cmd.icon}</span>
+                            <div className="flex-1 min-w-0">
+                                <div className="font-medium truncate">{cmd.label}</div>
+                                {cmd.description && (
+                                    <div className="text-xs opacity-50 truncate">{cmd.description}</div>
                                 )}
                             </div>
-
-                            {/* Footer hint */}
-                            <div className="px-4 py-2 border-t border-base-content/10 flex items-center gap-4 text-xs text-base-content/40">
-                                <span><kbd className="kbd kbd-xs">↑</kbd> <kbd className="kbd kbd-xs">↓</kbd> navigate</span>
-                                <span><kbd className="kbd kbd-xs">↵</kbd> select</span>
+                            <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
+                        </CommandItem>
+                    ))}
+                </CommandGroup>
+                
+                <CommandSeparator />
+                
+                <CommandGroup heading="Actions">
+                    {commands.filter(c => c.category === 'easter-egg' || c.category === 'action').map((cmd) => (
+                        <CommandItem
+                            key={cmd.id}
+                            onSelect={() => executeCommand(cmd)}
+                            className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
+                        >
+                            <span className="text-lg opacity-70">{cmd.icon}</span>
+                            <div className="flex-1 min-w-0">
+                                <div className="font-medium truncate">{cmd.label}</div>
+                                {cmd.description && (
+                                    <div className="text-xs opacity-50 truncate">{cmd.description}</div>
+                                )}
                             </div>
-                        </div>
-                    </motion.div>
-                </>
-            )}
-        </AnimatePresence>
+                            <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
+                        </CommandItem>
+                    ))}
+                </CommandGroup>
+            </CommandList>
+            <div className="px-4 py-2 border-t border-border/50 flex items-center gap-4 text-[10px] text-foreground/40 font-mono">
+                <span><kbd className="px-1 py-0.5 rounded border border-border bg-muted">↑</kbd> <kbd className="px-1 py-0.5 rounded border border-border bg-muted">↓</kbd> navigate</span>
+                <span><kbd className="px-1 py-0.5 rounded border border-border bg-muted">↵</kbd> select</span>
+            </div>
+        </CommandDialog>
     );
 }

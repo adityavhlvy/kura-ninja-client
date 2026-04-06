@@ -11,7 +11,6 @@ export default function FooterSpotify() {
       if (document.hidden) return;
       getNowPlayingItem()
         .then((data) => {
-          // console.log("Spotify Data:", data); // Debug log
           if (data) {
             setResult(data);
           }
@@ -21,7 +20,7 @@ export default function FooterSpotify() {
     };
 
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 30000); // 30 seconds for Spotify
 
     return () => clearInterval(interval);
   }, []);
@@ -30,7 +29,7 @@ export default function FooterSpotify() {
     return (
       <div className="flex items-center gap-2 animate-pulse">
         <SlSocialSpotify />
-        <span>Loading Spotify...</span>
+        <span>Loading Music...</span>
       </div>
     );
   }

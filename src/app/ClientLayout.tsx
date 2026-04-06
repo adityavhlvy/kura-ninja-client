@@ -13,6 +13,7 @@ import FeatureHints from "../components/FeatureHints";
 import { TimeProvider } from "../context/TimeContext";
 import { initEasterEggs } from "../utils/easterEggs";
 import InitialLoader from "../components/InitialLoader";
+import AccessibilityWidget from "../components/AccessibilityWidget";
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -93,7 +94,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                                 : "relative"
                             }
                           ${isSidebarOpen ? "w-64" : isMobile ? "w-0" : "w-20"} 
-                          border-r bg-base-200/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
+                          border-r bg-muted/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
                       `}
                     >
                         <div className={isMobile ? "h-full w-64" : "h-full"}>
@@ -103,7 +104,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                         </div>
                     </aside>
 
-                    <main className="flex-1 p-0 overflow-y-auto bg-base-100/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
+                    <main className="flex-1 p-0 overflow-y-auto bg-background/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
                         <div className="w-full h-full">
                             {children}
                         </div>
@@ -119,6 +120,9 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
                 {/* Feature Hints */}
                 <FeatureHints />
+
+                {/* Accessibility */}
+                <AccessibilityWidget />
             </div>
         </TimeProvider>
     );

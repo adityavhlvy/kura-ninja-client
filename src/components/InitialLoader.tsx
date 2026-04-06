@@ -30,7 +30,7 @@ export default function InitialLoader({ onComplete }: { onComplete: () => void }
                 initial={{ opacity: 1 }}
                 exit={{ opacity: 0, scale: 1.05, filter: "blur(10px)" }}
                 transition={{ duration: 0.8, ease: "easeInOut" }}
-                className="fixed inset-0 z-[100] bg-base-300 flex flex-col items-center justify-center overflow-hidden"
+                className="fixed inset-0 z-[100] bg-background flex flex-col items-center justify-center overflow-hidden"
             >
                 {/* Background ambient glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40vw] h-[40vw] bg-primary/20 rounded-full blur-[100px] animate-pulse"></div>
@@ -44,7 +44,7 @@ export default function InitialLoader({ onComplete }: { onComplete: () => void }
                     >
                         <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full scale-150 animate-pulse"></div>
                         <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary via-secondary to-accent p-[2px] shadow-2xl relative shadow-primary/30">
-                            <div className="w-full h-full bg-base-300/90 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                            <div className="w-full h-full bg-background/90 backdrop-blur-sm rounded-xl flex items-center justify-center">
                                 <SlLayers className="w-10 h-10 text-primary" />
                             </div>
                         </div>
@@ -56,7 +56,7 @@ export default function InitialLoader({ onComplete }: { onComplete: () => void }
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
-                                className="text-base-content/50"
+                                className="text-foreground/50"
                             >
                                 Initializing
                             </motion.span>
@@ -71,7 +71,7 @@ export default function InitialLoader({ onComplete }: { onComplete: () => void }
                         </div>
 
                         {/* Progress Bar Container */}
-                        <div className="h-1.5 w-full bg-base-content/10 rounded-full overflow-hidden relative">
+                        <div className="h-1.5 w-full bg-foreground/10 rounded-full overflow-hidden relative">
                             {/* Shimmer effect behind progress */}
                             <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full animate-[shimmer_2s_infinite]"></div>
 

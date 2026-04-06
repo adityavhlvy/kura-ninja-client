@@ -34,14 +34,14 @@ export default function AtmosphereIndicator() {
             <div className="group relative">
                 {/* Main indicator */}
                 <div className={`
-          flex items-center gap-2 px-3 py-1.5 
-          bg-base-200/80 backdrop-blur-md 
-          border border-base-content/10 
-          rounded-full shadow-lg
-          hover:border-primary/30 
-          transition-all duration-300
-          cursor-default
-        `}>
+                  flex items-center gap-2 px-3 py-1.5 
+                  bg-card/80 backdrop-blur-md 
+                  border border-border/50 
+                  rounded-full shadow-lg
+                  hover:border-primary/30 
+                  transition-all duration-300
+                  cursor-default
+                `}>
                     <span className="text-sm">{theme.emoji}</span>
                     <span className={`text-xs font-mono ${theme.primaryColor}`}>
                         {formattedTime}
@@ -50,26 +50,26 @@ export default function AtmosphereIndicator() {
 
                 {/* Tooltip on hover */}
                 <div className={`
-          absolute right-0 top-full mt-2 
-          px-3 py-2 
-          bg-base-300/95 backdrop-blur-md 
-          border border-base-content/10 
-          rounded-lg shadow-xl
-          opacity-0 group-hover:opacity-100 
-          translate-y-1 group-hover:translate-y-0
-          pointer-events-none
-          transition-all duration-300
-          whitespace-nowrap
-          min-w-[180px]
-        `}>
+                  absolute right-0 top-full mt-2 
+                  px-3 py-2 
+                  bg-card/95 backdrop-blur-md 
+                  border border-border/50 
+                  rounded-lg shadow-xl
+                  opacity-0 group-hover:opacity-100 
+                  translate-y-1 group-hover:translate-y-0
+                  pointer-events-none
+                  transition-all duration-300
+                  whitespace-nowrap
+                  min-w-[180px]
+                `}>
                     <div className={`text-sm font-medium ${theme.primaryColor}`}>
                         {theme.label} Mode
                     </div>
-                    <div className="text-xs text-base-content/60 font-mono mt-0.5">
+                    <div className="text-xs text-foreground/60 font-mono mt-0.5">
                         {flexText}
                     </div>
-                    <div className="border-t border-base-content/10 mt-2 pt-2">
-                        <div className="text-[10px] text-base-content/50">
+                    <div className="border-t border-border/50 mt-2 pt-2">
+                        <div className="text-[10px] text-foreground/50">
                             {getTimeTip()}
                         </div>
                     </div>

@@ -1,203 +1,236 @@
 @import "tailwindcss";
 
-@plugin "daisyui" {
-  themes: senja, dark, dracula;
+@plugin "tailwindcss-animate";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* ========================================
-   SENJA THEME - Custom DaisyUI Theme
+   THEME PALETTE - Senja Aesthetics
    Inspired by: Skyrim mist, Witcher mystery, RDR warmth
    ======================================== */
 
-@theme senja {
-  --color-primary: #4a6fa5;
-  --color-primary-content: #e8e6e3;
-  --color-secondary: #6b4c8a;
-  --color-secondary-content: #e8e6e3;
-  --color-accent: #c17f59;
-  --color-accent-content: #0a0a0f;
-  --color-neutral: #1a1a24;
-  --color-neutral-content: #8a8a9a;
-  --color-base-100: #0a0a0f;
-  --color-base-200: #121218;
-  --color-base-300: #1a1a24;
-  --color-base-content: #e8e6e3;
-  --color-info: #6b8cce;
-  --color-info-content: #0a0a0f;
-  --color-success: #4a6fa5;
-  --color-success-content: #e8e6e3;
-  --color-warning: #e8a87c;
-  --color-warning-content: #0a0a0f;
-  --color-error: #a86b4d;
-  --color-error-content: #e8e6e3;
+/* ========================================
+   CUSTOM PROPERTIES - IDE Aesthetics
+   ======================================== */
+
+/* ========================================
+   CUSTOM PROPERTIES - Theme Master
+   ======================================== */
+
+:root, [data-theme="senja"] {
+  --background: #09090b; /* Zinc 950 */
+  --foreground: #fafafa; /* Zinc 50 */
+  --card: #09090b;
+  --card-foreground: #fafafa;
+  --popover: #09090b;
+  --popover-foreground: #fafafa;
+  --primary: #ffb000; /* Terminal Amber */
+  --primary-foreground: #000000;
+  --secondary: #d97706; /* Darker Amber for contrast */
+  --secondary-foreground: #ffffff;
+  --muted: #18181b; /* Zinc 900 */
+  --muted-foreground: #a1a1aa; /* Zinc 400 */
+  --accent: #ffb000;
+  --accent-foreground: #000000;
+  --destructive: #ef4444;
+  --destructive-foreground: #fafafa;
+  --success: #22c55e;
+  --success-foreground: #000000;
+  --warning: #f59e0b;
+  --warning-foreground: #000000;
+  --border: #27272a; /* Zinc 800 */
+  --input: #18181b;
+  --ring: #ffb000;
+  --radius: 0.25rem; /* Sharper radius for more "engineered" feel */
+
+  --ide-bg: #09090b;
+  --ide-sidebar: #050505;
+  --ide-border: #18181b;
+  --ide-line-highlight: #0c0c0e;
+  --ide-comment: #52525b;
+  --ide-selection: #3f3f46;
+  
+  --transition-premium: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+[data-theme="fajar"] {
+  --background: #f8fafc; /* Slate 50 */
+  --foreground: #0f172a; /* Slate 900 */
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --primary: #2563eb; /* Blue 600 */
+  --primary-foreground: #ffffff;
+  --secondary: #4f46e5; /* Indigo 600 */
+  --secondary-foreground: #ffffff;
+  --muted: #e2e8f0; /* Slate 200 */
+  --muted-foreground: #475569; /* Slate 600 - Good contrast on light */
+  --accent: #d97706; /* Amber 600 */
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626; /* Red 600 */
+  --destructive-foreground: #ffffff;
+  --success: #059669; /* Emerald 600 */
+  --success-foreground: #ffffff;
+  --warning: #d97706; /* Amber 600 */
+  --warning-foreground: #ffffff;
+  --border: #cbd5e1; /* Slate 300 */
+  --input: #cbd5e1;
+  --ring: #2563eb;
+  --radius: 0.5rem;
+
+  --ide-bg: #f8fafc;
+  --ide-sidebar: #f1f5f9;
+  --ide-border: #cbd5e1;
+  --ide-line-highlight: #e2e8f0;
+  --ide-comment: #64748b;
+  --ide-selection: #bfdbfe;
+  
+  --transition-premium: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Typography Overrides */
+html {
+  background-color: var(--ide-bg);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-bricolage), sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 800;
+}
+
+body {
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-geist-mono), 'JetBrains Mono', monospace;
 }
 
 /* ========================================
-   CUSTOM PROPERTIES - Extended Palette
+   IDE WINDOW COMPONENTS
    ======================================== */
 
-:root {
-  /* Extended Senja colors */
-  --senja-void: #0a0a0f;
-  --senja-night: #121218;
-  --senja-dusk: #1a1a24;
-  --senja-mist: #4a6fa5;
-  --senja-frost: #6b8cce;
-  --senja-ice: #a8c5e2;
-  --senja-omen: #3d2a5c;
-  --senja-elixir: #6b4c8a;
-  --senja-sign: #9d7cbf;
-  --senja-ember: #c17f59;
-  --senja-lantern: #e8a87c;
-  --senja-smoke: #8a8a9a;
-  --senja-bone: #e8e6e3;
-
-  /* Transition timing */
-  --transition-senja: 400ms cubic-bezier(0.4, 0, 0.2, 1);
+.ide-window {
+  background: var(--ide-sidebar);
+  border: 1px solid var(--ide-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-premium);
 }
 
-/* ========================================
-   ATMOSPHERIC BACKGROUND ANIMATIONS
-   ======================================== */
-
-@keyframes blob-bounce {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+.ide-header {
+  height: 2.5rem;
+  background: var(--ide-sidebar);
+  border-bottom: 1px solid var(--ide-border);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.5rem;
 }
 
-.animate-blob-bounce {
-  animation: blob-bounce 10s infinite ease-in-out;
+.ide-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
 }
 
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Subtle breathing animation for status indicators */
-@keyframes breathe {
-
-  0%,
-  100% {
-    opacity: 0.5;
-  }
-
-  50% {
-    opacity: 0.8;
-  }
-}
-
-.animate-breathe {
-  animation: breathe 3s infinite ease-in-out;
-}
-
-/* Float animation for particles */
-@keyframes float {
-
-  0%,
-  100% {
-    transform: translateY(0) translateX(0);
-  }
-
-  25% {
-    transform: translateY(-10px) translateX(5px);
-  }
-
-  50% {
-    transform: translateY(-5px) translateX(-5px);
-  }
-
-  75% {
-    transform: translateY(-15px) translateX(3px);
-  }
-}
-
-/* ========================================
-   SCROLLBAR - Atmospheric Dark Style
-   ======================================== */
-
-/* Utility Class for specific containers */
-.scrollbar-senja {
-  scrollbar-width: thin;
-  scrollbar-color: var(--senja-mist) var(--senja-void);
-}
-
-.scrollbar-senja::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-  background: var(--senja-void);
-}
-
-.scrollbar-senja::-webkit-scrollbar-track {
-  background: var(--senja-void);
-  border-left: 1px solid var(--senja-dusk);
-}
-
-.scrollbar-senja::-webkit-scrollbar-thumb {
-  background: var(--senja-dusk);
-  border: 2px solid var(--senja-void);
-  border-radius: 10px;
-}
-
-.scrollbar-senja::-webkit-scrollbar-thumb:hover {
-  background: var(--senja-mist);
-  border-color: var(--senja-void);
-}
-
-.scrollbar-senja::-webkit-scrollbar-corner {
-  background: var(--senja-void);
-}
-
-/* Global scrollbar fallback */
-::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--senja-void);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--senja-dusk);
-  border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--senja-mist);
-}
-
-/* ========================================
-   GRADIENT UTILITIES
-   ======================================== */
-
-.gradient-senja {
-  background: linear-gradient(135deg, var(--senja-mist) 0%, var(--senja-elixir) 50%, var(--senja-ember) 100%);
-}
-
-.gradient-mist {
-  background: linear-gradient(180deg, var(--senja-void) 0%, var(--senja-dusk) 100%);
-}
-
-.gradient-frost-text {
-  background: linear-gradient(90deg, var(--senja-frost) 0%, var(--senja-sign) 100%);
+/* Atmospheric Gradients (Anti-AI Refined) */
+.gradient-premium-text {
+  background: linear-gradient(to bottom, var(--primary) 20%, var(--secondary) 100%);
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
+}
+
+.glass-morphism {
+  background: rgba(9, 9, 11, 0.8);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
+@keyframes subtle-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-subtle-float {
+  animation: subtle-float 8s infinite ease-in-out;
+}
+
+/* Custom Scrollbar for IDE feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--ide-bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--ide-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--ide-comment);
+}
+
+/* ========================================
+   ACCESSIBILITY MODES
+   ======================================== */
+
+.grayscale-mode {
+  filter: grayscale(100%);
+}
+
+.high-contrast-mode {
+  /* Enforce extremely high contrast for text and lines */
+  --muted-foreground: var(--foreground) !important;
+  --border: var(--foreground) !important;
+  --ide-comment: var(--foreground) !important;
+  --ide-border: var(--foreground) !important;
+  filter: contrast(1.2) brightness(1.1);
 }

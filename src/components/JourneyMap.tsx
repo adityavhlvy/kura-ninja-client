@@ -1,7 +1,6 @@
-"use client";
-
 import { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Badge } from "@/components/ui/badge";
 
 // Types
 interface JourneyNode {
@@ -202,6 +201,13 @@ const typeBg = {
     achievement: 'bg-warning'
 };
 
+const typeBadgeVariant = {
+    education: 'default',
+    work: 'secondary',
+    org: 'outline',
+    achievement: 'warning'
+} as const;
+
 export default function JourneyMap() {
     const [selectedId, setSelectedId] = useState<string>('pupuk');
     const containerRef = useRef<HTMLDivElement>(null);
@@ -215,7 +221,7 @@ export default function JourneyMap() {
             </div>
 
             {/* Graph Container */}
-            <div className="relative w-full aspect-[4/3] md:aspect-[21/9] bg-base-300/30 rounded-3xl border border-white/5 overflow-hidden group">
+            <div className="relative w-full aspect-[4/3] md:aspect-[21/9] bg-muted/30 rounded-3xl border border-white/5 overflow-hidden group">
 
                 {/* Grid Background */}
                 <div className="absolute inset-0 opacity-10"
@@ -241,7 +247,7 @@ export default function JourneyMap() {
                                 y2={`${target.y}%`}
                                 stroke="currentColor"
                                 strokeWidth="1.5"
-                                className="text-base-content/10"
+                                className="text-foreground/10"
                                 initial={{ pathLength: 0, opacity: 0 }}
                                 whileInView={{ pathLength: 1, opacity: 1 }}
                                 transition={{ duration: 1.5, delay: i * 0.1 }}
@@ -269,8 +275,8 @@ export default function JourneyMap() {
                  w-3 h-3 md:w-5 md:h-5 rounded-full border-2 
                  transition-all duration-300
                  ${isSelected
-                                    ? `${typeColors[node.type]} bg-base-100 scale-150 shadow-[0_0_20px_currentColor]`
-                                    : 'border-base-content/20 bg-base-300 hover:border-base-content/50'}
+                                    ? `${typeColors[node.type]} bg-background scale-150 shadow-[0_0_20px_currentColor]`
+                                    : 'border-foreground/20 bg-muted hover:border-foreground/50'}
               `}>
                                 <div className={`w-full h-full rounded-full opacity-50 ${isSelected ? typeBg[node.type] : ''}`} />
                             </div>
@@ -278,12 +284,12 @@ export default function JourneyMap() {
                             {/* Label - Only show on hover or selected */}
                             <motion.div
                                 className={`
-                  absolute top-full left-1/2 -translate-x-1/2 mt-2 
-                  whitespace-nowrap text-[9px] md:text-[10px] font-bold tracking-wide
-                  px-2 py-1 rounded bg-base-100/90 backdrop-blur-md border border-white/5
-                  transition-all duration-300
-                  ${isSelected ? 'opacity-100 translate-y-0 text-primary' : 'opacity-0 -translate-y-2 group-hover/node:opacity-100'}
-                `}
+                                  absolute top-full left-1/2 -translate-x-1/2 mt-2 
+                                  whitespace-nowrap text-[9px] md:text-[10px] font-bold tracking-wide
+                                  px-2 py-1 rounded bg-background/90 backdrop-blur-md border border-white/5
+                                  transition-all duration-300
+                                  ${isSelected ? 'opacity-100 translate-y-0 text-primary' : 'opacity-0 -translate-y-2 group-hover/node:opacity-100'}
+                                `}
                             >
                                 {node.label}
                             </motion.div>
@@ -301,7 +307,7 @@ export default function JourneyMap() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
                         transition={{ duration: 0.2 }}
-                        className="mt-6 bg-base-200/50 border border-white/5 rounded-2xl p-6 relative overflow-hidden"
+                        className="mt-6 bg-card/50 border border-white/5 rounded-2xl p-6 relative overflow-hidden"
                     >
                         {/* Background Glow */}
                         <div className={`absolute -right-20 -top-20 w-64 h-64 ${typeBg[selectedNode.type]} opacity-5 blur-3xl rounded-full pointer-events-none`} />
@@ -309,9 +315,9 @@ export default function JourneyMap() {
                         <div className="flex flex-col md:flex-row gap-6 relative z-10">
                             <div className="flex-1">
                                 <div className="flex items-center gap-3 mb-2">
-                                    <span className={`badge badge-sm ${typeBg[selectedNode.type]} bg-opacity-20 border-0 text-current`}>
+                                    <Badge variant={typeBadgeVariant[selectedNode.type]} className="bg-opacity-20">
                                         {selectedNode.type.toUpperCase()}
-                                    </span>
+                                    </Badge>
                                     <span className="text-xs font-mono opacity-50">{selectedNode.details.date}</span>
                                 </div>
 

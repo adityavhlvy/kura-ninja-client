@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SlClose } from 'react-icons/sl';
+import { Button } from "@/components/ui/button";
 
 interface Hint {
     id: string;
@@ -72,7 +73,7 @@ export default function FeatureHints() {
                     exit={{ scale: 0, opacity: 0 }}
                     whileHover={{ scale: 1.1 }}
                     onClick={() => setIsMinimized(false)}
-                    className="fixed bottom-12 right-6 z-[100] btn btn-circle btn-primary shadow-lg border-white/20"
+                    className="fixed bottom-12 right-6 z-[100] w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center shadow-lg border border-white/20"
                     title="Show Hints"
                 >
                     <span className="text-xl">💡</span>
@@ -85,20 +86,22 @@ export default function FeatureHints() {
                     exit={{ opacity: 0, y: 10, x: 20 }}
                     className="fixed bottom-12 right-6 z-[100] max-w-sm"
                 >
-                    <div className="relative bg-base-200/90 backdrop-blur-md border border-primary/20 rounded-xl p-5 shadow-xl flex items-center gap-4 group">
+                    <div className="relative bg-card/90 backdrop-blur-md border border-primary/20 rounded-xl p-5 shadow-xl flex items-center gap-4 group">
                         {/* Minimize Button */}
-                        <button
+                        <Button
+                            size="icon"
+                            variant="secondary"
                             onClick={(e) => { e.stopPropagation(); setIsMinimized(true); }}
-                            className="absolute -top-2 -right-2 btn btn-xs btn-circle btn-neutral opacity-0 group-hover:opacity-100 transition-opacity shadow-md border border-white/10"
+                            className="absolute -top-2 -right-2 w-6 h-6 rounded-full opacity-0 group-hover:opacity-100 transition-opacity shadow-md border border-white/10"
                             title="Minimize"
                         >
                             <SlClose size={10} />
-                        </button>
+                        </Button>
 
                         <span className="text-3xl">{hint.icon}</span>
                         <div className="flex-1 min-w-0">
                             <div className="font-bold text-base text-primary mb-1">{hint.title}</div>
-                            <div className="text-xs text-base-content/80 leading-snug">{hint.description}</div>
+                            <div className="text-xs text-foreground/80 leading-snug">{hint.description}</div>
                         </div>
 
                         {/* Progress dots */}
@@ -106,7 +109,7 @@ export default function FeatureHints() {
                             {hints.map((_, i) => (
                                 <div
                                     key={i}
-                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentHint ? 'bg-primary' : 'bg-base-content/20'
+                                    className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === currentHint ? 'bg-primary' : 'bg-foreground/20'
                                         }`}
                                 />
                             ))}
