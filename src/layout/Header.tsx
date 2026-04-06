@@ -3,6 +3,13 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { THEMES } from "../config/theme";
 import { SlArrowLeft, SlDoc, SlArrowDown, SlMenu } from "react-icons/sl";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -33,7 +40,6 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
       if (segments.length === 1)
         return "src > view > playground > Playground.tsx";
       const game = segments[1];
-      // Simple mapping for known experiments, fall back to capitalized generic
       const gameFileMap: Record<string, string> = {
         "anti-ux": "AntiUX",
         void: "ScreamingVoid",
@@ -60,57 +66,56 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
   const currentThemeIcon = THEMES.find((t) => t.name === currentTheme)?.icon;
 
   return (
-    <div className="navbar border-b bg-base-100 z-30 min-h-16">
-      <div className="navbar-start">
-        <button
-          className="btn btn-ghost btn-circle btn-sm md:btn-md mr-1 md:mr-2"
+    <header className="flex h-16 w-full items-center justify-between border-b bg-background z-30 px-4">
+      <div className="flex items-center gap-1 md:gap-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="h-8 w-8 md:h-10 md:w-10"
           onClick={toggleSidebar}
         >
           {isSidebarOpen ? <SlArrowLeft size={24} /> : <SlMenu size={24} />}
-        </button>
-        <Link href="/" className="btn btn-ghost text-lg md:text-xl px-2 gap-2">
+        </Button>
+        <Link href="/" className="flex items-center gap-2 px-2 hover:bg-accent rounded-md py-1 transition-colors">
           <span className="text-xl">🐢</span>
-          <span className="font-bold text-base-content/80 hidden sm:inline">Kura Ninja</span>
+          <span className="font-bold text-foreground/80 hidden sm:inline">Kura Ninja</span>
         </Link>
       </div>
-      <div className="navbar-center">
-        <div className="flex items-center gap-2 text-base-content text-xs md:text-sm font-mono opacity-70">
-          <SlDoc size={16} className="shrink-0" />
-          <span className="font-bold truncate max-w-[100px] md:max-w-none">
-            {getBreadcrumbs(pathname)}
-          </span>
-        </div>
+      
+      <div className="flex items-center gap-2 text-foreground text-xs md:text-sm font-mono opacity-70">
+        <SlDoc size={16} className="shrink-0" />
+        <span className="font-bold truncate max-w-[100px] md:max-w-none">
+          {getBreadcrumbs(pathname)}
+        </span>
       </div>
-      <div className="navbar-end">
-        <div className="dropdown dropdown-end">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-sm md:btn-md m-0 md:m-1 flex items-center gap-2"
-          >
-            {currentThemeIcon}
-            <span className="capitalize hidden sm:inline">{currentTheme}</span>
-            <SlArrowDown size={12} className="opacity-60" />
-          </div>
-          <ul
-            tabIndex={0}
-            className="dropdown-content z-1 p-2 shadow-2xl bg-base-300 rounded-box w-52 max-h-96 overflow-y-auto"
-          >
+
+      <div className="flex items-center">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button 
+              variant="outline" 
+              size="sm" 
+              className="m-0 md:m-1 flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white border-none h-8 md:h-10"
+            >
+              {currentThemeIcon}
+              <span className="capitalize hidden sm:inline">{currentTheme}</span>
+              <SlArrowDown size={12} className="opacity-60" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end" className="w-52 max-h-96 overflow-y-auto bg-card border-border shadow-2xl">
             {THEMES.map((theme) => (
-              <li key={theme.name}>
-                <button
-                  className={`btn btn-sm btn-block btn-ghost justify-start ${currentTheme === theme.name ? "btn-active" : ""
-                    }`}
-                  onClick={() => changeTheme(theme.name)}
-                >
-                  <span className="text-lg">{theme.icon}</span>
-                  <span className="capitalize">{theme.name}</span>
-                </button>
-              </li>
+              <DropdownMenuItem 
+                key={theme.name}
+                className={`flex items-center gap-2 cursor-pointer ${currentTheme === theme.name ? "bg-accent text-accent-foreground" : ""}`}
+                onClick={() => changeTheme(theme.name)}
+              >
+                <span className="text-lg">{theme.icon}</span>
+                <span className="capitalize">{theme.name}</span>
+              </DropdownMenuItem>
             ))}
-          </ul>
-        </div>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </div>
-    </div>
+    </header>
   );
 }
