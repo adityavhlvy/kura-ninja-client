@@ -1,8 +1,6 @@
 "use client";
 
-import ProjectCard, {
-  type ProjectCardProps,
-} from "../../components/ProjectCard";
+import ProjectCard from "../../components/ProjectCard";
 
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
