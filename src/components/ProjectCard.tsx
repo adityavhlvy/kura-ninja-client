@@ -1,8 +1,6 @@
-"use client";
-
 import type { ReactNode } from "react";
 import { motion } from "framer-motion";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { SlGlobe, SlLock, SlLink } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
 import {
@@ -110,21 +108,23 @@ export default function ProjectCard({
     return (
         <motion.div
             whileHover={{ y: -2 }}
-            className="group flex flex-col h-full bg-zinc-900/20 backdrop-blur-sm border border-white/5 hover:border-primary/50 rounded-sm overflow-hidden transition-all duration-500"
+            className="group flex flex-col h-full bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 rounded-sm overflow-hidden transition-all duration-500"
         >
-            <Link href={`/projects/${slug}`} className="block flex-grow">
+            <Link to={`/projects/${slug}`} className="block flex-grow">
                 {displayImage && (
-                    <div className="h-48 w-full overflow-hidden relative border-b border-white/5">
+                    <div className="h-48 w-full overflow-hidden relative border-b border-border/50">
                         <img
                             src={displayImage}
                             alt={title}
-                            className="w-full h-full object-cover grayscale opacity-80 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100"
+                            className="w-full h-full object-cover opacity-90 transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
                         />
+                        {/* Gradient overlay that lifts on hover */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent group-hover:from-background/40 group-hover:via-transparent transition-all duration-500" />
                         <div className="absolute top-3 right-3 flex gap-2">
-                            <Badge variant={statusVariants[status]} className="uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-black/60 backdrop-blur-md border-white/10">
+                            <Badge variant={statusVariants[status]} className="uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-background/60 backdrop-blur-md border-border/50">
                                 {status}
                             </Badge>
-                            <Badge variant="outline" className="gap-1 uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-black/60 backdrop-blur-md border-white/10 text-white/60">
+                            <Badge variant="outline" className="gap-1 uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-background/60 backdrop-blur-md border-border/50 text-foreground/60">
                                 {visibility === 'public' ? <SlGlobe size={10} /> : <SlLock size={10} />}
                                 {visibility}
                             </Badge>
@@ -136,21 +136,21 @@ export default function ProjectCard({
                         <h2 className="text-xl font-mono font-bold leading-tight group-hover:text-primary transition-colors uppercase tracking-tight">
                             {title}
                         </h2>
-                        <span className="text-[10px] font-mono text-white/30 shrink-0 mt-1 uppercase tracking-widest">{date}</span>
+                        <span className="text-[10px] font-mono text-muted-foreground/50 shrink-0 mt-1 uppercase tracking-widest">{date}</span>
                     </div>
 
-                    <p className="text-sm text-zinc-400 mb-6 line-clamp-3 leading-relaxed">
+                    <p className="text-sm text-muted-foreground mb-6 line-clamp-3 leading-relaxed">
                         {description}
                     </p>
 
                     <div className="flex flex-wrap gap-1.5 mt-auto">
                         {techStack.slice(0, 5).map((tech, index) => (
-                            <Badge key={index} variant="outline" className="font-mono text-[10px] uppercase border-white/5 py-0 px-2 bg-white/5 text-zinc-500 group-hover:text-primary/70 transition-colors">
+                            <Badge key={index} variant="outline" className="font-mono text-[10px] uppercase border-border/50 py-0 px-2 bg-muted/50 text-muted-foreground group-hover:text-primary/70 transition-colors">
                                 {tech}
                             </Badge>
                         ))}
                         {techStack.length > 5 && (
-                            <Badge variant="outline" className="font-mono text-[10px] border-white/5 bg-white/5 text-zinc-600">+{techStack.length - 5}</Badge>
+                            <Badge variant="outline" className="font-mono text-[10px] border-border/50 bg-muted/50 text-muted-foreground">+{techStack.length - 5}</Badge>
                         )}
                     </div>
                 </div>

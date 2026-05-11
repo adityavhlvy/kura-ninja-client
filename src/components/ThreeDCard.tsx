@@ -15,26 +15,26 @@ export default function ThreeDCard({ children, className = "" }: ThreeDCardProps
     const x = useMotionValue(0);
     const y = useMotionValue(0);
 
-    // Smooth spring physics for rotation
-    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [15, -15]), {
-        stiffness: 150,
-        damping: 20,
+    // Smooth spring physics for rotation — subtle, not wobbly
+    const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [4, -4]), {
+        stiffness: 300,
+        damping: 30,
     });
-    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-15, 15]), {
-        stiffness: 150,
-        damping: 20,
+    const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-4, 4]), {
+        stiffness: 300,
+        damping: 30,
     });
 
     // Glare/Shine effect position
     const glareX = useSpring(useTransform(x, [-0.5, 0.5], [0, 100]), {
-        stiffness: 150,
-        damping: 20,
+        stiffness: 300,
+        damping: 30,
     });
     const glareY = useSpring(useTransform(y, [-0.5, 0.5], [0, 100]), {
-        stiffness: 150,
-        damping: 20,
+        stiffness: 300,
+        damping: 30,
     });
-    const glareOpacity = useSpring(0, { stiffness: 200, damping: 20 });
+    const glareOpacity = useSpring(0, { stiffness: 300, damping: 30 });
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
         if (!ref.current) return;
@@ -85,13 +85,13 @@ export default function ThreeDCard({ children, className = "" }: ThreeDCardProps
                     {children}
                 </div>
 
-                {/* Glare Effect */}
+                {/* Glare Effect — subtle, not blinding */}
                 <motion.div
                     style={{
-                        background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.4) 0%, transparent 80%)`,
+                        background: `radial-gradient(circle at ${glareX}% ${glareY}%, rgba(255,255,255,0.15) 0%, transparent 70%)`,
                         opacity: glareOpacity,
-                        rotateX, // Match card rotation
-                        rotateY, // Match card rotation
+                        rotateX,
+                        rotateY,
                         zIndex: 20,
                     }}
                     className="absolute inset-0 w-full h-full pointer-events-none rounded-xl mix-blend-overlay"

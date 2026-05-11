@@ -1,5 +1,4 @@
-import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
   SlHome,
@@ -25,7 +24,7 @@ interface FileTreeSidebarProps {
 }
 
 function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
-  const pathname = usePathname() || "";
+  const { pathname } = useLocation();
   const isActive = (path: string) => pathname === path;
 
   const getLinkClass = (path: string) => {
@@ -42,7 +41,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
       <nav className="flex flex-col w-full h-full p-2 gap-1 overflow-y-auto">
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Link href="/" className={getLinkClass("/")}>
+            <Link to="/" className={getLinkClass("/")}>
               <SlHome size={20} className="shrink-0" />
               {!isCollapsed && <span>Home</span>}
             </Link>
@@ -52,7 +51,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Link href="/projects" className={getLinkClass("/projects")}>
+            <Link to="/projects" className={getLinkClass("/projects")}>
               <FiFolder size={20} className="shrink-0" />
               {!isCollapsed && <span>Projects</span>}
             </Link>
@@ -62,7 +61,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Link href="/about" className={getLinkClass("/about")}>
+            <Link to="/about" className={getLinkClass("/about")}>
               <SlInfo size={20} className="shrink-0" />
               {!isCollapsed && <span>About</span>}
             </Link>
@@ -72,7 +71,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Link href="/certifications" className={getLinkClass("/certifications")}>
+            <Link to="/certifications" className={getLinkClass("/certifications")}>
               <SlBadge size={20} className="shrink-0" />
               {!isCollapsed && <span>Certifications</span>}
             </Link>
@@ -82,7 +81,7 @@ function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
         <Tooltip delayDuration={0}>
           <TooltipTrigger asChild>
-            <Link href="/design-system" className={getLinkClass("/design-system")}>
+            <Link to="/design-system" className={getLinkClass("/design-system")}>
               <SlLayers size={20} className="shrink-0" />
               {!isCollapsed && <span>Design System</span>}
             </Link>
@@ -188,7 +187,7 @@ const GlitchItem = ({ isCollapsed }: { isCollapsed: boolean }) => {
   return (
     <div className="mt-2 border-t border-destructive/20 pt-2 animate-in fade-in zoom-in duration-300">
       <Link
-        href="/playground"
+        to="/playground"
         className={`flex items-center gap-3 px-4 py-2 rounded-md bg-destructive/10 text-destructive font-mono font-bold text-xs ${isCollapsed ? "justify-center px-2" : ""
           }`}
         title="SYSTEM_FAILURE"

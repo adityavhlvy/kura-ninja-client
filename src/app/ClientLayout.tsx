@@ -1,6 +1,4 @@
-"use client";
-
-import { usePathname } from "next/navigation";
+import { useLocation } from "react-router-dom";
 import { useState, useEffect, useCallback, ReactNode } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
@@ -9,18 +7,16 @@ import Background from "../components/Background";
 import AtmosphereIndicator from "../components/AtmosphereIndicator";
 import ParticleField from "../components/ParticleField";
 import CommandPalette from "../components/CommandPalette";
-import FeatureHints from "../components/FeatureHints";
 import { TimeProvider } from "../context/TimeContext";
 import { initEasterEggs } from "../utils/easterEggs";
 import InitialLoader from "../components/InitialLoader";
-import AccessibilityWidget from "../components/AccessibilityWidget";
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [isMobile, setIsMobile] = useState(false);
     const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
     const [isAppLoaded, setIsAppLoaded] = useState(false);
-    const pathname = usePathname();
+    const { pathname } = useLocation();
 
     useEffect(() => {
         initEasterEggs();
@@ -98,8 +94,6 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                       `}
                     >
                         <div className={isMobile ? "h-full w-64" : "h-full"}>
-                            {" "}
-                            {/* Inner container to prevent content squishing on mobile */}
                             <FileTreeSidebar isCollapsed={!isSidebarOpen && !isMobile} />
                         </div>
                     </aside>
@@ -117,12 +111,6 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
                     isOpen={isCommandPaletteOpen}
                     onClose={() => setIsCommandPaletteOpen(false)}
                 />
-
-                {/* Feature Hints */}
-                <FeatureHints />
-
-                {/* Accessibility */}
-                <AccessibilityWidget />
             </div>
         </TimeProvider>
     );

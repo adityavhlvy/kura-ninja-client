@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { useNavigate } from 'react-router-dom';
 import {
     SlHome, SlFolder, SlUser, SlBadge, SlMagnifier,
     SlArrowRight, SlSettings, SlQuestion
@@ -30,7 +30,7 @@ interface CommandPaletteProps {
 }
 
 export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps) {
-    const router = useRouter();
+    const navigate = useNavigate();
 
     const commands: Command[] = useMemo(() => [
         {
@@ -38,7 +38,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Home',
             description: 'Go to homepage',
             icon: <SlHome />,
-            action: () => router.push('/'),
+            action: () => navigate('/'),
             keywords: ['home', 'beranda', 'main', 'start'],
             category: 'navigation',
         },
@@ -47,7 +47,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Projects',
             description: 'View quest log',
             icon: <SlFolder />,
-            action: () => router.push('/projects'),
+            action: () => navigate('/projects'),
             keywords: ['projects', 'quests', 'work', 'portfolio', 'quest log'],
             category: 'navigation',
         },
@@ -56,7 +56,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'About',
             description: 'Who is this person?',
             icon: <SlUser />,
-            action: () => router.push('/about'),
+            action: () => navigate('/about'),
             keywords: ['about', 'me', 'siapa', 'who', 'bio', 'journey'],
             category: 'navigation',
         },
@@ -65,7 +65,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Certifications',
             description: 'Achievements unlocked',
             icon: <SlBadge />,
-            action: () => router.push('/certifications'),
+            action: () => navigate('/certifications'),
             keywords: ['certifications', 'certs', 'badges', 'achievements'],
             category: 'navigation',
         },
@@ -74,7 +74,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             label: 'Playground',
             description: 'Experiments & side quests',
             icon: <SlSettings />,
-            action: () => router.push('/playground'),
+            action: () => navigate('/playground'),
             keywords: ['playground', 'experiments', 'lab', 'side quests'],
             category: 'navigation',
         },
@@ -89,7 +89,7 @@ export default function CommandPalette({ isOpen, onClose }: CommandPaletteProps)
             keywords: ['sudo', 'hire', 'secret', 'easter', 'contact'],
             category: 'easter-egg',
         },
-    ], [router]);
+    ], [navigate]);
 
     const executeCommand = useCallback((command: Command) => {
         command.action();

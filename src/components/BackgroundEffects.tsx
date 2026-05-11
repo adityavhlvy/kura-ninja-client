@@ -1,20 +1,18 @@
 export default function BackgroundEffects() {
     return (
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
-            {/* Ambient Glow (Single Source, not a symmetric orb) */}
-            <div className="absolute top-[-10%] right-[-5%] w-[40%] h-[40%] rounded-full bg-primary/5 blur-[120px]" />
+            {/* Asymmetric ambient glows — use theme colors */}
+            <div className="absolute top-[-15%] right-[-8%] w-[35%] h-[35%] rounded-full bg-primary/[0.04] blur-[100px]" />
+            <div className="absolute bottom-[-10%] left-[-5%] w-[25%] h-[25%] rounded-full bg-secondary/[0.03] blur-[80px]" />
 
-            {/* Structured Dot Grid */}
+            {/* Dot grid — uses foreground color so it adapts */}
             <div 
-                className="absolute inset-0 bg-[radial-gradient(#e5e7eb05_1px,transparent_1px)] [background-size:32px_32px]"
+                className="absolute inset-0 bg-[radial-gradient(currentColor_1px,transparent_1px)] [background-size:40px_40px] opacity-[0.03]"
                 style={{ 
-                    maskImage: 'radial-gradient(ellipse at center, black, transparent 80%)',
-                    WebkitMaskImage: 'radial-gradient(ellipse at center, black, transparent 80%)'
+                    maskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent)',
+                    WebkitMaskImage: 'radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent)'
                 }}
-            ></div>
-            
-            {/* Sub-grid lines (Very subtle) */}
-            <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808003_1px,transparent_1px),linear-gradient(to_bottom,#80808003_1px,transparent_1px)] bg-[size:128px_128px]"></div>
+            />
         </div>
     );
 }

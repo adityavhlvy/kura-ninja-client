@@ -1,13 +1,13 @@
 export async function getWakaTimeStats() {
   try {
-    const response = await fetch('/api/wakatime', {
-      cache: 'no-store',
-    });
+    const response = await fetch('/api/wakatime');
 
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error('WakaTime: returned', response.status);
+      return null;
+    }
 
-    const data = await response.json();
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('Error fetching WakaTime data:', error);
     return null;
