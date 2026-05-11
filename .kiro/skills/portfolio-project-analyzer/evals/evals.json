@@ -1,0 +1,19 @@
+{
+  "skill_name": "portfolio-project-analyzer",
+  "evals": [
+    {
+      "id": 1,
+      "name": "synced-project",
+      "prompt": "Analyze this project for my portfolio. The documentation is accurate.",
+      "expected_output": "JSON output with status 'synced', accurate category, competencies mapped, and specific visual suggestions.",
+      "files": ["examples/synced-project/README.md", "examples/synced-project/main.py"]
+    },
+    {
+      "id": 2,
+      "name": "unsynced-project",
+      "prompt": "Analyze this project. I think the README might be outdated.",
+      "expected_output": "JSON output with status 'out-of-sync', technical challenges identified, and specific suggestions for the README.",
+      "files": ["examples/unsynced-project/README.md", "examples/unsynced-project/main.py"]
+    }
+  ]
+}

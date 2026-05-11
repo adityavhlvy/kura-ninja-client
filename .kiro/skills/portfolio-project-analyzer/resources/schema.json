@@ -1,0 +1,76 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "PortfolioProject",
+  "type": "object",
+  "required": ["id", "title", "description", "technologies", "features", "status"],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier for the project (kebab-case)"
+    },
+    "title": {
+      "type": "string",
+      "description": "Human-readable project name"
+    },
+    "description": {
+      "type": "string",
+      "description": "Accurate and honest summary of the project scope and achievements."
+    },
+    "technologies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "List of major tools, languages, and frameworks used."
+    },
+    "features": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Key functionalities extracted and verified from the codebase."
+    },
+    "technical_challenges": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific technical hurdles encountered and how তারা fix-ed."
+    },
+    "rationale": {
+      "type": "string",
+      "description": "The logic/reasoning behind the project's existence."
+    },
+    "deliverables": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific project outcomes (e.g., 'A fully functional dashboard', 'Documentation')."
+    },
+    "readiness_score": {
+      "type": "object",
+      "properties": {
+        "tests": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "docs": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "code_quality": { "type": "integer", "minimum": 0, "maximum": 100 }
+      }
+    },
+    "competencies": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific professional skills demonstrated in this project."
+    },
+    "visual_suggestions": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Recommended code blocks or UI sections for screenshots."
+    },
+    "category": {
+      "type": "string",
+      "enum": ["Frontend", "Backend", "Fullstack", "CLI", "Data Science", "Mobile", "Embedded", "Other"],
+      "description": "The primary category of the project."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["synced", "out-of-sync"],
+      "description": "Indicates if the description matches the codebase."
+    },
+    "repository_url": {
+      "type": "string",
+      "format": "uri"
+    }
+  }
+}

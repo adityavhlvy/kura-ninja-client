@@ -1,25 +1,6 @@
 ---
-name: ui-ux-design-system-analyzer
-description: >
-  Audit, evaluate, build a consistent design system, AND detect/fix AI-generated UI patterns for any
-  web or mobile project. Use this skill whenever the user wants to review UI/UX consistency, fix design
-  debt, create design tokens, build a component library, improve accessibility compliance, or make their
-  UI look less AI-generated / less generic. Trigger this skill when the user shares screenshots, a
-  codebase, or a description of their interface and says: "audit my UI", "review my design system",
-  "create design tokens", "my colors/fonts are inconsistent", "check accessibility", "build a component
-  library", "this looks AI-generated", "make it look more human", "remove the AI design feel",
-  "it looks too generic", "no AI slop", "anti-AI design", or "it looks like every other AI app".
-  Also trigger when the user wants a before/after design comparison, a WCAG accessibility check, or
-  needs to establish a typography/spacing/color system from scratch — even if they don't use those
-  exact words.
-metadata:
-  author: Aditya
-  version: 2.0.0
-  category: design
-  tags: [ui, ux, design-system, accessibility, tokens, components, anti-ai, human-design]
-  last_updated: 2026-04-06
-compatibility:
-  platforms: [gemini, antigravity, claude]
+name: ui-ux-and-design-system-analyzer
+description: Audit, evaluate, and build a consistent design system, and detect/fix AI-generated UI patterns for any web or mobile project. Trigger when the user wants to review UI/UX consistency, fix design debt, create design tokens, build a component library, improve accessibility, or make their UI look less AI-generated. Use when the user says "audit my UI", "review my design system", "create design tokens", "check accessibility", "this looks AI-generated", "make it look more human", "no AI slop", or "it looks like every other AI app".
 ---
 
 # UI/UX Design System Analyzer

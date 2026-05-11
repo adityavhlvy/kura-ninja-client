@@ -9,7 +9,7 @@ metadata:
 
 # Documentation Update Skill
 
-This skill allows the Antigravity agent to intelligently update and maintain project-level documentation, ensuring standard files like `README.md`, `CHANGELOG.md`, and `API.md` (for backends) are always up-to-date with the latest code changes.
+This skill allows the agent to intelligently update and maintain project-level documentation, ensuring standard files like `README.md`, `CHANGELOG.md`, and `API.md` (for backends) are always up-to-date with the latest code changes.
 
 ## Triggering
 Use this skill when:
