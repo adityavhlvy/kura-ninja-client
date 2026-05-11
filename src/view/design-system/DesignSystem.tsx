@@ -1,6 +1,4 @@
 
-"use client";
-
 import { useState } from "react";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";

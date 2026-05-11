@@ -1,5 +1,3 @@
-"use client";
-
 import { SlBadge, SlLayers } from "react-icons/sl";
 import { FaLinkedin } from "react-icons/fa";
 
@@ -96,6 +94,18 @@ const certificationGroups: CertificationGroup[] = [
     {
         category: "Artificial Intelligence",
         items: [
+            {
+                name: "Deploy Multi-Agent Architectures",
+                issuer: "Google",
+                date: "May 2026",
+                type: "Technical"
+            },
+            {
+                name: "Engineer AI Agents with Agent Development Kit (ADK)",
+                issuer: "Google",
+                date: "Apr 2026",
+                type: "Technical"
+            },
             {
                 name: "Discover the Art of Prompting",
                 issuer: "Google",
@@ -239,7 +249,7 @@ export default function Certifications() {
                             href="https://www.linkedin.com/in/adityavahlevynugraha/details/certifications/"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="btn btn-primary btn-sm gap-2 hover:scale-105 transition-transform"
+                            className="flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-sm text-xs font-bold hover:bg-primary/90 transition-colors"
                         >
                             <FaLinkedin size={16} />
                             Verify on LinkedIn
@@ -266,7 +276,7 @@ export default function Certifications() {
                                         key={index}
                                         whileHover={{ y: -5 }}
                                         transition={{ duration: 0.2 }}
-                                        className="card bg-base-200/50 backdrop-blur-sm border border-base-content/10 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300 group h-full"
+                                        className="bg-card/50 backdrop-blur-sm border border-border/50 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300 group h-full rounded-sm"
                                     >
                                         <div className="card-body p-5">
                                             <div className="flex flex-col h-full justify-between gap-3">
@@ -274,12 +284,12 @@ export default function Certifications() {
                                                     <div className="flex justify-between items-start gap-2 mb-2">
                                                         <h3 className="font-bold text-sm leading-snug group-hover:text-primary transition-colors line-clamp-2">{cert.name}</h3>
                                                     </div>
-                                                    <p className="text-xs text-base-content/60 mb-3 font-mono">{cert.issuer} • {cert.date}</p>
+                                                    <p className="text-xs text-muted-foreground mb-3 font-mono">{cert.issuer} • {cert.date}</p>
 
                                                     {cert.skills && cert.skills.length > 0 && (
                                                         <div className="flex flex-wrap gap-1.5">
                                                             {cert.skills.map((skill, idx) => (
-                                                                <span key={idx} className="badge badge-xs badge-neutral text-[9px] px-1.5 py-1 bg-base-100/50 border-base-content/10 opacity-70">
+                                                                <span key={idx} className="text-[9px] px-1.5 py-0.5 rounded-sm bg-muted border border-border/50 text-muted-foreground">
                                                                     {skill}
                                                                 </span>
                                                             ))}

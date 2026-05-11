@@ -1,7 +1,4 @@
-"use client";
-
-import { useParams, redirect } from "next/navigation";
-import Link from "next/link";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { projectsData } from "../../data/projects";
 import { SlArrowLeft, SlGlobe, SlLock, SlCheck, SlLayers, SlRocket, SlBulb, SlChart } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
@@ -12,11 +9,12 @@ import PageTransition from "../../components/PageTransition";
 
 export default function ProjectDetail() {
     const { slug } = useParams<{ slug: string }>();
+    const navigate = useNavigate();
     const project = projectsData.find((p) => p.slug === slug);
     const [activeImageIndex, setActiveImageIndex] = useState(0);
 
     if (!project) {
-        redirect("/projects");
+        navigate("/projects", { replace: true });
         return null;
     }
 
@@ -37,7 +35,7 @@ export default function ProjectDetail() {
         <PageTransition className="container mx-auto max-w-5xl pb-32">
             {/* Back Button */}
             <div className="mb-8 pt-4">
-                <Link href="/projects" className="btn btn-ghost btn-sm gap-2 hover:bg-base-200">
+                <Link to="/projects" className="btn btn-ghost btn-sm gap-2 hover:bg-base-200">
                     <SlArrowLeft />
                     Back to Projects
                 </Link>

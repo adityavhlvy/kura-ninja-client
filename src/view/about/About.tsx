@@ -1,11 +1,10 @@
-"use client";
-
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import {
     SiPython, SiGo, SiJavascript, SiTypescript,
     SiNextdotjs, SiVuedotjs, SiTailwindcss,
     SiNodedotjs, SiLaravel,
-    SiPostgresql, SiDocker, SiFigma, SiGit
+    SiPostgresql, SiDocker, SiFigma, SiGit,
+    SiPytorch, SiOracle, SiSatellite, SiGoogleearthengine
 } from "react-icons/si";
 
 import { motion } from "framer-motion";
@@ -43,24 +42,35 @@ const skillsData: SkillCategory[] = [
     {
         category: "Backend",
         items: [
-            { name: "Go Fiber", icon: <SiGo /> },
+            { name: "Go Fiber v3", icon: <SiGo /> },
+            { name: "Node.js (Bun)", icon: <SiNodedotjs /> },
             { name: "Laravel", icon: <SiLaravel /> },
-            { name: "Node.js", icon: <SiNodedotjs /> }
+            { name: "ASP.NET Core", icon: <SiNodedotjs /> }
         ]
     },
     {
-        category: "Data",
+        category: "AI & Data Science",
         items: [
-            { name: "PostgreSQL", icon: <SiPostgresql /> },
-            { name: "PostGIS", icon: <SiPostgresql /> }
+            { name: "PyTorch", icon: <SiPytorch /> },
+            { name: "LightGBM", icon: <SiPython /> },
+            { name: "Sentinel-2", icon: <SiSatellite /> },
+            { name: "Google Earth Engine", icon: <SiGoogleearthengine /> }
         ]
     },
     {
-        category: "Tools",
+        category: "Data & GIS",
+        items: [
+            { name: "PostGIS", icon: <SiPostgresql /> },
+            { name: "Oracle DB", icon: <SiOracle /> },
+            { name: "PostgreSQL", icon: <SiPostgresql /> }
+        ]
+    },
+    {
+        category: "Infrastructure",
         items: [
             { name: "Docker", icon: <SiDocker /> },
-            { name: "Figma", icon: <SiFigma /> },
             { name: "Git", icon: <SiGit /> },
+            { name: "Figma", icon: <SiFigma /> },
             { name: "Antigravity", icon: <SlRocket /> }
         ]
     }
@@ -84,21 +94,25 @@ export default function About() {
                     title="Who am I?"
                     description={
                         <div className="space-y-4">
-                            Hey there! I&apos;m <span className="font-bold text-primary">Aditya</span>.
-                            Computer Science grad from Universitas Pertamina (yes, with Cum Laude, but who&apos;s counting?) and currently a <span className="font-bold text-primary">Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
+                            Hey there! I&apos;m <span className="font-bold text-primary">Aditya Vahlevy Nugraha</span> (aka Kura Ninja).
+                            A Computer Science graduate from Universitas Pertamina (Cum Laude, GPA 3.58) and currently a <span className="font-bold text-primary">Fullstack Developer at PT Pupuk Indonesia (Persero)</span>.
                             <p>
-                                Stuck somewhere in the fog between <span className="font-semibold text-secondary">Data Science</span> and <span className="font-semibold text-accent">Fullstack Dev</span>.
-                                Still trying to figure out which direction is forward. I code things, break things, fix things—repeat.
+                                My expertise lies at the intersection of <span className="font-bold text-secondary">Geospatial Intelligence</span>, <span className="font-bold text-accent">AI/ML</span>, and <span className="font-bold text-primary">Fullstack Development</span>.
+                                Currently engineering <span className="font-bold text-primary">Aegis Geodash</span> — a geospatial dashboard for fertilizer demand visualization and soil nutrient analysis (Go Fiber v3, React 19, OpenLayers, PostgreSQL), and <span className="font-bold text-primary">PINTER</span> — an AI agent orchestration platform with multi-agent workflows, MCP tool integration, and execution tracing (Python, FastAPI, Google ADK).
                             </p>
                             <p>
-                                When I&apos;m not coding, I&apos;m probably listening to music that&apos;s too loud, reading novels, or thinking about my next side project at 2am.
+                                I have a background in predictive modeling (Satellite Imagery + Deep Learning) and have spent time in the industry digitizing mission-critical operations at <span className="font-bold">Astra Otoparts</span>.
+                                Whether it&apos;s architecting Clean Architecture systems or fine-tuning LightGBM models with Optuna, I thrive on solving complex problems with code.
+                            </p>
+                            <p>
+                                Beyond the screen, I&apos;m an APERTI BUMN Scholarship awardee, a former Vice President of my student association, and someone who probably thinks about system design way too much at 2am.
                             </p>
 
-                            <div className="alert bg-base-200/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4 hover:bg-base-200 transition-colors">
+                            <div className="bg-muted/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4 p-4 hover:bg-muted transition-colors">
                                 <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
                                 <div>
-                                    <h3 className="font-serif italic text-primary mb-0">&quot;Not all those who wander are lost—but I definitely should&apos;ve documented that function.&quot;</h3>
-                                    <div className="text-xs opacity-50">A reminder I probably should&apos;ve taken earlier.</div>
+                                    <h3 className="font-serif-accent text-primary mb-0 text-lg">&quot;If it works, don&apos;t touch it. If it breaks, blame the compiler.&quot;</h3>
+                                    <div className="text-xs opacity-50 mt-1">— My actual development philosophy.</div>
                                 </div>
                             </div>
                         </div>
@@ -142,7 +156,7 @@ export default function About() {
                         >
                             <div className="flex flex-wrap gap-2">
                                 {category.items.map((item, idx) => (
-                                    <div key={idx} className="badge badge-lg gap-2 pl-2 pr-3 py-4 h-auto bg-base-100/50 border-base-content/10">
+                                    <div key={idx} className="flex items-center gap-2 pl-2 pr-3 py-2 rounded-sm bg-card/50 border border-border/50">
                                         <span className="text-lg">{item.icon}</span>
                                         <span className="text-sm font-medium">{item.name}</span>
                                     </div>

@@ -1,6 +1,5 @@
-"use client";
-
 import ProjectCard from "../../components/ProjectCard";
+import ThreeDCard from "../../components/ThreeDCard";
 
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
@@ -50,7 +49,9 @@ export default function Projects() {
               transition={{ duration: 0.6 }}
               className="h-full"
             >
-              <ProjectCard {...project} />
+              <ThreeDCard className="h-full">
+                <ProjectCard {...project} />
+              </ThreeDCard>
             </motion.div>
           ))}
         </motion.div>
