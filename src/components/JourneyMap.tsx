@@ -103,7 +103,7 @@ const nodesData: JourneyNode[] = [
     {
         id: 'pupuk', label: 'Pupuk Indonesia', type: 'work', year: 'Now', emoji: '🚀',
         details: {
-            role: 'Jr. Fullstack Developer', company: 'PT Pupuk Indonesia (Persero)',
+            role: 'Fullstack Developer', company: 'PT Pupuk Indonesia (Persero)',
             date: 'Oct 2025 – Present',
             description: 'Engineering Aegis Geodash — geospatial dashboard for fertilizer demand visualization. Building PINTER — AI agent orchestration platform with multi-agent workflows.',
             skills: ['Go Fiber', 'React 19', 'PostGIS', 'Google ADK', 'OpenLayers', 'Docker'],

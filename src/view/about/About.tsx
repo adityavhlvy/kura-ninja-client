@@ -13,6 +13,8 @@ import PageHeader from "../../components/PageHeader";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import JourneyMap from "../../components/JourneyMap";
+import ParallaxMountains from "../../components/svg/ParallaxMountains";
+import KuraTurtle from "../../components/svg/KuraTurtle";
 import type { ReactNode } from "react";
 
 
@@ -114,6 +116,7 @@ export default function About() {
                                     <h3 className="font-serif-accent text-primary mb-0 text-lg">&quot;If it works, don&apos;t touch it. If it breaks, blame the compiler.&quot;</h3>
                                     <div className="text-xs opacity-50 mt-1">— My actual development philosophy.</div>
                                 </div>
+                                <KuraTurtle size={56} className="shrink-0 hidden md:block" />
                             </div>
                         </div>
                     }
@@ -135,7 +138,10 @@ export default function About() {
                 <JourneyMap />
             </motion.section>
 
-            {/* Skills Section (Moved Up) */}
+            {/* Parallax Mountains — section divider */}
+            <ParallaxMountains className="my-8 opacity-70" />
+
+            {/* Skills Section */}
             <section className="relative z-10">
                 <motion.div
                     initial={{ opacity: 0, x: -20 }}

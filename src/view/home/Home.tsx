@@ -10,6 +10,8 @@ import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import WakaTimeStats from "../../components/WakaTimeStats";
+import TopoTerrain from "../../components/svg/TopoTerrain";
+import DataFlow from "../../components/svg/DataFlow";
 import { Button } from "@/components/ui/button";
 
 export default function Home() {
@@ -27,6 +29,11 @@ export default function Home() {
     return (
         <PageTransition>
             <BackgroundEffects />
+
+            {/* Topographic terrain — hero background decoration */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[80%] max-w-4xl pointer-events-none opacity-60 z-0">
+                <TopoTerrain />
+            </div>
 
             {/* Hero Section — scroll-aware parallax */}
             <section ref={heroRef} className="relative flex flex-col items-center justify-center min-h-[90vh] pt-20 pb-16 w-full overflow-hidden">
@@ -145,7 +152,7 @@ export default function Home() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.2 }}
-                    className="absolute bottom-8 left-1/2 -translate-x-1/2"
+                    className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
                 >
                     <motion.div
                         animate={{ y: [0, 6, 0] }}
@@ -166,6 +173,7 @@ export default function Home() {
                 className="z-10 w-full max-w-7xl px-6 lg:px-8 mb-24 mx-auto"
             >
                 {/* Section label */}
+                <DataFlow className="mb-6 opacity-50" />
                 <div className="flex items-center gap-3 mb-8">
                     <div className="h-[1px] w-8 bg-primary/30" />
                     <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-muted-foreground">Live Status</span>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { SlArrowLeft, SlDoc, SlMenu } from "react-icons/sl";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import KuraTurtle from "../components/svg/KuraTurtle";
 
 interface HeaderProps {
   isSidebarOpen: boolean;
@@ -71,7 +72,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
           {isSidebarOpen ? <SlArrowLeft size={18} /> : <SlMenu size={18} />}
         </Button>
         <Link to="/" className="flex items-center gap-2 px-2 hover:opacity-80 transition-opacity">
-          <span className="text-lg">🐢</span>
+          <KuraTurtle size={56} />
           <span className="font-bold text-foreground/80 text-sm hidden sm:inline">Kura Ninja</span>
         </Link>
       </div>
