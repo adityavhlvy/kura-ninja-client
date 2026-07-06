@@ -5,8 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "rsbuild dev",
-    "dev:proxy": "bun dev-proxy.ts",
-    "dev:full": "bun dev-proxy.ts & rsbuild dev",
+    "dev:proxy": "bun run dev-proxy.ts",
     "build": "rsbuild build",
     "preview": "rsbuild preview",
     "lint": "eslint"

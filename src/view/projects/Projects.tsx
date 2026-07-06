@@ -1,5 +1,4 @@
 import ProjectCard from "../../components/ProjectCard";
-import ThreeDCard from "../../components/ThreeDCard";
 
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
@@ -11,7 +10,6 @@ import { projectsData } from "../../data/projects";
 export default function Projects() {
   return (
     <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
-
       {/* Extended Background */}
       <BackgroundEffects />
 
@@ -49,9 +47,7 @@ export default function Projects() {
               transition={{ duration: 0.6 }}
               className="h-full"
             >
-              <ThreeDCard className="h-full">
-                <ProjectCard {...project} />
-              </ThreeDCard>
+              <ProjectCard {...project} />
             </motion.div>
           ))}
         </motion.div>

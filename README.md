@@ -16,7 +16,7 @@ A high-density, premium technical portfolio and showcase of "quests" in **Geospa
 ## ✨ Key Features
 
 - **IDE-inspired Hero**: A unique terminal-like bio section with dynamic syntax highlighting.
-- **Bento-box Dashboard**: High-density layouts for Spotify "Now Playing", WakaTime coding stats, and quick highlights.
+- **Bento-box Dashboard**: High-density layouts for Spotify "Now Playing" and quick highlights.
 - **Interactive 3D Cards**: Immersive project showcase with smooth Framer Motion animations.
 - **Anti-AI Design**: A purposeful, opinionated design system with intentional spacing and unique typography.
 - **Geospatial Mastery**: Deep integration with Deck.gl and MapLibre for large-scale data visualization.

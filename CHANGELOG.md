@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - **Premium IDE Hero Section**: Initialized the portfolio with a terminal-inspired bio featuring syntax highlighting and reactive CTAs.
 - **Project Grid Showcase**: Dynamic 3D-effect cards for primary "quests" (GAIA, SAM3, etc.).
-- **Bento-box Dashboard**: High-density grid components for Spotify live integration, WakaTime coding stats, and quick highlights.
+- **Bento-box Dashboard**: High-density grid components for Spotify live integration and quick highlights.
 - **GAIA (Geospatial Analytics Integrated Platform)**: Integrated full-scale geospatial dashboard for agricultural data monitoring.
 - **SAM3 Infrastructure**: Full-stack pipeline for Segment Anything Model 3, including a polygon editor and training tools.
 - **Advanced Motion System**: Smooth page transitions and interactive hover effects powered by Framer Motion.
