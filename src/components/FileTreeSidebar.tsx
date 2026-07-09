@@ -1,13 +1,14 @@
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import {
-  VscJson,
   VscFolder,
   VscFolderOpened,
   VscChevronDown,
   VscChevronRight,
   VscMarkdown,
   VscCode,
+  VscJson,
+  VscSettings,
 } from "react-icons/vsc";
 import {
   Tooltip,
@@ -26,10 +27,15 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
   // Folder expansion states
   const [rootOpen, setRootOpen] = useState(true);
   const [srcOpen, setSrcOpen] = useState(true);
-  const [viewsOpen, setViewsOpen] = useState(true);
-  const [questsOpen, setQuestsOpen] = useState(true);
+  const [viewOpen, setViewOpen] = useState(true);
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) => {
+    const [pathPart, hashPart] = path.split("#");
+    if (hashPart) {
+      return pathname === pathPart && window.location.hash === `#${hashPart}`;
+    }
+    return pathname === pathPart && !window.location.hash;
+  };
 
   // Row styling mimicking Zed IDE
   const getRowClass = (path?: string) => {
@@ -72,7 +78,7 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
           {rootOpen && (
             <div className="ml-3 border-l border-border/30 pl-1 space-y-0.5 mt-0.5">
-              {/* Level 1: src folder */}
+              {/* src folder */}
               <div>
                 <button
                   onClick={() => setSrcOpen(!srcOpen)}
@@ -102,13 +108,13 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
 
                 {srcOpen && (
                   <div className="ml-3 border-l border-border/30 pl-1 space-y-0.5 mt-0.5">
-                    {/* Level 2: views folder */}
+                    {/* view folder */}
                     <div>
                       <button
-                        onClick={() => setViewsOpen(!viewsOpen)}
+                        onClick={() => setViewOpen(!viewOpen)}
                         className={getRowClass()}
                       >
-                        {viewsOpen ? (
+                        {viewOpen ? (
                           <VscChevronDown
                             size={14}
                             className="shrink-0 text-muted-foreground"
@@ -119,7 +125,7 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                             className="shrink-0 text-muted-foreground"
                           />
                         )}
-                        {viewsOpen ? (
+                        {viewOpen ? (
                           <VscFolderOpened
                             size={14}
                             className="shrink-0 text-amber-500"
@@ -130,105 +136,38 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                             className="shrink-0 text-amber-500"
                           />
                         )}
-                        <span>views</span>
+                        <span>view</span>
                       </button>
-
-                      {viewsOpen && (
-                        <div className="ml-4 space-y-0.5 mt-0.5">
-                          {/* Home.tsx File */}
+                      {viewOpen && (
+                        <div className="ml-3 border-l border-border/30 pl-1 space-y-0.5 mt-0.5">
                           <Link to="/" className={getRowClass("/")}>
-                            <span className="w-3.5 shrink-0" />{" "}
-                            {/* Spacer instead of chevron */}
-                            <VscCode
-                              size={14}
-                              className="shrink-0 text-cyan-400"
-                            />
+                            <span className="w-3.5 shrink-0" />
+                            <VscCode size={14} className="shrink-0 text-cyan-400" />
                             <span>Home.tsx</span>
                           </Link>
 
-                          {/* about.md File */}
                           <Link to="/about" className={getRowClass("/about")}>
                             <span className="w-3.5 shrink-0" />
-                            <VscMarkdown
-                              size={14}
-                              className="shrink-0 text-sky-400"
-                            />
-                            <span>about.md</span>
+                            <VscCode size={14} className="shrink-0 text-cyan-400" />
+                            <span>About.tsx</span>
                           </Link>
 
-                          {/* contact.json File */}
-                          <Link
-                            to="/contact"
-                            className={getRowClass("/contact")}
-                          >
+                          <Link to="/projects" className={getRowClass("/projects")}>
                             <span className="w-3.5 shrink-0" />
-                            <VscJson
-                              size={14}
-                              className="shrink-0 text-primary"
-                            />
-                            <span>contact.json</span>
-                          </Link>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Level 2: quests folder */}
-                    <div>
-                      <button
-                        onClick={() => setQuestsOpen(!questsOpen)}
-                        className={getRowClass()}
-                      >
-                        {questsOpen ? (
-                          <VscChevronDown
-                            size={14}
-                            className="shrink-0 text-muted-foreground"
-                          />
-                        ) : (
-                          <VscChevronRight
-                            size={14}
-                            className="shrink-0 text-muted-foreground"
-                          />
-                        )}
-                        {questsOpen ? (
-                          <VscFolderOpened
-                            size={14}
-                            className="shrink-0 text-amber-500"
-                          />
-                        ) : (
-                          <VscFolder
-                            size={14}
-                            className="shrink-0 text-amber-500"
-                          />
-                        )}
-                        <span>quests</span>
-                      </button>
-
-                      {questsOpen && (
-                        <div className="ml-4 space-y-0.5 mt-0.5">
-                          {/* projects.json File */}
-                          <Link
-                            to="/projects"
-                            className={getRowClass("/projects")}
-                          >
-                            <span className="w-3.5 shrink-0" />
-                            <VscJson
-                              size={14}
-                              className="shrink-0 text-primary"
-                            />
-                            <span>projects.json</span>
+                            <VscCode size={14} className="shrink-0 text-cyan-400" />
+                            <span>Projects.tsx</span>
                           </Link>
 
-                          {/* badges.json File */}
-                          <Link
-                            to="/certifications"
-                            className={getRowClass("/certifications")}
-                          >
+                          <Link to="/certifications" className={getRowClass("/certifications")}>
                             <span className="w-3.5 shrink-0" />
-                            <VscJson
-                              size={14}
-                              className="shrink-0 text-primary"
-                            />
-                            <span>badges.json</span>
+                            <VscCode size={14} className="shrink-0 text-cyan-400" />
+                            <span>Certifications.tsx</span>
+                          </Link>
+
+                          <Link to="/contact" className={getRowClass("/contact")}>
+                            <span className="w-3.5 shrink-0" />
+                            <VscCode size={14} className="shrink-0 text-cyan-400" />
+                            <span>Contact.tsx</span>
                           </Link>
                         </div>
                       )}
@@ -244,8 +183,29 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   size={14}
                   className="shrink-0 text-sky-400"
                 />
-                <span>DESIGN.md</span>
+                <span className="font-semibold">DESIGN.md</span>
               </Link>
+
+              {/* PRODUCT.md File */}
+              <div className="flex items-center gap-1.5 py-1 px-2 rounded-sm text-xs font-mono select-none text-foreground/50 w-full text-left">
+                <span className="w-3.5 shrink-0" />
+                <VscMarkdown size={14} className="shrink-0 text-emerald-500/70" />
+                <span>PRODUCT.md</span>
+              </div>
+
+              {/* package.json File */}
+              <div className="flex items-center gap-1.5 py-1 px-2 rounded-sm text-xs font-mono select-none text-foreground/50 w-full text-left">
+                <span className="w-3.5 shrink-0" />
+                <VscJson size={14} className="shrink-0 text-amber-500/70" />
+                <span>package.json</span>
+              </div>
+
+              {/* rsbuild.config.ts File */}
+              <div className="flex items-center gap-1.5 py-1 px-2 rounded-sm text-xs font-mono select-none text-foreground/50 w-full text-left">
+                <span className="w-3.5 shrink-0" />
+                <VscSettings size={14} className="shrink-0 text-blue-400/70" />
+                <span>rsbuild.config.ts</span>
+              </div>
             </div>
           )}
         </div>
@@ -287,11 +247,11 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   : "text-foreground/60 hover:bg-muted/80 hover:text-foreground"
               }`}
             >
-              <VscJson size={18} />
+              <VscCode size={18} />
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right" className="font-mono text-xs">
-            projects.json
+            Projects.tsx
           </TooltipContent>
         </Tooltip>
 
@@ -306,11 +266,11 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   : "text-foreground/60 hover:bg-muted/80 hover:text-foreground"
               }`}
             >
-              <VscMarkdown size={18} />
+              <VscCode size={18} />
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right" className="font-mono text-xs">
-            about.md
+            About.tsx
           </TooltipContent>
         </Tooltip>
 
@@ -325,11 +285,11 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   : "text-foreground/60 hover:bg-muted/80 hover:text-foreground"
               }`}
             >
-              <VscJson size={18} />
+              <VscCode size={18} />
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right" className="font-mono text-xs">
-            badges.json
+            Certifications.tsx
           </TooltipContent>
         </Tooltip>
 
@@ -344,11 +304,11 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   : "text-foreground/60 hover:bg-muted/80 hover:text-foreground"
               }`}
             >
-              <VscJson size={18} className="text-primary" />
+              <VscCode size={18} />
             </Link>
           </TooltipTrigger>
           <TooltipContent side="right" className="font-mono text-xs">
-            contact.json
+            Contact.tsx
           </TooltipContent>
         </Tooltip>
 

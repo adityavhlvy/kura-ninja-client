@@ -6,7 +6,7 @@ const Background = () => {
       {/* Base color from theme */}
       <div className="absolute inset-0 bg-background" />
 
-      {/* Subtle gradient mesh — uses primary/secondary which adapt to theme */}
+      {/* Subtle gradient mesh: uses primary/secondary which adapt to theme */}
       <div className="absolute inset-0 opacity-30">
         <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/10 blur-[120px]" />
         <div className="absolute bottom-[-15%] right-[-5%] w-[40%] h-[40%] rounded-full bg-secondary/8 blur-[100px]" />

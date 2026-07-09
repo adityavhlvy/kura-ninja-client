@@ -30,17 +30,17 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
 
   const getBreadcrumbs = (path: string) => {
     const segments = path.split("/").filter(Boolean);
-    if (segments.length === 0) return "kura-ninja › src › views › Home.tsx";
+    if (segments.length === 0) return "kura-ninja › src › view › home › Home.tsx";
 
     const fileMap: Record<string, string> = {
-      about: "kura-ninja › src › views › about.md",
-      contact: "kura-ninja › src › views › contact.json",
-      projects: "kura-ninja › src › quests › projects.json",
-      certifications: "kura-ninja › src › quests › badges.json",
-      "design-system": "kura-ninja › DESIGN.md",
+      about: "kura-ninja › src › view › about › About.tsx",
+      contact: "kura-ninja › src › view › contact › Contact.tsx",
+      projects: "kura-ninja › src › view › projects › Projects.tsx",
+      certifications: "kura-ninja › src › view › certifications › Certifications.tsx",
+      "design-system": "kura-ninja › src › view › design-system › DesignSystem.tsx",
     };
 
-    return fileMap[segments[0]] || `kura-ninja › src › views › ${segments[0]}`;
+    return fileMap[segments[0]] || `kura-ninja › src › view › ${segments[0]}`;
   };
 
   const isSenja = currentTheme === "senja";
@@ -74,9 +74,9 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         </span>
       </div>
 
-      {/* Theme Toggle — responsive container */}
+      {/* Theme Toggle: responsive container */}
       <div className="flex items-center">
-        {/* Mobile Toggle — compact sky scene */}
+        {/* Mobile Toggle: compact sky scene */}
         <button
           onClick={toggleTheme}
           className="relative flex sm:hidden items-center bg-muted/80 border border-border hover:border-primary/40 rounded-full p-1 h-9 w-[86px] overflow-hidden transition-all duration-500 group shadow-md cursor-pointer select-none"
@@ -144,7 +144,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
           </div>
         </button>
 
-        {/* Desktop Toggle — sky scene */}
+        {/* Desktop Toggle: sky scene */}
         <button
           onClick={toggleTheme}
           className="relative hidden sm:flex items-center bg-muted/80 border border-border hover:border-primary/40 rounded-full p-1 h-9 w-[172px] font-mono text-[11px] select-none cursor-pointer overflow-hidden transition-all duration-500 group shadow-md"

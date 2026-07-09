@@ -87,7 +87,7 @@
 }
 
 [data-theme="fajar"] {
-  /* Dawn — true light theme with proper contrast */
+  /* Dawn: true light theme with proper contrast */
   --background: #f0e9df; /* Softer dawn cream, less glaring white */
   --foreground: #1c1210; /* Near-black */
   --card: #ffffff; /* Bright white card to contrast with background */
@@ -151,7 +151,7 @@ h6 {
   font-weight: 700;
 }
 
-/* Editorial accent — use for special callouts */
+/* Editorial accent: use for special callouts */
 .font-serif-accent {
   font-family: "Instrument Serif", serif;
   font-style: italic;
@@ -204,7 +204,7 @@ pre,
   border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
 }
 
-/* Section divider — editorial line */
+/* Section divider: editorial line */
 .section-divider {
   position: relative;
   display: flex;

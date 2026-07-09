@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 /**
- * Walking ninja turtle — visible walk cycle with body bounce.
+ * Walking ninja turtle: visible walk cycle with body bounce.
  */
 export default function KuraTurtle({
   className = "",
@@ -156,7 +156,7 @@ export default function KuraTurtle({
           fill="none"
           strokeLinecap="round"
         />
-        {/* Headband tails — dramatic wave */}
+        {/* Headband tails: dramatic wave */}
         <motion.path
           stroke="#d03030"
           strokeWidth="2"

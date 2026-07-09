@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 /**
- * Topographic contour lines — continuously scrolling horizontally.
+ * Topographic contour lines: continuously scrolling horizontally.
  * Stops when not in viewport (whileInView).
  */
 export default function TopoTerrain({

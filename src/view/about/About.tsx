@@ -17,6 +17,7 @@ import {
   SiPytorch,
   SiSatellite,
   SiGoogleearthengine,
+  SiVercel,
 } from "react-icons/si";
 
 import { motion } from "framer-motion";
@@ -84,7 +85,7 @@ const skillsData: SkillCategory[] = [
       { name: "Docker", icon: <SiDocker /> },
       { name: "Git", icon: <SiGit /> },
       { name: "Figma", icon: <SiFigma /> },
-      { name: "Antigravity", icon: <SlRocket /> },
+      { name: "Vercel", icon: <SiVercel /> },
     ],
   },
 ];
@@ -129,18 +130,18 @@ export default function About() {
                 <span className="font-bold text-primary">
                   AeGIS Module Atlas
                 </span>{" "}
-                — a geospatial dashboard for fertilizer demand visualization and
-                soil nutrient analysis (Go Fiber v3, React 19, OpenLayers,
+                (a geospatial dashboard for fertilizer demand visualization and
+                soil nutrient analysis using Go Fiber v3, React 19, OpenLayers, and
                 PostgreSQL),{" "}
-                <span className="font-bold text-primary">PINTER</span> — an AI
+                <span className="font-bold text-primary">PINTER</span> (an AI
                 agent orchestration platform with a visual builder canvas and
-                multi-agent workflows (FastAPI, Google ADK, React Flow, TanStack
+                multi-agent workflows using FastAPI, Google ADK, React Flow, and TanStack
                 Router), and{" "}
                 <span className="font-bold text-primary">
                   NEXUS Module Delta & Vista
                 </span>{" "}
-                — an enterprise logistics coordination and automated route
-                pathfinding platform (FastAPI, React 19, OpenLayers).
+                (an enterprise logistics coordination and automated route
+                pathfinding platform using FastAPI, React 19, and OpenLayers).
               </p>
               <p>
                 I have a background in predictive modeling (Satellite Imagery +
@@ -156,18 +157,22 @@ export default function About() {
                 a former Vice President of my student association, and someone
                 who probably thinks about system design way too much at 2am.
               </p>
-              <div className="bg-muted/50 border-l-4 border-primary rounded-r-lg mt-6 text-sm not-italic flex items-center gap-4 p-4 hover:bg-muted transition-colors">
-                <SlUser className="text-2xl text-primary opacity-50 shrink-0" />
-                <div>
-                  <h3 className="font-serif-accent text-primary mb-0 text-lg">
-                    &quot;If it works, don&apos;t touch it. If it breaks, blame
-                    the compiler.&quot;
-                  </h3>
-                  <div className="text-xs opacity-50 mt-1">
-                    — My actual development philosophy.
-                  </div>
+              <div className="bg-muted/30 border border-border/50 rounded-sm mt-8 p-5 font-mono text-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
+                <div className="flex items-center gap-1.5 mb-3 border-b border-border/20 pb-2">
+                  <span className="w-2 h-2 rounded-full bg-primary/45" />
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">philosophy.sh</span>
                 </div>
-                <KuraTurtle size={56} className="shrink-0 hidden md:block" />
+                <div className="text-foreground/90 space-y-1">
+                  <div className="flex items-start gap-2">
+                    <span className="text-primary font-bold select-none shrink-0">$</span>
+                    <h3 className="font-serif-accent text-primary mb-0 text-xl leading-snug italic">
+                      &quot;If it works, don&apos;t touch it. If it breaks, blame the compiler.&quot;
+                    </h3>
+                  </div>
+                  <p className="text-[10px] text-muted-foreground/60 mt-3 pl-5">
+                    # My actual development philosophy.
+                  </p>
+                </div>
               </div>
             </div>
           }
@@ -189,7 +194,7 @@ export default function About() {
         <JourneyMap />
       </motion.section>
 
-      {/* Parallax Mountains — section divider */}
+      {/* Parallax Mountains: section divider */}
       <ParallaxMountains className="my-8 opacity-70" />
 
       {/* Skills Section */}
@@ -215,10 +220,14 @@ export default function About() {
                 {category.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2 pl-2 pr-3 py-2 rounded-sm bg-card/50 border border-border/50"
+                    className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-sm bg-card/45 border border-border/40 hover:border-primary/30 hover:bg-card/85 transition-all duration-300 select-none group/item cursor-default"
                   >
-                    <span className="text-lg">{item.icon}</span>
-                    <span className="text-sm font-medium">{item.name}</span>
+                    <span className="text-lg text-muted-foreground group-hover/item:text-primary group-hover/item:scale-108 transition-all duration-300">
+                      {item.icon}
+                    </span>
+                    <span className="text-xs font-mono font-medium tracking-tight text-foreground/85 group-hover/item:text-foreground transition-colors duration-300">
+                      {item.name}
+                    </span>
                   </div>
                 ))}
               </div>

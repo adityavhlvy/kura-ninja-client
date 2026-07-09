@@ -213,36 +213,26 @@ export default function ProjectDetail() {
         <div className="space-y-8">
           {/* Readiness Stats */}
           {project.readiness && (
-            <div className="bg-card/40 border border-border/50 rounded-sm overflow-hidden p-6 space-y-6">
+            <div className="bg-card/40 border border-border/50 rounded-sm p-6 space-y-4">
               <h3 className="text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 text-muted-foreground/80">
                 <SlChart />
                 Project Readiness
               </h3>
-              <div className="space-y-4">
+              <div className="grid grid-cols-3 gap-2.5 pt-1">
                 {[
                   { label: "Test Coverage", value: project.readiness.tests },
                   { label: "Documentation", value: project.readiness.docs },
                   {
-                    label: "Performance / Quality",
+                    label: "Quality",
                     value: project.readiness.quality,
                   },
                 ].map((stat, i) => (
-                  <div key={i} className="space-y-1.5">
-                    <div className="flex justify-between text-xs font-mono">
-                      <span className="text-muted-foreground/85">
-                        {stat.label}
-                      </span>
-                      <span className="text-primary font-bold">
-                        {stat.value}%
-                      </span>
+                  <div key={i} className="text-center p-3 rounded-sm bg-muted/20 border border-border/30 hover:border-primary/20 transition-all duration-300">
+                    <div className="text-lg font-mono font-black text-primary">
+                      {stat.value}%
                     </div>
-                    <div className="w-full h-1 bg-muted/60 overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${stat.value}%` }}
-                        className="h-full bg-primary"
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                      />
+                    <div className="text-[8px] font-mono uppercase tracking-wider text-muted-foreground/80 mt-1 leading-tight break-words">
+                      {stat.label}
                     </div>
                   </div>
                 ))}

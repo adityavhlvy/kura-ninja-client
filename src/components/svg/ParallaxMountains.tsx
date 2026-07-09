@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 /**
- * Parallax mountain landscape — smooth rolling hills, not jagged peaks.
+ * Parallax mountain landscape: smooth rolling hills, not jagged peaks.
  * Placed as decorative element within content flow, not fixed.
  */
 export default function ParallaxMountains({
@@ -27,7 +27,7 @@ export default function ParallaxMountains({
           transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Back layer — gentle rolling hills */}
+        {/* Back layer: gentle rolling hills */}
         <motion.path
           d="M0 140 C80 120, 140 100, 200 110 C280 125, 320 95, 400 105 C480 115, 540 90, 620 100 C700 110, 750 95, 800 108 L800 180 L0 180 Z"
           fill="var(--primary)"
@@ -36,7 +36,7 @@ export default function ParallaxMountains({
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Mid layer — rounder mountains */}
+        {/* Mid layer: rounder mountains */}
         <motion.path
           d="M0 155 C60 140, 120 125, 180 135 C260 148, 300 120, 380 130 C440 138, 500 115, 560 128 C640 142, 700 122, 800 135 L800 180 L0 180 Z"
           fill="var(--primary)"
@@ -45,7 +45,7 @@ export default function ParallaxMountains({
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Front layer — closest hills */}
+        {/* Front layer: closest hills */}
         <motion.path
           d="M0 165 C50 155, 100 145, 160 152 C240 162, 280 142, 360 150 C420 156, 480 138, 560 148 C620 155, 700 140, 800 152 L800 180 L0 180 Z"
           fill="var(--primary)"
@@ -54,7 +54,7 @@ export default function ParallaxMountains({
           transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
         />
 
-        {/* Foreground — soft rolling ground */}
+        {/* Foreground: soft rolling ground */}
         <motion.path
           d="M0 172 C100 167, 200 170, 300 168 C400 166, 500 170, 600 167 C700 165, 750 169, 800 168 L800 180 L0 180 Z"
           fill="var(--primary)"

@@ -26,9 +26,9 @@ Some things you might find interesting:
 
 Currently running on: ☕ and questionable decisions.
 
-%c// "Not all those who wander are lost—but I definitely should've documented that function."
+	%c// "Not all those who wander are lost - but I definitely should've documented that function."
 
-%c— Aditya (Kura Ninja)
+	%c- Aditya (Kura Ninja)
    adityavhlvy1003@gmail.com
 `;
 

@@ -56,7 +56,7 @@ export const projectsData: ProjectCardProps[] = [
       "UI/UX & Precision Flow Framework",
     ],
     technicalChallenges: [
-      "Implemented zoom-aware vector tile styling — map dynamically switches admin level based on zoom with region codes truncated to match province/regency/district and demand data aggregated client-side per visible level.",
+      "Implemented zoom-aware vector tile styling where map dynamically switches admin level based on zoom with region codes truncated to match province/regency/district and demand data aggregated client-side per visible level.",
       "Built tile proxy with dual auth handling both HTTP Basic and HMAC token auth modes for upstream Martin tile server with token caching and 1-minute expiry buffer.",
       "Managed complex state with useReducer (20+ action types) for filters, regions, map state, demand data, analysis layers, and comparison mode.",
       "Offloaded SNM feature deduplication to Web Worker to avoid blocking main thread during vector tile processing.",
@@ -118,7 +118,7 @@ export const projectsData: ProjectCardProps[] = [
       "JWT authentication and RBAC with realm-based grants and role groups.",
     ],
     rationale:
-      "Internal enterprise tool for Pupuk Indonesia Holding Company — democratizes AI agent creation for non-technical teams.",
+      "Internal enterprise tool for Pupuk Indonesia Holding Company that democratizes AI agent creation for non-technical teams.",
     competencies: [
       "AI Agent Orchestration",
       "Visual Canvas Architecture",
@@ -129,7 +129,7 @@ export const projectsData: ProjectCardProps[] = [
       "Cost & Quota Management",
     ],
     technicalChallenges: [
-      "Executed a 3-phase framework migration from CrewAI to Google ADK without production downtime — using tool wrapping adapters in Phase 2 before full native rewrite in Phase 3.",
+      "Executed a 3-phase framework migration from CrewAI to Google ADK without production downtime, using tool wrapping adapters in Phase 2 before full native rewrite in Phase 3.",
       "Implemented async ORM rewrite with buffered execution tracing that flushes events in batches to avoid per-event DB writes that would kill streaming performance.",
       "Designed a custom instruction merging strategy from CrewAI's 3-field (role/goal/backstory) model to ADK's 5-pattern instruction model (identity/mission/methodology/boundaries/examples).",
     ],
@@ -321,7 +321,7 @@ export const projectsData: ProjectCardProps[] = [
     featured: true,
     details: [
       "Predicted crop yield using satellite imagery (Sentinel-2) and ground truth data.",
-      "Collected and preprocessed data from East and West Java (2020–2021).",
+      "Collected and preprocessed data from East and West Java (2020-2021).",
       "Applied classical ML models (RF, XGBoost, LightGBM) and deep learning models (LSTM, GRU).",
       "Implemented transfer learning for the Lampung region to improve prediction accuracy.",
       "Achieved region-specific yield predictions with improved accuracy.",

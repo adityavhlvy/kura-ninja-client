@@ -30,12 +30,12 @@ export default function Home() {
     <PageTransition>
       <BackgroundEffects />
 
-      {/* Topographic terrain — hero background decoration */}
+      {/* Topographic terrain: hero background decoration */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[80%] max-w-4xl pointer-events-none opacity-60 z-0">
         <TopoTerrain />
       </div>
 
-      {/* Hero Section — scroll-aware parallax */}
+      {/* Hero Section: scroll-aware parallax */}
       <section
         ref={heroRef}
         className="relative flex flex-col items-center justify-center min-h-[90vh] pt-20 pb-16 w-full overflow-hidden"
@@ -44,7 +44,7 @@ export default function Home() {
           style={{ y: heroY, opacity: heroOpacity }}
           className="z-10 w-full max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mx-auto"
         >
-          {/* Left: Intro text — editorial style */}
+          {/* Left: Intro text: editorial style */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -61,7 +61,7 @@ export default function Home() {
               Fullstack Developer · PT Pupuk Indonesia (Persero)
             </motion.p>
 
-            {/* Name — large, distinctive */}
+            {/* Name: large, distinctive */}
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -131,7 +131,7 @@ export default function Home() {
             className="order-1 lg:order-2 lg:col-span-5 flex justify-center lg:justify-end"
           >
             <div className="relative group">
-              {/* Photo — editorial crop, diagonal mask */}
+              {/* Photo: editorial crop, diagonal mask */}
               <motion.div
                 initial={{
                   opacity: 0,
@@ -156,7 +156,7 @@ export default function Home() {
                   alt="Aditya Vahlevy Nugraha"
                   className="w-full h-full object-cover object-top transition-all duration-1000 group-hover:scale-[1.03]"
                 />
-                {/* Gradient overlay — bottom fade */}
+                {/* Gradient overlay: bottom fade */}
                 <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-70" />
                 {/* Subtle color tint */}
                 <div className="absolute inset-0 bg-primary/10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -181,21 +181,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
 
-        {/* Scroll indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
-        >
-          <motion.div
-            animate={{ y: [0, 6, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-            className="w-5 h-8 border border-border/50 rounded-full flex justify-center pt-1.5"
-          >
-            <div className="w-1 h-2 bg-primary/40 rounded-full" />
-          </motion.div>
-        </motion.div>
+
       </section>
 
       {/* Music & Stats Grid */}
@@ -216,7 +202,7 @@ export default function Home() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 w-full items-stretch">
-          {/* System Telemetry — dominant card */}
+          {/* System Telemetry: dominant card */}
           <div className="lg:col-span-7 w-full h-full">
             <SystemTelemetry />
           </div>
@@ -309,7 +295,7 @@ export default function Home() {
         {/* Featured project: first one large, rest in grid */}
         {featuredProjects.length > 0 && (
           <div className="space-y-8">
-            {/* Hero project — full width */}
+            {/* Hero project: full width */}
             <motion.div
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -344,7 +330,7 @@ export default function Home() {
       </section>
 
       {/* Collab CTA Section */}
-      <section className="container mx-auto max-w-6xl px-6 lg:px-8 mb-24">
+      <section className="container mx-auto max-w-6xl px-6 lg:px-8 pb-24">
         <div className="bg-card/30 border border-border rounded-sm p-8 md:p-12 text-center space-y-6 relative overflow-hidden backdrop-blur-sm">
           {/* Subtle Topo background or wireframe */}
           <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
@@ -368,7 +354,7 @@ export default function Home() {
 
             <p className="text-muted-foreground text-md md:text-lg leading-relaxed text-pretty">
               Whether you want to recruit full-time talent, consult on a
-              geospatial GIS module, or wire up stateful multi-agent canvases —
+              geospatial GIS module, or wire up stateful multi-agent canvases:
               dispatch a quest spec today.
             </p>
 

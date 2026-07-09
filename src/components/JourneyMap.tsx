@@ -29,7 +29,7 @@ const nodesData: JourneyNode[] = [
     emoji: "🎓",
     details: {
       role: "Science Major",
-      date: "2018 – 2021",
+      date: "2018 - 2021",
       description:
         "High School Diploma, Science & Technology focus. GPA 85.60/100. First encounter with programming and computational thinking.",
       skills: ["Physics", "Mathematics", "Logic", "Basic Programming"],
@@ -46,7 +46,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Head of Technology & Information",
       company: "MPK SMA Plus Riau",
-      date: "Jul 2019 – Jul 2020",
+      date: "Jul 2019 - Jul 2020",
       description:
         "Managed student council digital assets. Directed tech initiatives and created digital visuals for school events.",
       skills: ["Leadership", "Event Management", "Design", "Team Coordination"],
@@ -63,7 +63,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Computer Science",
       company: "Universitas Pertamina",
-      date: "2021 – 2025",
+      date: "2021 - 2025",
       description:
         "Bachelor of CS, GPA 3.58 (Cum Laude). APERTI BUMN Scholarship awardee. Thesis: LLM-driven microservices migration analysis.",
       skills: [
@@ -86,7 +86,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Head of Media Creative",
       company: "Hima-IF UP",
-      date: "Feb – Nov 2023",
+      date: "Feb - Nov 2023",
       description:
         "Directed creative team designing visual identity for CS student association. Oversaw 50+ design projects across events and campaigns.",
       skills: [
@@ -108,7 +108,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "SIC Batch 5",
       company: "Samsung Innovation Campus",
-      date: "Mar – Sep 2023",
+      date: "Mar - Sep 2023",
       description:
         "Intensive program covering Machine Learning and IoT. Built innovative project combining sensor data with predictive models.",
       skills: [
@@ -131,7 +131,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Vice President",
       company: "Hima-IF UP",
-      date: "Jan – Dec 2024",
+      date: "Jan - Dec 2024",
       description:
         "Co-led 100+ member CS Student Association. Managed organizational strategy, event pipelines, and inter-org relations.",
       skills: [
@@ -153,7 +153,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "IT Intern (PPC)",
       company: "PT Astra Otoparts Tbk",
-      date: "Sep – Dec 2024",
+      date: "Sep - Dec 2024",
       description:
         "Engineered 3 full-stack dashboards for Production Planning & Control. Digitized rejection tracking system, reducing manual data errors by 95%.",
       skills: [
@@ -176,7 +176,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Research Assistant",
       company: "Universitas Pertamina",
-      date: "Jul – Oct 2025",
+      date: "Jul - Oct 2025",
       description:
         "Built predictive model for rice yields using Sentinel-2 satellite imagery and temporal BPS data. Achieved R² = 0.8337 with LightGBM + Optuna.",
       skills: [
@@ -199,7 +199,7 @@ const nodesData: JourneyNode[] = [
     details: {
       role: "Fullstack Developer",
       company: "PT Pupuk Indonesia (Persero)",
-      date: "Oct 2025 – Present",
+      date: "Oct 2025 - Present",
       description:
         "Engineering AeGIS (Module Atlas) geospatial dashboard, PINTER AI agent orchestration platform with visual canvas, and NEXUS (Module Delta & Vista) logistics & pathfinding platform.",
       skills: [
@@ -378,7 +378,7 @@ export default function JourneyMap() {
           </div>
         </div>
 
-        {/* Right: Detail panel — sticky, always visible */}
+        {/* Right: Detail panel: sticky, always visible */}
         <div ref={detailRef} className="lg:col-span-7 mt-6 lg:mt-0">
           <div className="lg:sticky lg:top-20">
             <AnimatePresence mode="wait">

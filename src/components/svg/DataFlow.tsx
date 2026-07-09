@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 
 /**
- * Data flow visualization — visible paths with glowing dots traveling along them.
+ * Data flow visualization: visible paths with glowing dots traveling along them.
  * More "data-like" with dashed lines and brighter particles.
  */
 export default function DataFlow({ className = "" }: { className?: string }) {
@@ -57,7 +57,7 @@ export default function DataFlow({ className = "" }: { className?: string }) {
           />
         ))}
 
-        {/* Traveling data packets — glowing dots */}
+        {/* Traveling data packets: glowing dots */}
         {paths.map((path, i) => (
           <g key={`flow-${i}`}>
             {/* Main packet */}

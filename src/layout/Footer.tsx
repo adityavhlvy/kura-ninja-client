@@ -95,7 +95,7 @@ export default function Footer() {
           <FooterSpotify />
         </div>
 
-        {/* Hint — rotating */}
+        {/* Hint: rotating */}
         <div className="hidden lg:flex items-center border-l border-border pl-3 ml-1 overflow-hidden h-5">
           <span className="text-primary/50 mr-1.5">💡</span>
           <AnimatePresence mode="wait">

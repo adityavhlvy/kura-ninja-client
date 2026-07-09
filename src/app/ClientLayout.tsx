@@ -116,7 +116,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
           </aside>
 
           <main className="flex-1 p-0 overflow-y-auto bg-background/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
-            <div className="w-full h-full">{children}</div>
+            <div className="w-full min-h-full pb-20">{children}</div>
           </main>
         </div>
         <Footer />
