@@ -80,7 +80,7 @@ export default function Footer() {
   const hasActiveA11y = highContrast || grayscale || textSize !== "normal";
 
   return (
-    <footer className="w-full bg-muted border-t border-border text-foreground/70 text-xs flex items-center justify-between px-3 py-1 select-none z-50 font-mono relative">
+    <footer className="w-full bg-muted border-t border-border text-foreground/70 text-xs flex items-center justify-between px-3 pb-5 sm:pb-1 pt-2 sm:pt-1 select-none z-50 font-mono relative">
       {/* Left */}
       <div className="flex items-center gap-3">
         <div className="flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">

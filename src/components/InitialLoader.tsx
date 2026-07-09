@@ -1,20 +1,27 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function InitialLoader({ onComplete }: { onComplete: () => void }) {
     const [isVisible, setIsVisible] = useState(true);
+    const onCompleteRef = useRef(onComplete);
+
+    useEffect(() => {
+        onCompleteRef.current = onComplete;
+    });
 
     useEffect(() => {
         // Brief pause to let fonts/assets settle, then reveal
         const timer = setTimeout(() => {
             setIsVisible(false);
-            setTimeout(onComplete, 600);
+            setTimeout(() => {
+                onCompleteRef.current();
+            }, 600);
         }, 300);
 
         return () => clearTimeout(timer);
-    }, [onComplete]);
+    }, []);
 
     return (
         <AnimatePresence>

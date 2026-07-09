@@ -1,5 +1,5 @@
 import { useLocation } from "react-router-dom";
-import { useState, useEffect, useCallback, ReactNode } from "react";
+import { useState, useEffect, useCallback, useRef, ReactNode } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import FileTreeSidebar from "../components/FileTreeSidebar";
@@ -11,8 +11,18 @@ import { initEasterEggs } from "../utils/easterEggs";
 import InitialLoader from "../components/InitialLoader";
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 768;
+    }
+    return false;
+  });
+  const [isSidebarOpen, setIsSidebarOpen] = useState(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth >= 768;
+    }
+    return true;
+  });
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
   const [isAppLoaded, setIsAppLoaded] = useState(false);
   const { pathname } = useLocation();
@@ -54,44 +64,54 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   // Close sidebar on route change if on mobile
+  const lastPathname = useRef(pathname);
   useEffect(() => {
-    if (isMobile && isSidebarOpen) {
-      const timer = setTimeout(() => setIsSidebarOpen(false), 0);
-      return () => clearTimeout(timer);
+    if (pathname !== lastPathname.current) {
+      lastPathname.current = pathname;
+      if (isMobile) {
+        setIsSidebarOpen(false);
+      }
     }
-  }, [pathname, isMobile, isSidebarOpen]);
+  }, [pathname, isMobile]);
+
+  // Memoize loader completion callback to prevent timer reset loops
+  const handleLoaderComplete = useCallback(() => {
+    setIsAppLoaded(true);
+  }, []);
 
   return (
     <TimeProvider>
       {!isAppLoaded && (
-        <InitialLoader onComplete={() => setIsAppLoaded(true)} />
+        <InitialLoader onComplete={handleLoaderComplete} />
       )}
 
       <div
-        className={`h-screen flex flex-col overflow-hidden relative transition-opacity duration-1000 ${isAppLoaded ? "opacity-100" : "opacity-0"}`}
+        className={`h-screen h-[100dvh] flex flex-col overflow-hidden relative transition-opacity duration-1000 ${isAppLoaded ? "opacity-100" : "opacity-0"}`}
       >
         <Background />
         <AtmosphereIndicator />
         <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="flex flex-1 overflow-hidden relative isolate">
           {/* Mobile Sidebar Overlay */}
-          {isMobile && isSidebarOpen && (
-            <div
-              className="absolute inset-0 bg-black/50 z-40"
-              onClick={() => setIsSidebarOpen(false)}
-            />
-          )}
+          <div
+            className={`absolute inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+              isMobile && isSidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+            }`}
+            onClick={() => setIsSidebarOpen(false)}
+          />
 
           {/* Sidebar */}
           <aside
             className={`
                           ${
                             isMobile
-                              ? "absolute h-full z-50 shadow-xl"
+                              ? "absolute h-full z-50"
                               : "relative"
                           }
-                          ${isSidebarOpen ? "w-64" : isMobile ? "w-0" : "w-20"}
-                          border-r bg-muted/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
+                          ${isMobile && isSidebarOpen ? "shadow-xl" : ""}
+                          ${isSidebarOpen ? "w-64" : isMobile ? "w-0 pointer-events-none" : "w-20"}
+                          ${isSidebarOpen || !isMobile ? "border-r border-border" : "border-r-0"}
+                          bg-muted/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
                       `}
           >
             <div className={isMobile ? "h-full w-64" : "h-full"}>

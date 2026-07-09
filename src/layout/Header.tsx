@@ -73,11 +73,80 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
         </span>
       </div>
 
-      {/* Theme Toggle — sky scene */}
+      {/* Theme Toggle — responsive container */}
       <div className="flex items-center">
+        {/* Mobile Toggle — compact sky scene */}
         <button
           onClick={toggleTheme}
-          className="relative flex items-center bg-muted/80 border border-border hover:border-primary/40 rounded-full p-1 h-9 w-[172px] font-mono text-[11px] select-none cursor-pointer overflow-hidden transition-all duration-500 group shadow-md"
+          className="relative flex sm:hidden items-center bg-muted/80 border border-border hover:border-primary/40 rounded-full p-1 h-9 w-[86px] overflow-hidden transition-all duration-500 group shadow-md cursor-pointer select-none"
+          aria-label={`Switch to ${isSenja ? "Fajar" : "Senja"} theme`}
+          title={
+            isSenja ? "Switch to Fajar (Dawn)" : "Switch to Senja (Twilight)"
+          }
+        >
+          {/* Sliding sky-scene portal capsule */}
+          <motion.div
+            className="absolute top-1 bottom-1 w-[38px] rounded-full overflow-hidden border border-white/10 shadow-inner z-0 pointer-events-none"
+            initial={false}
+            animate={{
+              x: isSenja ? 40 : 0,
+            }}
+            transition={{ type: "spring", stiffness: 350, damping: 26 }}
+          >
+            {/* Sky gradient background */}
+            <motion.div
+              className="absolute inset-0"
+              animate={{
+                background: isSenja
+                  ? "linear-gradient(to bottom, #0a0a20 0%, #180e2a 40%, #3c1a4c 75%, #6a2a35 100%)"
+                  : "linear-gradient(to bottom, #ff9e79 0%, #ffc3a0 35%, #ffd480 70%, #ffeaa7 100%)",
+              }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            />
+
+            {/* Stars (senja only) */}
+            <motion.div
+              animate={{ opacity: isSenja ? 1 : 0 }}
+              transition={{ duration: 0.4 }}
+              className="absolute inset-0"
+            >
+              <div className="absolute top-1 left-2 w-[1px] h-[1px] bg-white/70 rounded-full" />
+              <div className="absolute top-3 left-4 w-[1.5px] h-[1.5px] bg-white/80 rounded-full shadow-[0_0_2px_#fff]" />
+              <div className="absolute top-1.5 right-2.5 w-[1px] h-[1px] bg-white/50 rounded-full" />
+            </motion.div>
+
+            {/* Horizon line */}
+            <div className="absolute bottom-1.5 left-0 right-0 h-[1px] bg-white/15" />
+
+            {/* Ground */}
+            <motion.div
+              animate={{
+                backgroundColor: isSenja ? "#09090e" : "#8a583e",
+              }}
+              transition={{ duration: 0.5 }}
+              className="absolute bottom-0 left-0 right-0 h-1"
+            />
+          </motion.div>
+
+          {/* Fajar Icon */}
+          <div className="flex items-center justify-center w-[38px] h-full z-10 transition-colors duration-300 pointer-events-none">
+            <Sun
+              className={`w-4 h-4 transition-colors duration-300 ${!isSenja ? "text-amber-950 font-bold drop-shadow-[0_1px_1px_rgba(255,255,255,0.4)]" : "text-muted-foreground/60 group-hover:text-muted-foreground"}`}
+            />
+          </div>
+
+          {/* Senja Icon */}
+          <div className="flex items-center justify-center w-[38px] h-full z-10 transition-colors duration-300 pointer-events-none">
+            <Moon
+              className={`w-4 h-4 transition-colors duration-300 ${isSenja ? "text-primary font-bold drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" : "text-muted-foreground/60 group-hover:text-muted-foreground"}`}
+            />
+          </div>
+        </button>
+
+        {/* Desktop Toggle — sky scene */}
+        <button
+          onClick={toggleTheme}
+          className="relative hidden sm:flex items-center bg-muted/80 border border-border hover:border-primary/40 rounded-full p-1 h-9 w-[172px] font-mono text-[11px] select-none cursor-pointer overflow-hidden transition-all duration-500 group shadow-md"
           aria-label={`Switch to ${isSenja ? "Fajar" : "Senja"} theme`}
           title={
             isSenja ? "Switch to Fajar (Dawn)" : "Switch to Senja (Twilight)"

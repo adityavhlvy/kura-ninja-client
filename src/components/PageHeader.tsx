@@ -16,7 +16,7 @@ export default function PageHeader({
     accentColor = "primary",
 }: PageHeaderProps) {
     return (
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
             <div className="space-y-4 max-w-3xl">
                 <div className="relative">
                     {subtitle && (

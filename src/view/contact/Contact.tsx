@@ -75,7 +75,7 @@ export default function Contact() {
       );
     return (
       <pre
-        className="font-mono text-xs leading-relaxed whitespace-pre-wrap select-all"
+        className="font-mono text-xs leading-relaxed whitespace-pre-wrap break-words select-all"
         dangerouslySetInnerHTML={{ __html: html }}
       />
     );
@@ -174,7 +174,7 @@ export default function Contact() {
                 <label className="block text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1.5">
                   Intent Category
                 </label>
-                <div className="grid grid-cols-2 gap-2">
+                <div className="flex flex-wrap gap-2">
                   {(
                     [
                       "HIRE_ME",
@@ -187,7 +187,7 @@ export default function Contact() {
                       key={type}
                       type="button"
                       onClick={() => setMission(type)}
-                      className={`py-2 px-3 border rounded-sm font-mono text-[10px] text-center font-bold tracking-tight transition-all duration-300 ${
+                      className={`flex-1 min-w-[120px] py-2 px-3 border rounded-sm font-mono text-[10px] text-center font-bold tracking-tight transition-all duration-300 ${
                         mission === type
                           ? "bg-primary border-primary text-primary-foreground shadow-[0_0_8px_rgba(240,160,48,0.25)]"
                           : "bg-muted/30 border-border text-muted-foreground hover:border-primary/50 hover:text-foreground"

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface JourneyNode {
@@ -247,8 +247,16 @@ const typeColors = {
 
 export default function JourneyMap() {
   const [selectedId, setSelectedId] = useState<string>("pupuk");
+  const detailRef = useRef<HTMLDivElement>(null);
   const selectedNode = nodesData.find((n) => n.id === selectedId);
   const selectedIndex = nodesData.findIndex((n) => n.id === selectedId);
+
+  useEffect(() => {
+    // Only scroll on mobile/tablet viewports (less than lg breakpoint)
+    if (window.innerWidth < 1024 && detailRef.current) {
+      detailRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }
+  }, [selectedId]);
 
   return (
     <div className="w-full">
@@ -368,7 +376,7 @@ export default function JourneyMap() {
         </div>
 
         {/* Right: Detail panel — sticky, always visible */}
-        <div className="lg:col-span-7 mt-6 lg:mt-0">
+        <div ref={detailRef} className="lg:col-span-7 mt-6 lg:mt-0">
           <div className="lg:sticky lg:top-20">
             <AnimatePresence mode="wait">
               {selectedNode && (

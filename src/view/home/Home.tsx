@@ -231,25 +231,25 @@ export default function Home() {
             </SpotlightCard>
 
             {/* Compact stats row */}
-            <div className="grid grid-cols-3 gap-3">
-              <div className="p-4 bg-card/50 rounded-sm border border-border/50 hover:border-primary/30 transition-colors text-center group">
-                <div className="text-2xl font-black text-primary mb-0.5 group-hover:scale-105 transition-transform">
+            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              <div className="p-2.5 sm:p-4 bg-card/50 rounded-sm border border-border/50 hover:border-primary/30 transition-colors text-center group">
+                <div className="text-xl sm:text-2xl font-black text-primary mb-0.5 group-hover:scale-105 transition-transform">
                   {projectsData.length}+
                 </div>
-                <div className="text-[9px] uppercase tracking-wider font-bold text-muted-foreground">
+                <div className="text-[8px] sm:text-[9px] uppercase tracking-wider font-bold text-muted-foreground">
                   Projects
                 </div>
               </div>
-              <div className="p-4 bg-card/50 rounded-sm border border-border/50 hover:border-primary/30 transition-colors text-center group">
-                <div className="text-2xl font-black text-primary mb-0.5 font-mono group-hover:scale-105 transition-transform">
+              <div className="p-2.5 sm:p-4 bg-card/50 rounded-sm border border-border/50 hover:border-primary/30 transition-colors text-center group">
+                <div className="text-xl sm:text-2xl font-black text-primary mb-0.5 font-mono group-hover:scale-105 transition-transform">
                   20+
                 </div>
-                <div className="text-[9px] uppercase tracking-wider font-bold text-muted-foreground">
+                <div className="text-[8px] sm:text-[9px] uppercase tracking-wider font-bold text-muted-foreground">
                   Badges
                 </div>
               </div>
-              <div className="p-4 bg-card/50 rounded-sm border border-border/50 flex items-center justify-center text-center">
-                <span className="text-[10px] font-mono text-muted-foreground/40 uppercase">
+              <div className="p-2.5 sm:p-4 bg-card/50 rounded-sm border border-border/50 flex items-center justify-center text-center">
+                <span className="text-[9px] sm:text-[10px] font-mono text-muted-foreground/40 uppercase">
                   ⌘K
                 </span>
               </div>
