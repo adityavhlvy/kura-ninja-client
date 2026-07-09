@@ -236,6 +236,16 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   </div>
                 )}
               </div>
+
+              {/* DESIGN.md File */}
+              <Link to="/design-system" className={getRowClass("/design-system")}>
+                <span className="w-3.5 shrink-0" />
+                <VscMarkdown
+                  size={14}
+                  className="shrink-0 text-sky-400"
+                />
+                <span>DESIGN.md</span>
+              </Link>
             </div>
           )}
         </div>
@@ -339,6 +349,25 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
           </TooltipTrigger>
           <TooltipContent side="right" className="font-mono text-xs">
             contact.json
+          </TooltipContent>
+        </Tooltip>
+
+        {/* Design System icon */}
+        <Tooltip delayDuration={0}>
+          <TooltipTrigger asChild>
+            <Link
+              to="/design-system"
+              className={`p-2 rounded-sm transition-colors ${
+                isActive("/design-system")
+                  ? "bg-accent/25 text-primary"
+                  : "text-foreground/60 hover:bg-muted/80 hover:text-foreground"
+              }`}
+            >
+              <VscMarkdown size={18} className="text-sky-400" />
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent side="right" className="font-mono text-xs">
+            DESIGN.md
           </TooltipContent>
         </Tooltip>
       </nav>

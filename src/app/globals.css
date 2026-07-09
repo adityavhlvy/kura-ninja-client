@@ -5,35 +5,35 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-    --color-background: var(--background);
-    --color-foreground: var(--foreground);
-    --color-card: var(--card);
-    --color-card-foreground: var(--card-foreground);
-    --color-popover: var(--popover);
-    --color-popover-foreground: var(--popover-foreground);
-    --color-primary: var(--primary);
-    --color-primary-foreground: var(--primary-foreground);
-    --color-secondary: var(--secondary);
-    --color-secondary-foreground: var(--secondary-foreground);
-    --color-muted: var(--muted);
-    --color-muted-foreground: var(--muted-foreground);
-    --color-accent: var(--accent);
-    --color-accent-foreground: var(--accent-foreground);
-    --color-destructive: var(--destructive);
-    --color-destructive-foreground: var(--destructive-foreground);
-    --color-success: var(--success);
-    --color-success-foreground: var(--success-foreground);
-    --color-warning: var(--warning);
-    --color-warning-foreground: var(--warning-foreground);
-    --color-border: var(--border);
-    --color-input: var(--input);
-    --color-ring: var(--ring);
-    --radius-sm: calc(var(--radius) * 0.6);
-    --radius-md: calc(var(--radius) * 0.8);
-    --radius-lg: var(--radius);
-    --radius-xl: calc(var(--radius) * 1.4);
-    --radius-3xl: calc(var(--radius) * 2.2);
-    --radius-4xl: calc(var(--radius) * 2.6);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
 /* ========================================
@@ -51,120 +51,120 @@
 
 :root,
 [data-theme="senja"] {
-    --background: #0f0f15; /* Twilight deep navy-black, less pitch black */
-    --foreground: #f7f4ed; /* Crisp warm parchment white */
-    --card: #171721;
-    --card-foreground: #f7f4ed;
-    --popover: #171721;
-    --popover-foreground: #f7f4ed;
-    --primary: #f0a030; /* Sunset amber */
-    --primary-foreground: #0f0f15;
-    --secondary: #c06020; /* Deep burnt orange */
-    --secondary-foreground: #ffffff;
-    --muted: #1c1c27; /* Dark twilight */
-    --muted-foreground: #aba59e; /* Warm gray, higher contrast */
-    --accent: #f0a030;
-    --accent-foreground: #0f0f15;
-    --destructive: #e04040;
-    --destructive-foreground: #f7f4ed;
-    --success: #40b070;
-    --success-foreground: #0f0f15;
-    --warning: #e0a020;
-    --warning-foreground: #0f0f15;
-    --border: #2e2e3f; /* Subtle twilight border, more defined */
-    --input: #1c1c27;
-    --ring: #f0a030;
-    --radius: 0.25rem;
+  --background: #0f0f15; /* Twilight deep navy-black, less pitch black */
+  --foreground: #f7f4ed; /* Crisp warm parchment white */
+  --card: #171721;
+  --card-foreground: #f7f4ed;
+  --popover: #171721;
+  --popover-foreground: #f7f4ed;
+  --primary: #f0a030; /* Sunset amber */
+  --primary-foreground: #0f0f15;
+  --secondary: #c06020; /* Deep burnt orange */
+  --secondary-foreground: #ffffff;
+  --muted: #1c1c27; /* Dark twilight */
+  --muted-foreground: #aba59e; /* Warm gray, higher contrast */
+  --accent: #f0a030;
+  --accent-foreground: #0f0f15;
+  --destructive: #e04040;
+  --destructive-foreground: #f7f4ed;
+  --success: #40b070;
+  --success-foreground: #0f0f15;
+  --warning: #e0a020;
+  --warning-foreground: #0f0f15;
+  --border: #2e2e3f; /* Subtle twilight border, more defined */
+  --input: #1c1c27;
+  --ring: #f0a030;
+  --radius: 0.25rem;
 
-    --ide-bg: #0f0f15;
-    --ide-sidebar: #0b0b0f;
-    --ide-border: #262635;
-    --ide-line-highlight: #151520;
-    --ide-comment: #736b60; /* Highly readable comment contrast */
-    --ide-selection: #3c352a;
+  --ide-bg: #0f0f15;
+  --ide-sidebar: #0b0b0f;
+  --ide-border: #262635;
+  --ide-line-highlight: #151520;
+  --ide-comment: #736b60; /* Highly readable comment contrast */
+  --ide-selection: #3c352a;
 
-    --transition-premium: 200ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-premium: 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="fajar"] {
-    /* Dawn — true light theme with proper contrast */
-    --background: #f0e9df; /* Softer dawn cream, less glaring white */
-    --foreground: #1c1210; /* Near-black */
-    --card: #ffffff; /* Bright white card to contrast with background */
-    --card-foreground: #1c1210;
-    --popover: #ffffff;
-    --popover-foreground: #1c1210;
-    --primary: #c04420; /* Deep sunrise red */
-    --primary-foreground: #ffffff;
-    --secondary: #8a4a20; /* Warm earth */
-    --secondary-foreground: #ffffff;
-    --muted: #e6dbce; /* Warm light muted */
-    --muted-foreground: #4d3729; /* High contrast text */
-    --accent: #d06820; /* Golden orange */
-    --accent-foreground: #ffffff;
-    --destructive: #b02020;
-    --destructive-foreground: #ffffff;
-    --success: #2a7a40;
-    --success-foreground: #ffffff;
-    --warning: #b07020;
-    --warning-foreground: #ffffff;
-    --border: #b5a492; /* Visible warm border, more contrast */
-    --input: #e6dbce;
-    --ring: #c04420;
-    --radius: 0.375rem;
+  /* Dawn — true light theme with proper contrast */
+  --background: #f0e9df; /* Softer dawn cream, less glaring white */
+  --foreground: #1c1210; /* Near-black */
+  --card: #ffffff; /* Bright white card to contrast with background */
+  --card-foreground: #1c1210;
+  --popover: #ffffff;
+  --popover-foreground: #1c1210;
+  --primary: #c04420; /* Deep sunrise red */
+  --primary-foreground: #ffffff;
+  --secondary: #8a4a20; /* Warm earth */
+  --secondary-foreground: #ffffff;
+  --muted: #e6dbce; /* Warm light muted */
+  --muted-foreground: #4d3729; /* High contrast text */
+  --accent: #d06820; /* Golden orange */
+  --accent-foreground: #ffffff;
+  --destructive: #b02020;
+  --destructive-foreground: #ffffff;
+  --success: #2a7a40;
+  --success-foreground: #ffffff;
+  --warning: #b07020;
+  --warning-foreground: #ffffff;
+  --border: #b5a492; /* Visible warm border, more contrast */
+  --input: #e6dbce;
+  --ring: #c04420;
+  --radius: 0.375rem;
 
-    --ide-bg: #f0e9df;
-    --ide-sidebar: #e5dbc9;
-    --ide-border: #b5a492;
-    --ide-line-highlight: #e6dbce;
-    --ide-comment: #70594a;
-    --ide-selection: #ebd6be;
+  --ide-bg: #f0e9df;
+  --ide-sidebar: #e5dbc9;
+  --ide-border: #b5a492;
+  --ide-line-highlight: #e6dbce;
+  --ide-comment: #70594a;
+  --ide-selection: #ebd6be;
 
-    --transition-premium: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  --transition-premium: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Typography Overrides */
 html {
-    background-color: var(--ide-bg);
-    color: var(--foreground);
-    -webkit-font-smoothing: antialiased;
+  background-color: var(--ide-bg);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
 }
 
 h1 {
-    font-family: "Bricolage Grotesque", sans-serif;
-    letter-spacing: -0.04em;
-    font-weight: 900;
+  font-family: "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.04em;
+  font-weight: 900;
 }
 
 h2 {
-    font-family: "Bricolage Grotesque", sans-serif;
-    letter-spacing: -0.03em;
-    font-weight: 800;
+  font-family: "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.03em;
+  font-weight: 800;
 }
 
 h3,
 h4,
 h5,
 h6 {
-    font-family: "Bricolage Grotesque", sans-serif;
-    letter-spacing: -0.02em;
-    font-weight: 700;
+  font-family: "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.02em;
+  font-weight: 700;
 }
 
 /* Editorial accent — use for special callouts */
 .font-serif-accent {
-    font-family: "Instrument Serif", serif;
-    font-style: italic;
+  font-family: "Instrument Serif", serif;
+  font-style: italic;
 }
 
 body {
-    font-family: "Geist", sans-serif;
+  font-family: "Geist", sans-serif;
 }
 
 code,
 pre,
 .font-mono {
-    font-family: "Geist Mono", "JetBrains Mono", monospace;
+  font-family: "Geist Mono", "JetBrains Mono", monospace;
 }
 
 /* ========================================
@@ -172,52 +172,52 @@ pre,
    ======================================== */
 
 .ide-window {
-    background: var(--ide-sidebar);
-    border: 1px solid var(--ide-border);
-    border-radius: 0.75rem;
-    overflow: hidden;
-    box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-    transition: var(--transition-premium);
+  background: var(--ide-sidebar);
+  border: 1px solid var(--ide-border);
+  border-radius: 0.75rem;
+  overflow: hidden;
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-premium);
 }
 
 .ide-header {
-    height: 2.5rem;
-    background: var(--ide-sidebar);
-    border-bottom: 1px solid var(--ide-border);
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    gap: 0.5rem;
+  height: 2.5rem;
+  background: var(--ide-sidebar);
+  border-bottom: 1px solid var(--ide-border);
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  gap: 0.5rem;
 }
 
 .ide-dot {
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 9999px;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
 }
 
 /* Atmospheric Gradients (Anti-AI Refined) */
 .glass-morphism {
-    background: color-mix(in srgb, var(--background) 80%, transparent);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
+  background: color-mix(in srgb, var(--background) 80%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
 }
 
 /* Section divider — editorial line */
 .section-divider {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    margin: 4rem 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin: 4rem 0;
 }
 
 .section-divider::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--border), transparent);
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, var(--border), transparent);
 }
 
 /* ========================================
@@ -225,36 +225,36 @@ pre,
    ======================================== */
 
 @keyframes subtle-float {
-    0%,
-    100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-4px);
-    }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-4px);
+  }
 }
 
 .animate-subtle-float {
-    animation: subtle-float 8s infinite ease-in-out;
+  animation: subtle-float 8s infinite ease-in-out;
 }
 
 /* Custom Scrollbar for IDE feel */
 ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--ide-bg);
+  background: var(--ide-bg);
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--ide-border);
-    border-radius: 4px;
+  background: var(--ide-border);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--ide-comment);
+  background: var(--ide-comment);
 }
 
 /* ========================================
@@ -262,14 +262,14 @@ pre,
    ======================================== */
 
 .grayscale-mode {
-    filter: grayscale(100%);
+  filter: grayscale(100%);
 }
 
 .high-contrast-mode {
-    /* Enforce extremely high contrast for text and lines */
-    --muted-foreground: var(--foreground) !important;
-    --border: var(--foreground) !important;
-    --ide-comment: var(--foreground) !important;
-    --ide-border: var(--foreground) !important;
-    filter: contrast(1.2) brightness(1.1);
+  /* Enforce extremely high contrast for text and lines */
+  --muted-foreground: var(--foreground) !important;
+  --border: var(--foreground) !important;
+  --ide-comment: var(--foreground) !important;
+  --ide-border: var(--foreground) !important;
+  filter: contrast(1.2) brightness(1.1);
 }

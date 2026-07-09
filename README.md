@@ -54,6 +54,7 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## 📜 Documentation
 
+- [CHECKS.md](CHECKS.md) - Run local verification checks.
 - [CHANGELOG.md](file:///c:/KuraNinjaWeb/kura-ninja/kura-ninja-client/CHANGELOG.md) - Track recent updates and features.
 - [LICENSE](file:///c:/KuraNinjaWeb/kura-ninja/kura-ninja-client/LICENSE) - Standard MIT license.
 

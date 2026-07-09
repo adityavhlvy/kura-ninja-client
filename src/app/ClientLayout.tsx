@@ -81,9 +81,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   return (
     <TimeProvider>
-      {!isAppLoaded && (
-        <InitialLoader onComplete={handleLoaderComplete} />
-      )}
+      {!isAppLoaded && <InitialLoader onComplete={handleLoaderComplete} />}
 
       <div
         className={`h-screen h-[100dvh] flex flex-col overflow-hidden relative transition-opacity duration-1000 ${isAppLoaded ? "opacity-100" : "opacity-0"}`}
@@ -95,7 +93,9 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
           {/* Mobile Sidebar Overlay */}
           <div
             className={`absolute inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
-              isMobile && isSidebarOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+              isMobile && isSidebarOpen
+                ? "opacity-100 pointer-events-auto"
+                : "opacity-0 pointer-events-none"
             }`}
             onClick={() => setIsSidebarOpen(false)}
           />
@@ -103,11 +103,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
           {/* Sidebar */}
           <aside
             className={`
-                          ${
-                            isMobile
-                              ? "absolute h-full z-50"
-                              : "relative"
-                          }
+                          ${isMobile ? "absolute h-full z-50" : "relative"}
                           ${isMobile && isSidebarOpen ? "shadow-xl" : ""}
                           ${isSidebarOpen ? "w-64" : isMobile ? "w-0 pointer-events-none" : "w-20"}
                           ${isSidebarOpen || !isMobile ? "border-r border-border" : "border-r-0"}

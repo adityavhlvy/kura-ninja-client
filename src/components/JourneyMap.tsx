@@ -254,7 +254,10 @@ export default function JourneyMap() {
   useEffect(() => {
     // Only scroll on mobile/tablet viewports (less than lg breakpoint)
     if (window.innerWidth < 1024 && detailRef.current) {
-      detailRef.current.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      detailRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+      });
     }
   }, [selectedId]);
 

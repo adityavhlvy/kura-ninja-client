@@ -37,6 +37,7 @@ export default function Header({ isSidebarOpen, toggleSidebar }: HeaderProps) {
       contact: "kura-ninja › src › views › contact.json",
       projects: "kura-ninja › src › quests › projects.json",
       certifications: "kura-ninja › src › quests › badges.json",
+      "design-system": "kura-ninja › DESIGN.md",
     };
 
     return fileMap[segments[0]] || `kura-ninja › src › views › ${segments[0]}`;

@@ -47,7 +47,7 @@ import { MdOutlineTranslate } from "react-icons/md";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 
-export interface ProjectLink {
+interface ProjectLink {
   label: string;
   url: string;
   icon?: ReactNode;

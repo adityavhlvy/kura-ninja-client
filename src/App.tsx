@@ -6,6 +6,7 @@ import ProjectsView from "./view/projects/Projects";
 import ProjectDetailView from "./view/projects/ProjectDetail";
 import CertificationsView from "./view/certifications/Certifications";
 import ContactView from "./view/contact/Contact";
+import DesignSystemView from "./view/design-system/DesignSystem";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
         <Route path="/projects/:slug" element={<ProjectDetailView />} />
         <Route path="/certifications" element={<CertificationsView />} />
         <Route path="/contact" element={<ContactView />} />
+        <Route path="/design-system" element={<DesignSystemView />} />
       </Routes>
     </ClientLayout>
   );

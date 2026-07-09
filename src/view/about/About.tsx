@@ -1,4 +1,5 @@
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
+import { GrOracle } from "react-icons/gr";
 import {
   SiPython,
   SiGo,
@@ -14,7 +15,6 @@ import {
   SiFigma,
   SiGit,
   SiPytorch,
-  SiOracle,
   SiSatellite,
   SiGoogleearthengine,
 } from "react-icons/si";
@@ -74,7 +74,7 @@ const skillsData: SkillCategory[] = [
     category: "Data & GIS",
     items: [
       { name: "PostGIS", icon: <SiPostgresql /> },
-      { name: "Oracle DB", icon: <SiOracle /> },
+      { name: "Oracle DB", icon: <GrOracle /> },
       { name: "PostgreSQL", icon: <SiPostgresql /> },
     ],
   },
