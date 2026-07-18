@@ -5,6 +5,7 @@ import Footer from "../layout/Footer";
 import FileTreeSidebar from "../components/FileTreeSidebar";
 import Background from "../components/Background";
 import AtmosphereIndicator from "../components/AtmosphereIndicator";
+import ThemeDock from "../components/ThemeDock";
 import CommandPalette from "../components/CommandPalette";
 import { TimeProvider } from "../context/TimeContext";
 import { initEasterEggs } from "../utils/easterEggs";
@@ -88,6 +89,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
       >
         <Background />
         <AtmosphereIndicator />
+        <ThemeDock />
         <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <div className="flex flex-1 overflow-hidden relative isolate">
           {/* Mobile Sidebar Overlay */}

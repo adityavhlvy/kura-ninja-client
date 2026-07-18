@@ -1,0 +1,76 @@
+{
+  "contact": {
+    "email": "adityavahlevy1003@gmail.com",
+    "phone": "+62-822-9590-4985",
+    "socials": [
+      {
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/adityavahlevynugraha"
+      },
+      {
+        "name": "GitHub",
+        "url": "https://github.com/adityavhlvy/"
+      },
+      {
+        "name": "GitLab",
+        "url": "https://gitlabduo.pupuk-indonesia.com/adityavhlvy"
+      },
+      {
+        "name": "Instagram",
+        "url": "https://instagram.com/adityavhlvy"
+      },
+      {
+        "name": "Spotify",
+        "url": "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu"
+      }
+    ]
+  },
+  "tagline": "Building things that",
+  "tagline_highlight": "(mostly)",
+  "tagline_tooltip": "99.9% uptime... on local machine",
+  "tagline_suffix": "work. Currently wrangling AI orchestration & geospatial platform.",
+  "philosophy": {
+    "shell": "philosophy.sh",
+    "tag": "philosophy",
+    "quote": "If it works, don't touch it. If it breaks, blame the compiler.",
+    "comment": "My actual development philosophy.",
+    "vibe_quote": "Code like a turtle, vibe like a ninja."
+  },
+  "design_system": {
+    "status": "ACTIVE",
+    "version": "0.2.0",
+    "themes": [
+      {
+        "name": "Senja (Twilight)",
+        "type": "dark",
+        "background": "#0f0f15",
+        "primary": "#f0a030",
+        "description": "Sunset amber & deep surfaces"
+      },
+      {
+        "name": "Fajar (Dawn)",
+        "type": "light",
+        "background": "#f0e9df",
+        "primary": "#c04420",
+        "description": "Sunrise red & warm paper surfaces"
+      }
+    ],
+    "typography": {
+      "headings": "Bricolage Grotesque",
+      "body": "Geist Sans",
+      "monospace": "Geist Mono",
+      "serif_accent": "Instrument Serif"
+    }
+  },
+  "bio": {
+    "name": "Aditya Vahlevy Nugraha",
+    "alias": "Kura Ninja",
+    "degree_detail": "Computer Science graduate from Universitas Pertamina (Cum Laude, GPA 3.58)",
+    "current_role_detail": "Fullstack Developer at PT Pupuk Indonesia (Persero)",
+    "paragraphs": [
+      "My expertise lies at the intersection of Geospatial Intelligence, AI/ML, and Fullstack Development. Currently engineering AeGIS Module Atlas (a geospatial dashboard for fertilizer demand visualization and soil nutrient analysis using Go Fiber v3, React 19, OpenLayers, and PostgreSQL), PINTER (an AI agent orchestration platform with a visual builder canvas and multi-agent workflows using FastAPI, Google ADK, React Flow, and TanStack Router), and NEXUS Module Delta & Vista (an enterprise logistics coordination and automated route pathfinding platform using FastAPI, React 19, and OpenLayers).",
+      "I have a background in predictive modeling (Satellite Imagery + Deep Learning) and have spent time in the industry digitizing mission-critical operations at Astra Otoparts. Whether it's architecting Clean Architecture systems or fine-tuning LightGBM models with Optuna, I thrive on solving complex problems with code.",
+      "Beyond the screen, I'm an APERTI BUMN Scholarship awardee, a former Vice President of my student association, and someone who probably thinks about system design way too much at 2am."
+    ]
+  }
+}

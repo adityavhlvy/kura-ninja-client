@@ -7,6 +7,7 @@ import ProjectDetailView from "./view/projects/ProjectDetail";
 import CertificationsView from "./view/certifications/Certifications";
 import ContactView from "./view/contact/Contact";
 import DesignSystemView from "./view/design-system/DesignSystem";
+import ProductSpecView from "./view/product-spec/ProductSpec";
 
 export default function App() {
   return (
@@ -19,6 +20,7 @@ export default function App() {
         <Route path="/certifications" element={<CertificationsView />} />
         <Route path="/contact" element={<ContactView />} />
         <Route path="/design-system" element={<DesignSystemView />} />
+        <Route path="/product-spec" element={<ProductSpecView />} />
       </Routes>
     </ClientLayout>
   );

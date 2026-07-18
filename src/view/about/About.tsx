@@ -1,5 +1,6 @@
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import { GrOracle } from "react-icons/gr";
+import profileJson from "../../data/profile.json";
 import {
   SiPython,
   SiGo,
@@ -26,7 +27,6 @@ import PageHeader from "../../components/PageHeader";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import JourneyMap from "../../components/JourneyMap";
-import ParallaxMountains from "../../components/svg/ParallaxMountains";
 import KuraTurtle from "../../components/svg/KuraTurtle";
 import type { ReactNode } from "react";
 
@@ -107,70 +107,33 @@ export default function About() {
           title="Who am I?"
           description={
             <div className="space-y-4">
-              Hey there! I&apos;m{" "}
-              <span className="font-bold text-primary">
-                Aditya Vahlevy Nugraha
-              </span>{" "}
-              (aka Kura Ninja). A Computer Science graduate from Universitas
-              Pertamina (Cum Laude, GPA 3.58) and currently a{" "}
-              <span className="font-bold text-primary">
-                Fullstack Developer at PT Pupuk Indonesia (Persero)
-              </span>
-              .
               <p>
-                My expertise lies at the intersection of{" "}
-                <span className="font-bold text-secondary">
-                  Geospatial Intelligence
-                </span>
-                , <span className="font-bold text-accent">AI/ML</span>, and{" "}
+                Hey there! I&apos;m{" "}
                 <span className="font-bold text-primary">
-                  Fullstack Development
-                </span>
-                . Currently engineering{" "}
-                <span className="font-bold text-primary">
-                  AeGIS Module Atlas
+                  {profileJson.bio.name}
                 </span>{" "}
-                (a geospatial dashboard for fertilizer demand visualization and
-                soil nutrient analysis using Go Fiber v3, React 19, OpenLayers, and
-                PostgreSQL),{" "}
-                <span className="font-bold text-primary">PINTER</span> (an AI
-                agent orchestration platform with a visual builder canvas and
-                multi-agent workflows using FastAPI, Google ADK, React Flow, and TanStack
-                Router), and{" "}
+                (aka {profileJson.bio.alias}). {profileJson.bio.degree_detail} and currently a{" "}
                 <span className="font-bold text-primary">
-                  NEXUS Module Delta & Vista
-                </span>{" "}
-                (an enterprise logistics coordination and automated route
-                pathfinding platform using FastAPI, React 19, and OpenLayers).
+                  {profileJson.bio.current_role_detail}
+                </span>.
               </p>
-              <p>
-                I have a background in predictive modeling (Satellite Imagery +
-                Deep Learning) and have spent time in the industry digitizing
-                mission-critical operations at{" "}
-                <span className="font-bold">Astra Otoparts</span>. Whether
-                it&apos;s architecting Clean Architecture systems or fine-tuning
-                LightGBM models with Optuna, I thrive on solving complex
-                problems with code.
-              </p>
-              <p>
-                Beyond the screen, I&apos;m an APERTI BUMN Scholarship awardee,
-                a former Vice President of my student association, and someone
-                who probably thinks about system design way too much at 2am.
-              </p>
+              {profileJson.bio.paragraphs.map((pText, pIdx) => (
+                <p key={pIdx}>{pText}</p>
+              ))}
               <div className="bg-muted/30 border border-border/50 rounded-sm mt-8 p-5 font-mono text-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
                 <div className="flex items-center gap-1.5 mb-3 border-b border-border/20 pb-2">
                   <span className="w-2 h-2 rounded-full bg-primary/45" />
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">philosophy.sh</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">{profileJson.philosophy.shell}</span>
                 </div>
                 <div className="text-foreground/90 space-y-1">
                   <div className="flex items-start gap-2">
                     <span className="text-primary font-bold select-none shrink-0">$</span>
                     <h3 className="font-serif-accent text-primary mb-0 text-xl leading-snug italic">
-                      &quot;If it works, don&apos;t touch it. If it breaks, blame the compiler.&quot;
+                      &quot;{profileJson.philosophy.quote}&quot;
                     </h3>
                   </div>
                   <p className="text-[10px] text-muted-foreground/60 mt-3 pl-5">
-                    # My actual development philosophy.
+                    # {profileJson.philosophy.comment}
                   </p>
                 </div>
               </div>
@@ -193,9 +156,6 @@ export default function About() {
         </div>
         <JourneyMap />
       </motion.section>
-
-      {/* Parallax Mountains: section divider */}
-      <ParallaxMountains className="my-8 opacity-70" />
 
       {/* Skills Section */}
       <section className="relative z-10">

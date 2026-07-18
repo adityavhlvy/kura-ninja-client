@@ -10,7 +10,7 @@ import {
   SlSettings,
   SlQuestion,
 } from "react-icons/sl";
-import { VscJson } from "react-icons/vsc";
+import { VscJson, VscMarkdown } from "react-icons/vsc";
 import {
   CommandDialog,
   CommandEmpty,
@@ -78,6 +78,24 @@ export default function CommandPalette({
         icon: <SlBadge />,
         action: () => navigate("/certifications"),
         keywords: ["certifications", "certs", "badges", "achievements"],
+        category: "navigation",
+      },
+      {
+        id: "design-system",
+        label: "DESIGN.md",
+        description: "Design specification",
+        icon: <VscMarkdown />,
+        action: () => navigate("/design-system"),
+        keywords: ["design", "system", "tokens", "css", "color"],
+        category: "navigation",
+      },
+      {
+        id: "product-spec",
+        label: "PRODUCT.md",
+        description: "Product specification",
+        icon: <VscMarkdown />,
+        action: () => navigate("/product-spec"),
+        keywords: ["product", "spec", "roadmap", "goals", "audience"],
         category: "navigation",
       },
       {

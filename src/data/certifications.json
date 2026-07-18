@@ -1,0 +1,249 @@
+{
+  "certifications": [
+    {
+      "category": "Project Management",
+      "items": [
+        {
+          "name": "Agile Project Management",
+          "issuer": "Google",
+          "date": "Oct 2025",
+          "type": "Professional"
+        },
+        {
+          "name": "Capstone: Applying Project Management in the Real World",
+          "issuer": "Google",
+          "date": "Oct 2025",
+          "type": "Professional"
+        },
+        {
+          "name": "Google Project Management",
+          "issuer": "Google",
+          "date": "Oct 2025",
+          "type": "Professional"
+        },
+        {
+          "name": "Project Execution: Running the Project",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Professional",
+          "skills": [
+            "Project Management",
+            "Team Management",
+            "Project Closure"
+          ]
+        },
+        {
+          "name": "Project Initiation: Starting a Successful Project",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Professional",
+          "skills": [
+            "Project Management Life Cycle",
+            "Project Management",
+            "Strategic Thinking"
+          ]
+        },
+        {
+          "name": "Project Planning: Putting It All Together",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Professional",
+          "skills": [
+            "Project Planning",
+            "Project Management",
+            "Strategic Thinking"
+          ]
+        },
+        {
+          "name": "Intermediate Project Management (Fresh Graduate Academy)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Sep 2025",
+          "type": "Professional"
+        },
+        {
+          "name": "Foundations of Project Management",
+          "issuer": "Google",
+          "date": "Aug 2025",
+          "type": "Professional",
+          "skills": [
+            "Project Management",
+            "Project Planning",
+            "Change Management",
+            "Agile Project Management",
+            "Waterfall Project Management"
+          ]
+        },
+        {
+          "name": "Fundamental Project Management (Fresh Graduate Academy)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Aug 2025",
+          "type": "Professional",
+          "skills": [
+            "Project Management",
+            "Agile & Waterfall Methodologies",
+            "Scrum"
+          ]
+        },
+        {
+          "name": "Introduction to ITIL® V4",
+          "issuer": "Simplilearn",
+          "date": "Aug 2025",
+          "type": "Professional",
+          "skills": [
+            "ITIL"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Artificial Intelligence",
+      "items": [
+        {
+          "name": "Deploy Multi-Agent Architectures",
+          "issuer": "Google",
+          "date": "May 2026",
+          "type": "Technical"
+        },
+        {
+          "name": "Engineer AI Agents with Agent Development Kit (ADK)",
+          "issuer": "Google",
+          "date": "Apr 2026",
+          "type": "Technical"
+        },
+        {
+          "name": "Discover the Art of Prompting",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical",
+          "skills": [
+            "Prompt Engineering",
+            "Technical Writing"
+          ]
+        },
+        {
+          "name": "Google AI Essentials",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical"
+        },
+        {
+          "name": "Introduction to AI",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical"
+        },
+        {
+          "name": "Maximize Productivity With AI Tools",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical"
+        },
+        {
+          "name": "Stay Ahead of the AI Curve",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical"
+        },
+        {
+          "name": "Use AI Responsibly",
+          "issuer": "Google",
+          "date": "Sep 2025",
+          "type": "Technical"
+        },
+        {
+          "name": "Dasar-Dasar Implementasi Kecerdasan Artifisial (Micro Skill)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Aug 2025",
+          "type": "Technical"
+        }
+      ]
+    },
+    {
+      "category": "Software & IoT",
+      "items": [
+        {
+          "name": "Algorithm & Data Structures with Python",
+          "issuer": "Skilvul",
+          "date": "Mar 2024",
+          "type": "Technical",
+          "skills": [
+            "Object-Oriented Programming (OOP)",
+            "Data Structures",
+            "Algorithms"
+          ]
+        },
+        {
+          "name": "Internet of Things (IoT) - Software and Platforms (Gold)",
+          "issuer": "Skilvul",
+          "date": "Aug 2024",
+          "type": "Technical",
+          "skills": [
+            "Internet of Things (IoT)",
+            "MongoDB",
+            "Databases",
+            "Flask",
+            "PyMongo"
+          ]
+        },
+        {
+          "name": "IoT Development with ESP32 (Gold)",
+          "issuer": "Skilvul",
+          "date": "Jul 2024",
+          "type": "Technical",
+          "skills": [
+            "ESP32 Microcontrollers",
+            "Internet of Things (IoT)"
+          ]
+        },
+        {
+          "name": "Internet of Things (IoT) - Fundamentals (Gold)",
+          "issuer": "Skilvul",
+          "date": "Apr 2024",
+          "type": "Technical"
+        },
+        {
+          "name": "Python Dasar",
+          "issuer": "Skilvul",
+          "date": "Mar 2024",
+          "type": "Technical",
+          "skills": [
+            "Python (Programming Language)"
+          ]
+        },
+        {
+          "name": "Python Lanjutan",
+          "issuer": "Skilvul",
+          "date": "Mar 2024",
+          "type": "Technical",
+          "skills": [
+            "Pandas (Software)",
+            "Flask"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Cloud & Security",
+      "items": [
+        {
+          "name": "Introduction To Cloud Computing (Micro Skill)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Sep 2025",
+          "type": "Foundation"
+        },
+        {
+          "name": "Membangun Lab Virtual & Dasar Linux (Micro Skill)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Sep 2025",
+          "type": "Foundation"
+        },
+        {
+          "name": "Pentingnya Menjaga Keamanan Digital: Perlindungan Diri di Dunia Maya (Micro Skill)",
+          "issuer": "Digital Talent Scholarship",
+          "date": "Aug 2025",
+          "type": "Foundation"
+        }
+      ]
+    }
+  ]
+}

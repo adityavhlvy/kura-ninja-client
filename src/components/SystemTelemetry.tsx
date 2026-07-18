@@ -56,7 +56,6 @@ export default function SystemTelemetry() {
           });
         }
       } catch (err) {
-        // Fallback: local emulation on error
         if (isMounted) {
           setCpuUsage((prev) => {
             const change = Math.floor(Math.random() * 5) - 2;

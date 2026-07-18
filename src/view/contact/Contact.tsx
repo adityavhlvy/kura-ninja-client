@@ -13,6 +13,7 @@ import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import { Button } from "@/components/ui/button";
+import profileJson from "../../data/profile.json";
 
 type MissionType =
   "HIRE_ME" | "COLLABORATION" | "FREELANCE_PROJECT" | "COFFEE_CHAT";
@@ -50,7 +51,7 @@ export default function Contact() {
       `[${mission}] Quest Specification from ${name}`,
     );
     const body = encodeURIComponent(JSON.stringify(specObject, null, 2));
-    window.location.href = `mailto:adityavahlevy1003@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:${profileJson.contact.email}?subject=${subject}&body=${body}`;
   };
 
   // Syntax highlighting helper for clean presentation
@@ -81,40 +82,45 @@ export default function Contact() {
     );
   };
 
+  const getSocialUrl = (name: string, defaultUrl: string) => {
+    const social = profileJson.contact.socials.find(s => s.name.toLowerCase() === name.toLowerCase());
+    return social ? social.url : defaultUrl;
+  };
+
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: "https://www.linkedin.com/in/adityavahlevynugraha",
+      url: getSocialUrl("LinkedIn", "https://www.linkedin.com/in/adityavahlevynugraha"),
       icon: <SlSocialLinkedin size={18} />,
       color: "hover:text-[#0077b5] hover:border-[#0077b5]/30",
     },
     {
       name: "GitHub",
-      url: "https://github.com/adityavhlvy/",
+      url: getSocialUrl("GitHub", "https://github.com/adityavhlvy/"),
       icon: <SiGithub size={18} />,
       color: "hover:text-[#fafafa] hover:border-white/30",
     },
     {
       name: "GitLab",
-      url: "https://gitlabduo.pupuk-indonesia.com/adityavhlvy",
+      url: getSocialUrl("GitLab", "https://gitlabduo.pupuk-indonesia.com/adityavhlvy"),
       icon: <SiGitlab size={18} />,
       color: "hover:text-[#fc6d26] hover:border-[#fc6d26]/30",
     },
     {
       name: "Instagram",
-      url: "https://instagram.com/adityavhlvy",
+      url: getSocialUrl("Instagram", "https://instagram.com/adityavhlvy"),
       icon: <SlSocialInstagram size={18} />,
       color: "hover:text-[#e1306c] hover:border-[#e1306c]/30",
     },
     {
       name: "Spotify",
-      url: "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu",
+      url: getSocialUrl("Spotify", "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu"),
       icon: <SlSocialSpotify size={18} />,
       color: "hover:text-[#1db954] hover:border-[#1db954]/30",
     },
     {
       name: "Gmail",
-      url: "mailto:adityavahlevy1003@gmail.com",
+      url: `mailto:${profileJson.contact.email}`,
       icon: <SlEnvolope size={18} />,
       color: "hover:text-primary hover:border-primary/30",
     },

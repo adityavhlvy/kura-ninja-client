@@ -1,0 +1,200 @@
+{
+  "journey": [
+    {
+      "id": "sma",
+      "label": "SMA Plus Riau",
+      "type": "education",
+      "year": "2018",
+      "emoji": "🎓",
+      "details": {
+        "role": "Science Major",
+        "date": "2018 - 2021",
+        "description": "High School Diploma, Science & Technology focus. GPA 85.60/100. First encounter with programming and computational thinking.",
+        "skills": [
+          "Physics",
+          "Mathematics",
+          "Logic",
+          "Basic Programming"
+        ],
+        "highlight": "First code written",
+        "impact": "Foundation"
+      }
+    },
+    {
+      "id": "it_mpk",
+      "label": "Head of IT",
+      "type": "org",
+      "year": "2019",
+      "emoji": "💻",
+      "details": {
+        "role": "Head of Technology & Information",
+        "company": "MPK SMA Plus Riau",
+        "date": "Jul 2019 - Jul 2020",
+        "description": "Managed student council digital assets. Directed tech initiatives and created digital visuals for school events.",
+        "skills": [
+          "Leadership",
+          "Event Management",
+          "Design",
+          "Team Coordination"
+        ],
+        "highlight": "First tech leadership",
+        "impact": "Led digital transformation"
+      }
+    },
+    {
+      "id": "uni",
+      "label": "Univ. Pertamina",
+      "type": "education",
+      "year": "2021",
+      "emoji": "🏫",
+      "details": {
+        "role": "Computer Science",
+        "company": "Universitas Pertamina",
+        "date": "2021 - 2025",
+        "description": "Bachelor of CS, GPA 3.58 (Cum Laude). APERTI BUMN Scholarship awardee. Thesis: LLM-driven microservices migration analysis.",
+        "skills": [
+          "Algorithms",
+          "Software Architecture",
+          "AI/ML",
+          "Clean Code",
+          "Research"
+        ],
+        "highlight": "Cum Laude · Scholarship",
+        "impact": "4 years of grinding"
+      }
+    },
+    {
+      "id": "creative",
+      "label": "Head Creative",
+      "type": "org",
+      "year": "2023",
+      "emoji": "🎨",
+      "details": {
+        "role": "Head of Media Creative",
+        "company": "Hima-IF UP",
+        "date": "Feb - Nov 2023",
+        "description": "Directed creative team designing visual identity for CS student association. Oversaw 50+ design projects across events and campaigns.",
+        "skills": [
+          "Creative Direction",
+          "Adobe Suite",
+          "Visual Identity",
+          "Brand Design"
+        ],
+        "highlight": "50+ projects shipped",
+        "impact": "Built design culture"
+      }
+    },
+    {
+      "id": "samsung",
+      "label": "Samsung Campus",
+      "type": "achievement",
+      "year": "2023",
+      "emoji": "🏆",
+      "details": {
+        "role": "SIC Batch 5",
+        "company": "Samsung Innovation Campus",
+        "date": "Mar - Sep 2023",
+        "description": "Intensive program covering Machine Learning and IoT. Built innovative project combining sensor data with predictive models.",
+        "skills": [
+          "IoT",
+          "Machine Learning",
+          "Python",
+          "Sensors",
+          "Edge Computing"
+        ],
+        "highlight": "ML × IoT convergence",
+        "impact": "Industry exposure"
+      }
+    },
+    {
+      "id": "vp_hima",
+      "label": "Vice President",
+      "type": "org",
+      "year": "2024",
+      "emoji": "👥",
+      "details": {
+        "role": "Vice President",
+        "company": "Hima-IF UP",
+        "date": "Jan - Dec 2024",
+        "description": "Co-led 100+ member CS Student Association. Managed organizational strategy, event pipelines, and inter-org relations.",
+        "skills": [
+          "Strategic Planning",
+          "Conflict Resolution",
+          "Project Management",
+          "Public Speaking"
+        ],
+        "highlight": "Led 100+ members",
+        "impact": "Organizational scale"
+      }
+    },
+    {
+      "id": "astra",
+      "label": "Astra Otoparts",
+      "type": "work",
+      "year": "2024",
+      "emoji": "🏭",
+      "details": {
+        "role": "IT Intern (PPC)",
+        "company": "PT Astra Otoparts Tbk",
+        "date": "Sep - Dec 2024",
+        "description": "Engineered 3 full-stack dashboards for Production Planning & Control. Digitized rejection tracking system, reducing manual data errors by 95%.",
+        "skills": [
+          "ASP.NET",
+          "VB.NET",
+          "Oracle DB",
+          "Fullstack",
+          "Manufacturing IT"
+        ],
+        "highlight": "95% error reduction",
+        "impact": "Real production impact"
+      }
+    },
+    {
+      "id": "research",
+      "label": "Research Asst",
+      "type": "work",
+      "year": "2025",
+      "emoji": "🛰️",
+      "details": {
+        "role": "Research Assistant",
+        "company": "Universitas Pertamina",
+        "date": "Jul - Oct 2025",
+        "description": "Built predictive model for rice yields using Sentinel-2 satellite imagery and temporal BPS data. Achieved R² = 0.8337 with LightGBM + Optuna.",
+        "skills": [
+          "Google Earth Engine",
+          "Sentinel-2",
+          "LightGBM",
+          "Deep Learning",
+          "Geospatial"
+        ],
+        "highlight": "R² = 0.8337",
+        "impact": "Published research"
+      }
+    },
+    {
+      "id": "pupuk",
+      "label": "Pupuk Indonesia",
+      "type": "work",
+      "year": "Now",
+      "emoji": "🚀",
+      "details": {
+        "role": "Fullstack Developer",
+        "company": "PT Pupuk Indonesia (Persero)",
+        "date": "Oct 2025 - Present",
+        "description": "Engineering AeGIS (Module Atlas) geospatial dashboard, PINTER AI agent orchestration platform with visual canvas, and NEXUS (Module Delta & Vista) logistics & pathfinding platform.",
+        "skills": [
+          "React 19",
+          "Go Fiber",
+          "FastAPI",
+          "Google ADK",
+          "React Flow",
+          "OpenLayers",
+          "PostGIS",
+          "Docker"
+        ],
+        "highlight": "Current quest",
+        "impact": "Enterprise scale"
+      }
+    }
+  ]
+}

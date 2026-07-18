@@ -9,10 +9,9 @@ import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import SystemTelemetry from "../../components/SystemTelemetry";
-import TopoTerrain from "../../components/svg/TopoTerrain";
-import DataFlow from "../../components/svg/DataFlow";
 import { Button } from "@/components/ui/button";
 import { FiTerminal } from "react-icons/fi";
+import profileJson from "../../data/profile.json";
 
 export default function Home() {
   const featuredProjects = projectsData.filter((p) => p.featured);
@@ -29,11 +28,6 @@ export default function Home() {
   return (
     <PageTransition>
       <BackgroundEffects />
-
-      {/* Topographic terrain: hero background decoration */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/3 w-[80%] max-w-4xl pointer-events-none opacity-60 z-0">
-        <TopoTerrain />
-      </div>
 
       {/* Hero Section: scroll-aware parallax */}
       <section
@@ -83,22 +77,14 @@ export default function Home() {
               transition={{ delay: 0.4, duration: 0.6 }}
               className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 text-pretty"
             >
-              Building things that{" "}
+              {profileJson.tagline}{" "}
               <span
                 className="italic text-primary font-mono text-[0.9em] font-semibold cursor-help"
-                title="99.9% uptime... on local machine"
+                title={profileJson.tagline_tooltip}
               >
-                (mostly)
+                {profileJson.tagline_highlight}
               </span>{" "}
-              work. Currently wrangling{" "}
-              <span className="text-foreground font-medium">
-                geospatial platform
-              </span>{" "}
-              &{" "}
-              <span className="text-foreground font-medium">
-                AI orchestration
-              </span>{" "}
-              at scale.
+              {profileJson.tagline_suffix}
             </motion.p>
 
             {/* CTA */}
@@ -192,8 +178,6 @@ export default function Home() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="z-10 w-full max-w-7xl px-6 lg:px-8 mb-24 mx-auto"
       >
-        {/* Section label */}
-        <DataFlow className="mb-6 opacity-50" />
         <div className="flex items-center gap-3 mb-8">
           <div className="h-[1px] w-8 bg-primary/30" />
           <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-muted-foreground">
@@ -332,13 +316,6 @@ export default function Home() {
       {/* Collab CTA Section */}
       <section className="container mx-auto max-w-6xl px-6 lg:px-8 pb-24">
         <div className="bg-card/30 border border-border rounded-sm p-8 md:p-12 text-center space-y-6 relative overflow-hidden backdrop-blur-sm">
-          {/* Subtle Topo background or wireframe */}
-          <div className="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
-            <div className="w-full max-w-lg">
-              <TopoTerrain />
-            </div>
-          </div>
-
           <div className="relative z-10 space-y-4 max-w-2xl mx-auto">
             <div className="flex items-center justify-center gap-3 mb-2">
               <div className="h-[1px] w-8 bg-primary/30" />
