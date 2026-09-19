@@ -1,67 +1,24 @@
-import { VscSourceControl, VscCheck, VscBell } from "react-icons/vsc";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import LiveClock from "../components/LiveClock";
 
-const HINTS = [
-  "Ctrl+K → Command Palette",
-  "↑↑↓↓←→←→BA → ???",
-  "F12 console → secret",
-  "Night mode → falling stars",
-];
+type TextSize = "normal" | "large" | "xlarge";
 
 export default function Footer() {
-  const mousePosRef = useRef({ x: 0, y: 0 });
-  const lnColRef = useRef<HTMLSpanElement>(null);
-  const rafIdRef = useRef<number | null>(null);
-  const [hintIndex, setHintIndex] = useState(0);
   const [a11yOpen, setA11yOpen] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
   const [grayscale, setGrayscale] = useState(false);
-  const [textSize, setTextSize] = useState<"normal" | "large" | "xlarge">(
-    "normal",
-  );
+  const [textSize, setTextSize] = useState<TextSize>("normal");
   const a11yRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePosRef.current.x = e.clientX;
-      mousePosRef.current.y = e.clientY;
-
-      if (rafIdRef.current === null) {
-        rafIdRef.current = requestAnimationFrame(() => {
-          if (lnColRef.current) {
-            lnColRef.current.textContent = `Ln ${mousePosRef.current.y}, Col ${mousePosRef.current.x}`;
-          }
-          rafIdRef.current = null;
-        });
-      }
-    };
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      if (rafIdRef.current !== null) {
-        cancelAnimationFrame(rafIdRef.current);
-      }
-    };
-  }, []);
-
-  // Rotate hints
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setHintIndex((i) => (i + 1) % HINTS.length);
-    }, 6000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Load a11y prefs
+  // Load stored preferences
   useEffect(() => {
     setHighContrast(localStorage.getItem("a11y-high-contrast") === "true");
     setGrayscale(localStorage.getItem("a11y-grayscale") === "true");
-    setTextSize((localStorage.getItem("a11y-text-size") as any) || "normal");
+    setTextSize((localStorage.getItem("a11y-text-size") as TextSize) || "normal");
   }, []);
 
-  // Apply a11y
+  // Apply preferences
   useEffect(() => {
     document.documentElement.classList.toggle(
       "high-contrast-mode",
@@ -70,19 +27,14 @@ export default function Footer() {
     localStorage.setItem("a11y-high-contrast", String(highContrast));
     document.documentElement.classList.toggle("grayscale-mode", grayscale);
     localStorage.setItem("a11y-grayscale", String(grayscale));
-    document.documentElement.classList.remove(
-      "text-base",
-      "text-lg",
-      "text-xl",
-    );
+    document.documentElement.classList.remove("text-lg", "text-xl");
     if (textSize === "large") document.documentElement.classList.add("text-lg");
     else if (textSize === "xlarge")
       document.documentElement.classList.add("text-xl");
-    else document.documentElement.classList.add("text-base");
     localStorage.setItem("a11y-text-size", textSize);
   }, [highContrast, grayscale, textSize]);
 
-  // Close a11y panel on outside click
+  // Close panel on outside click
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       if (a11yRef.current && !a11yRef.current.contains(e.target as Node)) {
@@ -96,56 +48,19 @@ export default function Footer() {
   const hasActiveA11y = highContrast || grayscale || textSize !== "normal";
 
   return (
-    <footer className="w-full bg-muted border-t border-border text-foreground/70 text-xs flex items-center justify-between px-3 pb-5 sm:pb-1 pt-2 sm:pt-1 select-none z-50 font-mono relative">
-      {/* Left */}
-      <div className="flex items-center gap-3">
-        <div className="flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <VscSourceControl className="text-sm" />
-          <span>dev*</span>
-        </div>
-        <div className="flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <VscCheck className="text-sm" />
-          <span>0 errors</span>
-        </div>
-        <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 border-l border-border pl-3 ml-1 text-[11px] text-muted-foreground/80">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-          <span>telemetry: active</span>
-        </div>
-
-        {/* Hint: rotating */}
-        <div className="hidden lg:flex items-center border-l border-border pl-3 ml-1 overflow-hidden h-5">
-          <span className="text-primary/50 mr-1.5">💡</span>
-          <AnimatePresence mode="wait">
-            <motion.span
-              key={hintIndex}
-              initial={{ y: 10, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              exit={{ y: -10, opacity: 0 }}
-              transition={{ duration: 0.2 }}
-              className="text-[10px] text-muted-foreground"
-            >
-              {HINTS[hintIndex]}
-            </motion.span>
-          </AnimatePresence>
-        </div>
+    <footer className="w-full bg-muted border-t border-border text-foreground/60 text-xs flex items-center justify-between px-3 py-1.5 select-none z-50 font-mono">
+      <div className="flex items-center gap-2 truncate">
+        <span className="text-muted-foreground/80 truncate">
+          © {new Date().getFullYear()} Aditya Vahlevy Nugraha
+        </span>
+        <span className="hidden sm:inline text-muted-foreground/40">
+          · Kura Ninja
+        </span>
       </div>
 
-      {/* Right */}
-      <div className="flex items-center gap-3">
-        <div className="hidden sm:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <span ref={lnColRef}>Ln 0, Col 0</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <span>UTF-8</span>
-        </div>
-        <div className="hidden sm:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <span>TypeScript React</span>
-        </div>
-        <div className="flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors border-l border-border pl-3 ml-1">
-          <LiveClock />
-        </div>
+      <div className="flex items-center gap-3 shrink-0">
+        <LiveClock />
 
-        {/* Accessibility toggle */}
         <div ref={a11yRef} className="relative">
           <button
             onClick={() => setA11yOpen(!a11yOpen)}
@@ -174,7 +89,6 @@ export default function Footer() {
             <span className="hidden sm:inline">A11y</span>
           </button>
 
-          {/* Dropdown panel */}
           <AnimatePresence>
             {a11yOpen && (
               <motion.div
@@ -239,10 +153,6 @@ export default function Footer() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-
-        <div className="flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <VscBell className="text-sm" />
         </div>
       </div>
     </footer>

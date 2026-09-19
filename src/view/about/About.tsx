@@ -1,98 +1,69 @@
-import { useState, useMemo, type ReactNode } from "react";
-import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
-import { GrOracle } from "react-icons/gr";
+import { useState, useMemo } from "react";
+import { SlLayers, SlRocket } from "react-icons/sl";
+import { VscCode } from "react-icons/vsc";
 import profileJson from "../../data/profile.json";
-import DecryptedText from "../../components/motion/DecryptedText";
 import {
-  SiPython,
-  SiGo,
-  SiJavascript,
-  SiTypescript,
-  SiNextdotjs,
-  SiVuedotjs,
-  SiTailwindcss,
-  SiNodedotjs,
-  SiLaravel,
-  SiPostgresql,
   SiDocker,
+  SiFastapi,
   SiFigma,
   SiGit,
-  SiPytorch,
-  SiSatellite,
+  SiGo,
+  SiGoogle,
   SiGoogleearthengine,
-  SiVercel,
+  SiInsomnia,
+  SiPostgresql,
+  SiPython,
+  SiQdrant,
+  SiReact,
+  SiShadcnui,
+  SiStreamlit,
+  SiTailwindcss,
+  SiTurborepo,
+  SiTypescript,
+  SiZedindustries,
 } from "react-icons/si";
 
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
-import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import JourneyMap from "../../components/JourneyMap";
-import KuraTurtle from "../../components/svg/KuraTurtle";
 
 interface SkillCategory {
   category: string;
-  items: { name: string; icon: ReactNode; color?: string }[];
+  items: string[];
 }
 
-const skillsData: SkillCategory[] = [
-  {
-    category: "Languages",
-    items: [
-      { name: "Python", icon: <SiPython /> },
-      { name: "Go", icon: <SiGo /> },
-      { name: "JavaScript", icon: <SiJavascript /> },
-      { name: "TypeScript", icon: <SiTypescript /> },
-    ],
-  },
-  {
-    category: "Frontend",
-    items: [
-      { name: "Next.js", icon: <SiNextdotjs /> },
-      { name: "Vue.js", icon: <SiVuedotjs /> },
-      { name: "Tailwind", icon: <SiTailwindcss /> },
-    ],
-  },
-  {
-    category: "Backend",
-    items: [
-      { name: "Go Fiber v3", icon: <SiGo /> },
-      { name: "Node.js (Bun)", icon: <SiNodedotjs /> },
-      { name: "Laravel", icon: <SiLaravel /> },
-      { name: "ASP.NET Core", icon: <SiNodedotjs /> },
-    ],
-  },
-  {
-    category: "AI & Data Science",
-    items: [
-      { name: "PyTorch", icon: <SiPytorch /> },
-      { name: "LightGBM", icon: <SiPython /> },
-      { name: "Sentinel-2", icon: <SiSatellite /> },
-      { name: "Google Earth Engine", icon: <SiGoogleearthengine /> },
-    ],
-  },
-  {
-    category: "Data & GIS",
-    items: [
-      { name: "PostGIS", icon: <SiPostgresql /> },
-      { name: "Oracle DB", icon: <GrOracle /> },
-      { name: "PostgreSQL", icon: <SiPostgresql /> },
-    ],
-  },
-  {
-    category: "Infrastructure",
-    items: [
-      { name: "Docker", icon: <SiDocker /> },
-      { name: "Git", icon: <SiGit /> },
-      { name: "Figma", icon: <SiFigma /> },
-      { name: "Vercel", icon: <SiVercel /> },
-    ],
-  },
-];
+// Sourced from portfolio-data/profile.yml (`skills`), which mirrors the CV.
+const skillsData = profileJson.skills as SkillCategory[];
 
 const totalSkills = skillsData.reduce((acc, cat) => acc + cat.items.length, 0);
 const categories = ["All", ...skillsData.map((c) => c.category)];
+
+/** Map a skill label to a brand icon; falls back to a generic glyph. */
+function SkillIcon({ name }: { name: string }) {
+  const n = name.toLowerCase();
+  if (n.includes("typescript")) return <SiTypescript />;
+  if (n.includes("python")) return <SiPython />;
+  if (n.includes("earth engine")) return <SiGoogleearthengine />;
+  if (n.includes("adk") || n.includes("google")) return <SiGoogle />;
+  if (n.includes("postgres") || n.includes("postgis") || n.includes("sql"))
+    return <SiPostgresql />;
+  if (n.includes("react")) return <SiReact />;
+  if (n.includes("fastapi")) return <SiFastapi />;
+  if (n.includes("tailwind")) return <SiTailwindcss />;
+  if (n.includes("shadcn")) return <SiShadcnui />;
+  if (n.includes("turborepo") || n.includes("bun")) return <SiTurborepo />;
+  if (n.includes("qdrant")) return <SiQdrant />;
+  if (n.includes("docker")) return <SiDocker />;
+  if (n.includes("figma")) return <SiFigma />;
+  if (n.includes("streamlit")) return <SiStreamlit />;
+  if (n.includes("insomnia")) return <SiInsomnia />;
+  if (n.includes("zed")) return <SiZedindustries />;
+  if (n.includes("git")) return <SiGit />;
+  if (n.startsWith("go")) return <SiGo />;
+  return <VscCode />;
+}
 
 export default function About() {
   const [activeCategory, setActiveCategory] = useState<string>("All");
@@ -103,9 +74,6 @@ export default function About() {
   }, [activeCategory]);
   return (
     <PageTransition className="container mx-auto max-w-6xl p-6 space-y-20 relative">
-      {/* Global Background Effects */}
-      <BackgroundEffects />
-
       {/* Hero / About Me Section */}
       <motion.section
         initial={{ opacity: 0, y: 30 }}
@@ -114,12 +82,12 @@ export default function About() {
         className="relative z-10"
       >
         <PageHeader
-          title="Who am I?"
-          subtitle="biography.md"
+          title="About"
+          subtitle="profile"
           description={
             <div className="space-y-4">
               <p>
-                Hey there! I&apos;m{" "}
+                I&apos;m{" "}
                 <span className="font-bold text-primary">
                   {profileJson.bio.name}
                 </span>{" "}
@@ -133,27 +101,11 @@ export default function About() {
               {profileJson.bio.paragraphs.map((pText, pIdx) => (
                 <p key={pIdx}>{pText}</p>
               ))}
-              <div className="bg-muted/30 border border-border/50 rounded-sm mt-8 p-5 font-mono text-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
-                <div className="flex items-center gap-1.5 mb-3 border-b border-border/20 pb-2">
-                  <span className="w-2 h-2 rounded-full bg-primary/45" />
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
-                    {profileJson.philosophy.shell}
-                  </span>
-                </div>
-                <div className="text-foreground/90 space-y-1">
-                  <div className="flex items-start gap-2">
-                    <span className="text-primary font-bold select-none shrink-0">
-                      $
-                    </span>
-                    <h3 className="font-serif-accent text-primary mb-0 text-xl leading-snug italic">
-                      &quot;{profileJson.philosophy.quote}&quot;
-                    </h3>
-                  </div>
-                  <p className="text-[10px] text-muted-foreground/60 mt-3 pl-5">
-                    # {profileJson.philosophy.comment}
-                  </p>
-                </div>
-              </div>
+              <blockquote className="border-l-2 border-primary/40 pl-4 mt-6">
+                <p className="font-serif-accent text-primary text-xl leading-snug italic m-0">
+                  &quot;{profileJson.philosophy.quote}&quot;
+                </p>
+              </blockquote>
             </div>
           }
         />
@@ -170,7 +122,7 @@ export default function About() {
         <div className="flex items-center gap-3 mb-6">
           <SlRocket className="text-2xl text-primary" />
           <h2 className="text-2xl md:text-3xl font-black tracking-tight">
-            <DecryptedText text="The Journey So Far" animateOn="both" />
+            The Journey So Far
           </h2>
         </div>
         <JourneyMap />
@@ -186,16 +138,8 @@ export default function About() {
         >
           <div className="flex items-center gap-3">
             <SlLayers className="text-2xl text-primary" />
-            <h2 className="text-2xl md:text-3xl font-black">
-              <DecryptedText
-                text="Skills & Technical Arsenal"
-                animateOn="both"
-              />
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-black">Skills</h2>
           </div>
-          <p className="text-xs font-mono text-muted-foreground">
-            status: active // proficiencies: {totalSkills} tools
-          </p>
         </motion.div>
 
         {/* Category Filter Tabs */}
@@ -248,13 +192,13 @@ export default function About() {
                 {category.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-sm bg-card/45 border border-border/40 hover:border-primary/80 hover:bg-card/90 hover:scale-[1.04] hover:shadow-[0_0_15px_rgba(240,160,48,0.15)] active:scale-[0.98] transition-all duration-200 select-none group/item cursor-default"
+                    className="flex items-center gap-2.5 pl-3 pr-4 py-2 min-w-0 max-w-full rounded-sm bg-card/45 border border-border/40 hover:border-primary/80 hover:bg-card/90 hover:shadow-[0_0_15px_rgba(240,160,48,0.15)] active:scale-[0.98] transition-all duration-200 select-none group/item cursor-default"
                   >
-                    <span className="text-lg text-muted-foreground group-hover/item:text-primary group-hover/item:scale-110 transition-all duration-200">
-                      {item.icon}
+                    <span className="text-lg shrink-0 text-muted-foreground group-hover/item:text-primary transition-all duration-200">
+                      <SkillIcon name={item} />
                     </span>
-                    <span className="text-xs font-mono font-medium tracking-tight text-foreground/85 group-hover/item:text-foreground transition-colors duration-200">
-                      {item.name}
+                    <span className="text-xs font-mono font-medium tracking-tight leading-snug break-words min-w-0 text-left text-foreground/85 group-hover/item:text-foreground transition-colors duration-200">
+                      {item}
                     </span>
                   </div>
                 ))}

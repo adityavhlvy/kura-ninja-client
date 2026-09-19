@@ -4,7 +4,6 @@ import { FaLinkedin } from "react-icons/fa";
 import { motion } from "framer-motion";
 import PageTransition from "../../components/PageTransition";
 import PageHeader from "../../components/PageHeader";
-import BackgroundEffects from "../../components/BackgroundEffects";
 
 import certificationsJson from "../../data/certifications.json";
 
@@ -27,9 +26,6 @@ const certificationGroups: CertificationGroup[] =
 export default function Certifications() {
   return (
     <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
-      {/* Global Background Effects */}
-      <BackgroundEffects />
-
       <div className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
@@ -43,7 +39,7 @@ export default function Certifications() {
                 <span>Certifications</span>
               </span>
             }
-            subtitle="credentials.json"
+            subtitle="credentials"
             description="Verified professional credentials, specialization training, and engineering certifications across cloud, data science, and systems architecture."
             accentColor="primary"
           >

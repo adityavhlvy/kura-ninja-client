@@ -66,11 +66,61 @@
     "name": "Aditya Vahlevy Nugraha",
     "alias": "Kura Ninja",
     "degree_detail": "Computer Science graduate from Universitas Pertamina (Cum Laude, GPA 3.58)",
-    "current_role_detail": "Fullstack Developer at PT Pupuk Indonesia (Persero)",
+    "current_role_detail": "Software & AI Engineer at PT Pupuk Indonesia (Persero)",
     "paragraphs": [
       "My expertise lies at the intersection of Geospatial Intelligence, AI/ML, and Fullstack Development. Currently engineering AeGIS Module Atlas (a geospatial dashboard for fertilizer demand visualization and soil nutrient analysis using Go Fiber v3, React 19, OpenLayers, and PostgreSQL), PINTER (an AI agent orchestration platform with a visual builder canvas and multi-agent workflows using FastAPI, Google ADK, React Flow, and TanStack Router), and NEXUS Module Delta & Vista (an enterprise logistics coordination and automated route pathfinding platform using FastAPI, React 19, and OpenLayers).",
       "I have a background in predictive modeling (Satellite Imagery + Deep Learning) and have spent time in the industry digitizing mission-critical operations at Astra Otoparts. Whether it's architecting Clean Architecture systems or fine-tuning LightGBM models with Optuna, I thrive on solving complex problems with code.",
       "Beyond the screen, I'm an APERTI BUMN Scholarship awardee, a former Vice President of my student association, and someone who probably thinks about system design way too much at 2am."
     ]
-  }
+  },
+  "skills": [
+    {
+      "category": "Languages",
+      "items": [
+        "TypeScript",
+        "Python",
+        "Golang",
+        "SQL (PostgreSQL)"
+      ]
+    },
+    {
+      "category": "Frameworks",
+      "items": [
+        "React",
+        "FastAPI",
+        "Go Fiber",
+        "Rsbuild / Rspack (Modern build compilation)",
+        "Turborepo / Bun Workspaces (Monorepo orchestration)",
+        "TanStack Router",
+        "Zustand",
+        "Tailwind CSS",
+        "shadcn/ui",
+        "Google ADK (Agent Development Kit)"
+      ]
+    },
+    {
+      "category": "Databases & Caching",
+      "items": [
+        "PostgreSQL (with PostGIS spatial indexing)",
+        "Qdrant (Vector Database)"
+      ]
+    },
+    {
+      "category": "Tools & Platforms",
+      "items": [
+        "Docker / Containerization",
+        "Git",
+        "Google Earth Engine (GEE)",
+        "Figma",
+        "Streamlit",
+        "Insomnia"
+      ]
+    },
+    {
+      "category": "IDE",
+      "items": [
+        "Zed"
+      ]
+    }
+  ]
 }

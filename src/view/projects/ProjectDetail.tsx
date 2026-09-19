@@ -8,15 +8,12 @@ import {
   SlLayers,
   SlRocket,
   SlBulb,
-  SlChart,
 } from "react-icons/sl";
 import { VscGithub, VscScreenFull } from "react-icons/vsc";
-import { FiCopy, FiCheck } from "react-icons/fi";
-import { useState, useCallback } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import PageTransition from "../../components/PageTransition";
-import BackgroundEffects from "../../components/BackgroundEffects";
 import LightboxModal from "../../components/motion/LightboxModal";
 
 export default function ProjectDetail() {
@@ -25,39 +22,6 @@ export default function ProjectDetail() {
   const project = projectsData.find((p) => p.slug === slug);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  const handleCopySpec = useCallback(async () => {
-    if (!project) return;
-
-    const specMarkdown = [
-      `# ${project.title}`,
-      `Status: ${project.status} | Visibility: ${project.visibility} | Date: ${project.date}`,
-      `\n## Description\n${project.description}`,
-      project.techStack?.length
-        ? `\n## Tech Stack\n${project.techStack.join(", ")}`
-        : "",
-      project.technicalChallenges?.length
-        ? `\n## Challenges\n${project.technicalChallenges.map((c) => `- ${c}`).join("\n")}`
-        : "",
-      project.details?.length
-        ? `\n## Core Features\n${project.details.map((d) => `- ${d}`).join("\n")}`
-        : "",
-      project.readiness
-        ? `\n## Readiness\n- Test Coverage: ${project.readiness.tests}%\n- Documentation: ${project.readiness.docs}%\n- Quality: ${project.readiness.quality}%`
-        : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    try {
-      await navigator.clipboard.writeText(specMarkdown);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // clipboard write failed
-    }
-  }, [project]);
 
   if (!project) {
     navigate("/projects", { replace: true });
@@ -82,8 +46,6 @@ export default function ProjectDetail() {
 
   return (
     <PageTransition className="container mx-auto max-w-6xl px-6 pb-32 relative">
-      <BackgroundEffects />
-
       {/* Back Button */}
       <div className="mb-8 pt-4 relative z-10">
         <Link
@@ -116,24 +78,6 @@ export default function ProjectDetail() {
               <span className="text-xs font-mono text-muted-foreground/60">
                 {project.date}
               </span>
-              <button
-                type="button"
-                onClick={handleCopySpec}
-                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm border border-border/50 bg-card/40 hover:bg-muted text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all cursor-pointer active:scale-95 shadow-xs"
-                title="Copy project specification to clipboard"
-              >
-                {copied ? (
-                  <>
-                    <FiCheck className="text-emerald-400 size-3" />
-                    <span className="text-emerald-400">Spec Copied</span>
-                  </>
-                ) : (
-                  <>
-                    <FiCopy className="size-3" />
-                    <span>Copy Spec</span>
-                  </>
-                )}
-              </button>
             </div>
 
             <div className="flex items-center gap-4 mb-6 flex-wrap">
@@ -295,46 +239,6 @@ export default function ProjectDetail() {
 
         {/* Right Column: Meta & Stats */}
         <div className="space-y-8">
-          {/* Readiness Stats */}
-          {project.readiness && (
-            <div className="bg-card/40 border border-border/50 rounded-sm p-6 space-y-4">
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider flex items-center gap-2 text-muted-foreground/80">
-                <SlChart />
-                Project Readiness
-              </h3>
-              <div className="grid grid-cols-3 gap-2.5 pt-1">
-                {[
-                  { label: "Test Coverage", value: project.readiness.tests },
-                  { label: "Documentation", value: project.readiness.docs },
-                  {
-                    label: "Quality",
-                    value: project.readiness.quality,
-                  },
-                ].map((stat, i) => (
-                  <div
-                    key={i}
-                    className="p-3 rounded-sm bg-muted/20 border border-border/30 hover:border-primary/20 transition-all duration-300 flex flex-col justify-between"
-                  >
-                    <div className="text-lg font-mono font-bold text-primary">
-                      {stat.value}%
-                    </div>
-                    <div className="w-full h-1 bg-muted/60 rounded-full overflow-hidden my-2">
-                      <motion.div
-                        className="h-full bg-primary rounded-full"
-                        initial={{ width: 0 }}
-                        animate={{ width: `${stat.value}%` }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                      />
-                    </div>
-                    <div className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground/80 leading-tight break-words">
-                      {stat.label}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           {/* Tech Stack */}
           <div className="bg-card/40 border border-border/50 rounded-sm p-6 space-y-4">
             <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground/80">

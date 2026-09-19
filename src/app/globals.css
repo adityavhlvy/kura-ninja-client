@@ -37,16 +37,8 @@
 }
 
 /* ========================================
-   THEME PALETTE - Senja Aesthetics
-   Inspired by: Skyrim mist, Witcher mystery, RDR warmth
-   ======================================== */
-
-/* ========================================
-   CUSTOM PROPERTIES - IDE Aesthetics
-   ======================================== */
-
-/* ========================================
-   CUSTOM PROPERTIES - Theme Master
+   THEME PALETTE
+   Senja (twilight, default) and Fajar (dawn) share one token contract.
    ======================================== */
 
 :root,
@@ -82,8 +74,6 @@
   --ide-line-highlight: #151520;
   --ide-comment: #736b60; /* Highly readable comment contrast */
   --ide-selection: #3c352a;
-
-  --transition-premium: 200ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 [data-theme="fajar"] {
@@ -119,8 +109,6 @@
   --ide-line-highlight: #e6dbce;
   --ide-comment: #70594a;
   --ide-selection: #ebd6be;
-
-  --transition-premium: 300ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* Typography Overrides & Theme Transitions */
@@ -138,6 +126,22 @@ html {
   background-color: var(--ide-bg);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * App shell height. `dvh` keeps the footer from falling behind mobile browser
+ * chrome; `vh` is the fallback for browsers without `dvh`. Do NOT switch this
+ * back to competing Tailwind height classes — with equal specificity the winner
+ * is stylesheet order, which silently broke this once already.
+ */
+.app-shell {
+  height: 100vh;
+}
+
+@supports (height: 100dvh) {
+  .app-shell {
+    height: 100dvh;
+  }
 }
 
 h1 {
@@ -177,78 +181,7 @@ pre,
   font-family: "Geist Mono", "JetBrains Mono", monospace;
 }
 
-/* ========================================
-   IDE WINDOW COMPONENTS
-   ======================================== */
-
-.ide-window {
-  background: var(--ide-sidebar);
-  border: 1px solid var(--ide-border);
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.5);
-  transition: var(--transition-premium);
-}
-
-.ide-header {
-  height: 2.5rem;
-  background: var(--ide-sidebar);
-  border-bottom: 1px solid var(--ide-border);
-  display: flex;
-  align-items: center;
-  padding: 0 1rem;
-  gap: 0.5rem;
-}
-
-.ide-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 9999px;
-}
-
-/* Atmospheric Gradients (Anti-AI Refined) */
-.glass-morphism {
-  background: color-mix(in srgb, var(--background) 80%, transparent);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 1px solid color-mix(in srgb, var(--border) 30%, transparent);
-}
-
-/* Section divider: editorial line */
-.section-divider {
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin: 4rem 0;
-}
-
-.section-divider::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(to right, var(--border), transparent);
-}
-
-/* ========================================
-   ANIMATIONS
-   ======================================== */
-
-@keyframes subtle-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-.animate-subtle-float {
-  animation: subtle-float 8s infinite ease-in-out;
-}
-
-/* Custom Scrollbar for IDE feel */
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

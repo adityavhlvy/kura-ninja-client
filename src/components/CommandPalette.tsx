@@ -1,18 +1,13 @@
-import { useState, useEffect, useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   SlHome,
   SlFolder,
   SlUser,
   SlBadge,
-  SlMagnifier,
+  SlEnvolope,
   SlArrowRight,
-  SlSettings,
-  SlQuestion,
-  SlRefresh,
-  SlCloudDownload,
 } from "react-icons/sl";
-import { VscJson, VscMarkdown } from "react-icons/vsc";
 import { projectsData } from "../data/projects";
 import {
   CommandDialog,
@@ -31,7 +26,7 @@ interface Command {
   icon: React.ReactNode;
   action: () => void;
   keywords: string[];
-  category: "navigation" | "projects" | "action" | "easter-egg";
+  category: "navigation" | "projects";
 }
 
 interface CommandPaletteProps {
@@ -84,30 +79,12 @@ export default function CommandPalette({
         category: "navigation",
       },
       {
-        id: "design-system",
-        label: "DESIGN.md",
-        description: "Design specification",
-        icon: <VscMarkdown />,
-        action: () => navigate("/design-system"),
-        keywords: ["design", "system", "tokens", "css", "color"],
-        category: "navigation",
-      },
-      {
-        id: "product-spec",
-        label: "PRODUCT.md",
-        description: "Product specification",
-        icon: <VscMarkdown />,
-        action: () => navigate("/product-spec"),
-        keywords: ["product", "spec", "roadmap", "goals", "audience"],
-        category: "navigation",
-      },
-      {
         id: "contact",
-        label: "contact.json",
-        description: "Connect, hire, or collaborate spec",
-        icon: <VscJson />,
+        label: "Contact",
+        description: "Get in touch",
+        icon: <SlEnvolope />,
         action: () => navigate("/contact"),
-        keywords: ["contact", "hire", "collab", "project", "spec", "email"],
+        keywords: ["contact", "hire", "collab", "email", "cv", "resume"],
         category: "navigation",
       },
       ...projectsData.map((p): Command => ({
@@ -123,63 +100,6 @@ export default function CommandPalette({
         ],
         category: "projects",
       })),
-      {
-        id: "theme-toggle",
-        label: "Switch Theme (Fajar / Senja)",
-        description: "Toggle data-theme between senja and fajar",
-        icon: <SlRefresh />,
-        action: () => {
-          const currentTheme =
-            document.documentElement.getAttribute("data-theme") ||
-            localStorage.getItem("theme") ||
-            "senja";
-          const next = currentTheme === "senja" ? "fajar" : "senja";
-          document.documentElement.setAttribute("data-theme", next);
-          localStorage.setItem("theme", next);
-          window.dispatchEvent(new Event("storage"));
-        },
-        keywords: [
-          "switch",
-          "theme",
-          "fajar",
-          "senja",
-          "mode",
-          "light",
-          "dark",
-          "color",
-        ],
-        category: "action",
-      },
-      {
-        id: "view-cv",
-        label: "Download / View CV",
-        description: "Professional credentials & contact spec",
-        icon: <SlCloudDownload />,
-        action: () => navigate("/contact"),
-        keywords: [
-          "download",
-          "view",
-          "cv",
-          "resume",
-          "contact",
-          "curriculum",
-          "vitae",
-        ],
-        category: "action",
-      },
-      {
-        id: "hire",
-        label: "sudo hire-me",
-        description: "You found a secret! 🐢",
-        icon: <SlQuestion />,
-        action: () => {
-          alert(
-            "Permission granted! 🐢\n\nEmail: adityavhlvy1003@gmail.com\nLinkedIn: /in/adityavahlevynugraha",
-          );
-        },
-        keywords: ["sudo", "hire", "secret", "easter", "contact"],
-        category: "easter-egg",
-      },
     ],
     [navigate],
   );
@@ -192,6 +112,29 @@ export default function CommandPalette({
     [onClose],
   );
 
+  const renderItems = (category: Command["category"]) =>
+    commands
+      .filter((c) => c.category === category)
+      .map((cmd) => (
+        <CommandItem
+          key={cmd.id}
+          value={`${cmd.label} ${cmd.keywords.join(" ")}`}
+          onSelect={() => executeCommand(cmd)}
+          className="group flex items-center gap-3 px-3 py-2.5 cursor-pointer"
+        >
+          <span className="text-lg opacity-70">{cmd.icon}</span>
+          <div className="flex-1 min-w-0">
+            <div className="font-medium truncate">{cmd.label}</div>
+            {cmd.description && (
+              <div className="text-xs opacity-50 truncate">
+                {cmd.description}
+              </div>
+            )}
+          </div>
+          <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
+        </CommandItem>
+      ));
+
   return (
     <CommandDialog
       open={isOpen}
@@ -201,91 +144,18 @@ export default function CommandPalette({
       <CommandInput placeholder="Type a command or search..." />
       <CommandList className="max-h-80">
         <CommandEmpty>
-          <div className="py-6 text-center">
-            <p className="text-foreground/50">No commands found</p>
-            <p className="text-xs mt-1 text-foreground/30">
-              Try &quot;sudo hire-me&quot; 😉
-            </p>
+          <div className="py-6 text-center text-foreground/50">
+            No commands found
           </div>
         </CommandEmpty>
 
         <CommandGroup heading="Navigation">
-          {commands
-            .filter((c) => c.category === "navigation")
-            .map((cmd) => (
-              <CommandItem
-                key={cmd.id}
-                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
-                onSelect={() => executeCommand(cmd)}
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
-              >
-                <span className="text-lg opacity-70">{cmd.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{cmd.label}</div>
-                  {cmd.description && (
-                    <div className="text-xs opacity-50 truncate">
-                      {cmd.description}
-                    </div>
-                  )}
-                </div>
-                <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
-              </CommandItem>
-            ))}
+          {renderItems("navigation")}
         </CommandGroup>
 
         <CommandSeparator />
 
-        <CommandGroup heading="Projects">
-          {commands
-            .filter((c) => c.category === "projects")
-            .map((cmd) => (
-              <CommandItem
-                key={cmd.id}
-                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
-                onSelect={() => executeCommand(cmd)}
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
-              >
-                <span className="text-lg opacity-70">{cmd.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{cmd.label}</div>
-                  {cmd.description && (
-                    <div className="text-xs opacity-50 truncate">
-                      {cmd.description}
-                    </div>
-                  )}
-                </div>
-                <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
-              </CommandItem>
-            ))}
-        </CommandGroup>
-
-        <CommandSeparator />
-
-        <CommandGroup heading="Actions">
-          {commands
-            .filter(
-              (c) => c.category === "easter-egg" || c.category === "action",
-            )
-            .map((cmd) => (
-              <CommandItem
-                key={cmd.id}
-                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
-                onSelect={() => executeCommand(cmd)}
-                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
-              >
-                <span className="text-lg opacity-70">{cmd.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium truncate">{cmd.label}</div>
-                  {cmd.description && (
-                    <div className="text-xs opacity-50 truncate">
-                      {cmd.description}
-                    </div>
-                  )}
-                </div>
-                <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
-              </CommandItem>
-            ))}
-        </CommandGroup>
+        <CommandGroup heading="Projects">{renderItems("projects")}</CommandGroup>
       </CommandList>
       <div className="px-4 py-2 border-t border-border/50 flex items-center gap-4 text-[10px] text-foreground/40 font-mono">
         <span>

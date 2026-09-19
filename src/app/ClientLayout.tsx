@@ -3,13 +3,8 @@ import { useState, useEffect, useCallback, useRef, ReactNode } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import FileTreeSidebar from "../components/FileTreeSidebar";
-import EditorTabs from "../components/EditorTabs";
 import Background from "../components/Background";
-import ThemeDock from "../components/ThemeDock";
 import CommandPalette from "../components/CommandPalette";
-import { TimeProvider } from "../context/TimeContext";
-import { initEasterEggs } from "../utils/easterEggs";
-import InitialLoader from "../components/InitialLoader";
 
 export default function ClientLayout({ children }: { children: ReactNode }) {
   const [isMobile, setIsMobile] = useState(() => {
@@ -25,12 +20,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     return true;
   });
   const [isCommandPaletteOpen, setIsCommandPaletteOpen] = useState(false);
-  const [isAppLoaded, setIsAppLoaded] = useState(false);
   const { pathname } = useLocation();
-
-  useEffect(() => {
-    initEasterEggs();
-  }, []);
 
   // Command palette keyboard shortcut (Ctrl+K)
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
@@ -45,16 +35,12 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [handleKeyDown]);
 
-  // Check for mobile screen size
+  // Track mobile breakpoint and collapse the sidebar accordingly
   useEffect(() => {
     const checkMobile = () => {
-      const mobile = window.innerWidth < 768; // md breakpoint
+      const mobile = window.innerWidth < 768;
       setIsMobile(mobile);
-      if (mobile) {
-        setIsSidebarOpen(false);
-      } else {
-        setIsSidebarOpen(true);
-      }
+      setIsSidebarOpen(!mobile);
     };
 
     checkMobile();
@@ -64,7 +50,7 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  // Close sidebar on route change if on mobile
+  // Close sidebar on route change when on mobile
   const lastPathname = useRef(pathname);
   useEffect(() => {
     if (pathname !== lastPathname.current) {
@@ -75,66 +61,50 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
     }
   }, [pathname, isMobile]);
 
-  // Memoize loader completion callback to prevent timer reset loops
-  const handleLoaderComplete = useCallback(() => {
-    setIsAppLoaded(true);
-  }, []);
-
   return (
-    <TimeProvider>
-      {!isAppLoaded && <InitialLoader onComplete={handleLoaderComplete} />}
-
-      <div
-        className={`h-screen h-[100dvh] flex flex-col overflow-hidden relative transition-opacity duration-1000 ${isAppLoaded ? "opacity-100" : "opacity-0"}`}
-      >
-        <Background />
-        <ThemeDock />
-        <Header
-          isSidebarOpen={isSidebarOpen}
-          toggleSidebar={toggleSidebar}
-          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+    <div className="app-shell flex flex-col overflow-hidden relative">
+      <Background />
+      <Header
+        isSidebarOpen={isSidebarOpen}
+        toggleSidebar={toggleSidebar}
+        onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+      />
+      <div className="flex flex-1 overflow-hidden relative isolate">
+        {/* Mobile Sidebar Overlay */}
+        <div
+          className={`absolute inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
+            isMobile && isSidebarOpen
+              ? "opacity-100 pointer-events-auto"
+              : "opacity-0 pointer-events-none"
+          }`}
+          onClick={() => setIsSidebarOpen(false)}
         />
-        <div className="flex flex-1 overflow-hidden relative isolate">
-          {/* Mobile Sidebar Overlay */}
-          <div
-            className={`absolute inset-0 bg-black/50 z-40 transition-opacity duration-300 ${
-              isMobile && isSidebarOpen
-                ? "opacity-100 pointer-events-auto"
-                : "opacity-0 pointer-events-none"
-            }`}
-            onClick={() => setIsSidebarOpen(false)}
-          />
 
-          {/* Sidebar */}
-          <aside
-            className={`
-                          ${isMobile ? "absolute h-full z-50" : "relative"}
-                          ${isMobile && isSidebarOpen ? "shadow-xl" : ""}
-                          ${isSidebarOpen ? "w-64" : isMobile ? "w-0 pointer-events-none" : "w-20"}
-                          ${isSidebarOpen || !isMobile ? "border-r border-border" : "border-r-0"}
-                          bg-muted/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
-                      `}
-          >
-            <div className={isMobile ? "h-full w-64" : "h-full"}>
-              <FileTreeSidebar isCollapsed={!isSidebarOpen && !isMobile} />
-            </div>
-          </aside>
-
-          <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
-            <EditorTabs />
-            <main className="flex-1 p-0 overflow-y-auto bg-background/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
-              <div className="w-full min-h-full pb-20">{children}</div>
-            </main>
+        {/* Explorer */}
+        <aside
+          className={`
+            ${isMobile ? "absolute h-full z-50" : "relative"}
+            ${isMobile && isSidebarOpen ? "shadow-xl" : ""}
+            ${isSidebarOpen ? "w-64" : isMobile ? "w-0 pointer-events-none" : "w-20"}
+            ${isSidebarOpen || !isMobile ? "border-r border-border" : "border-r-0"}
+            bg-muted/80 backdrop-blur-sm transition-all duration-300 flex flex-col overflow-hidden
+          `}
+        >
+          <div className={isMobile ? "h-full w-64" : "h-full"}>
+            <FileTreeSidebar isCollapsed={!isSidebarOpen && !isMobile} />
           </div>
-        </div>
-        <Footer />
+        </aside>
 
-        {/* Command Palette */}
-        <CommandPalette
-          isOpen={isCommandPaletteOpen}
-          onClose={() => setIsCommandPaletteOpen(false)}
-        />
+        <main className="flex-1 overflow-y-auto bg-background/60 backdrop-blur-[2px] relative w-full">
+          <div className="w-full min-h-full pb-20">{children}</div>
+        </main>
       </div>
-    </TimeProvider>
+      <Footer />
+
+      <CommandPalette
+        isOpen={isCommandPaletteOpen}
+        onClose={() => setIsCommandPaletteOpen(false)}
+      />
+    </div>
   );
 }

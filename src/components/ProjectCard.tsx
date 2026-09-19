@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { SlGlobe, SlLock, SlLink } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
-import TiltedCard from "./motion/TiltedCard";
 import {
   SiPython,
   SiPandas,
@@ -163,10 +162,7 @@ export default function ProjectCard({
   } as const;
 
   return (
-    <TiltedCard
-      maxTilt={5}
-      className="h-full flex flex-col bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors duration-300 rounded-sm"
-    >
+    <div className="group h-full flex flex-col bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors duration-300 rounded-sm">
       <Link to={`/projects/${slug}`} className="block flex-grow">
         {displayImage && (
           <div className="h-48 w-full overflow-hidden relative border-b border-border/50">
@@ -200,7 +196,7 @@ export default function ProjectCard({
             </div>
           </div>
         )}
-        <div className="p-6 flex flex-col h-full">
+        <div className="p-6 flex flex-col">
           <div className="flex justify-between items-start gap-4 mb-4">
             <div className="flex items-center gap-3">
               {logo && (
@@ -285,6 +281,6 @@ export default function ProjectCard({
           </div>
         </div>
       )}
-    </TiltedCard>
+    </div>
   );
 }
