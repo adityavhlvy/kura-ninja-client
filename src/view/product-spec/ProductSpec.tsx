@@ -39,7 +39,10 @@ export default function ProductSpec() {
                 <span>Tactile & Technical</span>
               </div>
               <p className="text-muted-foreground leading-relaxed text-[11px]">
-                The Kura Ninja brand represents high-craft software engineering fused with a command-center aesthetic. It speaks to hiring managers and technical clients who value system design, precision code, and telemetry transparency.
+                The Kura Ninja brand represents high-craft software engineering
+                fused with a command-center aesthetic. It speaks to hiring
+                managers and technical clients who value system design,
+                precision code, and telemetry transparency.
               </p>
               <div className="border-t border-border/20 pt-3 space-y-1 text-[11px] text-muted-foreground">
                 <div className="flex justify-between">
@@ -48,11 +51,15 @@ export default function ProductSpec() {
                 </div>
                 <div className="flex justify-between">
                   <span>POSTURE:</span>
-                  <span className="text-foreground/80">Technical Integrity</span>
+                  <span className="text-foreground/80">
+                    Technical Integrity
+                  </span>
                 </div>
                 <div className="flex justify-between">
                   <span>TONE:</span>
-                  <span className="text-foreground/80">Opinionated & Craft-first</span>
+                  <span className="text-foreground/80">
+                    Opinionated & Craft-first
+                  </span>
                 </div>
               </div>
             </div>
@@ -68,15 +75,26 @@ export default function ProductSpec() {
               <ul className="space-y-3 text-[11px] text-muted-foreground">
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold">1.</span>
-                  <span><strong>High Information Density:</strong> Monospace diagnostic tables, real metrics, and clean code comments over large empty spaces.</span>
+                  <span>
+                    <strong>High Information Density:</strong> Monospace
+                    diagnostic tables, real metrics, and clean code comments
+                    over large empty spaces.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold">2.</span>
-                  <span><strong>IDE Frame Shell:</strong> Emulate modern workspaces (like VS Code/Zed) to build a focused developer environment.</span>
+                  <span>
+                    <strong>IDE Frame Shell:</strong> Emulate modern workspaces
+                    (like VS Code/Zed) to build a focused developer environment.
+                  </span>
                 </li>
                 <li className="flex items-start gap-2">
                   <span className="text-primary font-bold">3.</span>
-                  <span><strong>Zero AI Tells:</strong> Banish purple outer glows, em-dashes, fake browser dashboards, and stock-like illustrations.</span>
+                  <span>
+                    <strong>Zero AI Tells:</strong> Banish purple outer glows,
+                    em-dashes, fake browser dashboards, and stock-like
+                    illustrations.
+                  </span>
                 </li>
               </ul>
             </div>
@@ -92,13 +110,27 @@ export default function ProductSpec() {
           <div className="p-6 rounded-sm bg-card/30 border border-border/40 font-mono text-xs space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {[
-                { name: "Home Dashboard", desc: "System telemetry logs, dynamic clock, Spotify integrations, and project lists." },
-                { name: "About Timeline", desc: "Cum Laude computer science background, scholar details, and skills catalog." },
-                { name: "Projects Spec", desc: "Granular technical breakdowns, challenges, and unit testing readiness metrics." },
+                {
+                  name: "Home Dashboard",
+                  desc: "System telemetry logs, dynamic clock, Spotify integrations, and project lists.",
+                },
+                {
+                  name: "About Timeline",
+                  desc: "Cum Laude computer science background, scholar details, and skills catalog.",
+                },
+                {
+                  name: "Projects Spec",
+                  desc: "Granular technical breakdowns, challenges, and unit testing readiness metrics.",
+                },
               ].map((view, i) => (
-                <div key={i} className="p-4 bg-muted/20 border border-border/30 rounded-sm space-y-2">
+                <div
+                  key={i}
+                  className="p-4 bg-muted/20 border border-border/30 rounded-sm space-y-2"
+                >
                   <div className="font-bold text-primary">{view.name}</div>
-                  <p className="text-[11px] text-muted-foreground leading-relaxed">{view.desc}</p>
+                  <p className="text-[11px] text-muted-foreground leading-relaxed">
+                    {view.desc}
+                  </p>
                 </div>
               ))}
             </div>

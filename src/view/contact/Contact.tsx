@@ -83,14 +83,19 @@ export default function Contact() {
   };
 
   const getSocialUrl = (name: string, defaultUrl: string) => {
-    const social = profileJson.contact.socials.find(s => s.name.toLowerCase() === name.toLowerCase());
+    const social = profileJson.contact.socials.find(
+      (s) => s.name.toLowerCase() === name.toLowerCase(),
+    );
     return social ? social.url : defaultUrl;
   };
 
   const socialLinks = [
     {
       name: "LinkedIn",
-      url: getSocialUrl("LinkedIn", "https://www.linkedin.com/in/adityavahlevynugraha"),
+      url: getSocialUrl(
+        "LinkedIn",
+        "https://www.linkedin.com/in/adityavahlevynugraha",
+      ),
       icon: <SlSocialLinkedin size={18} />,
       color: "hover:text-[#0077b5] hover:border-[#0077b5]/30",
     },
@@ -102,7 +107,10 @@ export default function Contact() {
     },
     {
       name: "GitLab",
-      url: getSocialUrl("GitLab", "https://gitlabduo.pupuk-indonesia.com/adityavhlvy"),
+      url: getSocialUrl(
+        "GitLab",
+        "https://gitlabduo.pupuk-indonesia.com/adityavhlvy",
+      ),
       icon: <SiGitlab size={18} />,
       color: "hover:text-[#fc6d26] hover:border-[#fc6d26]/30",
     },
@@ -114,7 +122,10 @@ export default function Contact() {
     },
     {
       name: "Spotify",
-      url: getSocialUrl("Spotify", "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu"),
+      url: getSocialUrl(
+        "Spotify",
+        "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu",
+      ),
       icon: <SlSocialSpotify size={18} />,
       color: "hover:text-[#1db954] hover:border-[#1db954]/30",
     },
@@ -127,7 +138,7 @@ export default function Contact() {
   ];
 
   return (
-    <PageTransition className="container mx-auto max-w-5xl p-6 md:p-10 relative min-h-screen">
+    <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
       <BackgroundEffects />
 
       <div className="relative z-10 space-y-12 pb-16">

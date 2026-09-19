@@ -10,18 +10,54 @@ import {
   SlBulb,
   SlChart,
 } from "react-icons/sl";
-import { VscGithub } from "react-icons/vsc";
-import { useState } from "react";
+import { VscGithub, VscScreenFull } from "react-icons/vsc";
+import { FiCopy, FiCheck } from "react-icons/fi";
+import { useState, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import PageTransition from "../../components/PageTransition";
 import BackgroundEffects from "../../components/BackgroundEffects";
+import LightboxModal from "../../components/motion/LightboxModal";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = projectsData.find((p) => p.slug === slug);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopySpec = useCallback(async () => {
+    if (!project) return;
+
+    const specMarkdown = [
+      `# ${project.title}`,
+      `Status: ${project.status} | Visibility: ${project.visibility} | Date: ${project.date}`,
+      `\n## Description\n${project.description}`,
+      project.techStack?.length
+        ? `\n## Tech Stack\n${project.techStack.join(", ")}`
+        : "",
+      project.technicalChallenges?.length
+        ? `\n## Challenges\n${project.technicalChallenges.map((c) => `- ${c}`).join("\n")}`
+        : "",
+      project.details?.length
+        ? `\n## Core Features\n${project.details.map((d) => `- ${d}`).join("\n")}`
+        : "",
+      project.readiness
+        ? `\n## Readiness\n- Test Coverage: ${project.readiness.tests}%\n- Documentation: ${project.readiness.docs}%\n- Quality: ${project.readiness.quality}%`
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    try {
+      await navigator.clipboard.writeText(specMarkdown);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // clipboard write failed
+    }
+  }, [project]);
 
   if (!project) {
     navigate("/projects", { replace: true });
@@ -45,7 +81,7 @@ export default function ProjectDetail() {
   const isPrivate = project.visibility === "private";
 
   return (
-    <PageTransition className="container mx-auto max-w-5xl px-6 pb-32 relative">
+    <PageTransition className="container mx-auto max-w-6xl px-6 pb-32 relative">
       <BackgroundEffects />
 
       {/* Back Button */}
@@ -80,6 +116,24 @@ export default function ProjectDetail() {
               <span className="text-xs font-mono text-muted-foreground/60">
                 {project.date}
               </span>
+              <button
+                type="button"
+                onClick={handleCopySpec}
+                className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-sm border border-border/50 bg-card/40 hover:bg-muted text-[10px] font-mono font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all cursor-pointer active:scale-95 shadow-xs"
+                title="Copy project specification to clipboard"
+              >
+                {copied ? (
+                  <>
+                    <FiCheck className="text-emerald-400 size-3" />
+                    <span className="text-emerald-400">Spec Copied</span>
+                  </>
+                ) : (
+                  <>
+                    <FiCopy className="size-3" />
+                    <span>Copy Spec</span>
+                  </>
+                )}
+              </button>
             </div>
 
             <div className="flex items-center gap-4 mb-6 flex-wrap">
@@ -87,6 +141,8 @@ export default function ProjectDetail() {
                 <img
                   src={project.logo}
                   alt={`${project.title} logo`}
+                  loading="lazy"
+                  decoding="async"
                   className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-sm border border-border/30 p-1 bg-card/50"
                 />
               )}
@@ -105,19 +161,40 @@ export default function ProjectDetail() {
       {/* Gallery Section */}
       {allImages.length > 0 && (
         <div className="mb-16 space-y-4 relative z-10">
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-card/30 border border-border/50">
+          <div
+            onClick={() => setIsLightboxOpen(true)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                setIsLightboxOpen(true);
+              }
+            }}
+            aria-label="Inspect project screenshot"
+            className="group relative aspect-video rounded-sm overflow-hidden bg-card/30 border border-border/50 cursor-pointer"
+          >
             <AnimatePresence mode="wait">
               <motion.img
                 key={activeImageIndex}
                 src={allImages[activeImageIndex]}
+                loading="lazy"
+                decoding="async"
                 initial={{ opacity: 0, scale: 1.02 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.98 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
                 alt={`${project.title} preview ${activeImageIndex + 1}`}
               />
             </AnimatePresence>
+
+            {/* Subtle hover badge on hero image */}
+            <div className="absolute bottom-3 right-3 z-10 pointer-events-none transition-transform duration-200 group-hover:scale-105">
+              <span className="font-mono text-[10px] text-foreground/80 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-sm border border-border/40 flex items-center gap-1.5 shadow-xs">
+                <VscScreenFull size={12} /> Inspect Screenshot
+              </span>
+            </div>
           </div>
 
           {allImages.length > 1 && (
@@ -125,17 +202,24 @@ export default function ProjectDetail() {
               {allImages.map((img, idx) => (
                 <button
                   key={idx}
-                  onClick={() => setActiveImageIndex(idx)}
-                  className={`relative flex-shrink-0 w-28 aspect-video rounded-sm overflow-hidden transition-all duration-300 border ${
+                  type="button"
+                  onClick={() => {
+                    setActiveImageIndex(idx);
+                    setIsLightboxOpen(true);
+                  }}
+                  aria-label={`View screenshot ${idx + 1}`}
+                  className={`relative flex-shrink-0 w-28 aspect-video rounded-sm overflow-hidden transition-all duration-300 border cursor-pointer ${
                     activeImageIndex === idx
                       ? "border-primary opacity-100 scale-102"
-                      : "border-transparent opacity-40 hover:opacity-70"
+                      : "border-transparent opacity-40 hover:opacity-75"
                   }`}
                 >
                   <img
                     src={img}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
-                    alt=""
+                    alt={`${project.title} thumbnail ${idx + 1}`}
                   />
                 </button>
               ))}
@@ -227,11 +311,22 @@ export default function ProjectDetail() {
                     value: project.readiness.quality,
                   },
                 ].map((stat, i) => (
-                  <div key={i} className="text-center p-3 rounded-sm bg-muted/20 border border-border/30 hover:border-primary/20 transition-all duration-300">
-                    <div className="text-lg font-mono font-black text-primary">
+                  <div
+                    key={i}
+                    className="p-3 rounded-sm bg-muted/20 border border-border/30 hover:border-primary/20 transition-all duration-300 flex flex-col justify-between"
+                  >
+                    <div className="text-lg font-mono font-bold text-primary">
                       {stat.value}%
                     </div>
-                    <div className="text-[8px] font-mono uppercase tracking-wider text-muted-foreground/80 mt-1 leading-tight break-words">
+                    <div className="w-full h-1 bg-muted/60 rounded-full overflow-hidden my-2">
+                      <motion.div
+                        className="h-full bg-primary rounded-full"
+                        initial={{ width: 0 }}
+                        animate={{ width: `${stat.value}%` }}
+                        transition={{ duration: 0.8, ease: "easeOut" }}
+                      />
+                    </div>
+                    <div className="text-[9px] font-mono uppercase tracking-wider text-muted-foreground/80 leading-tight break-words">
                       {stat.label}
                     </div>
                   </div>
@@ -315,6 +410,15 @@ export default function ProjectDetail() {
           )}
         </div>
       </div>
+
+      {/* Lightbox Modal */}
+      <LightboxModal
+        isOpen={isLightboxOpen}
+        onClose={() => setIsLightboxOpen(false)}
+        images={allImages}
+        initialIndex={activeImageIndex}
+        title={project.title}
+      />
     </PageTransition>
   );
 }

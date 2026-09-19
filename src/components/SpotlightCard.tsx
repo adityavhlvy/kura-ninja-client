@@ -53,9 +53,9 @@ export default function SpotlightCard({
         {(title || badge) && (
           <div className="flex justify-between items-center mb-6">
             {title && (
-              <h2 className="text-xl font-mono font-bold tracking-tight text-muted-foreground group-hover:text-primary transition-colors uppercase">
+              <h3 className="text-sm font-mono font-bold tracking-widest text-muted-foreground group-hover:text-primary transition-colors uppercase">
                 {title}
-              </h2>
+              </h3>
             )}
             {badge && (
               <Badge

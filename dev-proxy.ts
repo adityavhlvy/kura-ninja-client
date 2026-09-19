@@ -1,14 +1,12 @@
 // @ts-nocheck
-import spotifyHandler from "./api/spotify";
 import telemetryHandler from "./api/telemetry";
 
 Bun.serve({
   port: 8080,
   async fetch(req) {
     const url = new URL(req.url);
-    if (url.pathname === "/api/spotify" || url.pathname === "/api/telemetry") {
-      const handler =
-        url.pathname === "/api/spotify" ? spotifyHandler : telemetryHandler;
+    if (url.pathname === "/api/telemetry") {
+      const handler = telemetryHandler;
       let status = 200;
       const headers = new Headers();
       let body: string = "";
@@ -63,4 +61,4 @@ Bun.serve({
   },
 });
 
-console.log("Local Dev Spotify Proxy listening on http://localhost:8080");
+console.log("Local Dev Telemetry Proxy listening on http://localhost:8080");

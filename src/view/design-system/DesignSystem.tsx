@@ -202,7 +202,9 @@ export default function DesignSystem() {
                     <div className="flex items-center gap-3 p-4 bg-muted/30 border border-border/50 rounded-sm">
                       <div className="w-10 h-10 rounded-full bg-linear-to-br from-[#07070a] to-[#1e1e24] border border-border" />
                       <div>
-                        <div className="text-sm font-bold">Senja (Twilight)</div>
+                        <div className="text-sm font-bold">
+                          Senja (Twilight)
+                        </div>
                         <div className="text-[10px] font-mono text-muted-foreground mt-0.5">
                           Background: #0f0f15 · Primary: #f0a030 (Sunset amber)
                         </div>
@@ -264,14 +266,18 @@ export default function DesignSystem() {
                     <div className="space-y-4">
                       <SectionLabel>Monospace: Geist Mono</SectionLabel>
                       <div className="bg-muted/40 border border-border/40 rounded-sm p-4 font-mono text-xs leading-relaxed">
-                        <span className="text-primary font-semibold">const</span>{" "}
+                        <span className="text-primary font-semibold">
+                          const
+                        </span>{" "}
                         config = &#123; theme:{" "}
                         <span className="text-success">&quot;senja&quot;</span>{" "}
                         &#125;;
                       </div>
                     </div>
                     <div className="space-y-4">
-                      <SectionLabel>Serif Accent: Instrument Serif</SectionLabel>
+                      <SectionLabel>
+                        Serif Accent: Instrument Serif
+                      </SectionLabel>
                       <p className="font-serif-accent text-3xl text-primary/90 italic leading-none">
                         &quot;Code like a turtle, vibe like a ninja.&quot;
                       </p>
@@ -283,9 +289,15 @@ export default function DesignSystem() {
 
             {/* Components */}
             <section id="components" className="space-y-6 scroll-mt-24">
-              <SectionHeader kicker="04. INTERACTIVE" title="Custom Components" />
+              <SectionHeader
+                kicker="04. INTERACTIVE"
+                title="Custom Components"
+              />
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <SpotlightCard title="SpotlightCard Preview" badge="Interactive">
+                <SpotlightCard
+                  title="SpotlightCard Preview"
+                  badge="Interactive"
+                >
                   <div className="space-y-4 h-full flex flex-col justify-between">
                     <p className="text-xs text-muted-foreground">
                       This component tracks client-side cursor position with

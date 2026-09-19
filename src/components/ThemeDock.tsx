@@ -23,7 +23,7 @@ export default function ThemeDock() {
   const isSenja = currentTheme === "senja";
 
   return (
-    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 pointer-events-none select-none">
+    <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 pointer-events-none select-none scale-90 md:scale-100 origin-right">
       {/* Outer Bezel: Perfectly proportioned with uniform padding around the capsule */}
       <button
         onClick={toggleTheme}
@@ -39,14 +39,20 @@ export default function ThemeDock() {
           <motion.div
             className="absolute inset-0 bg-gradient-to-b from-[#38bdf8] via-[#fdba74] to-[#f97316]"
             animate={{ opacity: isSenja ? 0 : 1 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: "easeInOut" }}
+            transition={{
+              duration: shouldReduceMotion ? 0 : 0.4,
+              ease: "easeInOut",
+            }}
           />
 
           {/* Senja Sky Layer */}
           <motion.div
             className="absolute inset-0 bg-gradient-to-b from-[#090918] via-[#150d2a] to-[#2e1136]"
             animate={{ opacity: isSenja ? 1 : 0 }}
-            transition={{ duration: shouldReduceMotion ? 0 : 0.4, ease: "easeInOut" }}
+            transition={{
+              duration: shouldReduceMotion ? 0 : 0.4,
+              ease: "easeInOut",
+            }}
           />
 
           {/* Static Stars (Senja mode only) */}

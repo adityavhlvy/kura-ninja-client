@@ -21,7 +21,8 @@ interface CertificationGroup {
   items: Certification[];
 }
 
-const certificationGroups: CertificationGroup[] = certificationsJson.certifications as CertificationGroup[];
+const certificationGroups: CertificationGroup[] =
+  certificationsJson.certifications as CertificationGroup[];
 
 export default function Certifications() {
   return (
@@ -39,10 +40,11 @@ export default function Certifications() {
             title={
               <span className="flex items-center gap-3">
                 <SlBadge className="text-primary" />
-                <span className="text-primary-content">Certifications</span>
+                <span>Certifications</span>
               </span>
             }
-            description="Professional training and certifications."
+            subtitle="credentials.json"
+            description="Verified professional credentials, specialization training, and engineering certifications across cloud, data science, and systems architecture."
             accentColor="primary"
           >
             <a
@@ -66,8 +68,8 @@ export default function Certifications() {
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: groupIndex * 0.1 }}
             >
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2 text-secondary/80">
-                <SlLayers size={20} />
+              <h2 className="text-xl md:text-2xl font-black mb-6 flex items-center gap-2.5 text-foreground tracking-tight">
+                <SlLayers size={20} className="text-primary" />
                 {group.category}
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">

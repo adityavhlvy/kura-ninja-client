@@ -1,6 +1,8 @@
+import { useState, useMemo, type ReactNode } from "react";
 import { SlLayers, SlUser, SlRocket } from "react-icons/sl";
 import { GrOracle } from "react-icons/gr";
 import profileJson from "../../data/profile.json";
+import DecryptedText from "../../components/motion/DecryptedText";
 import {
   SiPython,
   SiGo,
@@ -28,7 +30,6 @@ import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import JourneyMap from "../../components/JourneyMap";
 import KuraTurtle from "../../components/svg/KuraTurtle";
-import type { ReactNode } from "react";
 
 interface SkillCategory {
   category: string;
@@ -90,9 +91,18 @@ const skillsData: SkillCategory[] = [
   },
 ];
 
+const totalSkills = skillsData.reduce((acc, cat) => acc + cat.items.length, 0);
+const categories = ["All", ...skillsData.map((c) => c.category)];
+
 export default function About() {
+  const [activeCategory, setActiveCategory] = useState<string>("All");
+
+  const filteredSkills = useMemo(() => {
+    if (activeCategory === "All") return skillsData;
+    return skillsData.filter((c) => c.category === activeCategory);
+  }, [activeCategory]);
   return (
-    <PageTransition className="container mx-auto max-w-5xl p-4 space-y-20 relative">
+    <PageTransition className="container mx-auto max-w-6xl p-6 space-y-20 relative">
       {/* Global Background Effects */}
       <BackgroundEffects />
 
@@ -105,6 +115,7 @@ export default function About() {
       >
         <PageHeader
           title="Who am I?"
+          subtitle="biography.md"
           description={
             <div className="space-y-4">
               <p>
@@ -112,10 +123,12 @@ export default function About() {
                 <span className="font-bold text-primary">
                   {profileJson.bio.name}
                 </span>{" "}
-                (aka {profileJson.bio.alias}). {profileJson.bio.degree_detail} and currently a{" "}
+                (aka {profileJson.bio.alias}). {profileJson.bio.degree_detail}{" "}
+                and currently a{" "}
                 <span className="font-bold text-primary">
                   {profileJson.bio.current_role_detail}
-                </span>.
+                </span>
+                .
               </p>
               {profileJson.bio.paragraphs.map((pText, pIdx) => (
                 <p key={pIdx}>{pText}</p>
@@ -123,11 +136,15 @@ export default function About() {
               <div className="bg-muted/30 border border-border/50 rounded-sm mt-8 p-5 font-mono text-xs relative overflow-hidden group hover:border-primary/30 transition-all duration-300">
                 <div className="flex items-center gap-1.5 mb-3 border-b border-border/20 pb-2">
                   <span className="w-2 h-2 rounded-full bg-primary/45" />
-                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">{profileJson.philosophy.shell}</span>
+                  <span className="text-[10px] text-muted-foreground uppercase tracking-widest">
+                    {profileJson.philosophy.shell}
+                  </span>
                 </div>
                 <div className="text-foreground/90 space-y-1">
                   <div className="flex items-start gap-2">
-                    <span className="text-primary font-bold select-none shrink-0">$</span>
+                    <span className="text-primary font-bold select-none shrink-0">
+                      $
+                    </span>
                     <h3 className="font-serif-accent text-primary mb-0 text-xl leading-snug italic">
                       &quot;{profileJson.philosophy.quote}&quot;
                     </h3>
@@ -152,7 +169,9 @@ export default function About() {
       >
         <div className="flex items-center gap-3 mb-6">
           <SlRocket className="text-2xl text-primary" />
-          <h2 className="text-2xl font-bold">The Journey So Far</h2>
+          <h2 className="text-2xl md:text-3xl font-black tracking-tight">
+            <DecryptedText text="The Journey So Far" animateOn="both" />
+          </h2>
         </div>
         <JourneyMap />
       </motion.section>
@@ -163,14 +182,63 @@ export default function About() {
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="flex items-center gap-3 mb-10"
+          className="space-y-2 mb-6"
         >
-          <SlLayers className="text-3xl text-primary" />
+          <div className="flex items-center gap-3">
+            <SlLayers className="text-2xl text-primary" />
+            <h2 className="text-2xl md:text-3xl font-black">
+              <DecryptedText
+                text="Skills & Technical Arsenal"
+                animateOn="both"
+              />
+            </h2>
+          </div>
+          <p className="text-xs font-mono text-muted-foreground">
+            status: active // proficiencies: {totalSkills} tools
+          </p>
         </motion.div>
+
+        {/* Category Filter Tabs */}
+        <div className="flex flex-wrap items-center gap-2 mb-8">
+          {categories.map((cat) => {
+            const count =
+              cat === "All"
+                ? totalSkills
+                : (skillsData.find((s) => s.category === cat)?.items.length ??
+                  0);
+            const isActive = activeCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() =>
+                  setActiveCategory(activeCategory === cat ? "All" : cat)
+                }
+                className={`px-3 py-1.5 rounded-sm text-xs font-mono transition-all duration-200 border flex items-center gap-2 cursor-pointer ${
+                  isActive
+                    ? "bg-primary text-primary-foreground font-bold border-primary shadow-sm shadow-primary/30 scale-[1.02]"
+                    : "bg-card/40 border-border/50 text-muted-foreground hover:text-foreground hover:border-primary/40 hover:bg-card/80"
+                }`}
+              >
+                <span>{cat}</span>
+                <span
+                  className={`text-[10px] px-1.5 py-0.5 rounded-xs transition-colors ${
+                    isActive
+                      ? "bg-primary-foreground/20 text-primary-foreground font-bold"
+                      : "bg-muted text-muted-foreground"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skillsData.map((category, index) => (
+          {filteredSkills.map((category, index) => (
             <SpotlightCard
-              key={index}
+              key={category.category}
               title={category.category}
               badge={`${category.items.length} items`}
               delay={index * 0.1}
@@ -180,12 +248,12 @@ export default function About() {
                 {category.items.map((item, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-sm bg-card/45 border border-border/40 hover:border-primary/30 hover:bg-card/85 transition-all duration-300 select-none group/item cursor-default"
+                    className="flex items-center gap-2.5 pl-3 pr-4 py-2 rounded-sm bg-card/45 border border-border/40 hover:border-primary/80 hover:bg-card/90 hover:scale-[1.04] hover:shadow-[0_0_15px_rgba(240,160,48,0.15)] active:scale-[0.98] transition-all duration-200 select-none group/item cursor-default"
                   >
-                    <span className="text-lg text-muted-foreground group-hover/item:text-primary group-hover/item:scale-108 transition-all duration-300">
+                    <span className="text-lg text-muted-foreground group-hover/item:text-primary group-hover/item:scale-110 transition-all duration-200">
                       {item.icon}
                     </span>
-                    <span className="text-xs font-mono font-medium tracking-tight text-foreground/85 group-hover/item:text-foreground transition-colors duration-300">
+                    <span className="text-xs font-mono font-medium tracking-tight text-foreground/85 group-hover/item:text-foreground transition-colors duration-200">
                       {item.name}
                     </span>
                   </div>

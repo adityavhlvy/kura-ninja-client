@@ -32,3 +32,4 @@ data/geospatial-data/
 
 # typescript
 *.tsbuildinfo
+.codegraph/

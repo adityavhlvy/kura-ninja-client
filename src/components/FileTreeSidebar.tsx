@@ -58,9 +58,15 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
             className={getRowClass()}
           >
             {rootOpen ? (
-              <VscChevronDown size={12} className="shrink-0 text-muted-foreground/60" />
+              <VscChevronDown
+                size={12}
+                className="shrink-0 text-muted-foreground/60"
+              />
             ) : (
-              <VscChevronRight size={12} className="shrink-0 text-muted-foreground/60" />
+              <VscChevronRight
+                size={12}
+                className="shrink-0 text-muted-foreground/60"
+              />
             )}
             {rootOpen ? (
               <VscFolderOpened size={14} className="shrink-0 text-primary/80" />
@@ -79,12 +85,21 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   className={getRowClass()}
                 >
                   {srcOpen ? (
-                    <VscChevronDown size={12} className="shrink-0 text-muted-foreground/60" />
+                    <VscChevronDown
+                      size={12}
+                      className="shrink-0 text-muted-foreground/60"
+                    />
                   ) : (
-                    <VscChevronRight size={12} className="shrink-0 text-muted-foreground/60" />
+                    <VscChevronRight
+                      size={12}
+                      className="shrink-0 text-muted-foreground/60"
+                    />
                   )}
                   {srcOpen ? (
-                    <VscFolderOpened size={14} className="shrink-0 text-primary/80" />
+                    <VscFolderOpened
+                      size={14}
+                      className="shrink-0 text-primary/80"
+                    />
                   ) : (
                     <VscFolder size={14} className="shrink-0 text-primary/80" />
                   )}
@@ -100,14 +115,26 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                         className={getRowClass()}
                       >
                         {viewOpen ? (
-                          <VscChevronDown size={12} className="shrink-0 text-muted-foreground/60" />
+                          <VscChevronDown
+                            size={12}
+                            className="shrink-0 text-muted-foreground/60"
+                          />
                         ) : (
-                          <VscChevronRight size={12} className="shrink-0 text-muted-foreground/60" />
+                          <VscChevronRight
+                            size={12}
+                            className="shrink-0 text-muted-foreground/60"
+                          />
                         )}
                         {viewOpen ? (
-                          <VscFolderOpened size={14} className="shrink-0 text-primary/80" />
+                          <VscFolderOpened
+                            size={14}
+                            className="shrink-0 text-primary/80"
+                          />
                         ) : (
-                          <VscFolder size={14} className="shrink-0 text-primary/80" />
+                          <VscFolder
+                            size={14}
+                            className="shrink-0 text-primary/80"
+                          />
                         )}
                         <span>view</span>
                       </button>
@@ -116,31 +143,55 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                         <div className="ml-3 border-l border-border/20 pl-2 space-y-0.5 mt-0.5">
                           <Link to="/" className={getRowClass("/")}>
                             <span className="w-3 shrink-0" />
-                            <VscCode size={14} className="shrink-0 text-cyan-400/80" />
+                            <VscCode
+                              size={14}
+                              className="shrink-0 text-cyan-400/80"
+                            />
                             <span>Home.tsx</span>
                           </Link>
 
                           <Link to="/about" className={getRowClass("/about")}>
                             <span className="w-3 shrink-0" />
-                            <VscCode size={14} className="shrink-0 text-cyan-400/80" />
+                            <VscCode
+                              size={14}
+                              className="shrink-0 text-cyan-400/80"
+                            />
                             <span>About.tsx</span>
                           </Link>
 
-                          <Link to="/projects" className={getRowClass("/projects")}>
+                          <Link
+                            to="/projects"
+                            className={getRowClass("/projects")}
+                          >
                             <span className="w-3 shrink-0" />
-                            <VscCode size={14} className="shrink-0 text-cyan-400/80" />
+                            <VscCode
+                              size={14}
+                              className="shrink-0 text-cyan-400/80"
+                            />
                             <span>Projects.tsx</span>
                           </Link>
 
-                          <Link to="/certifications" className={getRowClass("/certifications")}>
+                          <Link
+                            to="/certifications"
+                            className={getRowClass("/certifications")}
+                          >
                             <span className="w-3 shrink-0" />
-                            <VscCode size={14} className="shrink-0 text-cyan-400/80" />
+                            <VscCode
+                              size={14}
+                              className="shrink-0 text-cyan-400/80"
+                            />
                             <span>Certifications.tsx</span>
                           </Link>
 
-                          <Link to="/contact" className={getRowClass("/contact")}>
+                          <Link
+                            to="/contact"
+                            className={getRowClass("/contact")}
+                          >
                             <span className="w-3 shrink-0" />
-                            <VscCode size={14} className="shrink-0 text-cyan-400/80" />
+                            <VscCode
+                              size={14}
+                              className="shrink-0 text-cyan-400/80"
+                            />
                             <span>Contact.tsx</span>
                           </Link>
                         </div>
@@ -151,7 +202,10 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
               </div>
 
               {/* DESIGN.md File */}
-              <Link to="/design-system" className={getRowClass("/design-system")}>
+              <Link
+                to="/design-system"
+                className={getRowClass("/design-system")}
+              >
                 <span className="w-3 shrink-0" />
                 <VscMarkdown size={14} className="shrink-0 text-sky-400/80" />
                 <span>DESIGN.md</span>
@@ -160,7 +214,10 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
               {/* PRODUCT.md File */}
               <Link to="/product-spec" className={getRowClass("/product-spec")}>
                 <span className="w-3 shrink-0" />
-                <VscMarkdown size={14} className="shrink-0 text-emerald-500/80" />
+                <VscMarkdown
+                  size={14}
+                  className="shrink-0 text-emerald-500/80"
+                />
                 <span>PRODUCT.md</span>
               </Link>
 
@@ -189,13 +246,41 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
     <TooltipProvider>
       <nav className="flex flex-col w-full h-full p-2.5 gap-2 items-center">
         {[
-          { path: "/", label: "Home.tsx", icon: <VscCode size={18} className="text-cyan-400/80" /> },
-          { path: "/about", label: "About.tsx", icon: <VscCode size={18} className="text-cyan-400/80" /> },
-          { path: "/projects", label: "Projects.tsx", icon: <VscCode size={18} className="text-cyan-400/80" /> },
-          { path: "/certifications", label: "Certifications.tsx", icon: <VscCode size={18} className="text-cyan-400/80" /> },
-          { path: "/contact", label: "Contact.tsx", icon: <VscCode size={18} className="text-cyan-400/80" /> },
-          { path: "/design-system", label: "DESIGN.md", icon: <VscMarkdown size={18} className="text-sky-400/80" /> },
-          { path: "/product-spec", label: "PRODUCT.md", icon: <VscMarkdown size={18} className="text-emerald-500/80" /> },
+          {
+            path: "/",
+            label: "Home.tsx",
+            icon: <VscCode size={18} className="text-cyan-400/80" />,
+          },
+          {
+            path: "/about",
+            label: "About.tsx",
+            icon: <VscCode size={18} className="text-cyan-400/80" />,
+          },
+          {
+            path: "/projects",
+            label: "Projects.tsx",
+            icon: <VscCode size={18} className="text-cyan-400/80" />,
+          },
+          {
+            path: "/certifications",
+            label: "Certifications.tsx",
+            icon: <VscCode size={18} className="text-cyan-400/80" />,
+          },
+          {
+            path: "/contact",
+            label: "Contact.tsx",
+            icon: <VscCode size={18} className="text-cyan-400/80" />,
+          },
+          {
+            path: "/design-system",
+            label: "DESIGN.md",
+            icon: <VscMarkdown size={18} className="text-sky-400/80" />,
+          },
+          {
+            path: "/product-spec",
+            label: "PRODUCT.md",
+            icon: <VscMarkdown size={18} className="text-emerald-500/80" />,
+          },
         ].map((file) => {
           const active = isActive(file.path);
           return (
@@ -212,7 +297,10 @@ export default function FileTreeSidebar({ isCollapsed }: FileTreeSidebarProps) {
                   {file.icon}
                 </Link>
               </TooltipTrigger>
-              <TooltipContent side="right" className="font-mono text-xs bg-card border border-border">
+              <TooltipContent
+                side="right"
+                className="font-mono text-xs bg-card border border-border"
+              >
                 {file.label}
               </TooltipContent>
             </Tooltip>

@@ -5,13 +5,13 @@ import { useRef } from "react";
 import PageTransition from "../../components/PageTransition";
 import ProjectCard from "../../components/ProjectCard";
 import { projectsData } from "../../data/projects";
-import SpotifyNowPlaying from "../../components/SpotifyNowPlaying";
 import BackgroundEffects from "../../components/BackgroundEffects";
 import SpotlightCard from "../../components/SpotlightCard";
 import SystemTelemetry from "../../components/SystemTelemetry";
 import { Button } from "@/components/ui/button";
 import { FiTerminal } from "react-icons/fi";
 import profileJson from "../../data/profile.json";
+import DecryptedText from "../../components/motion/DecryptedText";
 
 export default function Home() {
   const featuredProjects = projectsData.filter((p) => p.featured);
@@ -66,8 +66,12 @@ export default function Home() {
               }}
               className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] leading-[0.9] mb-6"
             >
-              <span className="block text-foreground">Aditya</span>
-              <span className="block text-primary">Vahlevy N.</span>
+              <span className="block text-foreground">
+                <DecryptedText text="Aditya" animateOn="both" />
+              </span>
+              <span className="block text-primary">
+                <DecryptedText text="Vahlevy N." animateOn="both" />
+              </span>
             </motion.h1>
 
             {/* Tagline */}
@@ -96,7 +100,7 @@ export default function Home() {
             >
               <Link
                 to="/projects"
-                className="px-5 py-2.5 bg-primary text-black rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
+                className="px-5 py-2.5 bg-primary text-primary-foreground rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
               >
                 View Projects
               </Link>
@@ -166,8 +170,6 @@ export default function Home() {
             </div>
           </motion.div>
         </motion.div>
-
-
       </section>
 
       {/* Music & Stats Grid */}
@@ -194,10 +196,55 @@ export default function Home() {
           {/* Right column: Spotify + Quick Stats stacked */}
           <div className="lg:col-span-5 w-full flex flex-col gap-5 h-full">
             <SpotlightCard
-              title="Now Playing"
+              title="Station Matrix"
+              badge="Active"
               className="flex-1 border-primary/10"
             >
-              <SpotifyNowPlaying />
+              <div className="space-y-4 font-mono text-xs">
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="text-muted-foreground/70">ROLE:</span>
+                    <span className="text-foreground font-semibold">
+                      Fullstack &amp; Geospatial Engineer
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="text-muted-foreground/70">COMPANY:</span>
+                    <span className="text-foreground/90">
+                      PT Pupuk Indonesia (Persero)
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="text-muted-foreground/70">
+                      CORE STACK:
+                    </span>
+                    <span className="text-primary font-bold">
+                      React 19 · PostGIS · ADK · Fiber
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center text-[11px]">
+                    <span className="text-muted-foreground/70">
+                      AVAILABILITY:
+                    </span>
+                    <span className="inline-flex items-center gap-1.5 text-emerald-400 font-medium">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      Open for High-Impact Roles
+                    </span>
+                  </div>
+                </div>
+
+                <div className="border-t border-border/40 pt-3 flex items-center justify-between text-[10px] text-muted-foreground">
+                  <span className="tracking-widest uppercase">
+                    QUEST COMPILER
+                  </span>
+                  <Link
+                    to="/contact"
+                    className="text-primary hover:underline font-bold uppercase tracking-wider"
+                  >
+                    Open Console →
+                  </Link>
+                </div>
+              </div>
             </SpotlightCard>
 
             {/* Compact stats row */}
@@ -256,9 +303,10 @@ export default function Home() {
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-muted-foreground mt-3 text-lg max-w-md leading-relaxed"
+              className="text-muted-foreground mt-3 text-lg max-w-lg leading-relaxed font-light"
             >
-              Handcrafted with humility and mild confusion.
+              Precision-engineered geospatial intelligence, AI agent pipelines,
+              and fullstack architectures.
             </motion.p>
           </div>
           <Button
@@ -329,7 +377,7 @@ export default function Home() {
               Ready to initialize a new collaboration?
             </h2>
 
-            <p className="text-muted-foreground text-md md:text-lg leading-relaxed text-pretty">
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed text-pretty font-light">
               Whether you want to recruit full-time talent, consult on a
               geospatial GIS module, or wire up stateful multi-agent canvases:
               dispatch a quest spec today.
@@ -338,7 +386,7 @@ export default function Home() {
             <div className="pt-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-black rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-all hover:shadow-[0_0_15px_rgba(240,160,48,0.35)]"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-all hover:shadow-[0_0_15px_rgba(240,160,48,0.35)]"
               >
                 <FiTerminal className="text-sm" />
                 <span>Initialize Quest Compiler</span>

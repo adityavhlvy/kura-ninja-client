@@ -1,7 +1,6 @@
 import { VscSourceControl, VscCheck, VscBell } from "react-icons/vsc";
 import { useState, useEffect, useRef } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import FooterSpotify from "../components/FooterSpotify";
 import LiveClock from "../components/LiveClock";
 
 const HINTS = [
@@ -12,7 +11,9 @@ const HINTS = [
 ];
 
 export default function Footer() {
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const mousePosRef = useRef({ x: 0, y: 0 });
+  const lnColRef = useRef<HTMLSpanElement>(null);
+  const rafIdRef = useRef<number | null>(null);
   const [hintIndex, setHintIndex] = useState(0);
   const [a11yOpen, setA11yOpen] = useState(false);
   const [highContrast, setHighContrast] = useState(false);
@@ -24,10 +25,25 @@ export default function Footer() {
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      setMousePos({ x: e.clientX, y: e.clientY });
+      mousePosRef.current.x = e.clientX;
+      mousePosRef.current.y = e.clientY;
+
+      if (rafIdRef.current === null) {
+        rafIdRef.current = requestAnimationFrame(() => {
+          if (lnColRef.current) {
+            lnColRef.current.textContent = `Ln ${mousePosRef.current.y}, Col ${mousePosRef.current.x}`;
+          }
+          rafIdRef.current = null;
+        });
+      }
     };
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+    };
   }, []);
 
   // Rotate hints
@@ -91,8 +107,9 @@ export default function Footer() {
           <VscCheck className="text-sm" />
           <span>0 errors</span>
         </div>
-        <div className="hidden md:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors border-l border-border pl-3 ml-1">
-          <FooterSpotify />
+        <div className="hidden md:flex items-center gap-1.5 px-2 py-0.5 border-l border-border pl-3 ml-1 text-[11px] text-muted-foreground/80">
+          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+          <span>telemetry: active</span>
         </div>
 
         {/* Hint: rotating */}
@@ -116,9 +133,7 @@ export default function Footer() {
       {/* Right */}
       <div className="flex items-center gap-3">
         <div className="hidden sm:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
-          <span>
-            Ln {mousePos.y}, Col {mousePos.x}
-          </span>
+          <span ref={lnColRef}>Ln 0, Col 0</span>
         </div>
         <div className="hidden sm:flex items-center gap-1 hover:bg-foreground/5 cursor-pointer px-2 py-0.5 rounded transition-colors">
           <span>UTF-8</span>

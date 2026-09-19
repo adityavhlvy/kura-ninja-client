@@ -9,8 +9,11 @@ import {
   SlArrowRight,
   SlSettings,
   SlQuestion,
+  SlRefresh,
+  SlCloudDownload,
 } from "react-icons/sl";
 import { VscJson, VscMarkdown } from "react-icons/vsc";
+import { projectsData } from "../data/projects";
 import {
   CommandDialog,
   CommandEmpty,
@@ -28,7 +31,7 @@ interface Command {
   icon: React.ReactNode;
   action: () => void;
   keywords: string[];
-  category: "navigation" | "action" | "easter-egg";
+  category: "navigation" | "projects" | "action" | "easter-egg";
 }
 
 interface CommandPaletteProps {
@@ -56,28 +59,28 @@ export default function CommandPalette({
       {
         id: "projects",
         label: "Projects",
-        description: "View quest log",
+        description: "Explore projects & systems",
         icon: <SlFolder />,
         action: () => navigate("/projects"),
-        keywords: ["projects", "quests", "work", "portfolio", "quest log"],
+        keywords: ["projects", "work", "systems", "portfolio"],
         category: "navigation",
       },
       {
         id: "about",
         label: "About",
-        description: "Who is this person?",
+        description: "Background, journey & skills",
         icon: <SlUser />,
         action: () => navigate("/about"),
-        keywords: ["about", "me", "siapa", "who", "bio", "journey"],
+        keywords: ["about", "me", "bio", "journey", "profile"],
         category: "navigation",
       },
       {
         id: "certifications",
         label: "Certifications",
-        description: "Achievements unlocked",
+        description: "Verified credentials & certificates",
         icon: <SlBadge />,
         action: () => navigate("/certifications"),
-        keywords: ["certifications", "certs", "badges", "achievements"],
+        keywords: ["certifications", "certs", "badges", "credentials"],
         category: "navigation",
       },
       {
@@ -106,6 +109,63 @@ export default function CommandPalette({
         action: () => navigate("/contact"),
         keywords: ["contact", "hire", "collab", "project", "spec", "email"],
         category: "navigation",
+      },
+      ...projectsData.map((p): Command => ({
+        id: `project-${p.slug}`,
+        label: p.title,
+        description: `${p.techStack.slice(0, 3).join(", ")} · ${p.status}`,
+        icon: <SlFolder />,
+        action: () => navigate(`/projects/${p.slug}`),
+        keywords: [
+          p.title.toLowerCase(),
+          p.slug,
+          ...p.techStack.map((t) => t.toLowerCase()),
+        ],
+        category: "projects",
+      })),
+      {
+        id: "theme-toggle",
+        label: "Switch Theme (Fajar / Senja)",
+        description: "Toggle data-theme between senja and fajar",
+        icon: <SlRefresh />,
+        action: () => {
+          const currentTheme =
+            document.documentElement.getAttribute("data-theme") ||
+            localStorage.getItem("theme") ||
+            "senja";
+          const next = currentTheme === "senja" ? "fajar" : "senja";
+          document.documentElement.setAttribute("data-theme", next);
+          localStorage.setItem("theme", next);
+          window.dispatchEvent(new Event("storage"));
+        },
+        keywords: [
+          "switch",
+          "theme",
+          "fajar",
+          "senja",
+          "mode",
+          "light",
+          "dark",
+          "color",
+        ],
+        category: "action",
+      },
+      {
+        id: "view-cv",
+        label: "Download / View CV",
+        description: "Professional credentials & contact spec",
+        icon: <SlCloudDownload />,
+        action: () => navigate("/contact"),
+        keywords: [
+          "download",
+          "view",
+          "cv",
+          "resume",
+          "contact",
+          "curriculum",
+          "vitae",
+        ],
+        category: "action",
       },
       {
         id: "hire",
@@ -155,6 +215,33 @@ export default function CommandPalette({
             .map((cmd) => (
               <CommandItem
                 key={cmd.id}
+                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
+                onSelect={() => executeCommand(cmd)}
+                className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
+              >
+                <span className="text-lg opacity-70">{cmd.icon}</span>
+                <div className="flex-1 min-w-0">
+                  <div className="font-medium truncate">{cmd.label}</div>
+                  {cmd.description && (
+                    <div className="text-xs opacity-50 truncate">
+                      {cmd.description}
+                    </div>
+                  )}
+                </div>
+                <SlArrowRight className="opacity-0 group-data-[selected=true]:opacity-50 transition-opacity ml-auto" />
+              </CommandItem>
+            ))}
+        </CommandGroup>
+
+        <CommandSeparator />
+
+        <CommandGroup heading="Projects">
+          {commands
+            .filter((c) => c.category === "projects")
+            .map((cmd) => (
+              <CommandItem
+                key={cmd.id}
+                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
                 onSelect={() => executeCommand(cmd)}
                 className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
               >
@@ -182,6 +269,7 @@ export default function CommandPalette({
             .map((cmd) => (
               <CommandItem
                 key={cmd.id}
+                value={`${cmd.label} ${cmd.keywords.join(" ")}`}
                 onSelect={() => executeCommand(cmd)}
                 className="flex items-center gap-3 px-3 py-2.5 cursor-pointer"
               >

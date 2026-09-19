@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
-import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { SlGlobe, SlLock, SlLink } from "react-icons/sl";
 import { VscGithub } from "react-icons/vsc";
+import TiltedCard from "./motion/TiltedCard";
 import {
   SiPython,
   SiPandas,
@@ -163,9 +163,9 @@ export default function ProjectCard({
   } as const;
 
   return (
-    <motion.div
-      whileHover={{ y: -2 }}
-      className="group flex flex-col h-full bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 rounded-sm overflow-hidden transition-all duration-500"
+    <TiltedCard
+      maxTilt={5}
+      className="h-full flex flex-col bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/50 transition-colors duration-300 rounded-sm"
     >
       <Link to={`/projects/${slug}`} className="block flex-grow">
         {displayImage && (
@@ -173,20 +173,22 @@ export default function ProjectCard({
             <img
               src={displayImage}
               alt={title}
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover opacity-90 transition-all duration-700 group-hover:scale-[1.03] group-hover:opacity-100"
             />
             {/* Gradient overlay that lifts on hover */}
-            <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/20 to-transparent group-hover:from-background/40 group-hover:via-transparent transition-all duration-500" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-background/20 to-transparent group-hover:from-background/40 group-hover:via-transparent transition-all duration-500" />
             <div className="absolute top-3 right-3 flex gap-2">
               <Badge
                 variant={statusVariants[status]}
-                className="uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-background/60 backdrop-blur-md border-border/50"
+                className="uppercase font-mono font-bold text-[9px] tracking-widest rounded-xs px-2 py-0.5 bg-background/80 backdrop-blur-md border border-border/50"
               >
                 {status}
               </Badge>
               <Badge
                 variant="outline"
-                className="gap-1 uppercase font-bold text-[9px] tracking-widest rounded-none px-2 py-0.5 bg-background/60 backdrop-blur-md border-border/50 text-foreground/60"
+                className="gap-1 uppercase font-mono font-bold text-[9px] tracking-widest rounded-xs px-2 py-0.5 bg-background/80 backdrop-blur-md border border-border/50 text-foreground/70"
               >
                 {visibility === "public" ? (
                   <SlGlobe size={10} />
@@ -205,19 +207,21 @@ export default function ProjectCard({
                 <img
                   src={logo}
                   alt={`${title} logo`}
-                  className="w-8 h-8 object-contain rounded-sm shrink-0 border border-border/10 p-0.5 bg-background/30"
+                  loading="lazy"
+                  decoding="async"
+                  className="w-8 h-8 object-contain rounded-xs shrink-0 border border-border/20 p-0.5 bg-background/40"
                 />
               )}
-              <h2 className="text-xl font-mono font-bold leading-tight group-hover:text-primary transition-colors tracking-tight">
+              <h3 className="text-lg md:text-xl font-black leading-tight group-hover:text-primary transition-colors tracking-tight">
                 {title}
-              </h2>
+              </h3>
             </div>
-            <span className="text-[10px] font-mono text-muted-foreground/50 shrink-0 mt-1 uppercase tracking-widest">
+            <span className="text-[10px] font-mono text-muted-foreground/60 shrink-0 mt-1 uppercase tracking-widest">
               {date}
             </span>
           </div>
 
-          <p className="text-sm text-muted-foreground mb-6 line-clamp-3 leading-relaxed">
+          <p className="text-sm text-muted-foreground/90 mb-5 line-clamp-3 leading-relaxed">
             {description}
           </p>
 
@@ -226,15 +230,18 @@ export default function ProjectCard({
               <Badge
                 key={index}
                 variant="outline"
-                className="font-mono text-[10px] uppercase border-border/50 py-0 px-2 bg-muted/50 text-muted-foreground group-hover:text-primary/70 transition-colors"
+                className="font-mono text-[10px] uppercase border border-border/50 py-0.5 px-2 bg-muted/60 text-muted-foreground group-hover:text-primary/90 group-hover:border-primary/30 transition-colors flex items-center gap-1"
               >
-                {tech}
+                <span className="text-[11px] opacity-70 shrink-0">
+                  {getTechIcon(tech)}
+                </span>
+                <span>{tech}</span>
               </Badge>
             ))}
             {techStack.length > 5 && (
               <Badge
                 variant="outline"
-                className="font-mono text-[10px] border-border/50 bg-muted/50 text-muted-foreground"
+                className="font-mono text-[10px] border border-border/50 py-0.5 px-2 bg-muted/60 text-muted-foreground"
               >
                 +{techStack.length - 5}
               </Badge>
@@ -244,7 +251,7 @@ export default function ProjectCard({
       </Link>
 
       {links.length > 0 && (
-        <div className="p-4 pt-0 mt-auto border-t border-border/50 bg-muted/30">
+        <div className="p-4 pt-0 mt-auto border-t border-border/50 bg-muted/20">
           <div className="flex justify-end gap-2 pt-3">
             {links.map((link, index) => {
               const isPrivate = visibility === "private";
@@ -254,7 +261,9 @@ export default function ProjectCard({
                   variant="ghost"
                   size="sm"
                   asChild
-                  className={`h-7 px-2 gap-2 text-xs ${isPrivate ? "pointer-events-none opacity-50" : ""}`}
+                  className={`h-7 px-2.5 gap-1.5 text-xs font-mono font-medium text-muted-foreground hover:text-primary hover:bg-primary/10 transition-colors ${
+                    isPrivate ? "pointer-events-none opacity-50" : ""
+                  }`}
                   onClick={(e) => e.stopPropagation()}
                 >
                   <a
@@ -264,9 +273,9 @@ export default function ProjectCard({
                   >
                     {link.icon ||
                       (link.url.includes("github") ? (
-                        <VscGithub />
+                        <VscGithub className="text-sm" />
                       ) : (
-                        <SlLink />
+                        <SlLink className="text-xs" />
                       ))}
                     {link.label}
                   </a>
@@ -276,6 +285,6 @@ export default function ProjectCard({
           </div>
         </div>
       )}
-    </motion.div>
+    </TiltedCard>
   );
 }

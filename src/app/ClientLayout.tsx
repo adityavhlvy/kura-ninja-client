@@ -3,8 +3,8 @@ import { useState, useEffect, useCallback, useRef, ReactNode } from "react";
 import Header from "../layout/Header";
 import Footer from "../layout/Footer";
 import FileTreeSidebar from "../components/FileTreeSidebar";
+import EditorTabs from "../components/EditorTabs";
 import Background from "../components/Background";
-import AtmosphereIndicator from "../components/AtmosphereIndicator";
 import ThemeDock from "../components/ThemeDock";
 import CommandPalette from "../components/CommandPalette";
 import { TimeProvider } from "../context/TimeContext";
@@ -88,9 +88,12 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
         className={`h-screen h-[100dvh] flex flex-col overflow-hidden relative transition-opacity duration-1000 ${isAppLoaded ? "opacity-100" : "opacity-0"}`}
       >
         <Background />
-        <AtmosphereIndicator />
         <ThemeDock />
-        <Header isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+        <Header
+          isSidebarOpen={isSidebarOpen}
+          toggleSidebar={toggleSidebar}
+          onOpenCommandPalette={() => setIsCommandPaletteOpen(true)}
+        />
         <div className="flex flex-1 overflow-hidden relative isolate">
           {/* Mobile Sidebar Overlay */}
           <div
@@ -117,9 +120,12 @@ export default function ClientLayout({ children }: { children: ReactNode }) {
             </div>
           </aside>
 
-          <main className="flex-1 p-0 overflow-y-auto bg-background/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
-            <div className="w-full min-h-full pb-20">{children}</div>
-          </main>
+          <div className="flex-1 flex flex-col min-w-0 overflow-hidden relative">
+            <EditorTabs />
+            <main className="flex-1 p-0 overflow-y-auto bg-background/60 backdrop-blur-[3px] relative w-full scroll-smooth scrollbar-senja">
+              <div className="w-full min-h-full pb-20">{children}</div>
+            </main>
+          </div>
         </div>
         <Footer />
 

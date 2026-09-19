@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 export default function SystemTelemetry() {
   const [cpuUsage, setCpuUsage] = useState(12);
   const [memoryUsage, setMemoryUsage] = useState(42);
   const [pulseSpeed, setPulseSpeed] = useState(0.85);
   const [latency, setLatency] = useState<number | null>(null);
+  const hasApiEndpoint = useRef(true);
 
   const [envInfo, setEnvInfo] = useState(() => {
     let defaultOS = "linux-x64";
@@ -34,13 +35,39 @@ export default function SystemTelemetry() {
   useEffect(() => {
     let isMounted = true;
 
+    const simulateMetrics = () => {
+      if (!isMounted) return;
+      setCpuUsage((prev) => {
+        const change = Math.floor(Math.random() * 5) - 2;
+        const next = prev + change;
+        return Math.max(5, Math.min(35, next));
+      });
+      setMemoryUsage((prev) => {
+        const change = Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
+        const next = prev + change;
+        return Math.max(40, Math.min(45, next));
+      });
+      setPulseSpeed(() => parseFloat((Math.random() * 0.4 + 0.6).toFixed(2)));
+      setLatency(Math.floor(Math.random() * 15) + 15);
+    };
+
     const fetchTelemetry = async () => {
+      if (!hasApiEndpoint.current) {
+        simulateMetrics();
+        return;
+      }
+
       try {
         const start = performance.now();
         const response = await fetch("/api/telemetry");
         const end = performance.now();
 
-        if (!response.ok) throw new Error("Telemetry API failed");
+        if (!response.ok) {
+          hasApiEndpoint.current = false;
+          simulateMetrics();
+          return;
+        }
+
         const data = await response.json();
 
         if (isMounted) {
@@ -55,24 +82,9 @@ export default function SystemTelemetry() {
             dbEngine: data.dbEngine,
           });
         }
-      } catch (err) {
-        if (isMounted) {
-          setCpuUsage((prev) => {
-            const change = Math.floor(Math.random() * 5) - 2;
-            const next = prev + change;
-            return Math.max(5, Math.min(35, next));
-          });
-          setMemoryUsage((prev) => {
-            const change =
-              Math.random() > 0.7 ? (Math.random() > 0.5 ? 1 : -1) : 0;
-            const next = prev + change;
-            return Math.max(40, Math.min(45, next));
-          });
-          setPulseSpeed(() =>
-            parseFloat((Math.random() * 0.4 + 0.6).toFixed(2)),
-          );
-          setLatency(Math.floor(Math.random() * 15) + 15);
-        }
+      } catch (_err) {
+        hasApiEndpoint.current = false;
+        simulateMetrics();
       }
     };
 
@@ -94,9 +106,9 @@ export default function SystemTelemetry() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
             <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
           </span>
-          <h2 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground">
+          <h3 className="text-sm font-mono font-bold uppercase tracking-widest text-muted-foreground">
             System Telemetry
-          </h2>
+          </h3>
         </div>
         <div className="text-[10px] font-mono text-muted-foreground/45 uppercase tracking-wider">
           status: normal // latency:{" "}
