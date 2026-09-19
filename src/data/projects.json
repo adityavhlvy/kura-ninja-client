@@ -9,11 +9,14 @@
         "React 19",
         "Go Fiber v3",
         "Turborepo",
+        "Bun Workspaces",
         "Rsbuild",
         "Tailwind CSS v4",
         "PostGIS",
         "PostgreSQL",
         "OpenLayers",
+        "Martin Tile Server",
+        "PASETO",
         "Biome",
         "Recharts"
       ],
@@ -33,15 +36,15 @@
       "featured": true,
       "details": [
         "Co-engineered the 'Atlas' fertilizer demand planning command center, consolidating disconnected agronomic layers (soil nutrients, 6-phase crop cycles) and live inventory data into a unified, high-density dashboard.",
-        "Rebranded the AI assistant module to 'GEO Mind' and migrated overview query hooks to the dedicated Fertilizer Demand Model (FDM) service contract to support complex geospatial simulations with dynamic stock checks and market penetration logic.",
-        "Eliminated national planning blindspots, empowering non-technical executives and domain experts to execute live 'Safety Stock vs. Actual Stock' audits and regional crop drills to prevent critical local shortages.",
-        "Integrated diagnostic components and high-fidelity, severity-themed interactive alert cards into the overview page, enhancing analytical density and UI readability.",
-        "Implemented kabupaten-level geospatial analysis features and added drill-down actions in FDM tables with optimized typography contrast.",
+        "Architected multi-app frontend monorepo using Bun workspaces and Turborepo, powering Atlas (geospatial), Halo (auth & admin console), and Tango (planting surveys) with shared UI primitives.",
+        "Built Go Fiber v3 modular monolith with domain-per-package architecture, Goose migrations, and PASETO token authorization.",
+        "Engineered Martin vector tile proxy with dual HTTP Basic and HMAC token caching to optimize upstream spatial rendering.",
+        "Implemented client-side Fertilizer Demand Model (FDM) formula engine with 51 unit tests validating stage-by-stage dosage, land area overrides, and regional demand deltas.",
+        "Rebranded AI assistant module to 'GEO Mind' and migrated overview query hooks to dedicated FDM service contract for dynamic stock audits and market penetration logic.",
+        "Eliminated national planning blindspots, empowering executives and domain experts to execute live 'Safety Stock vs. Actual Stock' audits across 34 Indonesian provinces.",
+        "Integrated AWS End User Messaging Social for transactional WhatsApp OTP authentication and field survey revision alerts.",
         "Prevented browser tab crashes under write-heavy bursts and optimized client-side rendering performance by architecting a state-minimized React 19 vector rendering pipeline for 50k+ multi-polygon agricultural plot boundaries.",
-        "Designed the 'Precision Flow' UI framework, optimizing screen data-density for complex geospatial analysis through strict visual contrast hierarchies, tabular monospace formatting, and reactive geospatial-to-chart state transitions.",
-        "Achieved sub-second response times for geospatial operations by building PostGIS-backed Go services utilizing bounding-box spatial indexing to serve lightweight, highly optimized GeoJSON payloads.",
-        "Tile proxy with dual auth (Basic/HMAC token) and caching.",
-        "Soil Nutrient Maps with Web Worker feature deduplication."
+        "Designed the 'Precision Flow' UI framework, optimizing screen data-density for complex geospatial analysis through strict visual contrast hierarchies and monospace telemetry formatting."
       ],
       "rationale": "Agricultural decision-support tool for fertilizer distribution planning across Indonesia's 34 provinces.",
       "competencies": [
@@ -60,9 +63,9 @@
         "Architected a state-minimized React 19 vector rendering pipeline for 50k+ multi-polygon agricultural plot boundaries to prevent browser tab crashes under write-heavy bursts."
       ],
       "readiness": {
-        "tests": 5,
-        "docs": 70,
-        "quality": 75
+        "tests": 75,
+        "docs": 80,
+        "quality": 85
       }
     },
     {
@@ -74,6 +77,8 @@
         "React 19",
         "React Flow",
         "TanStack Router",
+        "TanStack Query",
+        "Zustand",
         "FastAPI",
         "Google ADK",
         "SQLAlchemy (async)",
@@ -82,6 +87,9 @@
         "LiteLLM",
         "Qdrant",
         "Alembic",
+        "Rsbuild",
+        "Tailwind CSS v4",
+        "MCP Protocol",
         "Docker"
       ],
       "links": [
@@ -102,16 +110,16 @@
       "date": "2026",
       "featured": true,
       "details": [
-        "Architected the migration of a rigid, CLI-based agent prototype into a production-ready, highly interactive enterprise platform using Google Agent Development Kit (ADK) and custom API routes.",
-        "Designed and implemented the interactive Visual Canvas using React Flow (@xyflow/react) and TanStack Router, representing complex agent topologies, canvas positions, and connection mappings.",
-        "Multi-agent orchestration supporting 4 agent types: LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent.",
-        "Execution event tracing (tool_call, tool_response, agent_transfer, thinking) for real-time visual debugging.",
-        "Integrated Model Context Protocol (MCP) server support (stdio/SSE transport) dynamically resolved from database configurations.",
-        "Agent-as-tool composition enabling agents to register and call other agents via UUID references.",
-        "Per-message agent switching in conversations for dynamic context-aware response routing.",
-        "Token usage tracking with cost calculation from model pricing tables, and user quota systems (daily/monthly limits for tokens, cost, requests).",
-        "Agent versioning support with automatic snapshots per publish and rollback capability.",
-        "JWT authentication and RBAC with realm-based grants and role groups."
+        "Architected the migration of a rigid, CLI-based agent prototype into a production-ready enterprise platform using Google Agent Development Kit (ADK) and custom FastAPI routes.",
+        "Designed and implemented the interactive Visual Canvas using React Flow (@xyflow/react) and TanStack Router, representing complex multi-agent topologies and connection graphs.",
+        "Engineered multi-agent orchestration supporting 4 native graph patterns: LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent.",
+        "Implemented real-time execution event tracing (tool_call, tool_response, agent_transfer, thinking) streamed to clients via Server-Sent Events (SSE).",
+        "Built hybrid RAG pipeline connecting Qdrant vector database with semantic chunking and enterprise document ingestion.",
+        "Integrated Model Context Protocol (MCP) server support (stdio and SSE transports) dynamically loaded from PostgreSQL configurations.",
+        "Implemented enterprise identity federation (IDENTIK SSO) with encrypted assertions, RBAC permissions, and AES-256 encrypted credential vaults.",
+        "Structured domain-partitioned architecture across 8 core domains (identity, agents, conversations, knowledge, integrations, evaluations, governance, content) with 142 automated backend test suites.",
+        "Built user token quota management with budget caps, daily/monthly request limits, and automated cost calculation across LLM providers via LiteLLM.",
+        "Integrated interactive data visualization blocks in chat including ECharts, Flint Chart, Mermaid diagrams, and KaTeX math formulas."
       ],
       "rationale": "Internal enterprise tool for Pupuk Indonesia Holding Company that democratizes AI agent creation for non-technical teams.",
       "competencies": [
@@ -129,9 +137,9 @@
         "Designed a custom instruction merging strategy from CrewAI's 3-field (role/goal/backstory) model to ADK's 5-pattern instruction model (identity/mission/methodology/boundaries/examples)."
       ],
       "readiness": {
-        "tests": 25,
-        "docs": 40,
-        "quality": 75
+        "tests": 80,
+        "docs": 75,
+        "quality": 85
       }
     },
     {
@@ -142,15 +150,18 @@
       "techStack": [
         "React 19",
         "FastAPI",
-        "SQLAlchemy",
+        "SQLAlchemy (async)",
         "PostgreSQL",
         "asyncpg",
+        "Neo4j",
         "OpenLayers",
         "TypeScript",
         "Rsbuild",
         "TanStack Router",
-        "Tailwind CSS",
-        "Excel Seeder"
+        "Tailwind CSS v4",
+        "Glide Data Grid",
+        "Bun",
+        "Vitest"
       ],
       "links": [],
       "status": "in-progress",
@@ -165,14 +176,14 @@
       "date": "2026",
       "featured": true,
       "details": [
-        "Delta Module (Backend): Carrier contract management, vessel fleet capacity planning, and shipping tariff hierarchies.",
-        "Delta Module (Frontend): Core TariffTable and contract auditing dashboards with monospace typography for financial telemetry.",
-        "Vista Module (Backend): Mathematical pathfinding engine to compute optimal shipping routes under logistics and maritime constraints.",
-        "Vista Module (Frontend): Full-screen geospatial map simulation, optimal route pathfinding, and contract-aware cost compilation.",
-        "Water-tight immutable shipping tariff audit logs and stock level anomaly notifications.",
-        "Strict WCAG 2.1 AA accessibility compliance with oklch-based light/dark theme ('The Cartographic Monolith').",
-        "Monospace typography rules for telemetry, coordinates, and Rupiah currency alignment to eliminate layout shifts.",
-        "Developed custom seeders (excel_contracts_seeder, excel_ships_seeder) to sync historical transport databases into PostgreSQL schemas."
+        "Architected Single-Repo Multi-Entry frontend using Rsbuild and Bun, supporting compile-time profile switches (APP_MODULE=delta) between standalone Delta (port 3001) and unified shell (port 3000).",
+        "Engineered modular database architecture with delta_* table prefixes and strict write-isolation boundaries preventing cross-module corruption.",
+        "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop maritime and land shipping corridors.",
+        "Built high-performance financial audit tables using @glideapps/glide-data-grid and monospace typography for contract tariffs and vessel fleet capacities.",
+        "Implemented immutable shipping tariff audit logs and anomaly alerts for bulk fertilizer logistics across Indonesian distribution hubs.",
+        "Designed custom Excel ingestion pipelines (openpyxl / exceljs) syncing historical transport contracts, rate tiers, and fleet capacities into PostgreSQL.",
+        "Engineered full-screen geospatial map simulation in Vista module with OpenLayers, calculating contract-aware shipping costs in real-time.",
+        "Enforced WCAG 2.1 AA accessibility standards with oklch-based color palette ('The Cartographic Monolith') across high-density logistics dashboards."
       ],
       "rationale": "Internal enterprise logistics coordination and automated route pathfinding platform built for Pupuk Indonesia Holding Company to manage and optimize heavy bulk fertilizer distribution across the Indonesian archipelago.",
       "competencies": [
@@ -191,9 +202,9 @@
         "Optimized high-density data tables containing thousands of tariff records with server-side validation against active carrier contracts."
       ],
       "readiness": {
-        "tests": 30,
+        "tests": 65,
         "docs": 85,
-        "quality": 80
+        "quality": 85
       }
     },
     {
