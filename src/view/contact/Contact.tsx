@@ -1,177 +1,290 @@
 import React, { useState } from "react";
 import {
-  SlRocket,
-  SlSocialLinkedin,
-  SlSocialInstagram,
-  SlSocialSpotify,
-  SlEnvolope,
-} from "react-icons/sl";
-import { SiGithub, SiGitlab } from "react-icons/si";
+  PiEnvelopeLight,
+  PiPhoneLight,
+  PiMapPinLight,
+  PiLinkedinLogoLight,
+  PiGithubLogoLight,
+  PiInstagramLogoLight,
+  PiPaperPlaneRightBold,
+  PiCopyLight,
+  PiCheckLight,
+} from "react-icons/pi";
+import { SiGitlab, SiSpotify } from "react-icons/si";
 import PageTransition from "../../components/PageTransition";
-import PageHeader from "../../components/PageHeader";
-import { Button } from "@/components/ui/button";
+import InteractiveTerminal from "../../components/home/InteractiveTerminal";
 import profileJson from "../../data/profile.json";
+import { playTick, playChime } from "@/lib/sound";
 
 export default function Contact() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [subject, setSubject] = useState("");
   const [message, setMessage] = useState("");
+  const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   const handleSend = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !message) return;
 
-    const subject = encodeURIComponent(`Portfolio enquiry from ${name}`);
-    const body = encodeURIComponent(`${message}\n\n— ${name} (${email})`);
-    window.location.href = `mailto:${profileJson.contact.email}?subject=${subject}&body=${body}`;
-  };
-
-  const getSocialUrl = (name: string, defaultUrl: string) => {
-    const social = profileJson.contact.socials.find(
-      (s) => s.name.toLowerCase() === name.toLowerCase(),
+    playChime();
+    const mailSubject = encodeURIComponent(subject || `Inquiry from ${name}`);
+    const mailBody = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}`
     );
-    return social ? social.url : defaultUrl;
+    window.location.href = `mailto:${profileJson.contact.email}?subject=${mailSubject}&body=${mailBody}`;
   };
 
-  const socialLinks = [
+  const copyToClipboard = (text: string, key: string) => {
+    playTick();
+    navigator.clipboard.writeText(text).catch(() => {});
+    setCopiedKey(key);
+    setTimeout(() => setCopiedKey(null), 2000);
+  };
+
+  const socials = [
     {
       name: "LinkedIn",
-      url: getSocialUrl(
-        "LinkedIn",
-        "https://www.linkedin.com/in/adityavahlevynugraha",
-      ),
-      icon: <SlSocialLinkedin size={18} />,
+      url: "https://www.linkedin.com/in/adityavahlevynugraha",
+      icon: <PiLinkedinLogoLight size={16} />,
     },
     {
       name: "GitHub",
-      url: getSocialUrl("GitHub", "https://github.com/adityavhlvy/"),
-      icon: <SiGithub size={18} />,
+      url: "https://github.com/adityavhlvy/",
+      icon: <PiGithubLogoLight size={16} />,
     },
     {
       name: "GitLab",
-      url: getSocialUrl(
-        "GitLab",
-        "https://gitlabduo.pupuk-indonesia.com/adityavhlvy",
-      ),
-      icon: <SiGitlab size={18} />,
+      url: "https://gitlabduo.pupuk-indonesia.com/adityavhlvy",
+      icon: <SiGitlab size={14} />,
     },
     {
       name: "Instagram",
-      url: getSocialUrl("Instagram", "https://instagram.com/adityavhlvy"),
-      icon: <SlSocialInstagram size={18} />,
+      url: "https://instagram.com/adityavhlvy",
+      icon: <PiInstagramLogoLight size={16} />,
     },
     {
       name: "Spotify",
-      url: getSocialUrl(
-        "Spotify",
-        "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu",
-      ),
-      icon: <SlSocialSpotify size={18} />,
-    },
-    {
-      name: "Email",
-      url: `mailto:${profileJson.contact.email}`,
-      icon: <SlEnvolope size={18} />,
+      url: "https://open.spotify.com/user/xu97h5ah78wnivg1ra7etg2wu",
+      icon: <SiSpotify size={14} />,
     },
   ];
 
   return (
-    <PageTransition className="container mx-auto max-w-6xl p-6 relative min-h-screen">
-      <div className="relative z-10 space-y-12 pb-16">
-        <PageHeader
-          title="Contact"
-          subtitle="get in touch"
-          description="Send a message directly, or reach me on any of the links below."
-          accentColor="primary"
-        />
+    <PageTransition>
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 text-left">
+        {/* Header */}
+        <div className="space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] font-mono font-bold tracking-widest uppercase">
+            <PiEnvelopeLight size={14} />
+            <span>Direct Channel</span>
+          </div>
+          <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-foreground">
+            Get in Touch
+          </h1>
+          <p className="text-sm md:text-base text-muted-foreground max-w-2xl leading-relaxed">
+            Reach out directly for AI engineering collaboration, geospatial consulting, or technical advisory.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Form */}
-          <form onSubmit={handleSend} className="lg:col-span-7 space-y-6">
-            <div className="bg-card/40 border border-border rounded-sm p-6 backdrop-blur-sm space-y-5">
-              <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                  Name
-                </label>
-                <input
-                  type="text"
-                  required
-                  placeholder="Your name"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full bg-input border border-border rounded-sm py-2 px-3 text-sm font-mono text-foreground focus:outline-none focus:border-primary/60 transition-colors"
-                />
+        {/* Contact Info Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {/* Email */}
+          <div className="double-bezel">
+            <div className="double-bezel-inner p-5 space-y-2 font-mono flex flex-col justify-between h-full">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-bold text-primary tracking-wider">
+                  Direct Email
+                </span>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(profileJson.contact.email, "email")}
+                  className="p-1 text-muted-foreground hover:text-foreground cursor-pointer"
+                  title="Copy email"
+                >
+                  {copiedKey === "email" ? (
+                    <PiCheckLight size={14} className="text-emerald-500" />
+                  ) : (
+                    <PiCopyLight size={14} />
+                  )}
+                </button>
               </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                  Email
-                </label>
-                <input
-                  type="email"
-                  required
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="w-full bg-input border border-border rounded-sm py-2 px-3 text-sm font-mono text-foreground focus:outline-none focus:border-primary/60 transition-colors"
-                />
-              </div>
-
-              <div>
-                <label className="block text-[10px] font-mono uppercase tracking-wider text-muted-foreground mb-1">
-                  Message
-                </label>
-                <textarea
-                  required
-                  rows={6}
-                  placeholder="What would you like to talk about?"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full bg-input border border-border rounded-sm py-2 px-3 text-sm font-mono text-foreground focus:outline-none focus:border-primary/60 transition-colors resize-none"
-                />
-              </div>
-
-              <Button
-                type="submit"
-                disabled={!name || !email || !message}
-                className="w-full h-10 font-mono text-xs uppercase tracking-wider font-bold rounded-sm flex items-center justify-center gap-2 cursor-pointer"
+              <a
+                href={`mailto:${profileJson.contact.email}`}
+                className="text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-colors truncate block"
               >
-                <SlRocket />
-                <span>Send message</span>
-              </Button>
+                {profileJson.contact.email}
+              </a>
+              <span className="text-[10px] text-muted-foreground">
+                Typical reply within 24 hours
+              </span>
+            </div>
+          </div>
+
+          {/* Phone */}
+          <div className="double-bezel">
+            <div className="double-bezel-inner p-5 space-y-2 font-mono flex flex-col justify-between h-full">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] uppercase font-bold text-primary tracking-wider">
+                  Direct Phone / WhatsApp
+                </span>
+                <button
+                  type="button"
+                  onClick={() => copyToClipboard(profileJson.contact.phone, "phone")}
+                  className="p-1 text-muted-foreground hover:text-foreground cursor-pointer"
+                  title="Copy phone"
+                >
+                  {copiedKey === "phone" ? (
+                    <PiCheckLight size={14} className="text-emerald-500" />
+                  ) : (
+                    <PiCopyLight size={14} />
+                  )}
+                </button>
+              </div>
+              <a
+                href={`tel:${profileJson.contact.phone}`}
+                className="text-xs sm:text-sm font-bold text-foreground hover:text-primary transition-colors block"
+              >
+                {profileJson.contact.phone}
+              </a>
+              <span className="text-[10px] text-muted-foreground">
+                UTC+7 WIB Timezone
+              </span>
+            </div>
+          </div>
+
+          {/* Location */}
+          <div className="double-bezel">
+            <div className="double-bezel-inner p-5 space-y-2 font-mono flex flex-col justify-between h-full">
+              <span className="text-[10px] uppercase font-bold text-primary tracking-wider">
+                Geographic Base
+              </span>
+              <p className="text-xs sm:text-sm font-bold text-foreground">
+                Jakarta / Pekanbaru, ID
+              </p>
+              <span className="text-[10px] text-muted-foreground">
+                Available for hybrid & remote engagements
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Form & Social Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Direct Email Form */}
+          <form onSubmit={handleSend} className="lg:col-span-7 double-bezel">
+            <div className="double-bezel-inner p-6 md:p-8 space-y-5">
+              <div className="space-y-1">
+                <h2 className="text-lg font-black tracking-tight text-foreground">
+                  Send a Structured Message
+                </h2>
+                <p className="text-xs font-mono text-muted-foreground">
+                  Triggers your native email client with pre-filled message structure.
+                </p>
+              </div>
+
+              <div className="space-y-4 font-mono text-xs">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
+                      Your Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      placeholder="e.g. Jane Doe"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      className="w-full bg-input border border-border/80 rounded-xl px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/40 focus:border-primary focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
+                      Your Email *
+                    </label>
+                    <input
+                      type="email"
+                      required
+                      placeholder="you@domain.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      className="w-full bg-input border border-border/80 rounded-xl px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/40 focus:border-primary focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
+                    Subject Line
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Project Inquiry / Advisory / Discussion"
+                    value={subject}
+                    onChange={(e) => setSubject(e.target.value)}
+                    className="w-full bg-input border border-border/80 rounded-xl px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/40 focus:border-primary focus:outline-none"
+                  />
+                </div>
+
+                <div className="space-y-1.5">
+                  <label className="text-[10px] uppercase tracking-wider text-muted-foreground font-bold block">
+                    Message Body *
+                  </label>
+                  <textarea
+                    required
+                    rows={5}
+                    placeholder="Describe your technical needs, platform requirements, or project timeline..."
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full bg-input border border-border/80 rounded-xl px-3.5 py-2.5 text-foreground placeholder:text-muted-foreground/40 focus:border-primary focus:outline-none resize-none font-sans text-sm"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={!name || !email || !message}
+                  className="btn-pill w-full justify-center bg-primary text-primary-foreground font-mono font-bold text-xs uppercase tracking-wider disabled:opacity-50 cursor-pointer"
+                >
+                  <PiPaperPlaneRightBold size={14} />
+                  <span>Send via Email Client</span>
+                </button>
+              </div>
             </div>
           </form>
 
-          {/* Direct links */}
+          {/* Social Profiles & Developer Terminal */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="bg-card/40 border border-border rounded-sm p-6 backdrop-blur-sm space-y-4">
-              <div className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground">
-                Elsewhere
+            {/* Socials Box */}
+            <div className="double-bezel">
+              <div className="double-bezel-inner p-6 space-y-4">
+                <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-muted-foreground block">
+                  Connected Networks
+                </span>
+                <div className="grid grid-cols-2 gap-2">
+                  {socials.map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => playTick()}
+                      className="flex items-center gap-2 p-3 rounded-xl bg-card border border-border/70 hover:border-primary font-mono text-xs text-foreground/85 hover:text-primary transition-colors"
+                    >
+                      <span className="text-muted-foreground">{s.icon}</span>
+                      <span>{s.name}</span>
+                    </a>
+                  ))}
+                </div>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {socialLinks.map((link) => (
-                  <a
-                    key={link.name}
-                    href={link.url}
-                    target={link.name !== "Email" ? "_blank" : undefined}
-                    rel={
-                      link.name !== "Email" ? "noopener noreferrer" : undefined
-                    }
-                    className="flex flex-col items-center justify-center p-3 border border-border rounded-sm bg-muted/10 font-mono text-[10px] font-bold text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
-                  >
-                    <span className="mb-1.5">{link.icon}</span>
-                    <span>{link.name}</span>
-                  </a>
-                ))}
-              </div>
-              <div className="border-t border-border/40 pt-4 font-mono text-xs text-muted-foreground">
-                <a
-                  href={`mailto:${profileJson.contact.email}`}
-                  className="hover:text-primary transition-colors"
-                >
-                  {profileJson.contact.email}
-                </a>
-              </div>
+            </div>
+
+            {/* Embedded Interactive Shell */}
+            <div className="space-y-2">
+              <span className="font-mono text-[10px] uppercase font-bold tracking-wider text-muted-foreground block">
+                Quick Shell
+              </span>
+              <InteractiveTerminal />
             </div>
           </div>
         </div>

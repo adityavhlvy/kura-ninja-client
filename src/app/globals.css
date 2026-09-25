@@ -32,187 +32,196 @@
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.4);
+  --radius-4xl: calc(var(--radius) * 3.0);
 }
 
-/* ========================================
-   THEME PALETTE
-   Senja (twilight, default) and Fajar (dawn) share one token contract.
-   ======================================== */
+/* ==========================================================================
+   THEME PALETTE - SENJA (TWILIGHT) & FAJAR (DAWN)
+   Strictly locked single-accent per mode, human-crafted tactile contrast.
+   ========================================================================== */
 
 :root,
 [data-theme="senja"] {
-  --background: #0f0f15; /* Twilight deep navy-black, less pitch black */
-  --foreground: #f7f4ed; /* Crisp warm parchment white */
-  --card: #171721;
-  --card-foreground: #f7f4ed;
-  --popover: #171721;
-  --popover-foreground: #f7f4ed;
+  --background: #0d0d12;
+  --foreground: #f6f3eb;
+  --card: #15151f;
+  --card-foreground: #f6f3eb;
+  --popover: #15151f;
+  --popover-foreground: #f6f3eb;
   --primary: #f0a030; /* Sunset amber */
-  --primary-foreground: #0f0f15;
+  --primary-foreground: #0d0d12;
   --secondary: #c06020; /* Deep burnt orange */
   --secondary-foreground: #ffffff;
-  --muted: #1c1c27; /* Dark twilight */
-  --muted-foreground: #aba59e; /* Warm gray, higher contrast */
+  --muted: #1a1a26;
+  --muted-foreground: #a69f94;
   --accent: #f0a030;
-  --accent-foreground: #0f0f15;
-  --destructive: #e04040;
-  --destructive-foreground: #f7f4ed;
-  --success: #40b070;
-  --success-foreground: #0f0f15;
-  --warning: #e0a020;
-  --warning-foreground: #0f0f15;
-  --border: #2e2e3f; /* Subtle twilight border, more defined */
-  --input: #1c1c27;
+  --accent-foreground: #0d0d12;
+  --destructive: #e64545;
+  --destructive-foreground: #f6f3eb;
+  --success: #3cb878;
+  --success-foreground: #0d0d12;
+  --warning: #f0a030;
+  --warning-foreground: #0d0d12;
+  --border: #29293a;
+  --input: #1a1a26;
   --ring: #f0a030;
-  --radius: 0.25rem;
+  --radius: 0.75rem;
 
-  --ide-bg: #0f0f15;
-  --ide-sidebar: #0b0b0f;
-  --ide-border: #262635;
-  --ide-line-highlight: #151520;
-  --ide-comment: #736b60; /* Highly readable comment contrast */
-  --ide-selection: #3c352a;
+  --surface-outer: rgba(255, 255, 255, 0.035);
+  --surface-inner: #15151f;
+  --surface-highlight: rgba(255, 255, 255, 0.08);
+  --hairline: rgba(255, 255, 255, 0.07);
 }
 
 [data-theme="fajar"] {
-  /* Dawn: true light theme with proper contrast */
-  --background: #f0e9df; /* Softer dawn cream, less glaring white */
-  --foreground: #1c1210; /* Near-black */
-  --card: #ffffff; /* Bright white card to contrast with background */
-  --card-foreground: #1c1210;
-  --popover: #ffffff;
-  --popover-foreground: #1c1210;
-  --primary: #c04420; /* Deep sunrise red */
+  --background: #f1ebd8;
+  --foreground: #1c1310;
+  --card: #fbf8f0;
+  --card-foreground: #1c1310;
+  --popover: #fbf8f0;
+  --popover-foreground: #1c1310;
+  --primary: #c04420; /* Deep sunrise terracotta */
   --primary-foreground: #ffffff;
-  --secondary: #8a4a20; /* Warm earth */
+  --secondary: #8e4424; /* Warm earth */
   --secondary-foreground: #ffffff;
-  --muted: #e6dbce; /* Warm light muted */
-  --muted-foreground: #4d3729; /* High contrast text */
-  --accent: #d06820; /* Golden orange */
+  --muted: #e4dbc8;
+  --muted-foreground: #6b5a4d;
+  --accent: #c04420;
   --accent-foreground: #ffffff;
-  --destructive: #b02020;
+  --destructive: #b32626;
   --destructive-foreground: #ffffff;
-  --success: #2a7a40;
+  --success: #267c42;
   --success-foreground: #ffffff;
-  --warning: #b07020;
+  --warning: #b36e1c;
   --warning-foreground: #ffffff;
-  --border: #b5a492; /* Visible warm border, more contrast */
-  --input: #e6dbce;
+  --border: #c8bdab;
+  --input: #e4dbc8;
   --ring: #c04420;
-  --radius: 0.375rem;
+  --radius: 0.75rem;
 
-  --ide-bg: #f0e9df;
-  --ide-sidebar: #e5dbc9;
-  --ide-border: #b5a492;
-  --ide-line-highlight: #e6dbce;
-  --ide-comment: #70594a;
-  --ide-selection: #ebd6be;
+  --surface-outer: rgba(28, 19, 16, 0.04);
+  --surface-inner: #fbf8f0;
+  --surface-highlight: rgba(255, 255, 255, 0.7);
+  --hairline: rgba(28, 19, 16, 0.12);
 }
 
-/* Typography Overrides & Theme Transitions */
+/* Base Transitions */
 html {
-  transition:
-    background-color 0.4s ease,
-    border-color 0.4s ease;
-}
-
-body {
-  transition: background-color 0.4s ease;
-}
-
-html {
-  background-color: var(--ide-bg);
+  transition: background-color 0.35s cubic-bezier(0.16, 1, 0.3, 1), color 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  background-color: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
-}
-
-/*
- * App shell height. `dvh` keeps the footer from falling behind mobile browser
- * chrome; `vh` is the fallback for browsers without `dvh`. Do NOT switch this
- * back to competing Tailwind height classes — with equal specificity the winner
- * is stylesheet order, which silently broke this once already.
- */
-.app-shell {
-  height: 100vh;
-}
-
-@supports (height: 100dvh) {
-  .app-shell {
-    height: 100dvh;
-  }
-}
-
-h1 {
-  font-family: "Bricolage Grotesque", sans-serif;
-  letter-spacing: -0.04em;
-  font-weight: 900;
-}
-
-h2 {
-  font-family: "Bricolage Grotesque", sans-serif;
-  letter-spacing: -0.03em;
-  font-weight: 800;
-}
-
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Bricolage Grotesque", sans-serif;
-  letter-spacing: -0.02em;
-  font-weight: 700;
-}
-
-/* Editorial accent: use for special callouts */
-.font-serif-accent {
-  font-family: "Instrument Serif", serif;
-  font-style: italic;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: "Geist", sans-serif;
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  overflow-x: hidden;
+  min-height: 100dvh;
 }
 
-code,
-pre,
-.font-mono {
-  font-family: "Geist Mono", "JetBrains Mono", monospace;
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Bricolage Grotesque", sans-serif;
+  letter-spacing: -0.035em;
+  font-feature-settings: "ss01" on, "ss02" on;
 }
 
-/* Custom Scrollbar */
+code, pre, .font-mono {
+  font-family: "Geist Mono", "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.font-serif-accent {
+  font-family: "Instrument Serif", Georgia, Cambria, "Times New Roman", Times, serif;
+  font-style: italic;
+  line-height: 1.15;
+}
+
+/* ==========================================================================
+   DOUBLE-BEZEL (DOPPELRAND) TACTILE ARCHITECTURE
+   Concentric outer enclosure + inner core with machined precision.
+   ========================================================================== */
+
+.double-bezel {
+  background-color: var(--surface-outer);
+  border: 1px solid var(--hairline);
+  padding: 0.375rem;
+  border-radius: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.double-bezel:hover {
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+}
+
+.double-bezel-inner {
+  background-color: var(--surface-inner);
+  border-radius: calc(1.25rem - 0.375rem);
+  box-shadow: inset 0 1px 0 var(--surface-highlight);
+}
+
+/* ==========================================================================
+   BUTTON-IN-BUTTON NESTED ARCHITECTURE
+   ========================================================================== */
+
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.625rem 1.25rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pill:active {
+  transform: scale(0.98);
+}
+
+.btn-pill-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.625rem;
+  height: 1.625rem;
+  border-radius: 9999px;
+  background-color: rgba(0, 0, 0, 0.12);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-pill:hover .btn-pill-icon {
+  transform: translate(2px, -2px);
+}
+
+/* Custom Scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--ide-bg);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--ide-border);
-  border-radius: 4px;
+  background: var(--border);
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--ide-comment);
+  background: var(--muted-foreground);
 }
 
-/* ========================================
-   ACCESSIBILITY MODES
-   ======================================== */
-
+/* Accessibility Modes */
 .grayscale-mode {
   filter: grayscale(100%);
 }
 
 .high-contrast-mode {
-  /* Enforce extremely high contrast for text and lines */
   --muted-foreground: var(--foreground) !important;
   --border: var(--foreground) !important;
-  --ide-comment: var(--foreground) !important;
-  --ide-border: var(--foreground) !important;
-  filter: contrast(1.2) brightness(1.1);
+  filter: contrast(1.25);
 }

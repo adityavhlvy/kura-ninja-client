@@ -1,301 +1,309 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { SlRocket, SlEnvolope } from "react-icons/sl";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import PageTransition from "../../components/PageTransition";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  PiArrowUpRightBold,
+  PiTerminalWindowLight,
+  PiSparkleLight,
+  PiStackLight,
+  PiEnvelopeLight,
+} from "react-icons/pi";
+import HeroPortrait from "../../components/home/HeroPortrait";
+import FlagshipShowcase from "../../components/home/FlagshipShowcase";
+import InteractiveTerminal from "../../components/home/InteractiveTerminal";
 import ProjectCard from "../../components/ProjectCard";
+import PageTransition from "../../components/PageTransition";
 import { projectsData } from "../../data/projects";
-import { Button } from "@/components/ui/button";
 import profileJson from "../../data/profile.json";
+import { playTick, playPop } from "@/lib/sound";
 
 export default function Home() {
-  const featuredProjects = projectsData.filter((p) => p.featured);
-  const heroRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: heroRef,
-    offset: ["start start", "end start"],
-  });
+  const [philosophyMode, setPhilosophyMode] = useState<"reality" | "ninja">("reality");
 
-  const heroY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  // Secondary projects for preview grid
+  const supportingProjects = projectsData.filter(
+    (p) => !["pinter", "aegis-atlas", "nexus"].includes(p.slug)
+  ).slice(0, 3);
+
+  const togglePhilosophy = () => {
+    playPop();
+    setPhilosophyMode((prev) => (prev === "reality" ? "ninja" : "reality"));
+  };
 
   return (
     <PageTransition>
-      {/* Hero */}
-      <section
-        ref={heroRef}
-        className="relative flex flex-col items-center justify-center min-h-[90vh] pt-20 pb-16 w-full overflow-hidden"
-      >
-        <motion.div
-          style={{ y: heroY, opacity: heroOpacity }}
-          className="z-10 w-full max-w-7xl px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center mx-auto"
-        >
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-            className="order-2 lg:order-1 lg:col-span-7 z-20"
-          >
-            <motion.p
-              initial={{ opacity: 0, x: -10 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3, duration: 0.5 }}
-              className="text-[11px] font-mono font-bold uppercase tracking-[0.3em] text-primary/70 mb-4"
-            >
-              {profileJson.bio.current_role_detail}
-            </motion.p>
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24 md:space-y-32">
+        {/* ===================================================================
+            HERO SECTION
+            =================================================================== */}
+        <section className="min-h-[82dvh] flex flex-col justify-center pt-8 pb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+            {/* Left Content */}
+            <div className="lg:col-span-7 space-y-6 text-left">
+              {/* Eyebrow badge */}
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/30 text-primary text-[10px] font-mono font-bold tracking-widest uppercase">
+                <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
+                <span>Software & AI Engineer @ PT Pupuk Indonesia</span>
+              </div>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                delay: 0.2,
-                duration: 0.6,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className="text-4xl md:text-6xl lg:text-7xl font-black tracking-[-0.04em] leading-[0.9] mb-6"
-            >
-              <span className="block text-foreground">Aditya</span>
-              <span className="block text-primary">Vahlevy Nugraha</span>
-            </motion.h1>
+              {/* Headline */}
+              <div className="space-y-2">
+                <h1 className="text-4xl sm:text-6xl lg:text-7xl font-black tracking-tight text-foreground leading-[0.95]">
+                  <span>Aditya</span>{" "}
+                  <span className="text-primary block sm:inline">Vahlevy Nugraha</span>
+                </h1>
+                <p className="font-mono text-xs text-muted-foreground/80 tracking-wide uppercase">
+                  Alias: <span className="text-foreground font-semibold">Kura Ninja</span> • AI Orchestration & Geospatial Systems
+                </p>
+              </div>
 
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
-              className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed mb-8 text-pretty"
-            >
-              {profileJson.tagline}{" "}
-              <span className="italic text-primary font-mono text-[0.9em] font-semibold">
-                {profileJson.tagline_highlight}
-              </span>{" "}
-              {profileJson.tagline_suffix}
-            </motion.p>
+              {/* Interactive Philosophy vs Reality Box */}
+              <div className="p-4 rounded-2xl bg-card border border-border/70 space-y-2 relative overflow-hidden shadow-xs">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-muted-foreground font-semibold">
+                    {philosophyMode === "reality" ? "Engineering Focus" : "Kura Ninja Motto"}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={togglePhilosophy}
+                    className="flex items-center gap-1.5 text-[10px] font-mono text-primary hover:underline cursor-pointer"
+                  >
+                    <PiSparkleLight size={12} />
+                    <span>Switch to {philosophyMode === "reality" ? "Vibe" : "Reality"}</span>
+                  </button>
+                </div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.5 }}
-              className="flex flex-wrap gap-3"
-            >
-              <Link
-                to="/projects"
-                className="px-5 py-2.5 bg-primary text-primary-foreground rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
-              >
-                View Projects
-              </Link>
-              <Link
-                to="/about"
-                className="px-5 py-2.5 border border-border rounded-sm text-xs font-bold uppercase tracking-widest text-muted-foreground hover:border-primary/40 hover:text-primary transition-colors"
-              >
-                About Me
-              </Link>
-            </motion.div>
-          </motion.div>
+                <AnimatePresence mode="wait">
+                  {philosophyMode === "reality" ? (
+                    <motion.p
+                      key="reality"
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      className="text-sm md:text-base text-foreground/90 leading-relaxed font-sans"
+                    >
+                      Architecting enterprise multi-agent AI platforms with Google ADK, high-density geospatial dashboards across 34 Indonesian provinces, and graph-based logistics pathfinding systems.
+                    </motion.p>
+                  ) : (
+                    <motion.p
+                      key="ninja"
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -4 }}
+                      className="text-sm md:text-base font-serif-accent text-primary leading-relaxed"
+                    >
+                      &quot;{profileJson.philosophy.quote}&quot; {profileJson.philosophy.vibe_quote}
+                    </motion.p>
+                  )}
+                </AnimatePresence>
+              </div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="order-1 lg:order-2 lg:col-span-5 flex justify-center lg:justify-end"
-          >
-            <div className="relative">
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{
-                  delay: 0.6,
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="relative w-56 h-72 md:w-64 md:h-80 lg:w-72 lg:h-[24rem] overflow-hidden"
-                style={{
-                  clipPath: "polygon(6% 0%, 100% 0%, 94% 100%, 0% 100%)",
-                }}
-              >
-                <img
-                  src="/assets/profile.png"
-                  alt="Aditya Vahlevy Nugraha"
-                  className="w-full h-full object-cover object-top"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent opacity-70" />
-              </motion.div>
-            </div>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Featured Projects */}
-      <section className="container mx-auto max-w-6xl px-6 lg:px-8 mb-24">
-        <div className="flex justify-between items-end mb-12">
-          <div>
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-3 mb-3"
-            >
-              <div className="h-[1px] w-8 bg-primary/30" />
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.3em] text-muted-foreground">
-                Selected Work
-              </span>
-            </motion.div>
-            <motion.h2
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl md:text-5xl font-black tracking-[-0.03em]"
-            >
-              Featured Projects
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-              className="text-muted-foreground mt-3 text-lg max-w-lg leading-relaxed"
-            >
-              Geospatial platforms, AI agent systems, and fullstack tools I have
-              designed and shipped.
-            </motion.p>
-          </div>
-          <Button
-            variant="ghost"
-            asChild
-            className="gap-2 group hover:bg-primary/10 hover:text-primary transition-colors border border-transparent hover:border-primary/20"
-          >
-            <Link to="/projects">
-              View All{" "}
-              <SlRocket
-                size={14}
-                className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
-              />
-            </Link>
-          </Button>
-        </div>
-
-        {featuredProjects.length > 0 && (
-          <div className="space-y-8">
-            <motion.div
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              className="w-full"
-            >
-              <FeaturedHeroCard project={featuredProjects[0]} />
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {featuredProjects.slice(1).map((project, index) => (
-                <motion.div
-                  key={project.slug}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{
-                    delay: index * 0.08,
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="h-full"
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 pt-2">
+                <a
+                  href="#flagship-showcase"
+                  onClick={() => playTick()}
+                  className="btn-pill bg-primary text-primary-foreground hover:opacity-95"
                 >
-                  <ProjectCard {...project} />
-                </motion.div>
-              ))}
+                  <span>Explore Flagship Systems</span>
+                  <span className="btn-pill-icon">
+                    <PiArrowUpRightBold size={12} />
+                  </span>
+                </a>
+
+                <Link
+                  to="/about"
+                  onClick={() => playTick()}
+                  className="btn-pill bg-card border border-border/80 text-foreground hover:border-primary/50"
+                >
+                  <span>Career Journey & Skills</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right: Portrait Presentation */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <HeroPortrait />
             </div>
           </div>
-        )}
-      </section>
 
-      {/* Contact CTA */}
-      <section className="container mx-auto max-w-6xl px-6 lg:px-8 pb-24">
-        <div className="bg-card/30 border border-border rounded-sm p-8 md:p-12 text-center space-y-6 backdrop-blur-sm">
-          <div className="space-y-4 max-w-2xl mx-auto">
-            <h2 className="text-3xl md:text-4xl font-black tracking-[-0.03em] leading-tight">
-              Let&apos;s build something.
+          {/* Telemetry Matrix Strip */}
+          <div className="mt-16 pt-8 border-t border-border/60 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+            <div className="p-3.5 rounded-xl bg-card/60 border border-border/50">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                AeGIS Coverage
+              </span>
+              <span className="text-xl font-mono font-black text-foreground block">
+                34 Provinces
+              </span>
+              <span className="text-[11px] text-muted-foreground/80 block truncate">
+                National demand maps
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card/60 border border-border/50">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                NEXUS Arca Hub
+              </span>
+              <span className="text-xl font-mono font-black text-foreground block">
+                122 Warehouses
+              </span>
+              <span className="text-[11px] text-muted-foreground/80 block truncate">
+                Fertilizer inventory balance
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card/60 border border-border/50">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                PINTER Jev Router
+              </span>
+              <span className="text-xl font-mono font-black text-primary block">
+                ~150ms
+              </span>
+              <span className="text-[11px] text-muted-foreground/80 block truncate">
+                Query intent classification
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card/60 border border-border/50">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                Formula Engine
+              </span>
+              <span className="text-xl font-mono font-black text-foreground block">
+                52 Unit Tests
+              </span>
+              <span className="text-[11px] text-muted-foreground/80 block truncate">
+                FDM calculation validation
+              </span>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card/60 border border-border/50 col-span-2 sm:col-span-1">
+              <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider block">
+                Deep Learning Model
+              </span>
+              <span className="text-xl font-mono font-black text-foreground block">
+                R² = 0.8337
+              </span>
+              <span className="text-[11px] text-muted-foreground/80 block truncate">
+                Sentinel-2 yield prediction
+              </span>
+            </div>
+          </div>
+        </section>
+
+        {/* ===================================================================
+            FLAGSHIP ENTERPRISE SHOWCASE SECTION
+            =================================================================== */}
+        <section id="flagship-showcase" className="space-y-8 scroll-mt-24">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div className="space-y-1.5 text-left">
+              <div className="flex items-center gap-2 font-mono text-[10px] uppercase font-bold tracking-widest text-primary">
+                <PiStackLight size={14} />
+                <span>Enterprise Engineering Portfolio</span>
+              </div>
+              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                Flagship Systems & Architecture
+              </h2>
+              <p className="text-sm text-muted-foreground max-w-xl">
+                Explore the mission-critical platforms engineered for PT Pupuk Indonesia (Persero) with live simulation sandboxes and architectural telemetry.
+              </p>
+            </div>
+
+            <Link
+              to="/projects"
+              onClick={() => playTick()}
+              className="inline-flex items-center gap-1.5 text-xs font-mono text-primary font-bold hover:underline"
+            >
+              <span>View All Projects</span>
+              <PiArrowUpRightBold size={11} />
+            </Link>
+          </div>
+
+          <FlagshipShowcase />
+        </section>
+
+        {/* ===================================================================
+            SUPPORTING INNOVATIONS / PROJECTS GRID
+            =================================================================== */}
+        <section className="space-y-8">
+          <div className="flex items-end justify-between">
+            <div className="space-y-1 text-left">
+              <span className="text-[10px] font-mono uppercase font-bold tracking-widest text-primary block">
+                Specialized Creations
+              </span>
+              <h2 className="text-2xl md:text-3xl font-black tracking-tight text-foreground">
+                Other Engineering Deliveries
+              </h2>
+            </div>
+            <Link
+              to="/projects"
+              onClick={() => playTick()}
+              className="text-xs font-mono text-muted-foreground hover:text-primary transition-colors"
+            >
+              Catalog ({projectsData.length}) →
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {supportingProjects.map((p) => (
+              <ProjectCard key={p.slug} {...p} />
+            ))}
+          </div>
+        </section>
+
+        {/* ===================================================================
+            DEVELOPER TERMINAL CONSOLE
+            =================================================================== */}
+        <section className="space-y-4">
+          <div className="flex items-center gap-2 text-left">
+            <PiTerminalWindowLight size={16} className="text-primary" />
+            <h2 className="text-xl md:text-2xl font-black tracking-tight text-foreground">
+              Developer Shell & Interactive CLI
             </h2>
-            <p className="text-muted-foreground text-base md:text-lg leading-relaxed text-pretty">
-              Open to full-time roles and freelance work across geospatial
-              systems, AI orchestration, and fullstack engineering.
-            </p>
-            <div className="pt-4">
+          </div>
+          <InteractiveTerminal />
+        </section>
+
+        {/* ===================================================================
+            BOTTOM COLLABORATION CTA
+            =================================================================== */}
+        <section className="double-bezel">
+          <div className="double-bezel-inner p-8 md:p-12 text-center space-y-6">
+            <div className="max-w-xl mx-auto space-y-3">
+              <span className="font-mono text-[10px] uppercase font-bold tracking-widest text-primary px-3 py-1 rounded-full bg-primary/10 border border-primary/20">
+                Ready for High-Impact Engineering
+              </span>
+              <h2 className="text-3xl md:text-4xl font-black tracking-tight text-foreground">
+                Let&apos;s Build Resilient Systems Together
+              </h2>
+              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
+                Available for enterprise systems architecture, multi-agent AI orchestration, and geospatial software engineering inquiries.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap justify-center gap-3 pt-2">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-sm text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors"
+                onClick={() => playTick()}
+                className="btn-pill bg-primary text-primary-foreground hover:opacity-95"
               >
-                <SlEnvolope className="text-sm" />
-                <span>Get in touch</span>
+                <PiEnvelopeLight size={15} />
+                <span>Initiate Contact</span>
+                <span className="btn-pill-icon">
+                  <PiArrowUpRightBold size={12} />
+                </span>
               </Link>
+              <a
+                href={`mailto:${profileJson.contact.email}`}
+                onClick={() => playTick()}
+                className="btn-pill bg-card border border-border/80 text-foreground hover:border-primary/50"
+              >
+                <span>{profileJson.contact.email}</span>
+              </a>
             </div>
           </div>
-        </div>
-      </section>
-    </PageTransition>
-  );
-}
-
-/* Full-width variant for the lead project */
-function FeaturedHeroCard({ project }: { project: (typeof projectsData)[0] }) {
-  const displayImage =
-    project.image ||
-    (project.images && project.images.length > 0
-      ? project.images[0]
-      : undefined);
-
-  return (
-    <Link to={`/projects/${project.slug}`} className="block group">
-      <div className="relative bg-card/50 backdrop-blur-sm border border-border/50 hover:border-primary/40 rounded-sm overflow-hidden transition-colors duration-300">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
-          {displayImage && (
-            <div className="h-64 lg:h-80 overflow-hidden relative">
-              <img
-                src={displayImage}
-                alt={project.title}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent to-background/80 hidden lg:block" />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent lg:hidden" />
-            </div>
-          )}
-
-          <div className="p-8 lg:p-10 flex flex-col justify-center">
-            <div className="flex items-center gap-2 mb-4">
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-primary/60">
-                {project.date}
-              </span>
-              <span className="text-muted-foreground/30">·</span>
-              <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] text-muted-foreground/50">
-                {project.status}
-              </span>
-            </div>
-
-            <h3 className="text-2xl md:text-3xl font-black tracking-tight mb-3 group-hover:text-primary transition-colors">
-              {project.title}
-            </h3>
-
-            <p className="text-muted-foreground leading-relaxed mb-6 line-clamp-3">
-              {project.description}
-            </p>
-
-            <div className="flex flex-wrap gap-1.5">
-              {project.techStack.slice(0, 6).map((tech, i) => (
-                <span
-                  key={i}
-                  className="text-[10px] font-mono uppercase px-2 py-0.5 bg-muted/50 border border-border/50 text-muted-foreground group-hover:text-primary/70 transition-colors"
-                >
-                  {tech}
-                </span>
-              ))}
-              {project.techStack.length > 6 && (
-                <span className="text-[10px] font-mono text-muted-foreground">
-                  +{project.techStack.length - 6}
-                </span>
-              )}
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
-    </Link>
+    </PageTransition>
   );
 }

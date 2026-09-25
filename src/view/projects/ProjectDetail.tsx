@@ -1,25 +1,29 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { projectsData } from "../../data/projects";
-import {
-  SlArrowLeft,
-  SlGlobe,
-  SlLock,
-  SlCheck,
-  SlLayers,
-  SlRocket,
-  SlBulb,
-} from "react-icons/sl";
-import { VscGithub, VscScreenFull } from "react-icons/vsc";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-
+import {
+  PiArrowLeftLight,
+  PiGlobeSimpleLight,
+  PiLockKeyLight,
+  PiCheckCircleFill,
+  PiStackLight,
+  PiLightbulbLight,
+  PiArrowsClockwiseLight,
+  PiGitCommitLight,
+  PiChartBarLight,
+  PiFileTextLight,
+} from "react-icons/pi";
+import { SiGithub } from "react-icons/si";
+import { projectsData } from "../../data/projects";
 import PageTransition from "../../components/PageTransition";
 import LightboxModal from "../../components/motion/LightboxModal";
+import { playTick } from "@/lib/sound";
 
 export default function ProjectDetail() {
   const { slug } = useParams<{ slug: string }>();
   const navigate = useNavigate();
   const project = projectsData.find((p) => p.slug === slug);
+  const [activeTab, setActiveTab] = useState<"overview" | "problemDiff" | "benchmarks" | "decisions">("overview");
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
@@ -35,294 +39,473 @@ export default function ProjectDetail() {
         ? [project.image]
         : [];
 
-  const statusColors = {
-    completed: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    "in-progress": "bg-amber-500/10 text-amber-400 border-amber-500/20",
-    archived: "bg-zinc-500/10 text-zinc-400 border-zinc-500/20",
-    active: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  };
+  const statusBadge =
+    project.status === "completed" || project.status === "active"
+      ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/30"
+      : "bg-primary/10 text-primary border-primary/30";
 
   const isPrivate = project.visibility === "private";
 
+  // Data casting for extended fields in projects.yml
+  const extProject = project as unknown as {
+    fiveWOneH?: Record<string, string>;
+    problemChangeResult?: Array<{ problem: string; change: string; result: string }>;
+    beforeAfter?: Array<{ measure: string; before: string; after: string; evidence?: string }>;
+    keyDecisions?: Array<{ decision: string; explanation: string }>;
+    evidenceCommits?: string[];
+    caseStudy?: string;
+  };
+
   return (
-    <PageTransition className="container mx-auto max-w-6xl px-6 pb-32 relative">
-      {/* Back Button */}
-      <div className="mb-8 pt-4 relative z-10">
-        <Link
-          to="/projects"
-          className="inline-flex items-center gap-2 px-3 py-1.5 rounded-sm hover:bg-muted text-xs font-mono text-muted-foreground hover:text-foreground transition-colors border border-border/50 bg-card/30"
-        >
-          <SlArrowLeft size={10} />
-          Back to Projects
-        </Link>
-      </div>
+    <PageTransition>
+      <div className="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10 text-left">
+        {/* Top Back Navigation */}
+        <div className="pt-2">
+          <Link
+            to="/projects"
+            onClick={() => playTick()}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-card border border-border/70 text-xs font-mono text-muted-foreground hover:text-foreground hover:border-primary/40 transition-colors"
+          >
+            <PiArrowLeftLight size={13} />
+            <span>Back to Projects Catalog</span>
+          </Link>
+        </div>
 
-      {/* Header Section */}
-      <div className="mb-12 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 mb-8">
-          <div className="flex-1">
-            <div className="flex flex-wrap items-center gap-3 mb-4">
-              <span
-                className={`px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-sm border ${statusColors[project.status]}`}
-              >
-                {project.status}
-              </span>
-              <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded-sm border border-border/50 bg-muted/30 text-muted-foreground">
-                {project.visibility === "public" ? (
-                  <SlGlobe size={10} />
-                ) : (
-                  <SlLock size={10} />
-                )}
-                {project.visibility}
-              </span>
-              <span className="text-xs font-mono text-muted-foreground/60">
-                {project.date}
-              </span>
-            </div>
+        {/* Hero Title & Metadata Header */}
+        <div className="space-y-4 pb-6 border-b border-border/60">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className={`font-mono text-[9px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full border ${statusBadge}`}
+            >
+              {project.status}
+            </span>
+            <span className="font-mono text-[9px] uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-card border border-border/70 text-muted-foreground flex items-center gap-1">
+              {isPrivate ? <PiLockKeyLight size={10} /> : <PiGlobeSimpleLight size={10} />}
+              <span>{project.visibility}</span>
+            </span>
+            <span className="text-xs font-mono text-muted-foreground/70">
+              {project.date}
+            </span>
+          </div>
 
-            <div className="flex items-center gap-4 mb-6 flex-wrap">
-              {project.logo && (
-                <img
-                  src={project.logo}
-                  alt={`${project.title} logo`}
-                  loading="lazy"
-                  decoding="async"
-                  className="w-12 h-12 md:w-14 md:h-14 object-contain rounded-sm border border-border/30 p-1 bg-card/50"
-                />
-              )}
-              <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight text-foreground m-0">
+          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+            {project.logo && (
+              <img
+                src={project.logo}
+                alt=""
+                className="w-12 h-12 object-contain rounded-2xl p-1 bg-card border border-border/70 shrink-0 shadow-sm"
+              />
+            )}
+            <div>
+              <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-foreground leading-tight">
                 {project.title}
               </h1>
             </div>
-
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-light max-w-3xl">
-              {project.description}
-            </p>
           </div>
+
+          <p className="text-base sm:text-lg text-muted-foreground leading-relaxed max-w-4xl">
+            {project.description}
+          </p>
         </div>
-      </div>
 
-      {/* Gallery Section */}
-      {allImages.length > 0 && (
-        <div className="mb-16 space-y-4 relative z-10">
-          <div
-            onClick={() => setIsLightboxOpen(true)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === "Enter" || e.key === " ") {
-                e.preventDefault();
+        {/* Gallery Carousel & Lightbox Preview */}
+        {allImages.length > 0 && (
+          <div className="space-y-3">
+            <div
+              onClick={() => {
+                playTick();
                 setIsLightboxOpen(true);
-              }
-            }}
-            aria-label="Inspect project screenshot"
-            className="group relative aspect-video rounded-sm overflow-hidden bg-card/30 border border-border/50 cursor-pointer"
-          >
-            <AnimatePresence mode="wait">
-              <motion.img
-                key={activeImageIndex}
-                src={allImages[activeImageIndex]}
-                loading="lazy"
-                decoding="async"
-                initial={{ opacity: 0, scale: 1.02 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{ duration: 0.4, ease: "easeOut" }}
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.01]"
-                alt={`${project.title} preview ${activeImageIndex + 1}`}
-              />
-            </AnimatePresence>
+              }}
+              role="button"
+              tabIndex={0}
+              className="double-bezel aspect-[16/9] w-full cursor-pointer group"
+            >
+              <div className="double-bezel-inner h-full w-full overflow-hidden relative bg-muted/40">
+                <AnimatePresence mode="wait">
+                  <motion.img
+                    key={activeImageIndex}
+                    src={allImages[activeImageIndex]}
+                    alt={`${project.title} preview`}
+                    initial={{ opacity: 0, scale: 1.02 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.98 }}
+                    transition={{ duration: 0.3 }}
+                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+                  />
+                </AnimatePresence>
 
-            {/* Subtle hover badge on hero image */}
-            <div className="absolute bottom-3 right-3 z-10 pointer-events-none transition-transform duration-200 group-hover:scale-105">
-              <span className="font-mono text-[10px] text-foreground/80 bg-black/60 backdrop-blur-sm px-2 py-1 rounded-sm border border-border/40 flex items-center gap-1.5 shadow-xs">
-                <VscScreenFull size={12} /> Inspect Screenshot
-              </span>
+                <div className="absolute bottom-3 right-3 z-10 font-mono text-[10px] text-white bg-black/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/20 flex items-center gap-1.5 shadow-md">
+                  <PiArrowsClockwiseLight size={13} />
+                  <span>Click to Inspect Screenshot ({activeImageIndex + 1}/{allImages.length})</span>
+                </div>
+              </div>
             </div>
-          </div>
 
-          {allImages.length > 1 && (
-            <div className="flex gap-4 overflow-x-auto pb-2 scrollbar-thin">
-              {allImages.map((img, idx) => (
+            {/* Thumbnail Row */}
+            {allImages.length > 1 && (
+              <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-thin">
+                {allImages.map((img, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => {
+                      playTick();
+                      setActiveImageIndex(idx);
+                    }}
+                    className={`relative shrink-0 w-24 sm:w-28 aspect-[16/10] rounded-xl overflow-hidden border transition-all cursor-pointer ${
+                      activeImageIndex === idx
+                        ? "border-primary opacity-100 scale-102 shadow-xs"
+                        : "border-border/60 opacity-60 hover:opacity-100"
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Content Structure: Tabs + Sidebar */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
+          {/* Main Case Study Column */}
+          <div className="lg:col-span-8 space-y-6">
+            {/* Tab navigation pills */}
+            <div className="flex flex-wrap gap-1.5 p-1 rounded-2xl bg-card border border-border/70">
+              <button
+                type="button"
+                onClick={() => {
+                  playTick();
+                  setActiveTab("overview");
+                }}
+                className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-mono text-xs transition-colors cursor-pointer ${
+                  activeTab === "overview"
+                    ? "bg-primary text-primary-foreground font-bold"
+                    : "text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                <PiFileTextLight size={14} />
+                <span>Overview & 5W1H</span>
+              </button>
+
+              {extProject.problemChangeResult && extProject.problemChangeResult.length > 0 && (
                 <button
-                  key={idx}
                   type="button"
                   onClick={() => {
-                    setActiveImageIndex(idx);
-                    setIsLightboxOpen(true);
+                    playTick();
+                    setActiveTab("problemDiff");
                   }}
-                  aria-label={`View screenshot ${idx + 1}`}
-                  className={`relative flex-shrink-0 w-28 aspect-video rounded-sm overflow-hidden transition-all duration-300 border cursor-pointer ${
-                    activeImageIndex === idx
-                      ? "border-primary opacity-100 scale-102"
-                      : "border-transparent opacity-40 hover:opacity-75"
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-mono text-xs transition-colors cursor-pointer ${
+                    activeTab === "problemDiff"
+                      ? "bg-primary text-primary-foreground font-bold"
+                      : "text-muted-foreground hover:text-foreground"
                   }`}
                 >
-                  <img
-                    src={img}
-                    loading="lazy"
-                    decoding="async"
-                    className="w-full h-full object-cover"
-                    alt={`${project.title} thumbnail ${idx + 1}`}
-                  />
+                  <PiLightbulbLight size={14} />
+                  <span>Problem - Result Diffs</span>
                 </button>
-              ))}
+              )}
+
+              {extProject.beforeAfter && extProject.beforeAfter.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    playTick();
+                    setActiveTab("benchmarks");
+                  }}
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-mono text-xs transition-colors cursor-pointer ${
+                    activeTab === "benchmarks"
+                      ? "bg-primary text-primary-foreground font-bold"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <PiChartBarLight size={14} />
+                  <span>Before & After</span>
+                </button>
+              )}
+
+              {extProject.keyDecisions && extProject.keyDecisions.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    playTick();
+                    setActiveTab("decisions");
+                  }}
+                  className={`flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl font-mono text-xs transition-colors cursor-pointer ${
+                    activeTab === "decisions"
+                      ? "bg-primary text-primary-foreground font-bold"
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                >
+                  <PiStackLight size={14} />
+                  <span>Key Decisions</span>
+                </button>
+              )}
             </div>
-          )}
-        </div>
-      )}
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 relative z-10">
-        {/* Left Column: Extensive Details */}
-        <div className="lg:col-span-2 space-y-12">
-          {/* Rationale Section */}
-          {project.rationale && (
-            <section className="space-y-4">
-              <h2 className="text-lg font-mono font-bold uppercase tracking-wider flex items-center gap-2.5 text-foreground/90">
-                <SlBulb className="text-primary" />
-                Project Rationale
-              </h2>
-              <div className="p-6 rounded-sm bg-card/40 border border-border/50 leading-relaxed text-sm text-muted-foreground">
-                {project.rationale}
-              </div>
-            </section>
-          )}
-
-          {/* Features / Highlights */}
-          {project.details && project.details.length > 0 && (
-            <section className="space-y-6">
-              <h2 className="text-lg font-mono font-bold uppercase tracking-wider flex items-center gap-2.5 text-foreground/90">
-                <SlLayers className="text-primary" />
-                Core Features
-              </h2>
-              <div className="grid gap-3">
-                {project.details.map((detail, index) => (
-                  <div
-                    key={index}
-                    className="flex gap-4 p-5 rounded-sm bg-card/20 hover:bg-card/40 transition-colors border border-border/50"
-                  >
-                    <div className="mt-0.5 w-5 h-5 rounded-none bg-primary/10 flex items-center justify-center flex-shrink-0">
-                      <SlCheck className="text-primary" size={10} />
+            {/* Tab 1: Overview & 5W1H */}
+            {activeTab === "overview" && (
+              <div className="space-y-6">
+                {/* Executive Case Study */}
+                {extProject.caseStudy && (
+                  <div className="double-bezel">
+                    <div className="double-bezel-inner p-6 space-y-3">
+                      <h2 className="text-base font-mono uppercase tracking-wider font-bold text-foreground">
+                        Executive Case Study
+                      </h2>
+                      <p className="text-sm text-foreground/80 leading-relaxed font-sans">
+                        {extProject.caseStudy}
+                      </p>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed m-0">
-                      {detail}
-                    </p>
+                  </div>
+                )}
+
+                {/* 5W1H Matrix */}
+                {extProject.fiveWOneH && (
+                  <div className="double-bezel">
+                    <div className="double-bezel-inner p-6 space-y-4">
+                      <h2 className="text-base font-mono uppercase tracking-wider font-bold text-foreground">
+                        5W1H Architectural Profile
+                      </h2>
+                      <div className="grid gap-3 font-mono text-xs">
+                        {Object.entries(extProject.fiveWOneH).map(([key, val]) => (
+                          <div key={key} className="p-3 rounded-xl bg-card border border-border/50 space-y-1">
+                            <span className="text-[10px] font-bold uppercase text-primary tracking-widest block">
+                              {key}:
+                            </span>
+                            <span className="text-foreground/90 font-sans leading-relaxed block">
+                              {val}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {/* Core Features & Highlights */}
+                {project.details && project.details.length > 0 && (
+                  <div className="space-y-3">
+                    <h2 className="text-base font-mono uppercase tracking-wider font-bold text-foreground">
+                      Core Implementation Highlights
+                    </h2>
+                    <div className="space-y-2.5">
+                      {project.details.map((detail, idx) => (
+                        <div
+                          key={idx}
+                          className="flex items-start gap-3 p-3.5 rounded-xl bg-card border border-border/60"
+                        >
+                          <PiCheckCircleFill className="text-primary mt-0.5 shrink-0" size={15} />
+                          <p className="text-xs text-foreground/80 leading-relaxed font-sans">
+                            {detail}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Tab 2: Problem - Change - Result */}
+            {activeTab === "problemDiff" && extProject.problemChangeResult && (
+              <div className="space-y-4">
+                {extProject.problemChangeResult.map((item, idx) => (
+                  <div key={idx} className="double-bezel">
+                    <div className="double-bezel-inner p-6 space-y-3 font-mono text-xs">
+                      <div className="p-3 rounded-xl bg-destructive/10 border border-destructive/20 text-destructive space-y-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider block">
+                          Problem:
+                        </span>
+                        <p className="font-sans leading-relaxed text-foreground/90">
+                          {item.problem}
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-primary/10 border border-primary/20 text-primary space-y-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider block">
+                          Architectural Change:
+                        </span>
+                        <p className="font-sans leading-relaxed text-foreground/90">
+                          {item.change}
+                        </p>
+                      </div>
+
+                      <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 space-y-1">
+                        <span className="text-[10px] font-bold uppercase tracking-wider block">
+                          Measured Result:
+                        </span>
+                        <p className="font-sans leading-relaxed text-foreground/90">
+                          {item.result}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 ))}
               </div>
-            </section>
-          )}
+            )}
 
-          {/* Technical Challenges */}
-          {project.technicalChallenges &&
-            project.technicalChallenges.length > 0 && (
-              <section className="space-y-6">
-                <h2 className="text-lg font-mono font-bold uppercase tracking-wider flex items-center gap-2.5 text-foreground/90">
-                  <SlRocket className="text-primary" />
-                  Technical Challenges
-                </h2>
-                <div className="space-y-4">
-                  {project.technicalChallenges.map((challenge, index) => (
-                    <div
-                      key={index}
-                      className="relative pl-6 before:absolute before:left-0 before:top-2.5 before:w-1.5 before:h-1.5 before:bg-primary before:rounded-none"
-                    >
-                      <p className="text-sm text-muted-foreground italic leading-relaxed">
-                        &quot;{challenge}&quot;
+            {/* Tab 3: Before & After Benchmarks */}
+            {activeTab === "benchmarks" && extProject.beforeAfter && (
+              <div className="double-bezel">
+                <div className="double-bezel-inner p-6 space-y-4 font-mono text-xs">
+                  <h2 className="text-base uppercase tracking-wider font-bold text-foreground">
+                    Empirical Before & After Metrics
+                  </h2>
+                  <div className="overflow-x-auto">
+                    <table className="w-full text-left border-collapse">
+                      <thead>
+                        <tr className="border-b border-border/80 text-[10px] text-muted-foreground uppercase">
+                          <th className="py-2.5 pr-4">Measure</th>
+                          <th className="py-2.5 px-4 text-destructive/80">Before</th>
+                          <th className="py-2.5 px-4 text-emerald-500">After</th>
+                          <th className="py-2.5 pl-4 text-muted-foreground/70">Evidence Ref</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-border/40">
+                        {extProject.beforeAfter.map((row, idx) => (
+                          <tr key={idx} className="hover:bg-muted/30 transition-colors">
+                            <td className="py-3 pr-4 font-bold text-foreground">{row.measure}</td>
+                            <td className="py-3 px-4 text-muted-foreground">{row.before}</td>
+                            <td className="py-3 px-4 font-bold text-emerald-500">{row.after}</td>
+                            <td className="py-3 pl-4 text-[11px] text-muted-foreground/60 truncate max-w-[160px]">
+                              {row.evidence || "Verified in code"}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Tab 4: Key Decisions */}
+            {activeTab === "decisions" && extProject.keyDecisions && (
+              <div className="space-y-4">
+                {extProject.keyDecisions.map((d, idx) => (
+                  <div key={idx} className="double-bezel">
+                    <div className="double-bezel-inner p-6 space-y-2">
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-primary font-bold">
+                        Decision #{idx + 1}
+                      </span>
+                      <h3 className="text-base font-bold text-foreground">
+                        {d.decision}
+                      </h3>
+                      <p className="text-sm text-foreground/80 leading-relaxed font-sans">
+                        {d.explanation}
                       </p>
                     </div>
-                  ))}
-                </div>
-              </section>
+                  </div>
+                ))}
+              </div>
             )}
-        </div>
-
-        {/* Right Column: Meta & Stats */}
-        <div className="space-y-8">
-          {/* Tech Stack */}
-          <div className="bg-card/40 border border-border/50 rounded-sm p-6 space-y-4">
-            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-muted-foreground/80">
-              Technologies
-            </h3>
-            <div className="flex flex-wrap gap-1.5">
-              {project.techStack.map((tech, index) => (
-                <span
-                  key={index}
-                  className="px-2 py-0.5 rounded-sm border border-border/50 bg-muted/30 font-mono text-[10px] text-muted-foreground uppercase"
-                >
-                  {tech}
-                </span>
-              ))}
-            </div>
           </div>
 
-          {/* Competencies */}
-          {project.competencies && project.competencies.length > 0 && (
-            <div className="bg-card/40 border border-border/50 rounded-sm p-6 space-y-4">
-              <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-primary">
-                Key Competencies
-              </h3>
-              <ul className="space-y-2">
-                {project.competencies.map((comp, idx) => (
-                  <li
-                    key={idx}
-                    className="flex items-center gap-2.5 text-xs text-muted-foreground"
-                  >
-                    <div className="w-1.5 h-1.5 bg-primary shrink-0" />
-                    <span className="font-medium">{comp}</span>
-                  </li>
-                ))}
-              </ul>
+          {/* Right Meta Sidebar */}
+          <div className="lg:col-span-4 space-y-6">
+            {/* Tech Stack Box */}
+            <div className="double-bezel">
+              <div className="double-bezel-inner p-5 space-y-3 font-mono">
+                <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground block">
+                  Tech Stack Arsenal
+                </span>
+                <div className="flex flex-wrap gap-1.5">
+                  {project.techStack.map((tech, idx) => (
+                    <span
+                      key={idx}
+                      className="text-[10px] px-2.5 py-1 rounded-md bg-muted/70 border border-border/60 text-muted-foreground"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
-          )}
 
-          {/* Links */}
-          {project.links.length > 0 && (
-            <div className="space-y-2">
-              {project.links.map((link, index) => (
-                <a
-                  key={index}
-                  href={isPrivate ? undefined : link.url}
-                  target={isPrivate ? undefined : "_blank"}
-                  rel={isPrivate ? undefined : "noopener noreferrer"}
-                  className={`flex items-center justify-center gap-2.5 w-full py-2.5 px-4 font-mono font-bold text-xs uppercase tracking-wider rounded-sm transition-all border ${
-                    isPrivate
-                      ? "border-border bg-muted/20 text-muted-foreground/40 cursor-not-allowed pointer-events-none"
-                      : "border-primary/20 bg-primary/10 hover:bg-primary/20 text-primary hover:border-primary/40"
-                  }`}
-                >
-                  {link.icon ||
-                    (link.url.includes("github") ? (
-                      <VscGithub size={14} />
-                    ) : (
-                      <SlGlobe size={14} />
+            {/* Key Competencies Box */}
+            {project.competencies && project.competencies.length > 0 && (
+              <div className="double-bezel">
+                <div className="double-bezel-inner p-5 space-y-3 font-mono">
+                  <span className="text-[10px] uppercase font-bold tracking-wider text-primary block">
+                    Engineering Competencies
+                  </span>
+                  <div className="space-y-2">
+                    {project.competencies.map((comp, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-xs text-foreground/85">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        <span>{comp}</span>
+                      </div>
                     ))}
-                  {link.label}
-                </a>
-              ))}
-            </div>
-          )}
+                  </div>
+                </div>
+              </div>
+            )}
 
-          {isPrivate && (
-            <div className="p-4 border border-warning/10 bg-warning/5 rounded-sm flex gap-3 text-warning/80">
-              <SlLock className="flex-shrink-0 mt-0.5 text-xs" />
-              <p className="text-[11px] font-mono leading-relaxed m-0">
-                This is a private project. Some links and internal technical
-                artifacts may be restricted.
-              </p>
-            </div>
-          )}
+            {/* Git Evidence Commits */}
+            {extProject.evidenceCommits && extProject.evidenceCommits.length > 0 && (
+              <div className="double-bezel">
+                <div className="double-bezel-inner p-5 space-y-3 font-mono">
+                  <div className="flex items-center gap-1.5 text-[10px] uppercase font-bold tracking-wider text-muted-foreground">
+                    <PiGitCommitLight size={14} className="text-primary" />
+                    <span>Evidence Commits</span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {extProject.evidenceCommits.map((cmt, idx) => (
+                      <span
+                        key={idx}
+                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted/60 text-muted-foreground border border-border/50"
+                      >
+                        {cmt}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* External Links */}
+            {project.links && project.links.length > 0 && (
+              <div className="space-y-2">
+                {project.links.map((link, idx) => (
+                  <a
+                    key={idx}
+                    href={isPrivate ? undefined : link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={() => playTick()}
+                    className="btn-pill w-full justify-center bg-card border border-border/70 hover:border-primary text-foreground text-xs"
+                  >
+                    <SiGithub size={14} />
+                    <span>{link.label}</span>
+                  </a>
+                ))}
+              </div>
+            )}
+
+            {isPrivate && (
+              <div className="p-4 rounded-xl border border-warning/20 bg-warning/5 text-warning/90 space-y-1 font-mono text-[11px]">
+                <div className="flex items-center gap-1.5 font-bold">
+                  <PiLockKeyLight size={13} />
+                  <span>Enterprise Private System</span>
+                </div>
+                <p className="text-muted-foreground text-[10px] leading-relaxed">
+                  Source code and internal endpoints are restricted under enterprise governance at PT Pupuk Indonesia (Persero).
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Lightbox Modal */}
-      <LightboxModal
-        isOpen={isLightboxOpen}
-        onClose={() => setIsLightboxOpen(false)}
-        images={allImages}
-        initialIndex={activeImageIndex}
-        title={project.title}
-      />
+        {/* Lightbox Modal */}
+        <LightboxModal
+          isOpen={isLightboxOpen}
+          onClose={() => setIsLightboxOpen(false)}
+          images={allImages}
+          initialIndex={activeImageIndex}
+          title={project.title}
+        />
+      </div>
     </PageTransition>
   );
 }

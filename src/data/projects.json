@@ -1,7 +1,164 @@
 {
   "projects": [
     {
-      "slug": "aegis-geodash",
+      "slug": "pinter",
+      "title": "PINTER AI Agent Platform",
+      "logo": "/assets/pinter/logo/small.png",
+      "description": "Enterprise AI agent orchestration platform enabling teams to build multi-agent workflows via an interactive visual canvas. Features execution event tracing, MCP tool integration, virtual models, and a TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms for cost-efficient and high-speed execution.",
+      "techStack": [
+        "React 19",
+        "React Flow",
+        "TanStack Router",
+        "TanStack Query",
+        "Zustand",
+        "FastAPI",
+        "Google ADK",
+        "SQLAlchemy (async)",
+        "PostgreSQL",
+        "asyncpg",
+        "TypeSafe AI",
+        "LiteLLM",
+        "Qdrant",
+        "Alembic",
+        "Rsbuild",
+        "Tailwind CSS v4",
+        "MCP Protocol",
+        "Docker"
+      ],
+      "links": [
+        {
+          "label": "GitHub",
+          "url": "https://github.com/Data-Science-PIHC/DS_AI_APP_SERVICE"
+        }
+      ],
+      "status": "in-progress",
+      "visibility": "private",
+      "image": "/assets/pinter/galleries/pinter-home.png",
+      "images": [
+        "/assets/pinter/galleries/pinter-home.png",
+        "/assets/pinter/galleries/pinter-agent-builder-canvas.png",
+        "/assets/pinter/galleries/pinter-chat.png",
+        "/assets/pinter/galleries/pinter-mcp-servers.png"
+      ],
+      "date": "2026",
+      "featured": true,
+      "summary": "Enterprise AI agent orchestration and virtual model platform built for Pupuk Indonesia Holding Company using Google Agent Development Kit (ADK), FastAPI, and React 19. Features an interactive visual canvas, MCP server integrations, and a TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms to dispatch requests to specialized model tiers with calibrated confidence scoring.",
+      "fiveWOneH": {
+        "who": "Architected and engineered by Aditya Vahlevy Nugraha for Pupuk Indonesia Holding Company.",
+        "what": "Enterprise multi-agent orchestration canvas and virtual model gateway supporting Google ADK graphs, Model Context Protocol (MCP) servers, and TypeSafe Jev intent-based smart routing.",
+        "when": "Active development and platform enhancement throughout 2026.",
+        "where": "Enterprise internal deployment integrated with Pupuk Indonesia SSO (IDENTIK) and internal databases.",
+        "why": "To democratize autonomous AI workflow creation across business divisions while optimizing LLM execution cost, speed, and reliability via intelligent model routing.",
+        "how": "Developed using FastAPI, Google ADK, React 19, React Flow (@xyflow/react), TanStack Router & Query, SQLAlchemy asyncpg, PostgreSQL, Qdrant, LiteLLM, and TypeSafe Jev System One client."
+      },
+      "problemChangeResult": [
+        {
+          "problem": "Enterprise chat and agent workflows routed all queries to single expensive frontier models regardless of query complexity, inflating operational token costs and increasing response latency.",
+          "change": "Built the TypeSafe Jev (System One) smart router client evaluating query intent against criteria in ~150ms with calibrated confidence thresholds, fallback model safety nets, and probability distribution tracing.",
+          "result": "Queries classified and dispatched to appropriate model tiers with probability distribution tracing and fallback resilience."
+        },
+        {
+          "problem": "Prototype agent system used rigid CLI scripts and CrewAI, making workflow editing inaccessible to non-engineers and causing execution bottlenecks.",
+          "change": "Architected an interactive visual builder canvas with React Flow (@xyflow/react) supporting 4 native Google ADK graph patterns (LlmAgent, SequentialAgent, ParallelAgent, LoopAgent) with real-time SSE execution tracing.",
+          "result": "Workflows visually editable and traced in real-time across tool calls, thinking states, agent transfers, and routing events."
+        },
+        {
+          "problem": "Per-event database writes for execution traces degraded streaming responsiveness during high-concurrency tool execution.",
+          "change": "Engineered async ORM with buffered SSE execution tracing that flushes events in batches to client streams.",
+          "result": "Maintained sub-second UI responsiveness and eliminated database write saturation during multi-agent task execution."
+        }
+      ],
+      "beforeAfter": [
+        {
+          "measure": "Model routing options",
+          "before": "Single static model per agent",
+          "after": "Combos (fallback), Round-Robin, and TypeSafe Jev Smart Router",
+          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/agents/virtual-models/types.ts"
+        },
+        {
+          "measure": "Intent evaluation latency",
+          "before": "No automated classification",
+          "after": "~150ms evaluation via TypeSafe Jev (/systemone)",
+          "evidence": "projects/pinter/pinter-be-refactor/modules/agents/runtime/typesafe_client.py"
+        },
+        {
+          "measure": "Agent graph patterns",
+          "before": "CLI single-thread scripts",
+          "after": "4 visual graph types: LLM, Sequential, Parallel, Loop",
+          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/agents/builder/"
+        },
+        {
+          "measure": "Execution tracing visibility",
+          "before": "Server logs only",
+          "after": "Inline trace accordion with thinking steps, tool I/O, and routing probability bars",
+          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/conversations/chat/components/inline-trace.tsx"
+        }
+      ],
+      "keyDecisions": [
+        {
+          "decision": "TypeSafe Jev for routing decisions",
+          "explanation": "Selected dedicated System One model evaluating intent in ~150ms rather than invoking a general-purpose LLM for triage, keeping routing overhead minimal."
+        },
+        {
+          "decision": "Virtual model abstraction",
+          "explanation": "Modeled combos, round-robin pools, and smart routers under the unified /virtual-models API, decoupling client applications from underlying model provider endpoints."
+        },
+        {
+          "decision": "Buffered SSE execution tracing",
+          "explanation": "Flushed execution events in batches to client streams to maintain high UI responsiveness without bogging down the database on every trace step."
+        }
+      ],
+      "evidenceCommits": [
+        "b586fd1",
+        "55f6a36",
+        "c000478",
+        "b511652",
+        "a364d2c",
+        "6e3d88a",
+        "2ee85c9",
+        "a8252b7",
+        "662ca70"
+      ],
+      "caseStudy": "PINTER is the internal AI agent orchestration platform developed for Pupuk Indonesia Holding Company. Enterprise automation requires connecting diverse data systems while enabling non-technical operators to design, inspect, and safely deploy intelligent agent workflows. To solve this, PINTER was engineered around a visual agent builder built with React Flow (@xyflow/react), TanStack Router, and Google Agent Development Kit (ADK). The platform provides 4 native orchestration patterns: single LLM agents, sequential pipelines, parallel fan-outs, and iterative loop agents. Execution steps including internal reasoning, tool calls, tool responses, and agent handoffs are streamed in real-time to the user via Server-Sent Events (SSE) and rendered inside an inline trace viewer. To optimize operational cost and execution speed across multi-agent pipelines, a virtual model layer was introduced. In addition to sequential fallback combos and round-robin load distribution, the platform incorporates a TypeSafe Jev (System One) smart routing engine. TypeSafe Jev evaluates chat query intent against user-defined criteria in ~150ms, producing calibrated confidence scores and probability distributions. If the classification confidence surpasses a defined threshold (default 0.65), the request is automatically routed to a specialized domain model; otherwise, it falls back to a general-purpose model. The system also integrates Model Context Protocol (MCP) servers and enterprise SSO (IDENTIK) with AES-256 encrypted credential storage, providing an auditable platform for enterprise-grade autonomous workflows.",
+      "details": [
+        "Architected the migration of a rigid, CLI-based agent prototype into a production-ready enterprise platform using Google Agent Development Kit (ADK) and custom FastAPI routes.",
+        "Designed and implemented the interactive Visual Canvas using React Flow (@xyflow/react) and TanStack Router, representing complex multi-agent topologies and connection graphs.",
+        "Engineered multi-agent orchestration supporting 4 native graph patterns: LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent.",
+        "Architected TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms to dispatch requests to specialized model tiers with calibrated confidence scoring and fallback safety nets.",
+        "Built virtual model abstraction layer supporting sequential fallback chains (combos), round-robin load distribution pools, and intent-driven smart routers.",
+        "Implemented real-time execution event tracing (tool_call, tool_response, agent_transfer, thinking, smart_routing) streamed to clients via Server-Sent Events (SSE) with interactive inline probability bars.",
+        "Built hybrid RAG pipeline connecting Qdrant vector database with semantic chunking and enterprise document ingestion.",
+        "Integrated Model Context Protocol (MCP) server support (stdio and SSE transports) dynamically loaded from PostgreSQL configurations.",
+        "Implemented enterprise identity federation (IDENTIK SSO) with encrypted assertions, RBAC permissions, and AES-256 encrypted credential vaults.",
+        "Structured domain-partitioned architecture across 8 core domains (identity, agents, conversations, knowledge, integrations, evaluations, governance, content) with 142 automated backend test suites.",
+        "Built user token quota management with budget caps, daily/monthly request limits, and automated cost calculation across LLM providers via LiteLLM.",
+        "Integrated interactive data visualization blocks in chat including ECharts, Flint Chart, Mermaid diagrams, and KaTeX math formulas."
+      ],
+      "rationale": "Internal enterprise tool for Pupuk Indonesia Holding Company that democratizes AI agent creation for non-technical teams while optimizing token costs and latency via intelligent routing.",
+      "competencies": [
+        "AI Agent Orchestration",
+        "Smart Model Routing",
+        "Visual Canvas Architecture",
+        "Framework Migration",
+        "Database Architecture (Async ORM)",
+        "API Design & SSE Streaming",
+        "MCP Protocol Integration",
+        "Cost & Quota Management"
+      ],
+      "technicalChallenges": [
+        "Executed a 3-phase framework migration from CrewAI to Google ADK without production downtime, using tool wrapping adapters in Phase 2 before full native rewrite in Phase 3.",
+        "Implemented async ORM rewrite with buffered execution tracing that flushes events in batches to avoid per-event DB writes that would kill streaming performance.",
+        "Designed a custom instruction merging strategy from CrewAI's 3-field (role/goal/backstory) model to ADK's 5-pattern instruction model (identity/mission/methodology/boundaries/examples).",
+        "Integrated TypeSafe Jev System One routing engine with calibrated confidence thresholds (0.65 default), handling route encryption protection and probability distribution parsing."
+      ],
+      "readiness": {
+        "tests": 80,
+        "docs": 75,
+        "quality": 85
+      }
+    },
+    {
+      "slug": "aegis-atlas",
       "title": "AeGIS Module Atlas",
       "logo": "/assets/aegis-atlas/logo/aegis-atlas-logo.webp",
       "description": "A web-based geospatial intelligence platform built inside a multi-app frontend monorepo, designed to visualize complex spatial data layers across 3 administrative levels, featuring the GEO Mind AI-powered geospatial analysis panel.",
@@ -15,6 +172,8 @@
         "PostGIS",
         "PostgreSQL",
         "OpenLayers",
+        "MapLibre GL",
+        "Deck.gl",
         "Martin Tile Server",
         "PASETO",
         "Biome",
@@ -34,12 +193,90 @@
       ],
       "date": "2026",
       "featured": true,
+      "summary": "Geospatial fertilizer demand planning command center for Pupuk Indonesia integrating agronomic layers, multi-stage crop calendars, and live stock audits across 34 Indonesian provinces with a client-side calculation engine and GeoMind AI assistant. Runs on Go Fiber v3 backend and React 19 vector rendering frontend.",
+      "fiveWOneH": {
+        "who": "Engineered by Aditya Vahlevy Nugraha in collaboration with the Data Science / AI engineering team for Pupuk Indonesia Holding Company.",
+        "what": "A geospatial demand planning command center with client-side formula calculation, Martin vector tile proxying, and GeoMind AI query integration.",
+        "when": "Developed and actively updated during 2026.",
+        "where": "Deployed across 34 Indonesian provinces, integrating national administrative boundaries from province down to district levels.",
+        "why": "To eliminate regional fertilizer planning blindspots by auditing safety stock against actual stock and calculating customized dosage models.",
+        "how": "Built using React 19, OpenLayers, MapLibre GL, Deck.gl, Tailwind CSS v4, Go Fiber v3, PostgreSQL/PostGIS, and Martin tile proxy with PASETO authentication."
+      },
+      "problemChangeResult": [
+        {
+          "problem": "Fertilizer demand calculations required disconnected agronomic layers, static spreadsheets, and manual recalculation when dosage or land area assumptions changed.",
+          "change": "Engineered a client-side Fertilizer Demand Model (FDM) formula engine with stage allocations, land overrides, and immediate diff calculation.",
+          "result": "52 automated unit tests passing for mathematical calculations; runtime demand recalculation runs client-side without roundtrip database writes."
+        },
+        {
+          "problem": "Spatial vector tile streaming through upstream Martin server required authentication without leaking credentials or overloading network bandwidth.",
+          "change": "Built a Go Fiber tile proxy with dual Basic/HMAC token support, token caching with an expiry buffer, and a 1MB payload response cap.",
+          "result": "Tile proxy authenticated requests while enforcing response payload limits with in-memory token caching."
+        },
+        {
+          "problem": "Overview database queries were duplicated across requests without explicit month date bounds.",
+          "change": "Deduplicated queries with month date bounds and added headline insights service.",
+          "result": "Optimized database load and consistent monthly aggregated demand metrics."
+        }
+      ],
+      "beforeAfter": [
+        {
+          "measure": "Formula test coverage",
+          "before": "0 tests",
+          "after": "52 unit tests passing",
+          "evidence": "projects/aegis/aegis-fe/apps/atlas/src/features/fdm/lib/formula-calc.test.ts"
+        },
+        {
+          "measure": "Tile proxy response payload limit",
+          "before": "Unbounded",
+          "after": "1MB hard cap",
+          "evidence": "Commit 7372f32"
+        },
+        {
+          "measure": "Tile proxy authentication modes",
+          "before": "Single mode",
+          "after": "Dual HTTP Basic & HMAC token caching",
+          "evidence": "projects/aegis/aegis-be/config/config.tile.go"
+        },
+        {
+          "measure": "Overview query execution",
+          "before": "Duplicate queries",
+          "after": "Deduplicated queries with month date bounds",
+          "evidence": "Commit f123900"
+        }
+      ],
+      "keyDecisions": [
+        {
+          "decision": "Execute formula recalculations client-side",
+          "explanation": "Avoided server roundtrips during interactive scenario modeling; validated by 52 unit tests verifying precision tolerance and stage allocations."
+        },
+        {
+          "decision": "Dual-auth tile proxy with token cache",
+          "explanation": "Integrated upstream Martin tile server via HTTP Basic and HMAC tokens with an in-memory cache to avoid redundant token generation on each vector tile fetch."
+        },
+        {
+          "decision": "Single-Repo Multi-Entry architecture",
+          "explanation": "Structured Atlas inside the AeGIS monorepo alongside Halo and Tango apps using Bun workspaces, Turborepo, and Rsbuild."
+        }
+      ],
+      "evidenceCommits": [
+        "cef578a",
+        "44e8113",
+        "7372f32",
+        "f123900",
+        "94724bb",
+        "861b79e",
+        "25a3554",
+        "024d865",
+        "ce59acc"
+      ],
+      "caseStudy": "AeGIS Atlas is the fertilizer demand planning command center for Pupuk Indonesia Holding Company. Agricultural planning across 34 Indonesian provinces requires coordinating soil nutrient data, crop planting timelines, and historical distributor sales. Previous workflows relied on disparate static spreadsheets, preventing rapid audits of safety stock versus actual inventory. Atlas addresses this by combining spatial boundary layers with an interactive calculation engine. Built with React 19, OpenLayers, MapLibre GL, and Deck.gl, the frontend provides immediate visual feedback as planners modify commodity timelines and dosage parameters. To avoid server latency during exploratory planning sessions, the Fertilizer Demand Model (FDM) calculation logic was implemented entirely on the client, backed by 52 automated unit tests verifying stage distribution, land overrides, and regional aggregation. On the backend, a Go Fiber v3 service handles domain data, reference metrics, and vector tile proxying with dual HTTP Basic/HMAC token support, internal token caching, and a 1MB payload response limit. The integrated GeoMind AI workspace provides natural-language insights over regional demand data with streaming SSE responses.",
       "details": [
         "Co-engineered the 'Atlas' fertilizer demand planning command center, consolidating disconnected agronomic layers (soil nutrients, 6-phase crop cycles) and live inventory data into a unified, high-density dashboard.",
         "Architected multi-app frontend monorepo using Bun workspaces and Turborepo, powering Atlas (geospatial), Halo (auth & admin console), and Tango (planting surveys) with shared UI primitives.",
         "Built Go Fiber v3 modular monolith with domain-per-package architecture, Goose migrations, and PASETO token authorization.",
-        "Engineered Martin vector tile proxy with dual HTTP Basic and HMAC token caching to optimize upstream spatial rendering.",
-        "Implemented client-side Fertilizer Demand Model (FDM) formula engine with 51 unit tests validating stage-by-stage dosage, land area overrides, and regional demand deltas.",
+        "Engineered Martin vector tile proxy with dual HTTP Basic and HMAC token caching, upstream header forwarding, and 1MB response caps to optimize upstream spatial rendering.",
+        "Implemented client-side Fertilizer Demand Model (FDM) formula engine with 52 unit tests validating stage-by-stage dosage, land area overrides, float drift tolerance, and regional demand deltas.",
         "Rebranded AI assistant module to 'GEO Mind' and migrated overview query hooks to dedicated FDM service contract for dynamic stock audits and market penetration logic.",
         "Eliminated national planning blindspots, empowering executives and domain experts to execute live 'Safety Stock vs. Actual Stock' audits across 34 Indonesian provinces.",
         "Integrated AWS End User Messaging Social for transactional WhatsApp OTP authentication and field survey revision alerts.",
@@ -69,84 +306,10 @@
       }
     },
     {
-      "slug": "pinter",
-      "title": "PINTER AI Agent Platform",
-      "logo": "/assets/pinter/logo/small.png",
-      "description": "AI agent orchestration platform enabling enterprise teams to build multi-agent workflows via an interactive visual canvas. Features execution event tracing, MCP tool integration, multi-provider LLM support, and conversation-based chat with agent switching.",
-      "techStack": [
-        "React 19",
-        "React Flow",
-        "TanStack Router",
-        "TanStack Query",
-        "Zustand",
-        "FastAPI",
-        "Google ADK",
-        "SQLAlchemy (async)",
-        "PostgreSQL",
-        "asyncpg",
-        "LiteLLM",
-        "Qdrant",
-        "Alembic",
-        "Rsbuild",
-        "Tailwind CSS v4",
-        "MCP Protocol",
-        "Docker"
-      ],
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/Data-Science-PIHC/DS_AI_APP_SERVICE"
-        }
-      ],
-      "status": "in-progress",
-      "visibility": "private",
-      "image": "/assets/pinter/galleries/pinter-home.png",
-      "images": [
-        "/assets/pinter/galleries/pinter-home.png",
-        "/assets/pinter/galleries/pinter-agent-builder-canvas.png",
-        "/assets/pinter/galleries/pinter-chat.png",
-        "/assets/pinter/galleries/pinter-mcp-servers.png"
-      ],
-      "date": "2026",
-      "featured": true,
-      "details": [
-        "Architected the migration of a rigid, CLI-based agent prototype into a production-ready enterprise platform using Google Agent Development Kit (ADK) and custom FastAPI routes.",
-        "Designed and implemented the interactive Visual Canvas using React Flow (@xyflow/react) and TanStack Router, representing complex multi-agent topologies and connection graphs.",
-        "Engineered multi-agent orchestration supporting 4 native graph patterns: LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent.",
-        "Implemented real-time execution event tracing (tool_call, tool_response, agent_transfer, thinking) streamed to clients via Server-Sent Events (SSE).",
-        "Built hybrid RAG pipeline connecting Qdrant vector database with semantic chunking and enterprise document ingestion.",
-        "Integrated Model Context Protocol (MCP) server support (stdio and SSE transports) dynamically loaded from PostgreSQL configurations.",
-        "Implemented enterprise identity federation (IDENTIK SSO) with encrypted assertions, RBAC permissions, and AES-256 encrypted credential vaults.",
-        "Structured domain-partitioned architecture across 8 core domains (identity, agents, conversations, knowledge, integrations, evaluations, governance, content) with 142 automated backend test suites.",
-        "Built user token quota management with budget caps, daily/monthly request limits, and automated cost calculation across LLM providers via LiteLLM.",
-        "Integrated interactive data visualization blocks in chat including ECharts, Flint Chart, Mermaid diagrams, and KaTeX math formulas."
-      ],
-      "rationale": "Internal enterprise tool for Pupuk Indonesia Holding Company that democratizes AI agent creation for non-technical teams.",
-      "competencies": [
-        "AI Agent Orchestration",
-        "Visual Canvas Architecture",
-        "Framework Migration",
-        "Database Architecture (Async ORM)",
-        "API Design & SSE Streaming",
-        "MCP Protocol Integration",
-        "Cost & Quota Management"
-      ],
-      "technicalChallenges": [
-        "Executed a 3-phase framework migration from CrewAI to Google ADK without production downtime, using tool wrapping adapters in Phase 2 before full native rewrite in Phase 3.",
-        "Implemented async ORM rewrite with buffered execution tracing that flushes events in batches to avoid per-event DB writes that would kill streaming performance.",
-        "Designed a custom instruction merging strategy from CrewAI's 3-field (role/goal/backstory) model to ADK's 5-pattern instruction model (identity/mission/methodology/boundaries/examples)."
-      ],
-      "readiness": {
-        "tests": 80,
-        "docs": 75,
-        "quality": 85
-      }
-    },
-    {
       "slug": "nexus",
-      "title": "NEXUS Module Delta & Vista",
+      "title": "NEXUS (Arca, Delta & Vista)",
       "logo": "/assets/nexus/logo/nexus-logo.svg",
-      "description": "Enterprise logistics orchestration and automated pathfinding platform. Coordinates and automates Pupuk Indonesia's fertilizer distribution network across Indonesia through inventory tracking (Arca), contract-aware fleet/tariff audits (Delta), and full-screen geospatial pathfinding simulations (Vista).",
+      "description": "Enterprise logistics orchestration and automated pathfinding platform coordinating Pupuk Indonesia's fertilizer distribution network across Indonesia through warehouse inventory tracking across 122 facilities (Arca), contract-aware fleet/tariff audits (Delta), and full-screen geospatial pathfinding simulations (Vista).",
       "techStack": [
         "React 19",
         "FastAPI",
@@ -175,8 +338,89 @@
       ],
       "date": "2026",
       "featured": true,
+      "summary": "Enterprise logistics orchestration and automated pathfinding platform built for Pupuk Indonesia Holding Company to manage national bulk fertilizer distribution across maritime shipping lanes and overland transport corridors. Coordinates warehouse inventory balance across 122 facilities (Arca), carrier agreements and tariff audits (Delta), and Neo4j graph-based route simulations (Vista).",
+      "fiveWOneH": {
+        "who": "Architected and engineered by Aditya Vahlevy Nugraha for Pupuk Indonesia Holding Company.",
+        "what": "An integrated logistics operational control center combining warehouse stock tracking (Arca), contract tariff auditing (Delta), and graph-based route pathfinding (Vista).",
+        "when": "Developed throughout 2026.",
+        "where": "Deployed for Indonesian national bulk fertilizer distribution across maritime shipping lanes, ports, regional warehouses, and district kiosks.",
+        "why": "To eliminate manual freight calculations, detect shipping tariff anomalies against active carrier contracts, and calculate cost-minimal multi-hop transport corridors.",
+        "how": "Built using React 19, Bun workspaces, Rsbuild, TanStack Router, Tailwind CSS v4, Glide Data Grid, OpenLayers, FastAPI, SQLAlchemy asyncpg, Neo4j Cypher, and openpyxl."
+      },
+      "problemChangeResult": [
+        {
+          "problem": "Freight tariff audits for maritime and land bulk transport required reconciling disparate carrier contracts, manual spreadsheets, and complex rate tier formulas across distribution hubs.",
+          "change": "Engineered Delta's contract management engine with financial audit tables built on @glideapps/glide-data-grid and automated tariff calculation services.",
+          "result": "Automated contract tariff reconciliation and anomaly alerts against active agreements."
+        },
+        {
+          "problem": "Calculating multi-hop maritime shipping routes required manual route segment planning without live validation of carrier rates or fleet capacities.",
+          "change": "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop transport corridors evaluated in real-time in the Vista module.",
+          "result": "Visual multi-hop route simulations with live cost calculations evaluated against active carrier tariffs."
+        },
+        {
+          "problem": "High-density contract matrices caused browser sluggishness and rendering bottlenecks in standard DOM tables.",
+          "change": "Integrated @glideapps/glide-data-grid with virtualized canvas rendering and monospace typography.",
+          "result": "Smooth 60fps scrolling and immediate filtering over thousands of tariff line items."
+        }
+      ],
+      "beforeAfter": [
+        {
+          "measure": "Frontend build profiles",
+          "before": "Single static monolithic build",
+          "after": "Single-Repo Multi-Entry compile-time switches (APP_MODULE=delta port 3001 vs shell port 3000)",
+          "evidence": "projects/nexus/nexus-fe-module-a/README.md, rsbuild.config.ts"
+        },
+        {
+          "measure": "Warehouse tracking",
+          "before": "Disconnected inventory reports",
+          "after": "Arca inventory hub tracking physical stock across 122 facilities",
+          "evidence": "Commit dab13dc"
+        },
+        {
+          "measure": "Database schema isolation",
+          "before": "Unpartitioned tables",
+          "after": "Modular schema with delta_* table prefixes and write-isolation boundaries",
+          "evidence": "projects/nexus/nexus-be-module-a/README.md"
+        },
+        {
+          "measure": "Routing computation",
+          "before": "Manual multi-stop estimation",
+          "after": "Automated Cypher graph traversal across maritime and land corridors",
+          "evidence": "projects/nexus/nexus-be-module-a/[v2]_search_optimal_route.cypher"
+        }
+      ],
+      "keyDecisions": [
+        {
+          "decision": "Single-Repo Multi-Entry architecture",
+          "explanation": "Used Rsbuild environment variables (APP_MODULE=delta) to compile isolated sandboxes for individual modules during development while compiling a unified production build."
+        },
+        {
+          "decision": "Modular schema with table prefixes",
+          "explanation": "Implemented delta_* table prefixes with strict write-isolation rules so external modules treat contract data as read-only."
+        },
+        {
+          "decision": "Lazy Neo4j driver initialization",
+          "explanation": "Bypassed Neo4j connections when running standalone Delta to eliminate local development friction, instantiating the graph driver only when running Vista or the unified shell."
+        }
+      ],
+      "evidenceCommits": [
+        "bf69b4b",
+        "dab13dc",
+        "925aee5",
+        "3969317",
+        "495d080",
+        "b3d6b7f",
+        "d46f779",
+        "ab27479",
+        "c20047e",
+        "55b15f0",
+        "47b1c8d"
+      ],
+      "caseStudy": "NEXUS is the enterprise logistics orchestration platform developed for Pupuk Indonesia Holding Company to oversee national bulk fertilizer distribution across the Indonesian archipelago. Coordinating heavy maritime and overland logistics involves reconciling thousands of carrier contracts, tracking inventory across regional hubs, and determining optimal transit corridors. NEXUS integrates these functions across three complementary modules: Arca, Delta, and Vista. Arca tracks physical stock balances across 122 strategic warehouses down to district kiosks, providing visibility into supply surpluses and local shortages. Delta functions as the contractual and financial governance foundation, managing carrier rate tiers, vessel fleet registries, and shipping agreements. To audit high-density tariff data without UI degradation, Delta utilizes @glideapps/glide-data-grid with server-side validation against active contracts. Vista provides the geospatial pathfinding layer, querying Delta's verified tariffs to simulate multi-hop maritime and land shipping corridors through Neo4j graph traversals and Cypher queries.",
       "details": [
-        "Architected Single-Repo Multi-Entry frontend using Rsbuild and Bun, supporting compile-time profile switches (APP_MODULE=delta) between standalone Delta (port 3001) and unified shell (port 3000).",
+        "Architected Single-Repo Multi-Entry frontend using Rsbuild and Bun, supporting compile-time profile switches (APP_MODULE=delta) between standalone Delta (port 3001), Arca, and unified shell (port 3000).",
+        "Engineered Arca warehouse hub tracking physical stock balances and flow across 122 strategic warehouses down to district kiosks with surplus/deficit alerts.",
         "Engineered modular database architecture with delta_* table prefixes and strict write-isolation boundaries preventing cross-module corruption.",
         "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop maritime and land shipping corridors.",
         "Built high-performance financial audit tables using @glideapps/glide-data-grid and monospace typography for contract tariffs and vessel fleet capacities.",
@@ -188,6 +432,7 @@
       "rationale": "Internal enterprise logistics coordination and automated route pathfinding platform built for Pupuk Indonesia Holding Company to manage and optimize heavy bulk fertilizer distribution across the Indonesian archipelago.",
       "competencies": [
         "Logistics Routing Systems",
+        "Warehouse Inventory Tracking",
         "Database Schema Design",
         "Geospatial Web Canvas",
         "Accessibility Engineering",
