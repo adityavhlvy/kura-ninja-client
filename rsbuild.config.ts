@@ -61,7 +61,7 @@ export default defineConfig({
     define: publicVars,
   },
   html: {
-    title: "Aditya Vahlevy Nugraha - Kura Ninja | Portfolio & Projects",
+    title: "Aditya Vahlevy Nugraha - adityavhlvy | Portfolio & Projects",
     favicon: "./public/favicon.svg",
     template: "./index.html",
   },
