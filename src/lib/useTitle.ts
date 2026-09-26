@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-const SITE = "Aditya Vahlevy Nugraha, Kura Ninja";
+const SITE = "Aditya Vahlevy Nugraha, adityavhlvy";
 
 export function useTitle(page?: string) {
   useEffect(() => {

@@ -56,10 +56,10 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
         )}
       >
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-5 md:px-10">
-          <Link to="/" className="group mr-auto flex items-center gap-2.5" aria-label="Kura Ninja, home">
+          <Link to="/" className="group mr-auto flex items-center gap-2.5" aria-label="adityavhlvy, home">
             <ShellMark className="size-7" />
             <span className="text-[15px] font-semibold tracking-tight [font-variation-settings:'wdth'_112]">
-              Kura Ninja
+              adityavhlvy
             </span>
           </Link>
 

@@ -23,7 +23,7 @@ for (const dir of EXCLUDED_ASSET_DIRS) {
 }
 
 // Social card image lives at a stable path referenced by index.html meta tags.
-const portrait = join(PUBLIC_ASSETS, "profile-photos/professional-profile.png");
+const portrait = join(PUBLIC_ASSETS, "profile-photos/formal-casual.png");
 if (existsSync(portrait)) copyFileSync(portrait, join(PUBLIC_ASSETS, "profile.png"));
 
 const FILES = ["projects", "journey", "certifications", "profile"] as const;
