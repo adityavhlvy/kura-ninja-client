@@ -7,23 +7,19 @@
     "dev": "bun run scripts/sync-data.ts && rsbuild dev",
     "build": "bun run scripts/sync-data.ts && rsbuild build",
     "preview": "rsbuild preview",
+    "map": "bun run scripts/build-archipelago.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "knip": "knip"
   },
   "dependencies": {
-    "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "framer-motion": "^12.42.2",
-    "lucide-react": "^1.23.0",
-    "radix-ui": "^1.6.2",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-icons": "^5.7.0",
-    "react-router-dom": "^7.18.1",
-    "tailwind-merge": "^3.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "react-router-dom": "^7.18.1"
   },
   "devDependencies": {
     "@rsbuild/core": "^1.7.6",

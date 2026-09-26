@@ -1,25 +1,32 @@
 # Kura Ninja Client
 
-[![React 19](https://img.shields.io/badge/React-19-blue?logo=react)](https://react.dev/)
-[![Rsbuild](https://img.shields.io/badge/Rsbuild-1.x-ffd04b?logo=rspack)](https://rsbuild.dev/)
-[![Tailwind CSS 4](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?logo=tailwind-css)](https://tailwindcss.com/)
-[![Bun](https://img.shields.io/badge/Bun-runtime-f9f9f9?logo=bun)](https://bun.sh/)
+Personal portfolio of Aditya Vahlevy Nugraha, Software and AI Engineer working
+across geospatial analytics, AI agent orchestration, and fullstack engineering.
 
-Personal portfolio of **Aditya Vahlevy Nugraha** — Software & AI Engineer working across Geospatial Analytics, AI orchestration, and Fullstack engineering.
-
-A single-page app (Rsbuild + React Router, no server components) framed as a code editor: an explorer sidebar for navigation, a command palette (`Ctrl/⌘K`), and two themes — **Senja** (dark) and **Fajar** (light).
+A client-rendered React app built around one motif: Indonesia drawn as
+hexagonal map cells, which is also a turtle shell. The design system is in
+[`../DESIGN.md`](../DESIGN.md) and the content model in
+[`../PRODUCT.md`](../PRODUCT.md).
 
 ## Data
 
-Content is not hardcoded in the UI. `scripts/sync-data.ts` copies YAML from `../portfolio-data` into `src/data/*.json` on every `dev`/`build`:
+Content is never hardcoded in the UI. `scripts/sync-data.ts` runs before every
+`dev` and `build`:
 
 ```
-../portfolio-data/{projects,journey,certifications,profile}.yml  →  src/data/*.json
+../portfolio-data/{projects,journey,certifications,profile}.yml  ->  src/data/*.json
+../portfolio-data/assets/**                                      ->  public/assets/**
 ```
 
-Edit the YAML, not the generated JSON. `src/data/projects.ts` is the typed accessor for `projects.json`.
+Edit the YAML, not the generated JSON. `src/data/portfolio.ts` is the typed
+accessor layer and the only module views import data from. The
+`profile-photos/casual-photo-multi-direction` folder is excluded on purpose.
 
-## Getting Started
+The hero map comes from the province boundaries in `data/geospatial-data/`
+(gitignored, large). Regenerate it with `bun run map` after changing the grid
+size. The small output, `src/data/archipelago.json`, is committed.
+
+## Getting started
 
 ```bash
 bun install
@@ -30,29 +37,35 @@ bun run dev      # http://localhost:3000
 
 | Command | Purpose |
 | --- | --- |
-| `bun run dev` | Sync data + start Rsbuild dev server |
-| `bun run build` | Sync data + production build to `dist/` |
-| `bun run preview` | Preview the production build |
+| `bun run dev` | Sync data, then start the Rsbuild dev server |
+| `bun run build` | Sync data, then production build to `dist/` |
+| `bun run preview` | Serve the production build |
+| `bun run map` | Rebuild the hex map from the province CSV |
 | `bun run typecheck` | `tsc --noEmit` |
-| `bun run knip` | Report unused files, deps & exports |
+| `bun run knip` | Report unused files, deps, and exports |
 
 ## Stack
 
-- **Build**: Rsbuild + React 19 + TypeScript
-- **Routing**: React Router (client-side)
-- **Styling**: Tailwind CSS v4 (design tokens in `src/app/globals.css`)
-- **Motion**: Framer Motion
-- **UI**: Radix UI primitives + `cmdk` command palette (wrapped in `src/components/ui/`)
-- **Icons**: react-icons
+React 19, React Router 7, Rsbuild, Tailwind CSS 4, Framer Motion, `cmdk`, and
+Phosphor icons via `react-icons/pi`.
 
 ## Layout
 
 ```
 src/
-  app/         app shell (ClientLayout) + global styles
-  layout/      Header, Footer
-  components/  explorer sidebar, command palette, cards, motion primitives
-  view/        one folder per route (home, about, projects, certifications, contact)
-  data/        generated JSON + typed accessors
-scripts/       sync-data.ts
+  styles.css      tokens and base styles
+  App.tsx         routes, page transitions, command menu
+  layout/         Header, Footer
+  components/     ArchipelagoMap, ShellMark, Reveal, Lightbox, CommandMenu, ...
+  pages/          one file per route, home/ holds the home sections
+  data/           generated JSON + portfolio.ts accessors
+  lib/            theme, clipboard, media query, title hooks
+scripts/          sync-data.ts, build-archipelago.ts
 ```
+
+## Conventions
+
+- Square corners only. The hex is the one non-rectangular shape.
+- Colour comes from tokens (`bg-paper`, `text-mute`, `border-line`, `text-sea`).
+- Never attach a `scroll` listener. Use `useScroll` or `whileInView`.
+- No em-dash in any visible string.

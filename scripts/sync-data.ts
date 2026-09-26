@@ -1,57 +1,36 @@
-import { readFileSync, writeFileSync, mkdirSync, copyFileSync, existsSync } from "fs";
-import { join, dirname } from "path";
-import { fileURLToPath } from "url";
+import { cpSync, mkdirSync, copyFileSync, existsSync, readFileSync, writeFileSync, rmSync } from "node:fs";
+import { join, dirname } from "node:path";
+import { fileURLToPath } from "node:url";
 import { parse } from "yaml";
 
-// ESM path resolution
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const PORTFOLIO_DATA_DIR = join(__dirname, "../../portfolio-data");
-const SRC_DATA_DIR = join(__dirname, "../src/data");
-const PUBLIC_ASSETS_DIR = join(__dirname, "../public/assets");
+const DATA_DIR = join(__dirname, "../../portfolio-data");
+const SRC_DATA = join(__dirname, "../src/data");
+const PUBLIC_ASSETS = join(__dirname, "../public/assets");
 
-try {
-  mkdirSync(SRC_DATA_DIR, { recursive: true });
-  mkdirSync(join(PUBLIC_ASSETS_DIR, "profile-photos"), { recursive: true });
-} catch (e) {}
+// Excluded by explicit instruction: unused casual photo set.
+const EXCLUDED_ASSET_DIRS = ["casual-photo-multi-direction"];
 
-// Sync photo
-const srcPhoto = join(PORTFOLIO_DATA_DIR, "assets/profile-photos/professional-profile.png");
-const destPhoto1 = join(PUBLIC_ASSETS_DIR, "profile-photos/professional-profile.png");
-const destPhoto2 = join(PUBLIC_ASSETS_DIR, "profile.png");
-if (existsSync(srcPhoto)) {
-  try {
-    copyFileSync(srcPhoto, destPhoto1);
-    copyFileSync(srcPhoto, destPhoto2);
-    console.log("[Sync] Mirrored professional-profile.png to public assets.");
-  } catch (err) {
-    console.warn("[Sync] Warning copying photo:", err);
-  }
+mkdirSync(SRC_DATA, { recursive: true });
+
+// Mirror the whole asset tree so project galleries and logos stay in sync
+// with portfolio-data instead of being copied in by hand.
+cpSync(join(DATA_DIR, "assets"), PUBLIC_ASSETS, { recursive: true });
+for (const dir of EXCLUDED_ASSET_DIRS) {
+  rmSync(join(PUBLIC_ASSETS, "profile-photos", dir), { recursive: true, force: true });
 }
 
-const filesToSync = [
-  { yaml: "projects.yml", json: "projects.json" },
-  { yaml: "journey.yml", json: "journey.json" },
-  { yaml: "certifications.yml", json: "certifications.json" },
-  { yaml: "profile.yml", json: "profile.json" },
-];
+// Social card image lives at a stable path referenced by index.html meta tags.
+const portrait = join(PUBLIC_ASSETS, "profile-photos/professional-profile.png");
+if (existsSync(portrait)) copyFileSync(portrait, join(PUBLIC_ASSETS, "profile.png"));
 
-for (const file of filesToSync) {
-  try {
-    const yamlPath = join(PORTFOLIO_DATA_DIR, file.yaml);
-    const jsonPath = join(SRC_DATA_DIR, file.json);
-    
-    console.log(`[Sync] Reading ${file.yaml}...`);
-    const yamlContent = readFileSync(yamlPath, "utf-8");
-    const parsedData = parse(yamlContent);
-    
-    console.log(`[Sync] Writing ${file.json}...`);
-    writeFileSync(jsonPath, JSON.stringify(parsedData, null, 2), "utf-8");
-  } catch (err) {
-    console.error(`[Sync] Error syncing ${file.yaml}:`, err);
-    process.exit(1);
-  }
+const FILES = ["projects", "journey", "certifications", "profile"] as const;
+
+for (const name of FILES) {
+  const yaml = readFileSync(join(DATA_DIR, `${name}.yml`), "utf-8");
+  writeFileSync(join(SRC_DATA, `${name}.json`), JSON.stringify(parse(yaml), null, 2), "utf-8");
+  console.log(`[sync] ${name}.yml -> src/data/${name}.json`);
 }
 
-console.log("[Sync] Data sync complete!");
+console.log("[sync] assets mirrored to public/assets");

@@ -3,26 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja). Explore innovative web projects, software engineering skills, and creative works." />
-  <meta name="keywords" content="Aditya Vahlevy Nugraha, Kura Ninja, Software &amp; AI Engineer, Web Developer, Portfolio, React, TypeScript, Go, Full Stack Developer" />
+  <meta name="description" content="Portfolio of Aditya Vahlevy Nugraha (Kura Ninja), Software and AI Engineer at Pupuk Indonesia. Geospatial platforms, AI agent orchestration, and fullstack systems." />
   <meta name="author" content="Aditya Vahlevy Nugraha" />
-  <meta property="og:title" content="Aditya Vahlevy Nugraha - Kura Ninja | Portfolio & Projects" />
-  <meta property="og:description" content="Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja). Explore innovative web projects, software engineering skills, and creative works." />
+  <meta name="theme-color" content="#eceee9" media="(prefers-color-scheme: light)" />
+  <meta name="theme-color" content="#0e1113" media="(prefers-color-scheme: dark)" />
+  <meta property="og:title" content="Aditya Vahlevy Nugraha - Kura Ninja" />
+  <meta property="og:description" content="Software and AI Engineer at Pupuk Indonesia. Geospatial platforms, AI agent orchestration, and fullstack systems." />
   <meta property="og:url" content="https://kuraninja.vercel.app" />
-  <meta property="og:site_name" content="Kura Ninja Portfolio" />
+  <meta property="og:site_name" content="Kura Ninja" />
   <meta property="og:image" content="/assets/profile.png" />
-  <meta property="og:locale" content="id_ID" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Aditya Vahlevy Nugraha - Kura Ninja" />
-  <meta name="twitter:description" content="Welcome to the official portfolio of Aditya Vahlevy Nugraha (Kura Ninja)." />
   <meta name="twitter:image" content="/assets/profile.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Geist+Mono:wght@100..900&family=Bricolage+Grotesque:wght@200..800&family=Instrument+Serif&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <script>
+    // Resolve the theme before first paint so the wrong palette never flashes.
+    try {
+      var t = localStorage.getItem("theme");
+      if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = t;
+    } catch (e) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
 </head>
-<body class="antialiased">
+<body>
   <div id="root"></div>
 </body>
 </html>

@@ -61,12 +61,18 @@
           "problem": "Prototype agent system used rigid CLI scripts and CrewAI, making workflow editing inaccessible to non-engineers and causing execution bottlenecks.",
           "change": "Architected an interactive visual builder canvas with React Flow (@xyflow/react) supporting 4 native Google ADK graph patterns (LlmAgent, SequentialAgent, ParallelAgent, LoopAgent) with real-time SSE execution tracing.",
           "result": "Workflows visually editable and traced in real-time across tool calls, thinking states, agent transfers, and routing events."
-        },
-        {
-          "problem": "Per-event database writes for execution traces degraded streaming responsiveness during high-concurrency tool execution.",
-          "change": "Engineered async ORM with buffered SSE execution tracing that flushes events in batches to client streams.",
-          "result": "Maintained sub-second UI responsiveness and eliminated database write saturation during multi-agent task execution."
         }
+      ],
+      "contributions": [
+        "Engineered the TypeSafe Jev (System One) client: /systemone evaluation endpoint, shared connection pooling, calibrated confidence calculation, and intent encryption safety.",
+        "Implemented the Smart Router configuration UI with a confidence threshold slider (default 0.65), route mapping, and automated validation tests.",
+        "Built the inline chat trace that renders execution steps, thinking trees, tool executions, and smart routing probability bars in real time.",
+        "Implemented enterprise SSO (IDENTIK) with encrypted assertions, RBAC permissions, and external user identity backfills.",
+        "Supported the multi-agent orchestration architecture on Google ADK with buffered SSE streaming."
+      ],
+      "notMeasured": [
+        "Token cost savings before and after enabling smart routing in production.",
+        "Peak concurrent SSE stream capacity under enterprise workloads."
       ],
       "beforeAfter": [
         {
@@ -161,7 +167,7 @@
       "slug": "aegis-atlas",
       "title": "AeGIS Module Atlas",
       "logo": "/assets/aegis-atlas/logo/aegis-atlas-logo.webp",
-      "description": "A web-based geospatial intelligence platform built inside a multi-app frontend monorepo, designed to visualize complex spatial data layers across 3 administrative levels, featuring the GEO Mind AI-powered geospatial analysis panel.",
+      "description": "Geospatial fertilizer demand planning command center for Pupuk Indonesia. Combines agronomic soil layers, multi-stage crop calendars, and live stock audits across 34 provinces, with a client-side calculation engine and the GeoMind AI assistant.",
       "techStack": [
         "React 19",
         "Go Fiber v3",
@@ -216,8 +222,19 @@
         {
           "problem": "Overview database queries were duplicated across requests without explicit month date bounds.",
           "change": "Deduplicated queries with month date bounds and added headline insights service.",
-          "result": "Optimized database load and consistent monthly aggregated demand metrics."
+          "result": "Consistent monthly aggregated demand metrics from a single query path. Latency change not measured."
         }
+      ],
+      "contributions": [
+        "Implemented the client-side Fertilizer Demand Model engine, stage redistribution rules, and district joins, covered by 52 unit tests.",
+        "Built the Go Fiber v3 tile proxy with dual Basic and HMAC token authentication, token caching, upstream header forwarding, and a 1MB response limit.",
+        "Deduplicated overview database queries with explicit month date bounds and added the headline insights service.",
+        "Integrated the GeoMind AI assistant workspace with bidirectional map filtering and a live streaming SSE parser.",
+        "Restructured Atlas navigation into floating dock controls, full-screen demand table sheets, and responsive map toolbars."
+      ],
+      "notMeasured": [
+        "Database query latency before and after overview query deduplication.",
+        "Vector tile cache hit rate in production."
       ],
       "beforeAfter": [
         {
@@ -309,6 +326,7 @@
       "slug": "nexus",
       "title": "NEXUS (Arca, Delta & Vista)",
       "logo": "/assets/nexus/logo/nexus-logo.svg",
+      "logoLight": "/assets/nexus/logo/nexus-logo-light.svg",
       "description": "Enterprise logistics orchestration and automated pathfinding platform coordinating Pupuk Indonesia's fertilizer distribution network across Indonesia through warehouse inventory tracking across 122 facilities (Arca), contract-aware fleet/tariff audits (Delta), and full-screen geospatial pathfinding simulations (Vista).",
       "techStack": [
         "React 19",
@@ -357,12 +375,18 @@
           "problem": "Calculating multi-hop maritime shipping routes required manual route segment planning without live validation of carrier rates or fleet capacities.",
           "change": "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop transport corridors evaluated in real-time in the Vista module.",
           "result": "Visual multi-hop route simulations with live cost calculations evaluated against active carrier tariffs."
-        },
-        {
-          "problem": "High-density contract matrices caused browser sluggishness and rendering bottlenecks in standard DOM tables.",
-          "change": "Integrated @glideapps/glide-data-grid with virtualized canvas rendering and monospace typography.",
-          "result": "Smooth 60fps scrolling and immediate filtering over thousands of tariff line items."
         }
+      ],
+      "contributions": [
+        "Architected the Single-Repo Multi-Entry frontend with Rsbuild and Bun workspaces, decoupling the shell, Delta, Arca, and Vista modules over shared UI primitives.",
+        "Implemented the Arca warehouse hub module and the global authentication subsystem.",
+        "Developed configurable contract alert thresholds and wide tariff ordering in the Delta backend.",
+        "Built shared design system tokens, themes, password inputs, data tables, and Glide Data Grid integrations.",
+        "Configured CORS credentials support and automated Docker workspace manifest copying for reliable container builds."
+      ],
+      "notMeasured": [
+        "Route optimization latency against baseline algorithms.",
+        "Financial discrepancy amounts found through automated tariff audits."
       ],
       "beforeAfter": [
         {

@@ -1,272 +1,176 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import {
-  PiSunLight,
-  PiMoonLight,
-  PiMagnifyingGlassLight,
-  PiSpeakerHighLight,
-  PiSpeakerSimpleSlashLight,
-} from "react-icons/pi";
-import KuraTurtle from "../components/svg/KuraTurtle";
-import { playTick, playPop, isSoundEnabled, setSoundEnabled } from "@/lib/sound";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { PiListBold, PiMagnifyingGlassBold, PiMoonBold, PiSunBold, PiXBold } from "react-icons/pi";
+import clsx from "clsx";
+import { ShellMark } from "@/components/ShellMark";
+import { useTheme } from "@/lib/theme";
+import { ease } from "@/components/Reveal";
 
-interface HeaderProps {
-  onOpenCommandPalette?: () => void;
-}
-
-const NAV_LINKS = [
-  { path: "/", label: "Home" },
-  { path: "/projects", label: "Projects" },
-  { path: "/about", label: "About" },
-  { path: "/certifications", label: "Certifications" },
-  { path: "/contact", label: "Contact" },
+export const NAV = [
+  { to: "/projects", label: "Work" },
+  { to: "/about", label: "About" },
+  { to: "/certifications", label: "Credentials" },
+  { to: "/contact", label: "Contact" },
 ];
 
-export default function Header({ onOpenCommandPalette }: HeaderProps) {
+export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
+  const { theme, toggle } = useTheme();
   const { pathname } = useLocation();
-  const [theme, setTheme] = useState("senja");
-  const [soundOn, setSoundOn] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { scrollY } = useScroll();
+  const [hidden, setHidden] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Slide away while reading down, come back the moment the reader scrolls up.
+  useMotionValueEvent(scrollY, "change", (y) => {
+    const prev = scrollY.getPrevious() ?? 0;
+    setHidden(y > prev && y > 240);
+    setScrolled(y > 8);
+  });
+
+  useEffect(() => setMenuOpen(false), [pathname]);
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme") || "senja";
-    document.documentElement.setAttribute("data-theme", savedTheme);
-    setTheme(savedTheme);
-    setSoundOn(isSoundEnabled());
-  }, []);
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setMenuOpen(false);
+    document.addEventListener("keydown", onKey);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMobileMenuOpen(false);
-  }, [pathname]);
-
-  const toggleTheme = () => {
-    const next = theme === "senja" ? "fajar" : "senja";
-    document.documentElement.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-    setTheme(next);
-    playPop();
-  };
-
-  const toggleSound = () => {
-    const next = !soundOn;
-    setSoundOn(next);
-    setSoundEnabled(next);
-    if (next) playTick();
-  };
-
-  const isSenja = theme === "senja";
+  const isMac = typeof navigator !== "undefined" && /Mac|iPhone|iPad/.test(navigator.platform);
 
   return (
     <>
-      <header className="fixed top-3 left-0 right-0 z-50 flex justify-center px-4 pointer-events-none">
-        <nav
-          aria-label="Primary navigation"
-          className="pointer-events-auto w-full max-w-5xl rounded-full bg-card/85 backdrop-blur-2xl border border-border/80 px-3 sm:px-4 py-2 shadow-2xl shadow-black/15 flex items-center justify-between transition-all duration-300"
-        >
-          {/* Brand */}
-          <Link
-            to="/"
-            onClick={() => playTick()}
-            className="flex items-center gap-2 px-1 group"
-          >
-            <div className="relative flex items-center justify-center">
-              <KuraTurtle size={36} />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-mono text-xs font-black tracking-tight text-foreground group-hover:text-primary transition-colors">
-                kura-ninja
-              </span>
-              <span className="text-[9px] font-mono text-muted-foreground/75 tracking-wider hidden sm:block">
-                ADITYA VAHLEVY
-              </span>
-            </div>
+      <motion.header
+        animate={{ y: hidden && !menuOpen ? "-100%" : 0 }}
+        transition={{ duration: 0.45, ease }}
+        className={clsx(
+          "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
+          scrolled || menuOpen ? "border-line bg-paper" : "border-transparent bg-transparent",
+        )}
+      >
+        <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-5 md:px-10">
+          <Link to="/" className="group mr-auto flex items-center gap-2.5" aria-label="Kura Ninja, home">
+            <ShellMark className="size-7" />
+            <span className="text-[15px] font-semibold tracking-tight [font-variation-settings:'wdth'_112]">
+              Kura Ninja
+            </span>
           </Link>
 
-          {/* Desktop Nav Links */}
-          <div className="hidden md:flex items-center gap-1 bg-muted/40 p-1 rounded-full border border-border/40">
-            {NAV_LINKS.map((link) => {
-              const isActive =
-                link.path === "/"
-                  ? pathname === "/"
-                  : pathname.startsWith(link.path);
+          <nav aria-label="Primary" className="hidden md:block">
+            <ul className="flex items-center gap-1">
+              {NAV.map((item) => (
+                <li key={item.to}>
+                  <NavLink to={item.to} className="relative block px-3 py-2 text-sm">
+                    {({ isActive }) => (
+                      <>
+                        <span className={clsx("transition-colors", isActive ? "text-ink" : "text-mute hover:text-ink")}>
+                          {item.label}
+                        </span>
+                        {isActive && (
+                          <motion.span
+                            layoutId="nav-mark"
+                            className="absolute inset-x-3 -bottom-px h-0.5 bg-sea"
+                            transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                          />
+                        )}
+                      </>
+                    )}
+                  </NavLink>
+                </li>
+              ))}
+            </ul>
+          </nav>
 
-              return (
-                <Link
-                  key={link.path}
-                  to={link.path}
-                  onClick={() => playTick()}
-                  className={`relative px-3.5 py-1 text-xs font-mono tracking-tight transition-colors duration-200 select-none ${
-                    isActive
-                      ? "text-primary-foreground font-bold"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                >
-                  {isActive && (
-                    <motion.div
-                      layoutId="header-active-pill"
-                      className="absolute inset-0 rounded-full bg-primary"
-                      transition={{
-                        type: "spring",
-                        stiffness: 420,
-                        damping: 34,
-                      }}
-                    />
-                  )}
-                  <span className="relative z-10">{link.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-
-          {/* Action Controls */}
-          <div className="flex items-center gap-1.5 sm:gap-2">
-            {/* Sound Toggle */}
+          <div className="flex items-center gap-1">
             <button
               type="button"
-              onClick={toggleSound}
-              className={`flex items-center justify-center w-8 h-8 rounded-full border transition-all duration-200 cursor-pointer ${
-                soundOn
-                  ? "bg-primary/15 text-primary border-primary/40 shadow-xs"
-                  : "bg-muted/40 hover:bg-muted/80 text-muted-foreground hover:text-foreground border-border/60"
-              }`}
-              title={soundOn ? "Mute interactive audio" : "Enable interactive audio"}
-              aria-label={soundOn ? "Mute interactive audio" : "Enable interactive audio"}
+              onClick={onOpenCommand}
+              className="hidden h-9 items-center gap-2 border border-line px-3 text-sm text-mute transition-colors hover:border-ink hover:text-ink sm:flex"
             >
-              {soundOn ? (
-                <PiSpeakerHighLight size={15} />
-              ) : (
-                <PiSpeakerSimpleSlashLight size={15} />
-              )}
+              <PiMagnifyingGlassBold aria-hidden="true" />
+              <span>Jump to</span>
+              <kbd className="font-mono text-[11px]">{isMac ? "⌘K" : "Ctrl K"}</kbd>
             </button>
-
-            {/* Theme Toggle */}
             <button
               type="button"
-              onClick={toggleTheme}
-              className="flex items-center justify-center w-8 h-8 rounded-full bg-muted/40 hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border/60 transition-colors cursor-pointer"
-              title={`Switch to ${isSenja ? "Fajar (light theme)" : "Senja (dark theme)"}`}
-              aria-label="Toggle visual theme"
+              onClick={toggle}
+              aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+              className="grid size-9 place-items-center text-mute transition-colors hover:text-ink"
             >
               <AnimatePresence mode="wait" initial={false}>
-                <motion.div
+                <motion.span
                   key={theme}
                   initial={{ rotate: -90, opacity: 0 }}
                   animate={{ rotate: 0, opacity: 1 }}
                   exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
+                  transition={{ duration: 0.25 }}
                 >
-                  {isSenja ? (
-                    <PiSunLight size={15} className="text-primary" />
-                  ) : (
-                    <PiMoonLight size={15} className="text-primary" />
-                  )}
-                </motion.div>
+                  {theme === "dark" ? <PiSunBold aria-hidden="true" /> : <PiMoonBold aria-hidden="true" />}
+                </motion.span>
               </AnimatePresence>
             </button>
-
-            {/* Command Palette Button */}
             <button
               type="button"
-              onClick={() => {
-                playTick();
-                onOpenCommandPalette?.();
-              }}
-              className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-mono bg-muted/40 hover:bg-muted/80 text-muted-foreground hover:text-foreground border border-border/60 transition-colors cursor-pointer"
-              title="Search and actions (Ctrl+K)"
-              aria-label="Open command palette"
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              className="grid size-9 place-items-center md:hidden"
             >
-              <PiMagnifyingGlassLight size={13} className="shrink-0" />
-              <span className="text-[11px]">Command</span>
-              <kbd className="text-[9px] px-1 py-0.5 rounded bg-background/80 border border-border/60 text-muted-foreground leading-none">
-                ⌘K
-              </kbd>
-            </button>
-
-            {/* Mobile Hamburger Morph */}
-            <button
-              type="button"
-              onClick={() => {
-                playTick();
-                setMobileMenuOpen((prev) => !prev);
-              }}
-              className="md:hidden flex flex-col justify-center items-center w-8 h-8 rounded-full bg-muted/40 border border-border/60 cursor-pointer"
-              aria-label="Toggle menu"
-              aria-expanded={mobileMenuOpen}
-            >
-              <span
-                className={`w-3.5 h-[1.5px] bg-foreground transition-all duration-300 ${
-                  mobileMenuOpen ? "rotate-45 translate-y-[3.5px]" : "mb-1"
-                }`}
-              />
-              <span
-                className={`w-3.5 h-[1.5px] bg-foreground transition-all duration-300 ${
-                  mobileMenuOpen ? "-rotate-45 -translate-y-[2px]" : ""
-                }`}
-              />
+              {menuOpen ? <PiXBold aria-hidden="true" /> : <PiListBold aria-hidden="true" />}
             </button>
           </div>
-        </nav>
-      </header>
+        </div>
+      </motion.header>
 
-      {/* Mobile Menu Overlay */}
       <AnimatePresence>
-        {mobileMenuOpen && (
+        {menuOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed inset-x-4 top-20 z-40 md:hidden p-4 rounded-3xl bg-card/95 backdrop-blur-2xl border border-border shadow-2xl"
+            id="mobile-menu"
+            initial={{ clipPath: "inset(0 0 100% 0)" }}
+            animate={{ clipPath: "inset(0 0 0% 0)" }}
+            exit={{ clipPath: "inset(0 0 100% 0)" }}
+            transition={{ duration: 0.5, ease }}
+            className="fixed inset-0 z-30 flex flex-col bg-paper px-5 pt-24 pb-8 md:hidden"
           >
-            <div className="flex flex-col gap-2">
-              {NAV_LINKS.map((link, idx) => {
-                const isActive =
-                  link.path === "/"
-                    ? pathname === "/"
-                    : pathname.startsWith(link.path);
-
-                return (
-                  <motion.div
-                    key={link.path}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 }}
+            <nav aria-label="Mobile">
+              <ul className="space-y-1">
+                {[{ to: "/", label: "Home" }, ...NAV].map((item, i) => (
+                  <motion.li
+                    key={item.to}
+                    initial={{ opacity: 0, y: 24 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.12 + i * 0.05, duration: 0.5, ease }}
                   >
-                    <Link
-                      to={link.path}
-                      onClick={() => {
-                        playTick();
-                        setMobileMenuOpen(false);
-                      }}
-                      className={`flex items-center justify-between p-3 rounded-2xl text-sm font-mono transition-colors ${
-                        isActive
-                          ? "bg-primary text-primary-foreground font-bold"
-                          : "text-foreground/80 hover:bg-muted"
-                      }`}
+                    <NavLink
+                      to={item.to}
+                      end
+                      className={({ isActive }) =>
+                        clsx("display block py-2 text-5xl", isActive ? "text-sea" : "text-ink")
+                      }
                     >
-                      <span>{link.label}</span>
-                      <span className="text-xs opacity-60">→</span>
-                    </Link>
-                  </motion.div>
-                );
-              })}
-
-              <div className="mt-2 pt-3 border-t border-border/50 flex justify-between items-center px-1">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setMobileMenuOpen(false);
-                    onOpenCommandPalette?.();
-                  }}
-                  className="flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground"
-                >
-                  <PiMagnifyingGlassLight size={14} />
-                  <span>Command Palette (⌘K)</span>
-                </button>
-              </div>
-            </div>
+                      {item.label}
+                    </NavLink>
+                  </motion.li>
+                ))}
+              </ul>
+            </nav>
+            <button
+              type="button"
+              onClick={() => {
+                setMenuOpen(false);
+                onOpenCommand();
+              }}
+              className="mt-auto flex h-11 items-center gap-2 self-start border border-line px-4 text-sm text-mute"
+            >
+              <PiMagnifyingGlassBold aria-hidden="true" /> Jump to a project
+            </button>
           </motion.div>
         )}
       </AnimatePresence>

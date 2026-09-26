@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-09-26
+
+### Added
+- **Contour identity system**: elevation isolines as the site motif, generated
+  deterministically, used for the background field, the hero plate, and the
+  career elevation profile.
+- **Elevation journey rail**: horizontal snap rail on Home driven by
+  `journey.yml`, with an SVG profile line and scroll progress via `useScroll`.
+- **Reveal motion primitives** (`Reveal`, `RevealGroup`, `RevealItem`): single
+  place where `prefers-reduced-motion` is honoured.
+- **Typed data layer** (`src/data/portfolio.ts`): one accessor module for all
+  four YAML sources, replacing ad-hoc JSON imports.
+- **Asset mirroring**: `sync-data.ts` now copies the whole `portfolio-data/assets`
+  tree, excluding `profile-photos/casual-photo-multi-direction`.
+- **Accessible lightbox**: real dialog semantics, focus restore, Escape and
+  arrow keys, body scroll lock.
+- Pre-paint theme script, skip link, and a working empty state on the work index.
+
+### Changed
+- **Full visual redesign**: replaced the IDE/editor-shell language with a
+  contour-and-hairline system. Two radius values, flat panels, shadow reserved
+  for the header and lightbox.
+- **Typography**: Bricolage Grotesque display with same-family italic emphasis,
+  Geist body, Geist Mono for data. Instrument Serif dropped.
+- **Palette**: Senja and Fajar retuned to one accent each, contrast verified
+  against WCAG AA.
+- **Contact**: the fake form is gone. Mailto plus copy-to-clipboard with honest
+  failure feedback, since there is no backend.
+- **Credentials**: 28 items moved behind a per-category accordion.
+- Nav labels: Projects is now Work, Certifications is now Credentials.
+
+### Removed
+- Fake terminal hero, div-based product mockups, decorative background grid,
+  gradient and glow treatments, decorative status dots.
+- Dead components: `Background`, `JourneyMap`, `PageTransition`,
+  `InteractiveTerminal`, `HeroPortrait`, `FlagshipShowcase`, plus unused
+  `badge`/`tooltip` primitives and `playChime`.
+
 ## [0.1.0] - 2026-04-06
 
 ### Added

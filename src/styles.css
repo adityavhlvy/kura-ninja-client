@@ -1,0 +1,154 @@
+@import "tailwindcss";
+
+/* Dark mode follows the data-theme attribute set before paint in index.html. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-sunk: var(--sunk);
+  --color-ink: var(--ink);
+  --color-mute: var(--mute);
+  --color-line: var(--line);
+  --color-sea: var(--sea);
+  --color-on-sea: var(--on-sea);
+
+  --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Two neutrals and one accent per theme. The accent is "sea": the water
+   between the islands on the hero map, reused for links, focus, and the one
+   primary action per view. Contrast figures are against --paper. */
+:root,
+[data-theme="light"] {
+  --paper: #eceee9;
+  --sunk: #e1e4de;
+  --ink: #121518;
+  --mute: #4a5058; /* 6.9:1 */
+  --line: #c6cbc3;
+  --sea: #1f3fd1; /* 6.7:1 */
+  --on-sea: #ffffff;
+  --land-a: #2b3137;
+  --land-b: #525961;
+  --land-c: #7d848b;
+  color-scheme: light;
+}
+
+[data-theme="dark"] {
+  --paper: #0e1113;
+  --sunk: #161b1e;
+  --ink: #e7e9e4;
+  --mute: #9aa19b; /* 7.0:1 */
+  --line: #283034;
+  --sea: #8098ff; /* 7.1:1 */
+  --on-sea: #0e1113;
+  --land-a: #d4d8d2;
+  --land-b: #a3aaa4;
+  --land-c: #737b76;
+  color-scheme: dark;
+}
+
+@layer base {
+  html {
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    scroll-padding-top: 5rem;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-variation-settings: "wdth" 100;
+    min-height: 100dvh;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--sea);
+    color: var(--on-sea);
+  }
+  :focus-visible {
+    outline: 2px solid var(--sea);
+    outline-offset: 3px;
+  }
+  img {
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  /* Wide, heavy display voice. Archivo's width axis does the work a second
+     display family would otherwise do, so the page stays one family. */
+  .display {
+    font-variation-settings: "wdth" 118;
+    font-weight: 760;
+    letter-spacing: -0.035em;
+    line-height: 0.96;
+  }
+  .display em {
+    font-style: italic;
+    font-weight: 380;
+    font-variation-settings: "wdth" 100;
+    letter-spacing: -0.02em;
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: 1.2;
+    color: var(--mute);
+  }
+  .prose-body {
+    max-width: 64ch;
+    line-height: 1.65;
+    color: var(--mute);
+  }
+  .prose-body strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .hairline {
+    border-color: var(--line);
+  }
+  .link {
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--sea) 45%, transparent);
+    text-underline-offset: 0.2em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-color 160ms, color 160ms;
+  }
+  .link:hover {
+    color: var(--sea);
+    text-decoration-color: var(--sea);
+  }
+}
+
+/* Hero map: hexes surface west to east, like morning crossing the islands.
+   --d is set per hex from its column. */
+@keyframes surface {
+  from {
+    opacity: 0;
+    transform: translateY(6px) scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.hex-in {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: surface 700ms var(--ease-out-quint) both;
+  animation-delay: var(--d, 0ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+}
