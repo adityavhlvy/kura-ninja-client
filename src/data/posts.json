@@ -3,7 +3,7 @@
     {
       "slug": "smart-model-routing-with-jev",
       "title": "A triage step for AI models, built on Jev",
-      "date": "2026-09-29",
+      "date": "2026-09-26",
       "summary": "How I used TypeSafe's new System One model, Jev, to pick the right model for every message in PINTER, the trade-offs I chose, and what I would change next.",
       "cover": "/assets/smart-model-routing-with-jev/cover.png",
       "tags": [
