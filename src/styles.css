@@ -110,6 +110,120 @@
   .hairline {
     border-color: var(--line);
   }
+
+  /* Long-form blog body. The HTML comes from markdown, so elements are styled
+     by tag instead of utility classes. */
+  .prose-post {
+    max-width: 68ch;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--mute);
+  }
+  .prose-post > * + * {
+    margin-top: 1.25em;
+  }
+  .prose-post :is(h2, h3) {
+    color: var(--ink);
+    scroll-margin-top: 6rem;
+  }
+  .prose-post h2 {
+    font-variation-settings: "wdth" 118;
+    font-weight: 760;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    margin-top: 2.5em;
+  }
+  .prose-post h3 {
+    font-weight: 650;
+    font-size: 1.25rem;
+    margin-top: 2em;
+  }
+  .prose-post :is(strong, b) {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .prose-post a {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: color-mix(in oklab, var(--sea) 45%, transparent);
+    text-underline-offset: 0.2em;
+  }
+  .prose-post a:hover {
+    color: var(--sea);
+  }
+  .prose-post :is(ul, ol) {
+    padding-left: 1.25em;
+  }
+  .prose-post ul {
+    list-style: square;
+  }
+  .prose-post ol {
+    list-style: decimal;
+  }
+  .prose-post li + li {
+    margin-top: 0.4em;
+  }
+  .prose-post li::marker {
+    color: var(--sea);
+  }
+  .prose-post blockquote {
+    border-left: 2px solid var(--sea);
+    padding-left: 1.25em;
+    color: var(--ink);
+  }
+  .prose-post :not(pre) > code {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: var(--sunk);
+    padding: 0.1em 0.35em;
+  }
+  .prose-post pre {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    padding: 1.25rem;
+    overflow-x: auto;
+  }
+  .prose-post img {
+    border: 1px solid var(--line);
+    background: var(--sunk);
+  }
+  .prose-post figure {
+    margin-block: 2em;
+  }
+  /* Screenshots keep their natural size, so small or portrait shots are not
+     blown up past their pixels. */
+  .prose-post figure img {
+    height: auto;
+  }
+  .prose-post figcaption {
+    margin-top: 0.75em;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .prose-post hr {
+    border-color: var(--line);
+    margin-block: 2.5em;
+  }
+  .prose-post table {
+    display: block;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    border-collapse: collapse;
+  }
+  .prose-post :is(th, td) {
+    border-bottom: 1px solid var(--line);
+    padding: 0.6em 0.75em 0.6em 0;
+    text-align: left;
+  }
+  .prose-post th {
+    color: var(--ink);
+    font-weight: 600;
+  }
   .link {
     text-decoration: underline;
     text-decoration-color: color-mix(in oklab, var(--sea) 45%, transparent);

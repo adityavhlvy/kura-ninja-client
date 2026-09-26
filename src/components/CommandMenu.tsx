@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Command } from "cmdk";
-import { PiArrowUpRightBold, PiCopyBold, PiFileTextBold, PiMoonBold, PiSunBold } from "react-icons/pi";
-import { profile, projects } from "@/data/portfolio";
+import { PiArrowUpRightBold, PiCopyBold, PiFileTextBold, PiMoonBold, PiNotePencilBold, PiSunBold } from "react-icons/pi";
+import { posts, profile, projects } from "@/data/portfolio";
 import { setTheme } from "@/lib/theme";
 import { NAV } from "@/layout/Header";
 
@@ -68,6 +68,22 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
             </Command.Item>
           ))}
         </Command.Group>
+
+        {posts.length > 0 && (
+          <Command.Group heading="Posts" className={group}>
+            {posts.map((p) => (
+              <Command.Item
+                key={p.slug}
+                value={`post ${p.title} ${p.tags.join(" ")}`}
+                onSelect={run(() => navigate(`/blog/${p.slug}`))}
+                className={item}
+              >
+                <PiNotePencilBold aria-hidden="true" />
+                <span className="truncate">{p.title}</span>
+              </Command.Item>
+            ))}
+          </Command.Group>
+        )}
 
         <Command.Group heading="Actions" className={group}>
           <Command.Item value="copy email address" onSelect={run(() => navigator.clipboard?.writeText(profile.contact.email))} className={item}>

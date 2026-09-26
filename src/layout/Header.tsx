@@ -9,6 +9,7 @@ import { ease } from "@/components/Reveal";
 
 export const NAV = [
   { to: "/projects", label: "Work" },
+  { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/certifications", label: "Credentials" },
   { to: "/contact", label: "Contact" },

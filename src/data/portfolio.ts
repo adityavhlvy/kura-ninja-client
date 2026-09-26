@@ -5,6 +5,7 @@ import journeyJson from "./journey.json";
 import certificationsJson from "./certifications.json";
 import profileJson from "./profile.json";
 import archipelagoJson from "./archipelago.json";
+import postsJson from "./posts.json";
 
 export interface Project {
   slug: string;
@@ -87,6 +88,29 @@ export interface Archipelago {
   provinces: { code: string; name: string }[];
   hexes: [q: number, r: number, province: number][];
 }
+
+export interface Post {
+  slug: string;
+  title: string;
+  /** ISO date, YYYY-MM-DD. */
+  date: string;
+  summary: string;
+  cover?: string;
+  tags: string[];
+  /** Slug of the project this post is about, if any. */
+  project?: string;
+  minutes: number;
+  toc: { id: string; label: string }[];
+  /** Rendered at build time from our own markdown in portfolio-data/posts. */
+  html: string;
+}
+
+export const posts = (postsJson as { posts: Post[] }).posts;
+
+export const getPost = (slug?: string) => posts.find((p) => p.slug === slug);
+
+export const formatDate = (iso: string) =>
+  new Date(`${iso}T00:00:00`).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
 export const projects = (projectsJson as { projects: Project[] }).projects;
 export const journey = (journeyJson as { journey: JourneyNode[] }).journey;
