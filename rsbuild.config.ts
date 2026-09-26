@@ -5,7 +5,7 @@ import { pluginReact } from "@rsbuild/plugin-react";
 
 const { publicVars } = loadEnv({ prefixes: ["PUBLIC_"] });
 
-const SITE_URL = "https://kuraninja.vercel.app";
+const SITE_URL = "https://adityavhlvy.vercel.app";
 const DEFAULT_IMAGE = "/assets/profile.png";
 
 const escapeAttr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
