@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { PiListBold, PiMagnifyingGlassBold, PiMoonBold, PiSunBold, PiXBold } from "react-icons/pi";
 import clsx from "clsx";
-import { ShellMark } from "@/components/ShellMark";
+import { LogoMark } from "@/components/LogoMark";
 import { useTheme } from "@/lib/theme";
 import { ease } from "@/components/Reveal";
 
@@ -13,6 +13,7 @@ export const NAV = [
   { to: "/about", label: "About" },
   { to: "/certifications", label: "Credentials" },
   { to: "/contact", label: "Contact" },
+  { to: "/brand", label: "Brand" },
 ];
 
 export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
@@ -57,7 +58,7 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
       >
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-5 md:px-10">
           <Link to="/" className="group mr-auto flex items-center gap-2.5" aria-label="adityavhlvy, home">
-            <ShellMark className="size-7" />
+            <LogoMark className="size-7" />
             <span className="text-[15px] font-semibold tracking-tight [font-variation-settings:'wdth'_112]">
               adityavhlvy
             </span>

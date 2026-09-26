@@ -19,6 +19,20 @@ export function Reveal({
   );
 }
 
+// "*word*" becomes italic. Trailing punctuation after the closing star stays
+// upright, so "*typed*." and "*sensor*," work too.
+function emphasis(w: string) {
+  const m = /^\*(.+)\*([.,;:!?]?)$/.exec(w);
+  return m ? (
+    <>
+      <em>{m[1]}</em>
+      {m[2]}
+    </>
+  ) : (
+    w
+  );
+}
+
 /** Headline whose words rise out of a mask, one after another. */
 export function RiseWords({
   text,
@@ -45,7 +59,7 @@ export function RiseWords({
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease, delay: delay + i * 0.06 }}
             >
-              {/^\*.+\*$/.test(w) ? <em>{w.slice(1, -1)}</em> : w}
+              {emphasis(w)}
             </motion.span>
           </span>
           {i < words.length - 1 ? " " : ""}

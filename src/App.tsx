@@ -4,6 +4,7 @@ import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
 import { ease } from "./components/Reveal";
+import { SunLoader } from "./components/LogoMark";
 import Home from "./pages/Home";
 
 const CommandMenu = lazy(() =>
@@ -17,6 +18,7 @@ const Post = lazy(() => import("./pages/Post"));
 const About = lazy(() => import("./pages/About"));
 const Credentials = lazy(() => import("./pages/Credentials"));
 const Contact = lazy(() => import("./pages/Contact"));
+const Brand = lazy(() => import("./pages/Brand"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
@@ -59,7 +61,13 @@ export default function App() {
           transition={{ duration: 0.35, ease }}
           className="min-h-dvh"
         >
-          <Suspense fallback={<div className="min-h-dvh" aria-busy="true" />}>
+          <Suspense
+            fallback={
+              <div className="loader-wait grid min-h-dvh place-items-center" aria-busy="true">
+                <SunLoader className="size-14" label="Loading page" />
+              </div>
+            }
+          >
             <Routes location={location}>
               <Route path="/" element={<Home />} />
               <Route path="/projects" element={<Work />} />
@@ -69,6 +77,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/certifications" element={<Credentials />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/brand" element={<Brand />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

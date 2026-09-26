@@ -8,6 +8,7 @@
     "build": "bun run scripts/sync-data.ts && rsbuild build",
     "preview": "rsbuild preview",
     "map": "bun run scripts/build-archipelago.ts",
+    "brand": "bun run scripts/build-brand.ts",
     "typecheck": "tsc --noEmit",
     "lint": "eslint",
     "knip": "knip"

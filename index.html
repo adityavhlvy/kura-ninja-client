@@ -16,6 +16,8 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://adityavhlvy.vercel.app/assets/profile.png" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900;1,62..125,100..900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -31,6 +33,12 @@
   </script>
 </head>
 <body>
-  <div id="root"></div>
+  <!-- Shown until React mounts and replaces it. The loader follows the OS
+       theme and holds still under reduced motion. -->
+  <div id="root">
+    <div style="display:grid;place-items:center;min-height:100dvh" role="status" aria-label="Loading">
+      <img src="/brand/loader.svg" width="56" height="56" alt="" />
+    </div>
+  </div>
 </body>
 </html>

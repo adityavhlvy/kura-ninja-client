@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { profile } from "@/data/portfolio";
-import { ShellMark } from "@/components/ShellMark";
+import { LogoMark } from "@/components/LogoMark";
 import { NAV } from "./Header";
 
 export function Footer() {
@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto grid max-w-[1440px] gap-10 px-5 py-12 md:grid-cols-[1.4fr_1fr_1fr] md:px-10">
         <div className="space-y-4">
           <Link to="/" className="group inline-flex items-center gap-2.5">
-            <ShellMark className="size-6" />
+            <LogoMark className="size-6" />
             <span className="font-semibold">{bio.name}</span>
           </Link>
           <p className="max-w-xs text-sm text-mute">{philosophy.vibe_quote}</p>
