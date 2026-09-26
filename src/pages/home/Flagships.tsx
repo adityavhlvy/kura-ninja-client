@@ -35,6 +35,7 @@ function Chapter({ project, onEnter }: { project: Project; onEnter: () => void }
         src={project.image}
         alt={`${project.title}, main screen`}
         loading="lazy"
+        decoding="async"
         className="mb-8 aspect-[16/10] w-full border border-line object-cover object-top lg:hidden"
       />
       <Reveal>
@@ -122,7 +123,7 @@ export function Flagships() {
                       shot === i ? "border-sea" : "border-line opacity-60 hover:opacity-100",
                     )}
                   >
-                    <img src={src} alt="" loading="lazy" className="size-full object-cover object-top" />
+                    <img src={src} alt="" loading="lazy" decoding="async" className="size-full object-cover object-top" />
                   </button>
                 ))}
               </div>

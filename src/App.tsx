@@ -1,11 +1,14 @@
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
-import { CommandMenu } from "./components/CommandMenu";
 import { ease } from "./components/Reveal";
 import Home from "./pages/Home";
+
+const CommandMenu = lazy(() =>
+  import("./components/CommandMenu").then((m) => ({ default: m.CommandMenu })),
+);
 
 const Work = lazy(() => import("./pages/Work"));
 const CaseStudy = lazy(() => import("./pages/CaseStudy"));
@@ -20,6 +23,17 @@ export default function App() {
   const location = useLocation();
   const [commandOpen, setCommandOpen] = useState(false);
 
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setCommandOpen((o) => !o);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, []);
+
   return (
     <MotionConfig reducedMotion="user">
       <a
@@ -29,7 +43,11 @@ export default function App() {
         Skip to content
       </a>
       <Header onOpenCommand={() => setCommandOpen(true)} />
-      <CommandMenu open={commandOpen} onOpenChange={setCommandOpen} />
+      {commandOpen && (
+        <Suspense fallback={null}>
+          <CommandMenu open={commandOpen} onOpenChange={setCommandOpen} />
+        </Suspense>
+      )}
 
       <AnimatePresence mode="wait" onExitComplete={() => window.scrollTo(0, 0)}>
         <motion.main

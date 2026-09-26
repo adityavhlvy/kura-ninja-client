@@ -26,6 +26,7 @@ function Card({ project, wide }: { project: Project; wide: boolean }) {
           src={project.image}
           alt={`${project.title}, main screen`}
           loading="lazy"
+          decoding="async"
           className={clsx(
             "w-full object-cover object-top transition-transform duration-700 ease-out-quint group-hover:scale-[1.03]",
             wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]",

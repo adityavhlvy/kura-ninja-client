@@ -214,6 +214,7 @@ function Gallery({ project }: { project: Project }) {
         src={src}
         alt=""
         loading={i ? "lazy" : "eager"}
+        decoding="async"
         className="size-full object-cover object-top transition-transform duration-700 ease-out-quint group-hover:scale-[1.02]"
       />
     </motion.button>

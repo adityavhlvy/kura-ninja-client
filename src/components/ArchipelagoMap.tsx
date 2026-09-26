@@ -96,7 +96,8 @@ export function ArchipelagoMap({
     mx.set(pt.x);
     my.set(pt.y);
     radius.set(150);
-    pick(cellAt(pt.x, pt.y)?.p ?? null);
+    const cell = cellAt(pt.x, pt.y);
+    pick(cell ? cell.p : null);
   };
 
   const onLeave = () => {

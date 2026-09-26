@@ -42,6 +42,7 @@ export default function Blog() {
                           src={p.cover}
                           alt=""
                           loading="lazy"
+                          decoding="async"
                           className="aspect-[40/21] w-full object-cover transition-transform duration-700 ease-out-quint group-hover:scale-[1.03]"
                         />
                       </div>

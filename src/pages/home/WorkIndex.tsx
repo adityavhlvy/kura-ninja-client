@@ -76,6 +76,7 @@ export function WorkIndex() {
               animate={{ opacity: 1, scale: 1, rotate: 0 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
+              decoding="async"
               className="absolute top-6 left-6 aspect-[4/3] w-72 border border-line object-cover shadow-[0_20px_50px_-20px_rgb(18_21_24/0.45)]"
             />
           )}
