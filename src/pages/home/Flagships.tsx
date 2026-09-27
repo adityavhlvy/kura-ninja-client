@@ -79,7 +79,7 @@ export function Flagships() {
         />
         <Reveal delay={0.2}>
           <p className="prose-body mt-6 text-lg">
-            Fertilizer demand, AI agents, and national logistics. The figures below are the ones the repositories can
+            AI agents orchestration, geospatial fertilizer demand dashboard, and national logistics. The figures below are the ones the repositories can
             back up. Anything not yet measured says so on the case study.
           </p>
         </Reveal>

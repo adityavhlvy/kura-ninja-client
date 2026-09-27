@@ -158,19 +158,19 @@ const NAME: { part: Part; key: string; word: string; body: string }[] = [
     part: "sun",
     key: "A",
     word: "Aditya",
-    body: "Sanskrit for the sun. It is the first name and the largest shape, so the whole mark is a disc.",
+    body: "Sanskrit for the sun. It is the first name and the largest shape, a radiant solar disc with eight Surya rays radiating across cardinal and diagonal axes.",
   },
   {
     part: "v",
     key: "V",
     word: "Vahlevy",
-    body: "Cut out of the sun, not drawn on top of it. The two arms close on one cell, the way a good analysis narrows a whole scene down to one answer.",
+    body: "Cut out of the sun, not drawn on top of it. The two arms narrow focus down to the water, the way a good analysis narrows a whole scene down to one answer.",
   },
   {
     part: "core",
     key: "N",
     word: "Nugraha",
-    body: "From the Sanskrit anugraha, a gift or grace, anugerah in Indonesian. It is the one cell that is not sun: sea, at the centre, where the V lands.",
+    body: "From the Sanskrit anugraha, a gift or grace, anugerah in Indonesian. It is the deep ocean basin at the centre where the V converges.",
   },
   {
     part: "pixel",
@@ -205,16 +205,25 @@ function NameMark({ part }: { part: Part | null }) {
         className="fill-sea"
         style={{ opacity: part === "v" ? 1 : 0, transition: "opacity 300ms" }}
       />
-      <rect
-        x={MID}
-        y={MID}
-        width={1}
-        height={1}
-        className="fill-sea"
-        style={{ opacity: dim(part === "core" || part === "v"), transition: "opacity 300ms" }}
-      />
+      <g style={{ opacity: dim(part === "core" || part === "v"), transition: "opacity 300ms" }}>
+        {SUN.filter((c) => c.core).map((c) => (
+          <rect
+            key={`${c.x}-${c.y}`}
+            x={c.x}
+            y={c.y}
+            width={1.02}
+            height={1.02}
+            className="fill-sea"
+          />
+        ))}
+      </g>
       {part === "core" && (
-        <rect x={MID - 0.35} y={MID - 0.35} width={1.7} height={1.7} fill="none" className="stroke-sea" strokeWidth={0.08} />
+        <path
+          d={cellsPath(SUN.filter((c) => c.core))}
+          fill="none"
+          className="stroke-sea"
+          strokeWidth={0.08}
+        />
       )}
     </svg>
   );
@@ -274,11 +283,11 @@ type Guide = "grid" | "disc" | "v" | "core" | "space" | "size";
 
 const RULES: { guide: Guide; title: string; body: string }[] = [
   { guide: "grid", title: `${N} × ${N} grid`, body: "An odd count, so one cell sits exactly at the centre." },
-  { guide: "disc", title: "Disc", body: `A cell is sun when its centre lies within ${MID + 0.6} cells of the centre. The extra 0.6 keeps the rim round without stray corner pixels.` },
-  { guide: "v", title: "V", body: "Climbs from the centre at 45°, one cell wide, and stops before the rim, so the outline never breaks." },
-  { guide: "core", title: "Core", body: "The centre cell is sea. It is the only colour in the mark." },
+  { guide: "disc", title: "Solar corona", body: "A solar disc with eight radiating Surya rays across cardinal and diagonal axes, evoking the celestial and geospatial emblem of Nusantara." },
+  { guide: "v", title: "V", body: "Climbs from the centre at 45°, one cell wide, guiding focus down into the core." },
+  { guide: "core", title: "Ocean basin", body: "The centre is sea, forming a three-tier deep ocean basin. It is the only colour in the mark." },
   { guide: "space", title: "Clear space", body: "Two cells on every side. Nothing else enters it, including the wordmark." },
-  { guide: "size", title: "Smallest size", body: "16 px on screen, 8 mm in print. From 32 px up each cell is at least 2 px wide and the V reads cleanly." },
+  { guide: "size", title: "Smallest size", body: "16 px on screen, 8 mm in print. The eight rays and three-tier sea basin stay bold and crisp even at favicon size." },
 ];
 
 function ConstructionSection() {
@@ -306,9 +315,13 @@ function ConstructionSection() {
                 </g>
               ))}
             </g>
-            <rect x={MID} y={MID} width={1} height={1} className="fill-sea" style={{ opacity: show("core") ? 1 : 0.25, ...fade }} />
+            <path
+              d={cellsPath(SUN.filter((c) => c.core))}
+              className="fill-sea"
+              style={{ opacity: show("core") ? 1 : 0.25, ...fade }}
+            />
 
-            <circle cx={N / 2} cy={N / 2} r={MID + 0.6} fill="none" className="stroke-sea" strokeWidth={0.07} strokeDasharray="0.3 0.2" style={{ opacity: g === "disc" ? 1 : 0, ...fade }} />
+            <circle cx={N / 2} cy={N / 2} r={MID * 0.95} fill="none" className="stroke-sea" strokeWidth={0.07} strokeDasharray="0.3 0.2" style={{ opacity: g === "disc" ? 1 : 0, ...fade }} />
             <polyline
               points={`${V_TOP + 0.5},${V_TOP + 0.5} ${N / 2},${N / 2} ${N - V_TOP - 0.5},${V_TOP + 0.5}`}
               fill="none"
@@ -317,7 +330,7 @@ function ConstructionSection() {
               style={{ opacity: g === "v" ? 1 : 0, ...fade }}
             />
             <path d={cellsPath(CUT)} className="fill-sea" style={{ opacity: g === "v" ? 0.35 : 0, ...fade }} />
-            <rect x={MID - 0.3} y={MID - 0.3} width={1.6} height={1.6} fill="none" className="stroke-sea" strokeWidth={0.08} style={{ opacity: g === "core" ? 1 : 0, ...fade }} />
+            <path d={cellsPath(SUN.filter((c) => c.core))} fill="none" className="stroke-sea" strokeWidth={0.08} style={{ opacity: g === "core" ? 1 : 0, ...fade }} />
             <g style={{ opacity: g === "space" ? 1 : 0, ...fade }}>
               <rect x={-2} y={-2} width={N + 4} height={N + 4} fill="none" className="stroke-sea" strokeWidth={0.07} strokeDasharray="0.3 0.2" />
               <rect x={-2} y={MID} width={2} height={1} className="fill-sea" opacity={0.35} />
@@ -328,7 +341,7 @@ function ConstructionSection() {
                 {N} cells
               </text>
               <text x={N / 2 + 0.3} y={N / 2 - MID - 0.5} style={{ opacity: g === "disc" ? 1 : 0, ...fade }}>
-                r = {MID + 0.6}
+                r = {(MID * 0.95).toFixed(1)}
               </text>
               <text x={-2} y={-2.4} style={{ opacity: g === "space" ? 1 : 0, ...fade }}>
                 2 cells
