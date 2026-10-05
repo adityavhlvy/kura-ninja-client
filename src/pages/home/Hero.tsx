@@ -23,63 +23,59 @@ export function Hero() {
 
   return (
     <section ref={ref} className="relative isolate flex min-h-[100svh] flex-col overflow-hidden pt-24">
-      <motion.div
-        style={{ y: textY, opacity: textOpacity }}
-        className="relative z-10 mx-auto w-full max-w-[1440px] px-5 md:px-10"
-      >
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-          className="mb-6 text-sm text-mute"
-        >
-          <span className="font-medium text-ink">{bio.name}</span>, {role} at {employer}
-        </motion.p>
+      <div className="mx-auto grid w-full max-w-[1440px] px-5 md:px-10 xl:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] xl:items-end xl:gap-12">
+        <motion.div style={{ y: textY, opacity: textOpacity }} className="relative z-10">
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+            className="mb-6 text-sm text-mute"
+          >
+            <span className="font-medium text-ink">{bio.name}</span>, {role} at {employer}
+          </motion.p>
 
-        <RiseWords
-          as="h1"
-          text={headline}
-          delay={0.15}
-          className="display max-w-[14ch] text-[clamp(3rem,8.4vw,8rem)]"
-        />
+          <RiseWords
+            as="h1"
+            text={headline}
+            delay={0.15}
+            className="display max-w-[18ch] text-[clamp(2.75rem,5.2vw,6rem)]"
+          />
 
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease, delay: 0.7 }}
-          className="mt-8 flex max-w-md flex-col gap-7"
-        >
-          <p className="text-lg leading-snug text-mute">{rest.join(" ")}</p>
-          <div className="flex flex-wrap gap-3">
-            <a href="#work" className={buttonClass("primary")}>
-              <Roll>See the work</Roll>
-            </a>
-            <a href={`mailto:${contact.email}`} className={buttonClass("outline")}>
-              <Roll>Email me</Roll>
-            </a>
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease, delay: 0.7 }}
+            className="mt-8 flex max-w-md flex-col gap-7"
+          >
+            <p className="text-lg leading-snug text-mute">{rest.join(" ")}</p>
+            <div className="flex flex-wrap gap-3">
+              <a href="#work" className={buttonClass("primary")}>
+                <Roll>See the work</Roll>
+              </a>
+              <a href={`mailto:${contact.email}`} className={buttonClass("outline")}>
+                <Roll>Email me</Roll>
+              </a>
+            </div>
+          </motion.div>
+        </motion.div>
+
+        <motion.div style={{ y: mapY }} className="relative mt-10 w-full px-2 md:px-0 xl:mt-0 xl:self-end">
+          <ArchipelagoMap onProvince={setProvince} className="h-auto w-full touch-pan-y" />
+          <div className="mx-3 mt-4 flex h-5 items-baseline justify-end gap-3 font-mono text-xs text-mute md:mx-0">
+            {province ? (
+              <>
+                <span className="text-sea">{province.code}</span>
+                <span className="text-ink">{province.name}</span>
+                <span>{province.cells} cells</span>
+              </>
+            ) : (
+              <span>
+                {archipelago.provinces.length} provinces, {archipelago.hexes.length.toLocaleString("en")} cells. Point at one.
+              </span>
+            )}
           </div>
         </motion.div>
-      </motion.div>
-
-      <motion.div
-        style={{ y: mapY }}
-        className="relative mt-10 w-full px-2 md:absolute md:right-6 md:bottom-[9vh] md:mt-0 md:w-[64vw] md:px-0 lg:right-10 lg:w-[60vw]"
-      >
-        <ArchipelagoMap onProvince={setProvince} className="h-auto w-full touch-pan-y" />
-        <div className="mx-3 mt-4 flex h-5 items-baseline justify-end gap-3 font-mono text-xs text-mute md:mx-0">
-          {province ? (
-            <>
-              <span className="text-sea">{province.code}</span>
-              <span className="text-ink">{province.name}</span>
-              <span>{province.cells} cells</span>
-            </>
-          ) : (
-            <span>
-              {archipelago.provinces.length} provinces, {archipelago.hexes.length.toLocaleString("en")} cells. Point at one.
-            </span>
-          )}
-        </div>
-      </motion.div>
+      </div>
     </section>
   );
 }
