@@ -52,13 +52,13 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
         animate={{ y: hidden && !menuOpen ? "-100%" : 0 }}
         transition={{ duration: 0.45, ease }}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
-          scrolled || menuOpen ? "border-line bg-paper" : "border-transparent bg-transparent",
+          "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
+          scrolled || menuOpen ? "bg-paper" : "bg-transparent",
         )}
       >
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-5 md:px-10">
           <Link to="/" className="group mr-auto flex items-center gap-2.5" aria-label="adityavhlvy, home">
-            <LogoMark className="size-7" />
+            <LogoMark className="w-12" />
             <span className="text-[15px] font-semibold tracking-tight [font-variation-settings:'wdth'_112]">
               adityavhlvy
             </span>
@@ -93,11 +93,11 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
             <button
               type="button"
               onClick={onOpenCommand}
-              className="hidden h-9 items-center gap-2 border border-line px-3 text-sm text-mute transition-colors hover:border-ink hover:text-ink sm:flex"
+              className="hidden h-9 items-center gap-2 bg-sunk px-3 text-sm whitespace-nowrap text-mute transition-colors hover:bg-ink hover:text-paper sm:flex"
             >
               <PiMagnifyingGlassBold aria-hidden="true" />
-              <span>Jump to</span>
-              <kbd className="font-mono text-[11px]">{isMac ? "⌘K" : "Ctrl K"}</kbd>
+              <span className="hidden lg:inline">Jump to</span>
+              <kbd className="font-sans text-[13px]">{isMac ? "⌘K" : "Ctrl K"}</kbd>
             </button>
             <button
               type="button"

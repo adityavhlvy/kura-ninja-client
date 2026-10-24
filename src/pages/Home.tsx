@@ -1,12 +1,12 @@
 import { Hero } from "./home/Hero";
 import { Flagships } from "./home/Flagships";
 import { WorkIndex } from "./home/WorkIndex";
-import { Journey } from "./home/Journey";
-import { Philosophy } from "./home/Philosophy";
-import { EmailBlock } from "@/components/EmailBlock";
-import { Reveal } from "@/components/Reveal";
+import { AboutBrief } from "./home/AboutBrief";
+import { WriteTo } from "./home/WriteTo";
 import { useTitle } from "@/lib/useTitle";
 
+// Who and what under the pinned name, the three platforms as full screens,
+// the rest as a line-up, the short story, and the address as the close.
 export default function Home() {
   useTitle();
   return (
@@ -14,14 +14,8 @@ export default function Home() {
       <Hero />
       <Flagships />
       <WorkIndex />
-      <Journey />
-      <Philosophy />
-      <section className="mx-auto max-w-[1440px] px-5 py-28 md:px-10 md:py-40">
-        <Reveal>
-          <h2 className="mb-6 text-lg text-mute">Working on something with maps, agents, or both?</h2>
-          <EmailBlock />
-        </Reveal>
-      </section>
+      <AboutBrief />
+      <WriteTo />
     </>
   );
 }
