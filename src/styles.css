@@ -256,110 +256,46 @@
   animation-delay: var(--d, 0ms);
 }
 
-/* The mark: the sun as a satellite records it (see /brand).
-   Arrival: rows scan in top to bottom once behind a sea sweep line, the way
-   a push-broom sensor builds an image. Hover or keyboard focus: a ripple
-   leaves the sea core and every pixel dips, so the grid shows itself.
-   Loading: the only loop, because loading is a real, ongoing state.
-   Per cell: --row (0..1 top to bottom), --dist (0..1 from the core).
-   Per sweep line: --span (grid size in user units). */
-@keyframes sun-in {
+/* The mark: AVN written as one zigzag plus a wave (see /brand).
+   Arrival: a mask runs the spine so the zigzag writes itself once, then the
+   wave follows. Hover or keyboard focus: the wave redraws. Loading: the only
+   loop, a pen segment running the line over a faint copy. Paths that animate
+   carry pathLength=1, so every dash value below is a share of the path. */
+@keyframes avn-draw {
   from {
-    opacity: 0;
-    transform: scaleY(0.15);
+    stroke-dashoffset: 1;
   }
 }
-@keyframes sun-sweep {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
+@keyframes avn-load {
+  from {
+    stroke-dashoffset: 1.4;
   }
-  90% {
-    opacity: 1;
-  }
-  100% {
-    transform: translateY(var(--span));
-    opacity: 0;
+  to {
+    stroke-dashoffset: -1;
   }
 }
-@keyframes sun-ripple {
-  40% {
-    transform: scale(0.5);
-  }
-}
-@keyframes sun-load {
-  0%,
-  100% {
-    opacity: 0.14;
-  }
-  18%,
-  55% {
-    opacity: 1;
-  }
-}
-@keyframes sun-load-sweep {
-  0% {
-    transform: translateY(0);
-    opacity: 1;
-  }
-  70% {
-    transform: translateY(var(--span));
-    opacity: 1;
-  }
-  71%,
-  100% {
-    opacity: 0;
-  }
-}
-.sun-mark {
+.avn-mark {
   transition: transform 220ms var(--ease-out-quint);
 }
-.group:active .sun-mark {
-  transform: scale(0.92);
+.group:active .avn-mark {
+  transform: scale(0.94);
 }
-.sun-in,
-.sun-cell {
-  transform-box: fill-box;
-  transform-origin: center;
+.avn-mark.is-arriving .avn-trace {
+  stroke-dasharray: 1;
+  animation: avn-draw 720ms var(--ease-out-quint) 80ms both;
 }
-.sun-in {
-  animation: sun-in 420ms var(--ease-out-quint) both;
-  animation-delay: calc(var(--row) * 640ms + 80ms);
+.avn-mark.is-arriving .avn-wave,
+.avn-mark.is-replaying .avn-wave,
+.group:is(:hover, :focus-visible) .avn-wave {
+  stroke-dasharray: 1;
+  animation: avn-draw 640ms var(--ease-out-quint) both;
 }
-.sun-sweep {
-  opacity: 0;
-  animation: sun-sweep 720ms linear 80ms both;
+.avn-mark.is-arriving .avn-wave {
+  animation-delay: 520ms;
 }
-/* Seamless base: arrives once the scan finishes, hides during a ripple. */
-@keyframes sun-base-in {
-  from {
-    opacity: 0;
-  }
-}
-@keyframes sun-base-hide {
-  0%,
-  96% {
-    opacity: 0;
-  }
-}
-.sun-base-in {
-  animation: sun-base-in 1ms linear 820ms both;
-}
-.group:is(:hover, :focus-visible) .sun-cell,
-.sun-mark.is-rippling .sun-cell {
-  animation: sun-ripple 560ms var(--ease-out-quint) both;
-  animation-delay: calc(var(--dist) * 280ms);
-}
-.group:is(:hover, :focus-visible) .sun-base > *,
-.sun-mark.is-rippling .sun-base > * {
-  animation: sun-base-hide 840ms linear both;
-}
-.sun-load {
-  animation: sun-load 1.6s var(--ease-out-quint) infinite both;
-  animation-delay: calc(var(--row) * 1.12s);
-}
-.sun-load-sweep {
-  animation: sun-load-sweep 1.6s linear infinite;
+.avn-load {
+  stroke-dasharray: 0.4 1.6;
+  animation: avn-load 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
 }
 /* The page loader waits a beat, so fast routes never flash it. */
 @keyframes loader-wait {
@@ -373,12 +309,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   /* A 1ms infinite loop would strobe, so the loader holds still instead. */
-  .sun-load,
-  .sun-load-sweep {
+  .avn-load {
     animation: none !important;
-  }
-  .sun-load-sweep {
-    opacity: 0;
+    stroke-dasharray: none;
   }
   *,
   *::before,

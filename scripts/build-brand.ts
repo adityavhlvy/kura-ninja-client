@@ -1,11 +1,12 @@
 // Writes the static brand kit from the same geometry the site renders
-// (src/lib/sunPixel.ts). Run with `bun run brand`. SVGs are always written.
+// (src/lib/avnMark.ts). Run with `bun run brand`. SVGs are always written.
 // PNGs need ImageMagick (`magick`) on PATH and are skipped without it.
+// The mark is monochrome for now. Colour comes later.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { spawnSync } from "node:child_process";
-import { cellsPath, MARK_N, sunCells } from "../src/lib/sunPixel";
+import { CLEAR, FAVICON, MARK, PHI, SMALL } from "../src/lib/avnMark";
 
 const PUBLIC = join(dirname(fileURLToPath(import.meta.url)), "../public");
 const OUT = join(PUBLIC, "brand");
@@ -15,99 +16,226 @@ const INK = "#121518";
 const INK_DARK = "#e7e9e4";
 const PAPER = "#eceee9";
 const PAPER_DARK = "#0e1113";
-const SEA = "#1f3fd1";
-const SEA_DARK = "#8098ff";
+const GUIDE = "#8a908d";
 
-const cells = sunCells(MARK_N);
-const SUN = cellsPath(cells.filter((c) => !c.core));
-const CORE = cellsPath(cells.filter((c) => c.core));
-const N = MARK_N;
+type Mark = typeof MARK;
+const { H } = MARK;
+const n = (v: number) => +v.toFixed(3);
+const viewBox = (m: Mark) => `${m.box.x} ${m.box.y} ${m.box.w} ${m.box.h}`;
+
+/** Mark as fill + stroke. `cls` swaps the colour attributes for classes, for themed files. */
+const paths = (m: Mark, ink: string, cls = false) => {
+  const fill = cls ? `class="f"` : `fill="${ink}"`;
+  const stroke = cls ? `class="s"` : `stroke="${ink}"`;
+  const wave = m.wave ? `<path ${stroke} fill="none" stroke-width="${n(m.t)}" d="${m.wave}"/>` : "";
+  return `<path ${fill} d="${m.zig}"/>${wave}`;
+};
+
+/** The mark drawn `w` px wide with its top-left box corner at (x, y). */
+const place = (m: Mark, x: number, y: number, w: number, ink: string) => {
+  const k = w / m.box.w;
+  return `<g transform="translate(${n(x)} ${n(y)}) scale(${n(k)}) translate(${-m.box.x} ${-m.box.y})">${paths(m, ink)}</g>`;
+};
 
 const write = (name: string, svg: string) => {
   writeFileSync(join(name.startsWith("/") ? PUBLIC : OUT, name.replace(/^\//, "")), svg);
   console.log(`[brand] ${name}`);
 };
 
-// Favicon follows the OS theme. Half a cell of padding keeps it off the tab edge.
+const themed = `<style>.f{fill:${INK}}.s{stroke:${INK}}@media (prefers-color-scheme:dark){.f{fill:${INK_DARK}}.s{stroke:${INK_DARK}}}</style>`;
+
+// Favicon: the pixel-snapped ΛV. Follows the OS theme.
 write(
   "/favicon.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 ${N + 1} ${N + 1}" shape-rendering="crispEdges">
-  <style>.s{fill:${INK}}.c{fill:${SEA}}@media (prefers-color-scheme:dark){.s{fill:${INK_DARK}}.c{fill:${SEA_DARK}}}</style>
-  <path class="s" d="${SUN}"/><path class="c" d="${CORE}"/>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16">
+  ${themed}<path class="f" d="${FAVICON}"/>
 </svg>
 `,
 );
 
-write(
-  "mark.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${N} ${N}" width="512" height="512" shape-rendering="crispEdges">
-  <path fill="${INK}" d="${SUN}"/><path fill="${SEA}" d="${CORE}"/>
+const markFile = (m: Mark, ink: string) =>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox(m)}" width="${Math.round((512 * m.box.w) / m.box.h)}" height="512">
+  ${paths(m, ink)}
 </svg>
-`,
-);
+`;
+write("mark.svg", markFile(MARK, INK));
+write("mark-dark.svg", markFile(MARK, INK_DARK));
+write("mark-mono.svg", markFile(MARK, "currentColor"));
+write("mark-small.svg", markFile(SMALL, INK));
 
-write(
-  "mark-dark.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${N} ${N}" width="512" height="512" shape-rendering="crispEdges">
-  <path fill="${INK_DARK}" d="${SUN}"/><path fill="${SEA_DARK}" d="${CORE}"/>
-</svg>
-`,
-);
-
-// One colour for stamps, embossing, and watermarks. The core stays open, so
-// the centre still reads without the sea.
-write(
-  "mark-mono.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${N} ${N}" width="512" height="512" shape-rendering="crispEdges">
-  <path fill="currentColor" d="${SUN}"/>
-</svg>
-`,
-);
-
-// App icon: the mark on an ink tile, 2 cells of clear space. Corners stay
+// App icon: the main mark on a night tile, 1/φ of the tile wide. Corners stay
 // square. iOS and Android apply their own mask.
-const TILE = N + 4;
+const TILE = MARK.box.w * PHI;
 write(
   "app-icon.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${TILE} ${TILE}" width="512" height="512" shape-rendering="crispEdges">
-  <rect width="${TILE}" height="${TILE}" fill="${PAPER_DARK}"/>
-  <g transform="translate(2 2)"><path fill="${INK_DARK}" d="${SUN}"/><path fill="${SEA_DARK}" d="${CORE}"/></g>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${n(TILE)} ${n(TILE)}" width="512" height="512">
+  <rect width="${n(TILE)}" height="${n(TILE)}" fill="${PAPER_DARK}"/>
+  ${place(MARK, (TILE - MARK.box.w) / 2, (TILE - MARK.box.h) / 2, MARK.box.w, INK_DARK)}
 </svg>
 `,
 );
 
-// Lockup: mark plus the handle in Archivo. The text stays live, so it needs
-// Archivo installed to render true. Use the PNG where fonts are unknown.
-write(
-  "lockup.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${N * 6.2} ${N}" width="${Math.round(N * 6.2 * 16)}" height="${N * 16}">
-  <g shape-rendering="crispEdges"><path fill="${INK}" d="${SUN}"/><path fill="${SEA}" d="${CORE}"/></g>
-  <text x="${N + 1.6}" y="${N * 0.73}" fill="${INK}" font-family="Archivo, sans-serif" font-size="${N * 0.62}" font-weight="600" letter-spacing="-0.12" style="font-variation-settings:'wdth' 112">adityavhlvy</text>
+// Lockups. Cap height of the words is H/φ, so the mark stands φ times taller
+// than the capitals. Baselines align. Gap to the mark is the clear space.
+// Text stays live, so it needs Archivo to render true. textLength pins the
+// width so a fallback font cannot overflow. Widths were measured in Chromium
+// at 100 px, Archivo 600, wdth 112, tracking −3%. Re-measure if the type changes.
+const ARCHIVO_CAP = 0.686;
+const FS = H / PHI / ARCHIVO_CAP;
+const words = (text: string, at100: number, x: number, ink: string) =>
+  `<text x="${n(x)}" y="${H}" fill="${ink}" font-family="Archivo, sans-serif" font-size="${n(FS)}" font-weight="600" letter-spacing="${n(-0.03 * FS)}" textLength="${n((at100 / 100) * FS)}" style="font-variation-settings:'wdth' 112">${text}</text>`;
+const WORDS = { handle: { text: "adityavhlvy", at100: 554 }, name: { text: "Aditya Vahlevy Nugraha", at100: 1178 } };
+const lockup = ({ text, at100 }: { text: string; at100: number }, ink: string) => {
+  const x = MARK.box.x + MARK.box.w + CLEAR;
+  const w = MARK.box.w + CLEAR + (at100 / 100) * FS;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${MARK.box.x} ${MARK.box.y} ${n(w)} ${MARK.box.h}" width="${Math.round(w * 16)}" height="${Math.round(MARK.box.h * 16)}">
+  ${paths(MARK, ink)}
+  ${words(text, at100, x, ink)}
 </svg>
-`,
-);
+`;
+};
+write("lockup.svg", lockup(WORDS.handle, INK));
+write("lockup-name.svg", lockup(WORDS.name, INK));
+write("lockup-name-dark.svg", lockup(WORDS.name, INK_DARK));
 
-// Loader: rows light up top to bottom like a push-broom scanner, then fade
-// in the same order. It loops because loading is a real, ongoing state.
-const PERIOD = 1.6;
-const rowDelay = (y: number) => ((y / N) * PERIOD * 0.7).toFixed(3);
-const loaderCells = cells
-  .map((c) => `<rect x="${c.x}" y="${c.y}" width="1" height="1" class="${c.core ? "c" : "s"}" style="animation-delay:${rowDelay(c.y)}s"/>`)
-  .join("");
+// Loader: a pen segment runs the line over a faint copy. It loops because
+// loading is a real, ongoing state. Holds still under reduced motion.
+const TRACE_W = n(MARK.t * 4);
 write(
   "loader.svg",
-  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="-0.5 -0.5 ${N + 1} ${N + 1}" width="96" height="96" shape-rendering="crispEdges">
-  <style>
-    .s{fill:${INK}}.c{fill:${SEA}}.l{fill:${SEA}}
-    @media (prefers-color-scheme:dark){.s{fill:${INK_DARK}}.c,.l{fill:${SEA_DARK}}}
-    rect.s,rect.c{animation:scan ${PERIOD}s cubic-bezier(.22,1,.36,1) infinite both}
-    .l{animation:sweep ${PERIOD}s linear infinite}
-    @keyframes scan{0%{opacity:.14}18%{opacity:1}55%{opacity:1}100%{opacity:.14}}
-    @keyframes sweep{0%{transform:translateY(0);opacity:1}70%{transform:translateY(${N}px);opacity:1}71%,100%{opacity:0}}
-    @media (prefers-reduced-motion:reduce){rect.s,rect.c,.l{animation:none}.l{opacity:0}}
-  </style>
-  ${loaderCells}
-  <rect class="l" x="-0.5" y="-0.1" width="${N + 1}" height="0.2"/>
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${viewBox(MARK)}" width="96" height="${Math.round((96 * MARK.box.h) / MARK.box.w)}">
+  ${themed.replace(
+    "</style>",
+    `.l{stroke-dasharray:.4 1.6;animation:l 1.6s cubic-bezier(.65,0,.35,1) infinite}@keyframes l{from{stroke-dashoffset:1.4}to{stroke-dashoffset:-1}}@media (prefers-reduced-motion:reduce){.l{animation:none;stroke-dasharray:none}}</style>`,
+  )}
+  <mask id="m" maskUnits="userSpaceOnUse"><path class="l" d="${MARK.trace}" pathLength="1" fill="none" stroke="#fff" stroke-width="${TRACE_W}"/></mask>
+  <g opacity=".15">${paths(MARK, "", true)}</g>
+  <g mask="url(#m)">${paths(MARK, "", true)}</g>
+</svg>
+`,
+);
+
+/* ------------------------------------------------------------------ */
+/* Construction sheet: grid, guides, versions, light and dark tests    */
+/* ------------------------------------------------------------------ */
+
+const SHEET_W = 1600;
+const mono = `font-family="IBM Plex Mono, ui-monospace, monospace"`;
+const label = (x: number, y: number, s: string, fill = GUIDE, anchor = "start") =>
+  `<text x="${n(x)}" y="${n(y)}" ${mono} font-size="13" fill="${fill}" text-anchor="${anchor}">${s}</text>`;
+const line = (x1: number, y1: number, x2: number, y2: number, dash = "", w = 1) =>
+  `<line x1="${n(x1)}" y1="${n(y1)}" x2="${n(x2)}" y2="${n(y2)}" stroke="${GUIDE}" stroke-width="${w}"${dash ? ` stroke-dasharray="${dash}"` : ""}/>`;
+
+/** Construction drawing of one mark, `k` px per unit, box corner at (ox, oy). */
+function construction(m: Mark, ox: number, oy: number, k: number, full: boolean) {
+  const X = (u: number) => ox + (u - m.box.x) * k;
+  const Y = (v: number) => oy + (v - m.box.y) * k;
+  const x0 = m.box.x;
+  const x1 = m.box.x + m.box.w;
+  const out: string[] = [];
+
+  // Unit grid across the box.
+  for (let u = Math.ceil(x0); u <= x1; u++) out.push(line(X(u), Y(0), X(u), Y(H), "", 0.4));
+  for (let v = 0; v <= H; v++) out.push(line(X(x0), Y(v), X(x1), Y(v), "", 0.4));
+  out.push(place(m, X(x0), Y(m.box.y), m.box.w * k, INK));
+
+  // Cap, base, and overshoot lines.
+  out.push(line(X(x0) - 40, Y(0), X(x1) + 40, Y(0), "", 1), line(X(x0) - 40, Y(H), X(x1) + 40, Y(H), "", 1));
+  out.push(line(X(x0) - 40, Y(-m.o), X(x1) + 40, Y(-m.o), "3 3"), line(X(x0) - 40, Y(H + m.o), X(x1) + 40, Y(H + m.o), "3 3"));
+  out.push(label(X(x1) + 48, Y(0) + 4, "cap"), label(X(x1) + 48, Y(H) + 4, "base"));
+
+  // Spine and the fillet circles the wave is cut from.
+  out.push(
+    `<path d="${m.spine.map((p, i) => `${i ? "L" : "M"}${n(X(p.x))} ${n(Y(p.y))}`).join("")}" fill="none" stroke="${PAPER}" stroke-width="1" stroke-dasharray="4 3"/>`,
+  );
+  if (full) {
+    const off = m.r / Math.sin(Math.atan(m.slope));
+    m.spine.slice(1, -1).forEach((p) => {
+      const cy = p.y < H / 2 ? p.y + off : p.y - off;
+      out.push(`<circle cx="${n(X(p.x))}" cy="${n(Y(cy))}" r="${n(m.r * k)}" fill="none" stroke="${GUIDE}" stroke-dasharray="2 3"/>`);
+    });
+    // Golden box: φ·H by H, split into a square and a smaller golden rectangle.
+    out.push(
+      `<rect x="${n(X(x0))}" y="${n(Y(0))}" width="${n(m.box.w * k)}" height="${n(H * k)}" fill="none" stroke="${GUIDE}" stroke-dasharray="6 4"/>`,
+      line(X(x0 + H), Y(0), X(x0 + H), Y(H), "6 4"),
+      label(X(x0), Y(H) + 30, `φ·H = ${n(m.box.w)}`),
+      label(X(x0) - 48, Y(H / 2), `H = ${H}`, GUIDE, "end"),
+    );
+    // Clear space.
+    const c = CLEAR * k;
+    out.push(
+      `<rect x="${n(X(x0) - c)}" y="${n(Y(m.box.y) - c)}" width="${n(m.box.w * k + 2 * c)}" height="${n(m.box.h * k + 2 * c)}" fill="none" stroke="${GUIDE}" stroke-dasharray="1 4"/>`,
+      label(X(x0) - c, Y(m.box.y) - c - 8, `clear space H/φ² = ${n(CLEAR)}`),
+    );
+  }
+  if (full) {
+    out.push(label(X(x1) + 48, Y(-m.o) - 6, "overshoot o = t/4"));
+    out.push(label(X(m.spine[0].x) + m.t * k * 3.4, Y(H) - 10, `${m.angle.toFixed(1)}°`, INK));
+  }
+  out.push(label(X(x0), Y(m.box.y) - (full ? 70 : 14), full ? `stroke t = H/φ⁵ = ${n(m.t)} · fillet r = ${n(m.r)}` : `ΛV · t = H/φ⁴ = ${n(m.t)}`, INK));
+  return out.join("");
+}
+
+/** 16 px favicon on its pixel grid, `k` px per pixel. */
+function pixelGrid(ox: number, oy: number, k: number) {
+  const out = [`<rect x="${ox}" y="${oy}" width="${16 * k}" height="${16 * k}" fill="#fff"/>`];
+  for (let i = 0; i <= 16; i++) out.push(line(ox + i * k, oy, ox + i * k, oy + 16 * k, "", 0.5), line(ox, oy + i * k, ox + 16 * k, oy + i * k, "", 0.5));
+  out.push(`<g transform="translate(${ox} ${oy}) scale(${k})"><path fill="${INK}" d="${FAVICON}"/></g>`);
+  out.push(label(ox, oy - 12, "favicon 16 px · corners on the pixel grid", INK));
+  return out.join("");
+}
+
+const ROW = 420;
+const BASE = 360;
+
+/** One row of every version on a given ground. */
+function versions(y: number, bg: string, ink: string, tag: string) {
+  const lock = (w: typeof WORDS.name, x: number, yy: number, px: number) => {
+    const k = px / MARK.box.h;
+    const tx = MARK.box.x + MARK.box.w + CLEAR;
+    return `<g transform="translate(${x} ${yy}) scale(${n(k)}) translate(${-MARK.box.x} ${-MARK.box.y})">${paths(MARK, ink)}${words(w.text, w.at100, tx, ink)}</g>`;
+  };
+  const sizes = [16, 24, 32];
+  const ladder = [192, 128, 96, 64, 48];
+  let x = 60;
+  const ladderSvg = ladder
+    .map((w) => {
+      const s = place(MARK, x, y + BASE - (w * MARK.box.h) / MARK.box.w, w, ink) + label(x, y + BASE + 24, `${w}`);
+      x += w + 36;
+      return s;
+    })
+    .join("");
+  const smallSvg = sizes
+    .map((h) => {
+      const w = (h * SMALL.box.w) / SMALL.box.h;
+      const s = place(SMALL, x, y + BASE - h, w, ink) + label(x, y + BASE + 24, `${h}`);
+      x += w + 36;
+      return s;
+    })
+    .join("");
+  const fav = `<g transform="translate(${x} ${y + BASE - 16})"><path fill="${ink}" d="${FAVICON}"/></g>${label(x, y + BASE + 24, "16 fav")}`;
+  return `<rect x="0" y="${y}" width="${SHEET_W}" height="${ROW}" fill="${bg}"/>
+  ${label(60, y + 40, tag, ink)}
+  ${place(MARK, 60, y + 70, 160, ink)}
+  ${lock(WORDS.name, 300, y + 90, 56)}
+  ${lock(WORDS.handle, 1060, y + 100, 46)}
+  ${ladderSvg}${smallSvg}${fav}`;
+}
+
+const K = 22;
+const TOP = 1120;
+write(
+  "construction.svg",
+  `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${SHEET_W} ${TOP + 2 * ROW}" width="${SHEET_W}" height="${TOP + 2 * ROW}">
+  <rect width="${SHEET_W}" height="${TOP}" fill="${PAPER}"/>
+  ${label(60, 56, "AVN · construction", INK)}
+  ${construction(MARK, 260, 330, K, true)}
+  ${construction(SMALL, 1250, 330, 9, false)}
+  ${pixelGrid(1250, 640, 16)}
+  ${label(60, TOP - 80, "Λ strokes 1–2 · V strokes 2–3 · N strokes 3–5 · wave = same spine, every turn filleted, arcs meet at stroke midpoints")}
+  ${label(60, TOP - 56, "Every stroke shares one angle. Pointed turns overshoot cap and base by t/4. Flat terminals sit on the lines.")}
+  ${versions(TOP, PAPER, INK, "light")}
+  ${versions(TOP + ROW, PAPER_DARK, INK_DARK, "dark")}
 </svg>
 `,
 );

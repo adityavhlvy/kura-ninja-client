@@ -4,7 +4,7 @@ import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
 import { ease } from "./components/Reveal";
-import { SunLoader } from "./components/LogoMark";
+import { MarkLoader } from "./components/LogoMark";
 import Home from "./pages/Home";
 
 const CommandMenu = lazy(() =>
@@ -39,11 +39,12 @@ export default function App() {
       if (minTimePassed && pageLoaded) setReady(true);
     };
 
-    // ponytail: minimum 1.6s display guarantees at least one complete SunLoader scan cycle
+    // A short floor so a fast load does not flash the loader. Longer than this
+    // hides the first screen from everyone, so keep it small.
     const timer = window.setTimeout(() => {
       minTimePassed = true;
       check();
-    }, 1600);
+    }, 400);
 
     const onLoad = () => {
       pageLoaded = true;
@@ -83,7 +84,7 @@ export default function App() {
             className="fixed inset-0 z-[100] grid place-items-center bg-paper text-ink"
             aria-busy="true"
           >
-            <SunLoader className="size-14" label="Loading page" />
+            <MarkLoader className="w-16" label="Loading page" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -113,7 +114,7 @@ export default function App() {
           <Suspense
             fallback={
               <div className="loader-wait grid min-h-dvh place-items-center" aria-busy="true">
-                <SunLoader className="size-14" label="Loading page" />
+                <MarkLoader className="w-16" label="Loading page" />
               </div>
             }
           >
