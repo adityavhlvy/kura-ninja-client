@@ -53,14 +53,27 @@ function Panel({ project, index }: { project: Project; index: number }) {
             </Link>
           </Reveal>
           <div className="overflow-hidden lg:col-span-8">
-            <motion.img
-              src={PLATE[project.slug] ?? project.image}
-              alt={`${title}, a working screen`}
-              loading="lazy"
-              decoding="async"
-              style={{ scale }}
-              className="aspect-[16/10] w-full object-cover object-left-top"
-            />
+            {project.video ? (
+              <motion.video
+                src={project.video}
+                autoPlay
+                loop
+                muted
+                playsInline
+                poster={PLATE[project.slug] ?? project.image}
+                style={{ scale }}
+                className="aspect-[16/10] w-full object-cover object-left-top"
+              />
+            ) : (
+              <motion.img
+                src={PLATE[project.slug] ?? project.image}
+                alt={`${title}, a working screen`}
+                loading="lazy"
+                decoding="async"
+                style={{ scale }}
+                className="aspect-[16/10] w-full object-cover object-left-top"
+              />
+            )}
           </div>
         </div>
       </div>

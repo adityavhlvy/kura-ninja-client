@@ -192,6 +192,40 @@ function buildSections(p: Project): SectionDef[] {
   return s;
 }
 
+function ProductVideo({ project }: { project: Project }) {
+  if (!project.video) return null;
+  return (
+    <section aria-label="Product video" className="mx-auto max-w-[1440px] px-5 pb-12 md:px-10">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8, ease }}
+        className="overflow-hidden border border-line bg-sunk"
+      >
+        <div className="flex items-center justify-between border-b border-line px-4 py-2.5 text-xs text-mute">
+          <span className="font-mono uppercase tracking-wider">Product video</span>
+          <span className="font-mono">{shortTitle(project)} overview</span>
+        </div>
+        <div className="relative aspect-video w-full bg-[#0e1113]">
+          <video
+            src={project.video}
+            controls
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster={project.image}
+            className="size-full object-contain"
+          >
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
 function Gallery({ project }: { project: Project }) {
   const images = project.images?.length ? project.images : project.image ? [project.image] : [];
   const [open, setOpen] = useState<number | null>(null);
@@ -291,6 +325,8 @@ export default function CaseStudy() {
           </Reveal>
         </div>
       </header>
+
+      <ProductVideo project={project} />
 
       <Gallery project={project} />
 

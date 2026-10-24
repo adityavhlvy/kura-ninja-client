@@ -21,6 +21,7 @@ export interface Project {
   logoLight?: string;
   image?: string;
   images?: string[];
+  video?: string;
   featured?: boolean;
   summary?: string;
   caseStudy?: string;

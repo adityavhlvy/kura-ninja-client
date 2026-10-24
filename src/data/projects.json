@@ -28,6 +28,7 @@
       "status": "in-progress",
       "visibility": "private",
       "image": "/assets/pinter/galleries/pinter-home.png",
+      "video": "/assets/pinter/video/pinter-promo.mp4",
       "images": [
         "/assets/pinter/galleries/pinter-home.png",
         "/assets/pinter/galleries/pinter-agent-builder-canvas.png",
@@ -328,6 +329,7 @@
       "status": "in-progress",
       "visibility": "private",
       "image": "/assets/nexus/galleries/nexus-landing-page.png",
+      "video": "/assets/nexus/video/nexus-portfolio.mp4",
       "images": [
         "/assets/nexus/galleries/nexus-landing-page.png",
         "/assets/nexus/galleries/nexus-vista-home.png",
