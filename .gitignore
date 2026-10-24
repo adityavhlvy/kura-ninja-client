@@ -33,3 +33,5 @@ data/geospatial-data/
 # typescript
 *.tsbuildinfo
 .codegraph/
+anti-slop/
+.taste-skill/

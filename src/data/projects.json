@@ -4,33 +4,27 @@
       "slug": "pinter",
       "title": "PINTER AI Agent Platform",
       "logo": "/assets/pinter/logo/small.png",
-      "description": "Enterprise AI agent orchestration platform enabling teams to build multi-agent workflows via an interactive visual canvas. Features execution event tracing, MCP tool integration, virtual models, and a TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms for cost-efficient and high-speed execution.",
+      "description": "Internal AI agent platform for Pupuk Indonesia Holding Company. Teams build Google ADK agent graphs on a visual canvas, connect MCP tools, and chat through virtual models that route each query with the TypeSafe Jev smart router.",
       "techStack": [
         "React 19",
         "React Flow",
         "TanStack Router",
         "TanStack Query",
         "Zustand",
+        "Tailwind CSS v4",
+        "Rsbuild",
         "FastAPI",
         "Google ADK",
         "SQLAlchemy (async)",
         "PostgreSQL",
         "asyncpg",
-        "TypeSafe AI",
+        "Alembic",
         "LiteLLM",
         "Qdrant",
-        "Alembic",
-        "Rsbuild",
-        "Tailwind CSS v4",
         "MCP Protocol",
         "Docker"
       ],
-      "links": [
-        {
-          "label": "GitHub",
-          "url": "https://github.com/Data-Science-PIHC/DS_AI_APP_SERVICE"
-        }
-      ],
+      "links": [],
       "status": "in-progress",
       "visibility": "private",
       "image": "/assets/pinter/galleries/pinter-home.png",
@@ -42,120 +36,116 @@
       ],
       "date": "2026",
       "featured": true,
-      "summary": "Enterprise AI agent orchestration and virtual model platform built for Pupuk Indonesia Holding Company using Google Agent Development Kit (ADK), FastAPI, and React 19. Features an interactive visual canvas, MCP server integrations, and a TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms to dispatch requests to specialized model tiers with calibrated confidence scoring.",
+      "summary": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company, built on FastAPI, Google ADK, and React 19. I co-developed it with one other engineer. My main work is the TypeSafe Jev smart router, the routing trace in chat, Jev guardrails, and IDENTIK SSO with encrypted assertions.",
       "fiveWOneH": {
-        "who": "Architected and engineered by Aditya Vahlevy Nugraha for Pupuk Indonesia Holding Company.",
-        "what": "Enterprise multi-agent orchestration canvas and virtual model gateway supporting Google ADK graphs, Model Context Protocol (MCP) servers, and TypeSafe Jev intent-based smart routing.",
-        "when": "Active development and platform enhancement throughout 2026.",
-        "where": "Enterprise internal deployment integrated with Pupuk Indonesia SSO (IDENTIK) and internal databases.",
-        "why": "To democratize autonomous AI workflow creation across business divisions while optimizing LLM execution cost, speed, and reliability via intelligent model routing.",
-        "how": "Developed using FastAPI, Google ADK, React 19, React Flow (@xyflow/react), TanStack Router & Query, SQLAlchemy asyncpg, PostgreSQL, Qdrant, LiteLLM, and TypeSafe Jev System One client."
+        "who": "Co-developed by Aditya Vahlevy Nugraha and one other engineer. Aditya authored 247 of 487 backend commits and 224 of 439 frontend commits.",
+        "what": "An agent platform with a visual ADK graph builder, MCP tool servers, virtual models (combos, round-robin, smart router), and chat with an inline execution trace.",
+        "when": "September to October 2026, on the refactor repositories.",
+        "where": "Internal deployment at Pupuk Indonesia Holding Company, with sign-in through the IDENTIK SSO.",
+        "why": "Let business teams build and run agents without code, and send each query to a model that fits it instead of one fixed model.",
+        "how": "FastAPI and Google ADK on the backend, React 19 with React Flow and TanStack on the frontend, and an httpx client for the TypeSafe Jev System One endpoint."
       },
       "problemChangeResult": [
         {
-          "problem": "Enterprise chat and agent workflows routed all queries to single expensive frontier models regardless of query complexity, inflating operational token costs and increasing response latency.",
-          "change": "Built the TypeSafe Jev (System One) smart router client evaluating query intent against criteria in ~150ms with calibrated confidence thresholds, fallback model safety nets, and probability distribution tracing.",
-          "result": "Queries classified and dispatched to appropriate model tiers with probability distribution tracing and fallback resilience."
+          "problem": "Every agent call went to one fixed model, whatever the query.",
+          "change": "Added a smart router virtual model. The TypeSafe Jev client scores the query against route criteria. The router picks a route when confidence passes a threshold (default 0.65) and falls back to a general model otherwise.",
+          "result": "Routing logic and threshold covered by frontend tests in virtual-models.test.ts. Cost and latency effect: Not measured."
         },
         {
-          "problem": "Prototype agent system used rigid CLI scripts and CrewAI, making workflow editing inaccessible to non-engineers and causing execution bottlenecks.",
-          "change": "Architected an interactive visual builder canvas with React Flow (@xyflow/react) supporting 4 native Google ADK graph patterns (LlmAgent, SequentialAgent, ParallelAgent, LoopAgent) with real-time SSE execution tracing.",
-          "result": "Workflows visually editable and traced in real-time across tool calls, thinking states, agent transfers, and routing events."
+          "problem": "Users could not see why chat used a given model or what an agent did.",
+          "change": "Streamed smart routing decisions to the client and rendered them in the inline trace with probability bars, next to tool calls and agent transfers.",
+          "result": "Routing decisions and active model visible per message. User impact: Not measured."
         }
       ],
       "contributions": [
-        "Engineered the TypeSafe Jev (System One) client: /systemone evaluation endpoint, shared connection pooling, calibrated confidence calculation, and intent encryption safety.",
-        "Implemented the Smart Router configuration UI with a confidence threshold slider (default 0.65), route mapping, and automated validation tests.",
-        "Built the inline chat trace that renders execution steps, thinking trees, tool executions, and smart routing probability bars in real time.",
-        "Implemented enterprise SSO (IDENTIK) with encrypted assertions, RBAC permissions, and external user identity backfills.",
-        "Supported the multi-agent orchestration architecture on Google ADK with buffered SSE streaming."
+        "Built the TypeSafe Jev client and smart router (45dfe2c), then fixed intent encryption and confidence handling (b586fd1).",
+        "Built the model wizard and smart router settings with the confidence threshold slider (a364d2c, c000478).",
+        "Streamed routing decisions to chat and rendered them in the inline trace (b35cf93, aed8e68).",
+        "Added IDENTIK SSO encrypted assertions with AES-256-GCM, the username claim, and the external user ID backfill (2ee85c9, a8252b7, 662ca70).",
+        "Added the System One Jev guardrail middleware, workspace guardrail policies, and the guardrail settings panel (1a9de34, a3175ea, 8166d62).",
+        "Added Mermaid, ECharts, and HTML rendering in chat (3161291)."
       ],
       "notMeasured": [
-        "Token cost savings before and after enabling smart routing in production.",
-        "Peak concurrent SSE stream capacity under enterprise workloads."
+        "Smart router evaluation latency. The UI text says about 150ms, but no measurement exists.",
+        "Token cost before and after enabling smart routing.",
+        "Concurrent SSE stream capacity."
       ],
       "beforeAfter": [
         {
-          "measure": "Model routing options",
-          "before": "Single static model per agent",
-          "after": "Combos (fallback), Round-Robin, and TypeSafe Jev Smart Router",
-          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/agents/virtual-models/types.ts"
+          "measure": "Virtual model types",
+          "before": "Combos and round-robin",
+          "after": "Combos, round-robin, and smart router",
+          "evidence": "projects/pinter/pinter-fe/src/apps/agents/virtual-models/types.ts, commit a364d2c"
         },
         {
-          "measure": "Intent evaluation latency",
-          "before": "No automated classification",
-          "after": "~150ms evaluation via TypeSafe Jev (/systemone)",
-          "evidence": "projects/pinter/pinter-be-refactor/modules/agents/runtime/typesafe_client.py"
+          "measure": "Routing visibility in chat",
+          "before": "No routing trace",
+          "after": "Routing decision and probability bars in the inline trace",
+          "evidence": "projects/pinter/pinter-fe/src/apps/conversations/chat/components/inline-trace.tsx, commit aed8e68"
         },
         {
-          "measure": "Agent graph patterns",
-          "before": "CLI single-thread scripts",
-          "after": "4 visual graph types: LLM, Sequential, Parallel, Loop",
-          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/agents/builder/"
+          "measure": "SSO assertion protection",
+          "before": "Not measured",
+          "after": "AES-256-GCM encrypted assertions",
+          "evidence": "projects/pinter/pinter-be/shared/utils/assertion.py, commit 2ee85c9"
         },
         {
-          "measure": "Execution tracing visibility",
-          "before": "Server logs only",
-          "after": "Inline trace accordion with thinking steps, tool I/O, and routing probability bars",
-          "evidence": "projects/pinter/pinter-fe-refactor/src/apps/conversations/chat/components/inline-trace.tsx"
+          "measure": "Smart router latency",
+          "before": "Not measured",
+          "after": "Not measured",
+          "evidence": "No benchmark in the repositories"
         }
       ],
       "keyDecisions": [
         {
-          "decision": "TypeSafe Jev for routing decisions",
-          "explanation": "Selected dedicated System One model evaluating intent in ~150ms rather than invoking a general-purpose LLM for triage, keeping routing overhead minimal."
+          "decision": "Dedicated classifier for routing",
+          "explanation": "The router calls the TypeSafe Jev System One endpoint through one pooled httpx client instead of asking a general LLM to triage. Trade-off: one more external dependency on the request path (modules/agents/runtime/typesafe_client.py)."
+        },
+        {
+          "decision": "Confidence threshold with fallback",
+          "explanation": "A route is used only above a configurable threshold, default 0.65. Below it the request goes to a fallback model, so a weak classification never blocks chat (modules/agents/virtual_models.py)."
         },
         {
           "decision": "Virtual model abstraction",
-          "explanation": "Modeled combos, round-robin pools, and smart routers under the unified /virtual-models API, decoupling client applications from underlying model provider endpoints."
-        },
-        {
-          "decision": "Buffered SSE execution tracing",
-          "explanation": "Flushed execution events in batches to client streams to maintain high UI responsiveness without bogging down the database on every trace step."
+          "explanation": "Combos, round-robin pools, and smart routers share one virtual model type, so agents point at a virtual model instead of a provider endpoint (src/apps/agents/virtual-models/types.ts)."
         }
       ],
       "evidenceCommits": [
+        "45dfe2c",
         "b586fd1",
-        "55f6a36",
-        "c000478",
-        "b511652",
         "a364d2c",
-        "6e3d88a",
+        "c000478",
+        "b35cf93",
+        "aed8e68",
         "2ee85c9",
-        "a8252b7",
-        "662ca70"
+        "1a9de34",
+        "a3175ea",
+        "3161291"
       ],
-      "caseStudy": "PINTER is the internal AI agent orchestration platform developed for Pupuk Indonesia Holding Company. Enterprise automation requires connecting diverse data systems while enabling non-technical operators to design, inspect, and safely deploy intelligent agent workflows. To solve this, PINTER was engineered around a visual agent builder built with React Flow (@xyflow/react), TanStack Router, and Google Agent Development Kit (ADK). The platform provides 4 native orchestration patterns: single LLM agents, sequential pipelines, parallel fan-outs, and iterative loop agents. Execution steps including internal reasoning, tool calls, tool responses, and agent handoffs are streamed in real-time to the user via Server-Sent Events (SSE) and rendered inside an inline trace viewer. To optimize operational cost and execution speed across multi-agent pipelines, a virtual model layer was introduced. In addition to sequential fallback combos and round-robin load distribution, the platform incorporates a TypeSafe Jev (System One) smart routing engine. TypeSafe Jev evaluates chat query intent against user-defined criteria in ~150ms, producing calibrated confidence scores and probability distributions. If the classification confidence surpasses a defined threshold (default 0.65), the request is automatically routed to a specialized domain model; otherwise, it falls back to a general-purpose model. The system also integrates Model Context Protocol (MCP) servers and enterprise SSO (IDENTIK) with AES-256 encrypted credential storage, providing an auditable platform for enterprise-grade autonomous workflows.",
+      "caseStudy": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company. Teams build agents on a React Flow canvas that maps to Google ADK graphs: single LLM agents, sequential, parallel, and loop agents. Agents can call MCP tool servers over stdio, SSE, or streamable HTTP. I co-developed the platform with one other engineer and focused on how chat picks a model. Every agent used one fixed model, whatever the query. I added a smart router as a new virtual model type next to the existing combos and round-robin pools. The backend sends the query to the TypeSafe Jev System One endpoint through a pooled client. It gets back a confidence score per route. Above the threshold, default 0.65, the router uses the matching model. Below it, the request goes to a fallback model. The decision streams to the client and shows in the inline chat trace as probability bars, next to tool calls and agent transfers. I also added Jev guardrail middleware with workspace policies, and IDENTIK SSO with AES-256-GCM encrypted assertions. Latency and cost effects of routing are not measured yet.",
       "details": [
-        "Architected the migration of a rigid, CLI-based agent prototype into a production-ready enterprise platform using Google Agent Development Kit (ADK) and custom FastAPI routes.",
-        "Designed and implemented the interactive Visual Canvas using React Flow (@xyflow/react) and TanStack Router, representing complex multi-agent topologies and connection graphs.",
-        "Engineered multi-agent orchestration supporting 4 native graph patterns: LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent.",
-        "Architected TypeSafe Jev (System One) smart routing engine evaluating query intent in ~150ms to dispatch requests to specialized model tiers with calibrated confidence scoring and fallback safety nets.",
-        "Built virtual model abstraction layer supporting sequential fallback chains (combos), round-robin load distribution pools, and intent-driven smart routers.",
-        "Implemented real-time execution event tracing (tool_call, tool_response, agent_transfer, thinking, smart_routing) streamed to clients via Server-Sent Events (SSE) with interactive inline probability bars.",
-        "Built hybrid RAG pipeline connecting Qdrant vector database with semantic chunking and enterprise document ingestion.",
-        "Integrated Model Context Protocol (MCP) server support (stdio and SSE transports) dynamically loaded from PostgreSQL configurations.",
-        "Implemented enterprise identity federation (IDENTIK SSO) with encrypted assertions, RBAC permissions, and AES-256 encrypted credential vaults.",
-        "Structured domain-partitioned architecture across 8 core domains (identity, agents, conversations, knowledge, integrations, evaluations, governance, content) with 142 automated backend test suites.",
-        "Built user token quota management with budget caps, daily/monthly request limits, and automated cost calculation across LLM providers via LiteLLM.",
-        "Integrated interactive data visualization blocks in chat including ECharts, Flint Chart, Mermaid diagrams, and KaTeX math formulas."
+        "Built the TypeSafe Jev client with a pooled httpx connection and the smart router virtual model with confidence threshold and fallback.",
+        "Built the model wizard and smart router settings UI, with tests for threshold defaults and route mapping.",
+        "Streamed routing decisions and the active model to chat and rendered them in the inline trace.",
+        "Added IDENTIK SSO encrypted assertions (AES-256-GCM with an HKDF-derived key) and an external user ID backfill.",
+        "Added System One Jev guardrail middleware, workspace guardrail policies, and a guardrail settings panel.",
+        "Added Mermaid, ECharts, and HTML blocks to chat rendering.",
+        "Worked on the visual agent builder that maps canvas graphs to ADK LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent, shared with another engineer.",
+        "Added reasoning effort settings, a curated provider list, chat share expiry, and prompt and completion token split in usage reports."
       ],
-      "rationale": "Internal enterprise tool for Pupuk Indonesia Holding Company that democratizes AI agent creation for non-technical teams while optimizing token costs and latency via intelligent routing.",
+      "rationale": "Internal tool that lets teams at Pupuk Indonesia Holding Company build AI agents without code and route each query to a suitable model.",
       "competencies": [
         "AI Agent Orchestration",
         "Smart Model Routing",
-        "Visual Canvas Architecture",
-        "Framework Migration",
-        "Database Architecture (Async ORM)",
+        "LLM Guardrails",
         "API Design & SSE Streaming",
-        "MCP Protocol Integration",
-        "Cost & Quota Management"
+        "Enterprise SSO",
+        "MCP Protocol Integration"
       ],
       "technicalChallenges": [
-        "Executed a 3-phase framework migration from CrewAI to Google ADK without production downtime, using tool wrapping adapters in Phase 2 before full native rewrite in Phase 3.",
-        "Implemented async ORM rewrite with buffered execution tracing that flushes events in batches to avoid per-event DB writes that would kill streaming performance.",
-        "Designed a custom instruction merging strategy from CrewAI's 3-field (role/goal/backstory) model to ADK's 5-pattern instruction model (identity/mission/methodology/boundaries/examples).",
-        "Integrated TypeSafe Jev System One routing engine with calibrated confidence thresholds (0.65 default), handling route encryption protection and probability distribution parsing."
+        "Kept routing safe when the classifier is unsure: below the confidence threshold the request falls back to a general model instead of failing.",
+        "Fixed intent encryption and confidence parsing in the smart router after the first release (b586fd1, c000478).",
+        "Carried routing metadata through the SSE chat stream so the client can show the decision and active model per message (b35cf93)."
       ],
       "readiness": {
         "tests": 80,
@@ -166,24 +156,20 @@
     {
       "slug": "aegis-atlas",
       "title": "AeGIS Module Atlas",
-      "logo": "/assets/aegis-atlas/logo/aegis-atlas-logo.webp",
-      "description": "Geospatial fertilizer demand planning command center for Pupuk Indonesia. Combines agronomic soil layers, multi-stage crop calendars, and live stock audits across 34 provinces, with a client-side calculation engine and the GeoMind AI assistant.",
+      "logo": "/assets/aegis-atlas/logo/logo-aegis-atlas-dark.svg",
+      "logoLight": "/assets/aegis-atlas/logo/logo-aegis-atlas-light.svg",
+      "description": "Fertilizer demand planning map for Pupuk Indonesia. Planners edit dosage and planting stage inputs and see demand recalculated in the browser, next to the GeoMind AI assistant.",
       "techStack": [
         "React 19",
-        "Go Fiber v3",
-        "Turborepo",
-        "Bun Workspaces",
-        "Rsbuild",
-        "Tailwind CSS v4",
-        "PostGIS",
-        "PostgreSQL",
         "OpenLayers",
-        "MapLibre GL",
-        "Deck.gl",
-        "Martin Tile Server",
-        "PASETO",
+        "Tailwind CSS v4",
+        "Rsbuild",
+        "Bun Workspaces",
+        "Turborepo",
         "Biome",
-        "Recharts"
+        "Recharts",
+        "Go Fiber v3",
+        "PostgreSQL"
       ],
       "links": [],
       "status": "in-progress",
@@ -199,122 +185,116 @@
       ],
       "date": "2026",
       "featured": true,
-      "summary": "Geospatial fertilizer demand planning command center for Pupuk Indonesia integrating agronomic layers, multi-stage crop calendars, and live stock audits across 34 Indonesian provinces with a client-side calculation engine and GeoMind AI assistant. Runs on Go Fiber v3 backend and React 19 vector rendering frontend.",
+      "summary": "Atlas is the fertilizer demand planning app inside the AeGIS monorepo at Pupuk Indonesia. I scaffolded its first version, moved the map to OpenLayers, and built the client-side demand formula engine with 52 unit tests. On the Go backend I made the overview queries date-bounded and coalesced.",
       "fiveWOneH": {
-        "who": "Engineered by Aditya Vahlevy Nugraha in collaboration with the Data Science / AI engineering team for Pupuk Indonesia Holding Company.",
-        "what": "A geospatial demand planning command center with client-side formula calculation, Martin vector tile proxying, and GeoMind AI query integration.",
-        "when": "Developed and actively updated during 2026.",
-        "where": "Deployed across 34 Indonesian provinces, integrating national administrative boundaries from province down to district levels.",
-        "why": "To eliminate regional fertilizer planning blindspots by auditing safety stock against actual stock and calculating customized dosage models.",
-        "how": "Built using React 19, OpenLayers, MapLibre GL, Deck.gl, Tailwind CSS v4, Go Fiber v3, PostgreSQL/PostGIS, and Martin tile proxy with PASETO authentication."
+        "who": "Aditya Vahlevy Nugraha, as one of three engineers on AeGIS. Aditya authored 349 frontend commits and 59 backend commits. The monorepo, Go backend, Halo, and Tango apps were built by colleagues.",
+        "what": "The Atlas app: demand map, overview dashboard, formula editor, GeoMind assistant workspace, and data playground.",
+        "when": "April to October 2026.",
+        "where": "Internal planning tool at Pupuk Indonesia Holding Company.",
+        "why": "Planners recalculated fertilizer demand by hand when dosage or land assumptions changed.",
+        "how": "React 19 and OpenLayers in a Bun and Turborepo monorepo, with a Go Fiber v3 backend."
       },
       "problemChangeResult": [
         {
-          "problem": "Fertilizer demand calculations required disconnected agronomic layers, static spreadsheets, and manual recalculation when dosage or land area assumptions changed.",
-          "change": "Engineered a client-side Fertilizer Demand Model (FDM) formula engine with stage allocations, land overrides, and immediate diff calculation.",
-          "result": "52 automated unit tests passing for mathematical calculations; runtime demand recalculation runs client-side without roundtrip database writes."
+          "problem": "Changing a dosage or land area meant recalculating fertilizer demand by hand.",
+          "change": "Built a client-side formula engine for stage allocation, land overrides, and demand deltas, plus a formula editor store with change tracking (cef578a, aaa6844).",
+          "result": "52 unit tests pass with 86 assertions (bun test, formula-calc.test.ts). Planner time saved: Not measured."
         },
         {
-          "problem": "Spatial vector tile streaming through upstream Martin server required authentication without leaking credentials or overloading network bandwidth.",
-          "change": "Built a Go Fiber tile proxy with dual Basic/HMAC token support, token caching with an expiry buffer, and a 1MB payload response cap.",
-          "result": "Tile proxy authenticated requests while enforcing response payload limits with in-memory token caching."
-        },
-        {
-          "problem": "Overview database queries were duplicated across requests without explicit month date bounds.",
-          "change": "Deduplicated queries with month date bounds and added headline insights service.",
-          "result": "Consistent monthly aggregated demand metrics from a single query path. Latency change not measured."
+          "problem": "Overview queries filtered with EXTRACT on year and month and ran again for identical concurrent requests.",
+          "change": "Replaced EXTRACT with month date bounds, coalesced in-flight requests, and added a 60 second cache (f123900).",
+          "result": "Covered by overview_test.go. Latency change: Not measured."
         }
       ],
       "contributions": [
-        "Implemented the client-side Fertilizer Demand Model engine, stage redistribution rules, and district joins, covered by 52 unit tests.",
-        "Built the Go Fiber v3 tile proxy with dual Basic and HMAC token authentication, token caching, upstream header forwarding, and a 1MB response limit.",
-        "Deduplicated overview database queries with explicit month date bounds and added the headline insights service.",
-        "Integrated the GeoMind AI assistant workspace with bidirectional map filtering and a live streaming SSE parser.",
-        "Restructured Atlas navigation into floating dock controls, full-screen demand table sheets, and responsive map toolbars."
+        "Scaffolded the first version of the app, then named geodash (5412fc2).",
+        "Migrated the map canvas from MapLibre to OpenLayers (25636ba).",
+        "Built the formula engine with 52 unit tests and the formula editor store (cef578a, aaa6844).",
+        "Built the GeoMind workspace with two-way sync between chat and map filters, and fixed stream payload parsing (2ce3701, a958140).",
+        "Made overview queries date-bounded and coalesced, and added 5 headline insights (f123900, 94724bb).",
+        "Built a tile proxy in front of the Martin tile server with HMAC token auth and a 1MB response cap (2d9fa97, 7372f32). Later removed it as unused (d54b217)."
       ],
       "notMeasured": [
-        "Database query latency before and after overview query deduplication.",
-        "Vector tile cache hit rate in production."
+        "Overview query latency before and after f123900.",
+        "Time planners spend on a demand recalculation before and after the formula engine."
       ],
       "beforeAfter": [
         {
-          "measure": "Formula test coverage",
-          "before": "0 tests",
-          "after": "52 unit tests passing",
-          "evidence": "projects/aegis/aegis-fe/apps/atlas/src/features/fdm/lib/formula-calc.test.ts"
+          "measure": "Formula engine unit tests",
+          "before": "0",
+          "after": "52 passing",
+          "evidence": "projects/aegis/aegis-fe/apps/atlas/src/features/fdm/lib/formula-calc.test.ts, commit cef578a"
         },
         {
-          "measure": "Tile proxy response payload limit",
-          "before": "Unbounded",
-          "after": "1MB hard cap",
-          "evidence": "Commit 7372f32"
+          "measure": "Overview query filter",
+          "before": "EXTRACT on year and month",
+          "after": "Month date bounds, request coalescing, 60s cache",
+          "evidence": "Commit f123900, projects/aegis/aegis-be/internal/domain/atlas/overview/overview_test.go"
         },
         {
-          "measure": "Tile proxy authentication modes",
-          "before": "Single mode",
-          "after": "Dual HTTP Basic & HMAC token caching",
-          "evidence": "projects/aegis/aegis-be/config/config.tile.go"
+          "measure": "Map library",
+          "before": "MapLibre GL",
+          "after": "OpenLayers",
+          "evidence": "Commit 25636ba"
         },
         {
-          "measure": "Overview query execution",
-          "before": "Duplicate queries",
-          "after": "Deduplicated queries with month date bounds",
-          "evidence": "Commit f123900"
+          "measure": "Overview query latency",
+          "before": "Not measured",
+          "after": "Not measured",
+          "evidence": "No benchmark in the repositories"
         }
       ],
       "keyDecisions": [
         {
-          "decision": "Execute formula recalculations client-side",
-          "explanation": "Avoided server roundtrips during interactive scenario modeling; validated by 52 unit tests verifying precision tolerance and stage allocations."
+          "decision": "Run the demand formula in the browser",
+          "explanation": "Recalculation happens on each edit without a server round trip. Trade-off: the formula must be kept consistent with backend data, so it is pinned by 52 unit tests (cef578a)."
         },
         {
-          "decision": "Dual-auth tile proxy with token cache",
-          "explanation": "Integrated upstream Martin tile server via HTTP Basic and HMAC tokens with an in-memory cache to avoid redundant token generation on each vector tile fetch."
+          "decision": "Date bounds instead of EXTRACT",
+          "explanation": "Range filters on the date column replace EXTRACT on year and month, which lets the database use an index. Concurrent identical requests share one query (f123900)."
         },
         {
-          "decision": "Single-Repo Multi-Entry architecture",
-          "explanation": "Structured Atlas inside the AeGIS monorepo alongside Halo and Tango apps using Bun workspaces, Turborepo, and Rsbuild."
+          "decision": "Remove unused code",
+          "explanation": "Deleted uncalled market share routes, the tile proxy, and mock data once Atlas no longer used them (d54b217)."
         }
       ],
       "evidenceCommits": [
+        "5412fc2",
+        "25636ba",
         "cef578a",
-        "44e8113",
-        "7372f32",
+        "aaa6844",
+        "2ce3701",
         "f123900",
         "94724bb",
-        "861b79e",
-        "25a3554",
-        "024d865",
-        "ce59acc"
+        "2d9fa97",
+        "7372f32",
+        "76d4382"
       ],
-      "caseStudy": "AeGIS Atlas is the fertilizer demand planning command center for Pupuk Indonesia Holding Company. Agricultural planning across 34 Indonesian provinces requires coordinating soil nutrient data, crop planting timelines, and historical distributor sales. Previous workflows relied on disparate static spreadsheets, preventing rapid audits of safety stock versus actual inventory. Atlas addresses this by combining spatial boundary layers with an interactive calculation engine. Built with React 19, OpenLayers, MapLibre GL, and Deck.gl, the frontend provides immediate visual feedback as planners modify commodity timelines and dosage parameters. To avoid server latency during exploratory planning sessions, the Fertilizer Demand Model (FDM) calculation logic was implemented entirely on the client, backed by 52 automated unit tests verifying stage distribution, land overrides, and regional aggregation. On the backend, a Go Fiber v3 service handles domain data, reference metrics, and vector tile proxying with dual HTTP Basic/HMAC token support, internal token caching, and a 1MB payload response limit. The integrated GeoMind AI workspace provides natural-language insights over regional demand data with streaming SSE responses.",
+      "caseStudy": "Atlas is the fertilizer demand planning app in the AeGIS monorepo at Pupuk Indonesia Holding Company. Planners combine planting stages, dosage, and land area to estimate demand per region. When an assumption changed, they recalculated by hand. I scaffolded the first version of the app and later moved its map from MapLibre to OpenLayers. The main piece is a formula engine that runs in the browser. It allocates demand across planting stages, applies land area overrides, and computes the difference from the baseline. A formula editor store tracks each change. Because the engine runs client-side, the numbers update on each edit without a server call. To keep the math honest, the engine has 52 unit tests covering stage allocation, overrides, and float tolerance. On the Go backend, I changed the overview queries from EXTRACT on year and month to date ranges, coalesced identical in-flight requests, and added a short cache. I also built the GeoMind workspace, where the AI assistant and the map share filters both ways. The monorepo, the Go service framework, and the Halo and Tango apps are my colleagues' work.",
       "details": [
-        "Co-engineered the 'Atlas' fertilizer demand planning command center, consolidating disconnected agronomic layers (soil nutrients, 6-phase crop cycles) and live inventory data into a unified, high-density dashboard.",
-        "Architected multi-app frontend monorepo using Bun workspaces and Turborepo, powering Atlas (geospatial), Halo (auth & admin console), and Tango (planting surveys) with shared UI primitives.",
-        "Built Go Fiber v3 modular monolith with domain-per-package architecture, Goose migrations, and PASETO token authorization.",
-        "Engineered Martin vector tile proxy with dual HTTP Basic and HMAC token caching, upstream header forwarding, and 1MB response caps to optimize upstream spatial rendering.",
-        "Implemented client-side Fertilizer Demand Model (FDM) formula engine with 52 unit tests validating stage-by-stage dosage, land area overrides, float drift tolerance, and regional demand deltas.",
-        "Rebranded AI assistant module to 'GEO Mind' and migrated overview query hooks to dedicated FDM service contract for dynamic stock audits and market penetration logic.",
-        "Eliminated national planning blindspots, empowering executives and domain experts to execute live 'Safety Stock vs. Actual Stock' audits across 34 Indonesian provinces.",
-        "Integrated AWS End User Messaging Social for transactional WhatsApp OTP authentication and field survey revision alerts.",
-        "Prevented browser tab crashes under write-heavy bursts and optimized client-side rendering performance by architecting a state-minimized React 19 vector rendering pipeline for 50k+ multi-polygon agricultural plot boundaries.",
-        "Designed the 'Precision Flow' UI framework, optimizing screen data-density for complex geospatial analysis through strict visual contrast hierarchies and monospace telemetry formatting."
+        "Scaffolded the first version of the Atlas app (then geodash) in the AeGIS frontend monorepo.",
+        "Migrated the map canvas from MapLibre GL to OpenLayers.",
+        "Built a client-side fertilizer demand formula engine with stage allocation, land overrides, and demand deltas, covered by 52 unit tests.",
+        "Built a formula editor store with derived change tracking.",
+        "Built the GeoMind assistant workspace with two-way sync between chat and map filters, and fixed double-encoded stream payloads.",
+        "Replaced EXTRACT-based overview filters with month date bounds, added in-flight request coalescing and a 60 second cache, and added 5 headline insights.",
+        "Added a Graphic Walker playground for exploring demand data.",
+        "Fixed backend panics and socket exhaustion in the Atlas service.",
+        "Built a tile proxy for the Martin tile server with HMAC token auth, header forwarding, path traversal guard, and a 1MB response cap. Removed it later with other unused routes."
       ],
-      "rationale": "Agricultural decision-support tool for fertilizer distribution planning across Indonesia's 34 provinces.",
+      "rationale": "Planning tool that helps Pupuk Indonesia estimate fertilizer demand per region and see the effect of changed assumptions right away.",
       "competencies": [
-        "Geospatial Engineering",
-        "Vector Tile Architecture",
-        "PostGIS & Spatial Indexing",
-        "React 19 Render Pipeline",
-        "API Gateway & Dual Auth Caching",
-        "UI/UX & Precision Flow Framework"
+        "Geospatial Frontend",
+        "Client-side Calculation Engines",
+        "Query Optimization",
+        "AI Assistant Integration",
+        "Unit Testing"
       ],
       "technicalChallenges": [
-        "Implemented zoom-aware vector tile styling where map dynamically switches admin level based on zoom with region codes truncated to match province/regency/district and demand data aggregated client-side per visible level.",
-        "Built tile proxy with dual auth handling both HTTP Basic and HMAC token auth modes for upstream Martin tile server with token caching and 1-minute expiry buffer.",
-        "Managed complex state with useReducer (20+ action types) for filters, regions, map state, demand data, analysis layers, and comparison mode.",
-        "Offloaded SNM feature deduplication to Web Worker to avoid blocking main thread during vector tile processing.",
-        "Architected a state-minimized React 19 vector rendering pipeline for 50k+ multi-polygon agricultural plot boundaries to prevent browser tab crashes under write-heavy bursts."
+        "Kept floating point results stable across stage redistribution, with tolerance checks in the formula tests.",
+        "Kept chat filters and map filters in sync both ways in the GeoMind workspace without loops (2ce3701).",
+        "Stopped duplicate overview queries under concurrent load with in-flight coalescing (f123900).",
+        "Moved SNM feature deduplication to a Web Worker so tile processing does not block the main thread (snm-worker.ts)."
       ],
       "readiness": {
         "tests": 75,
@@ -327,148 +307,152 @@
       "title": "NEXUS (Arca, Delta & Vista)",
       "logo": "/assets/nexus/logo/nexus-logo.svg",
       "logoLight": "/assets/nexus/logo/nexus-logo-light.svg",
-      "description": "Enterprise logistics orchestration and automated pathfinding platform coordinating Pupuk Indonesia's fertilizer distribution network across Indonesia through warehouse inventory tracking across 122 facilities (Arca), contract-aware fleet/tariff audits (Delta), and full-screen geospatial pathfinding simulations (Vista).",
+      "description": "Logistics platform for Pupuk Indonesia's fertilizer distribution. Delta manages carrier contracts and freight tariffs, Vista simulates routes on a Neo4j graph, and Arca monitors warehouse and kiosk stock.",
       "techStack": [
         "React 19",
+        "TypeScript",
+        "Rsbuild",
+        "Bun",
+        "TanStack Router",
+        "Tailwind CSS v4",
+        "OpenLayers",
+        "Vitest",
         "FastAPI",
         "SQLAlchemy (async)",
         "PostgreSQL",
         "asyncpg",
         "Neo4j",
-        "OpenLayers",
-        "TypeScript",
-        "Rsbuild",
-        "TanStack Router",
-        "Tailwind CSS v4",
-        "Glide Data Grid",
-        "Bun",
-        "Vitest"
+        "openpyxl"
       ],
       "links": [],
       "status": "in-progress",
       "visibility": "private",
-      "image": "/assets/nexus/galleries/nexus-home.png",
+      "image": "/assets/nexus/galleries/nexus-landing-page.png",
       "images": [
-        "/assets/nexus/galleries/nexus-home.png",
+        "/assets/nexus/galleries/nexus-landing-page.png",
         "/assets/nexus/galleries/nexus-vista-home.png",
         "/assets/nexus/galleries/nexus-delta-home.png",
         "/assets/nexus/galleries/nexus-delta-manajemen-kontrak.png"
       ],
       "date": "2026",
       "featured": true,
-      "summary": "Enterprise logistics orchestration and automated pathfinding platform built for Pupuk Indonesia Holding Company to manage national bulk fertilizer distribution across maritime shipping lanes and overland transport corridors. Coordinates warehouse inventory balance across 122 facilities (Arca), carrier agreements and tariff audits (Delta), and Neo4j graph-based route simulations (Vista).",
+      "summary": "NEXUS is the logistics platform for fertilizer distribution at Pupuk Indonesia Holding Company. I am the main author: 197 of 262 backend commits and 327 of 335 frontend commits. I built the multi-entry frontend, the Delta contract and tariff tools including BBM fuel freight simulation, and the route optimizer service, and I ported Arca into the platform.",
       "fiveWOneH": {
-        "who": "Architected and engineered by Aditya Vahlevy Nugraha for Pupuk Indonesia Holding Company.",
-        "what": "An integrated logistics operational control center combining warehouse stock tracking (Arca), contract tariff auditing (Delta), and graph-based route pathfinding (Vista).",
-        "when": "Developed throughout 2026.",
-        "where": "Deployed for Indonesian national bulk fertilizer distribution across maritime shipping lanes, ports, regional warehouses, and district kiosks.",
-        "why": "To eliminate manual freight calculations, detect shipping tariff anomalies against active carrier contracts, and calculate cost-minimal multi-hop transport corridors.",
-        "how": "Built using React 19, Bun workspaces, Rsbuild, TanStack Router, Tailwind CSS v4, Glide Data Grid, OpenLayers, FastAPI, SQLAlchemy asyncpg, Neo4j Cypher, and openpyxl."
+        "who": "Aditya Vahlevy Nugraha as main author. Colleagues wrote the original Neo4j Cypher scripts and part of Arca.",
+        "what": "Three modules on one platform: Delta (contracts, tariffs, BBM freight adjustment), Vista (route simulation on a map), and Arca (warehouse and kiosk stock monitoring).",
+        "when": "May to October 2026.",
+        "where": "Internal logistics tool at Pupuk Indonesia Holding Company.",
+        "why": "Freight tariffs, contracts, and routes lived in spreadsheets, and route costs were worked out by hand.",
+        "how": "React 19 with Rsbuild multi-entry builds, FastAPI with async SQLAlchemy on PostgreSQL, Neo4j for the route graph, and openpyxl for Excel import."
       },
       "problemChangeResult": [
         {
-          "problem": "Freight tariff audits for maritime and land bulk transport required reconciling disparate carrier contracts, manual spreadsheets, and complex rate tier formulas across distribution hubs.",
-          "change": "Engineered Delta's contract management engine with financial audit tables built on @glideapps/glide-data-grid and automated tariff calculation services.",
-          "result": "Automated contract tariff reconciliation and anomaly alerts against active agreements."
+          "problem": "Tariffs came from spreadsheets, and a bad import could overwrite existing rates.",
+          "change": "Built a tariff Excel import with a preview step and a conflict resolution dialog before commit (tarif_routes.py, TariffConflictModal.tsx).",
+          "result": "Conflicts are shown before data is written. Error rate change: Not measured."
         },
         {
-          "problem": "Calculating multi-hop maritime shipping routes required manual route segment planning without live validation of carrier rates or fleet capacities.",
-          "change": "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop transport corridors evaluated in real-time in the Vista module.",
-          "result": "Visual multi-hop route simulations with live cost calculations evaluated against active carrier tariffs."
+          "problem": "Fuel (BBM) price changes had to be applied to freight tariffs by hand.",
+          "change": "Built BBM parameter alignment and freight adjustment simulation in Delta (c3d3f61, a32852d).",
+          "result": "Freight impact of a BBM change can be simulated before applying it. Time saved: Not measured."
+        },
+        {
+          "problem": "Each module needed its own dev setup, and Delta pulled in Neo4j it did not use.",
+          "change": "Built Rsbuild multi-entry builds selected by APP_MODULE and an enable_neo4j startup flag for standalone backends.",
+          "result": "Delta, Vista, Arca, and the shell build and run on their own. Build time: Not measured."
         }
       ],
       "contributions": [
-        "Architected the Single-Repo Multi-Entry frontend with Rsbuild and Bun workspaces, decoupling the shell, Delta, Arca, and Vista modules over shared UI primitives.",
-        "Implemented the Arca warehouse hub module and the global authentication subsystem.",
-        "Developed configurable contract alert thresholds and wide tariff ordering in the Delta backend.",
-        "Built shared design system tokens, themes, password inputs, data tables, and Glide Data Grid integrations.",
-        "Configured CORS credentials support and automated Docker workspace manifest copying for reliable container builds."
+        "Built the multi-entry frontend (shell, Delta, Vista, Arca) and restructured both repositories into symmetric monorepos (07cea38, a91a980).",
+        "Built BBM fuel parameter alignment and freight adjustment simulation (c3d3f61, a32852d).",
+        "Added configurable contract expiry alert thresholds (925aee5).",
+        "Ported the Arca stock dashboard and added the global auth module, with another engineer contributing (dab13dc).",
+        "Built the route optimizer service on top of the Neo4j graph and extended the Cypher route search.",
+        "Moved UI primitives into a shared package and added the pytest suite (93c92fc, c8ba061)."
       ],
       "notMeasured": [
-        "Route optimization latency against baseline algorithms.",
-        "Financial discrepancy amounts found through automated tariff audits."
+        "Route optimizer latency.",
+        "Tariff discrepancies found through the tools.",
+        "Build time per module before and after the multi-entry setup."
       ],
       "beforeAfter": [
         {
-          "measure": "Frontend build profiles",
-          "before": "Single static monolithic build",
-          "after": "Single-Repo Multi-Entry compile-time switches (APP_MODULE=delta port 3001 vs shell port 3000)",
-          "evidence": "projects/nexus/nexus-fe-module-a/README.md, rsbuild.config.ts"
+          "measure": "Frontend entry points",
+          "before": "Not measured",
+          "after": "4 entries selected by APP_MODULE: shell, delta, vista, arca",
+          "evidence": "projects/nexus/nexus-fe/rsbuild.config.ts"
         },
         {
-          "measure": "Warehouse tracking",
-          "before": "Disconnected inventory reports",
-          "after": "Arca inventory hub tracking physical stock across 122 facilities",
-          "evidence": "Commit dab13dc"
+          "measure": "Neo4j in standalone backends",
+          "before": "Not measured",
+          "after": "Off for Delta and Arca via enable_neo4j",
+          "evidence": "projects/nexus/nexus-be/packages/core/factory.py"
         },
         {
-          "measure": "Database schema isolation",
-          "before": "Unpartitioned tables",
-          "after": "Modular schema with delta_* table prefixes and write-isolation boundaries",
-          "evidence": "projects/nexus/nexus-be-module-a/README.md"
+          "measure": "Contract expiry alerts",
+          "before": "Not measured",
+          "after": "Configurable warning and critical days (default 90 and 30)",
+          "evidence": "projects/nexus/nexus-be/packages/delta/schemas/contract_alert.py, commit 925aee5"
         },
         {
-          "measure": "Routing computation",
-          "before": "Manual multi-stop estimation",
-          "after": "Automated Cypher graph traversal across maritime and land corridors",
-          "evidence": "projects/nexus/nexus-be-module-a/[v2]_search_optimal_route.cypher"
+          "measure": "Backend test functions",
+          "before": "Not measured",
+          "after": "548 pytest functions (counted, not run here)",
+          "evidence": "projects/nexus/nexus-be/tests, commit c8ba061"
         }
       ],
       "keyDecisions": [
         {
-          "decision": "Single-Repo Multi-Entry architecture",
-          "explanation": "Used Rsbuild environment variables (APP_MODULE=delta) to compile isolated sandboxes for individual modules during development while compiling a unified production build."
+          "decision": "One repository, many entries",
+          "explanation": "Rsbuild picks the entry from APP_MODULE, so each module runs alone in development and ships together in the shell. Trade-off: shared code must stay in the shared package (rsbuild.config.ts, 93c92fc)."
         },
         {
-          "decision": "Modular schema with table prefixes",
-          "explanation": "Implemented delta_* table prefixes with strict write-isolation rules so external modules treat contract data as read-only."
+          "decision": "Neo4j as an opt-in dependency",
+          "explanation": "create_app takes enable_neo4j, so Delta and Arca start without a graph database. Only Vista and the shell connect to Neo4j (packages/core/factory.py)."
         },
         {
-          "decision": "Lazy Neo4j driver initialization",
-          "explanation": "Bypassed Neo4j connections when running standalone Delta to eliminate local development friction, instantiating the graph driver only when running Vista or the unified shell."
+          "decision": "Preview before tariff import",
+          "explanation": "The Excel import runs a preview and asks the user to resolve conflicts before commit, so existing tariffs are never overwritten silently (packages/delta/routes/tarif_routes.py)."
         }
       ],
       "evidenceCommits": [
-        "bf69b4b",
-        "dab13dc",
+        "07cea38",
+        "a91a980",
+        "c3d3f61",
+        "a32852d",
         "925aee5",
-        "3969317",
-        "495d080",
-        "b3d6b7f",
-        "d46f779",
-        "ab27479",
-        "c20047e",
-        "55b15f0",
-        "47b1c8d"
+        "dab13dc",
+        "93c92fc",
+        "c8ba061",
+        "bf69b4b",
+        "495d080"
       ],
-      "caseStudy": "NEXUS is the enterprise logistics orchestration platform developed for Pupuk Indonesia Holding Company to oversee national bulk fertilizer distribution across the Indonesian archipelago. Coordinating heavy maritime and overland logistics involves reconciling thousands of carrier contracts, tracking inventory across regional hubs, and determining optimal transit corridors. NEXUS integrates these functions across three complementary modules: Arca, Delta, and Vista. Arca tracks physical stock balances across 122 strategic warehouses down to district kiosks, providing visibility into supply surpluses and local shortages. Delta functions as the contractual and financial governance foundation, managing carrier rate tiers, vessel fleet registries, and shipping agreements. To audit high-density tariff data without UI degradation, Delta utilizes @glideapps/glide-data-grid with server-side validation against active contracts. Vista provides the geospatial pathfinding layer, querying Delta's verified tariffs to simulate multi-hop maritime and land shipping corridors through Neo4j graph traversals and Cypher queries.",
+      "caseStudy": "NEXUS supports fertilizer distribution logistics at Pupuk Indonesia Holding Company. Before it, freight tariffs, carrier contracts, and route costs lived in spreadsheets. I am the main author of both repositories. The platform has three modules. Delta holds carrier contracts and freight tariffs. Tariffs come in from Excel through a preview step that shows conflicts before anything is written. When fuel (BBM) prices change, Delta can simulate the freight adjustment before it is applied. Contract expiry alerts have configurable warning and critical thresholds. Vista draws routes on an OpenLayers map and uses a route optimizer service over a Neo4j graph. Colleagues wrote the original Cypher scripts, and I extended the route search. Arca monitors warehouse and kiosk stock. I ported it from an earlier stock dashboard together with another engineer. All modules live in one frontend repository. Rsbuild picks the entry from APP_MODULE, so each module runs alone during development. On the backend, Delta and Arca start without Neo4j through a startup flag. Performance and savings are not measured yet.",
       "details": [
-        "Architected Single-Repo Multi-Entry frontend using Rsbuild and Bun, supporting compile-time profile switches (APP_MODULE=delta) between standalone Delta (port 3001), Arca, and unified shell (port 3000).",
-        "Engineered Arca warehouse hub tracking physical stock balances and flow across 122 strategic warehouses down to district kiosks with surplus/deficit alerts.",
-        "Engineered modular database architecture with delta_* table prefixes and strict write-isolation boundaries preventing cross-module corruption.",
-        "Developed mathematical pathfinding engine using Neo4j and Cypher queries to simulate optimal multi-hop maritime and land shipping corridors.",
-        "Built high-performance financial audit tables using @glideapps/glide-data-grid and monospace typography for contract tariffs and vessel fleet capacities.",
-        "Implemented immutable shipping tariff audit logs and anomaly alerts for bulk fertilizer logistics across Indonesian distribution hubs.",
-        "Designed custom Excel ingestion pipelines (openpyxl / exceljs) syncing historical transport contracts, rate tiers, and fleet capacities into PostgreSQL.",
-        "Engineered full-screen geospatial map simulation in Vista module with OpenLayers, calculating contract-aware shipping costs in real-time.",
-        "Enforced WCAG 2.1 AA accessibility standards with oklch-based color palette ('The Cartographic Monolith') across high-density logistics dashboards."
+        "Built Rsbuild multi-entry builds selected by APP_MODULE for the shell, Delta, Vista, and Arca.",
+        "Restructured frontend and backend into symmetric monorepos with a shared UI package.",
+        "Built tariff Excel import with preview and conflict resolution, using openpyxl on the backend and exceljs for export.",
+        "Built BBM fuel parameter alignment and freight adjustment simulation.",
+        "Added configurable contract expiry alert thresholds.",
+        "Built the route optimizer service over the Neo4j route graph and drew routes on an OpenLayers map in Vista.",
+        "Added an enable_neo4j startup flag so standalone Delta and Arca run without a graph database.",
+        "Ported the Arca warehouse and kiosk stock dashboard and added the global auth module, with another engineer.",
+        "Added the backend pytest suite and Arca route tests."
       ],
-      "rationale": "Internal enterprise logistics coordination and automated route pathfinding platform built for Pupuk Indonesia Holding Company to manage and optimize heavy bulk fertilizer distribution across the Indonesian archipelago.",
+      "rationale": "Internal logistics tool that replaces spreadsheets for freight tariffs, contracts, and route costs at Pupuk Indonesia Holding Company.",
       "competencies": [
-        "Logistics Routing Systems",
-        "Warehouse Inventory Tracking",
+        "Logistics Systems",
+        "Graph Databases (Neo4j)",
+        "Frontend Monorepo Architecture",
+        "Data Import Pipelines",
         "Database Schema Design",
-        "Geospatial Web Canvas",
-        "Accessibility Engineering",
-        "Clean Architecture",
-        "Financial Auditing Logic",
-        "Contract-aware Tariff Calculations"
+        "Automated Testing"
       ],
       "technicalChallenges": [
-        "Developed a highly performant mathematical route pathfinding engine to solve complex multi-stop marine logistics and cost-minimization problems.",
-        "Designed a comprehensive database schema (using route segments, rate tiers, and contracts) capable of performing water-tight, contract-aware shipping tariff audits.",
-        "Adhered to strict 'The Cartographic Monolith' design system using oklch colors with extreme selectively-contrasting highlights and zero drop-shadow elevations.",
-        "Optimized high-density data tables containing thousands of tariff records with server-side validation against active carrier contracts."
+        "Kept modules independent in one repository: each runs alone in development and they ship together in the shell build.",
+        "Detected tariff conflicts during Excel import and let users resolve them before commit.",
+        "Fixed CORS for credentialed requests by echoing the exact origin with allow_origin_regex (bf69b4b).",
+        "Fixed Docker builds by copying workspace manifests before bun install (495d080)."
       ],
       "readiness": {
         "tests": 65,
