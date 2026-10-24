@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
-import { journey, journeyTypeLabel, profile } from "@/data/portfolio";
+import { journey, profile } from "@/data/portfolio";
 import { Reveal, RiseWords } from "@/components/Reveal";
-import { JourneyLegend, JourneyMarker } from "@/components/JourneyMarker";
+import { JourneyLegend, JourneyMarker, JourneyTag } from "@/components/JourneyMarker";
 import { useTitle } from "@/lib/useTitle";
 
 // Portrait reveal: a small hex opens to a full hex, then squares off into the
@@ -82,8 +82,9 @@ export default function About() {
                 <li key={n.id} className="relative pb-12 pl-8 last:pb-0">
                   <JourneyMarker type={n.type} className="absolute top-1 -left-2 size-4 bg-paper" />
                   <Reveal y={16}>
-                    <p className="font-mono text-xs text-mute">
-                      {n.details.date}, {journeyTypeLabel[n.type]}
+                    <p className="flex items-center gap-3 font-mono text-xs text-mute">
+                      <JourneyTag type={n.type} />
+                      {n.details.date}
                     </p>
                     <h3 className="mt-2 text-xl font-semibold tracking-tight">
                       {n.details.role}

@@ -18,6 +18,7 @@ const Post = lazy(() => import("./pages/Post"));
 const About = lazy(() => import("./pages/About"));
 const Credentials = lazy(() => import("./pages/Credentials"));
 const Contact = lazy(() => import("./pages/Contact"));
+const Hire = lazy(() => import("./pages/Hire"));
 const Brand = lazy(() => import("./pages/Brand"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
@@ -127,6 +128,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/certifications" element={<Credentials />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/hire" element={<Hire />} />
               <Route path="/brand" element={<Brand />} />
               <Route path="*" element={<NotFound />} />
             </Routes>

@@ -5,5 +5,9 @@
   ],
   "ignoreBinaries": [
     "magick"
+  ],
+  "ignore": [
+    "src/components/rb/**",
+    "src/**/*.check.ts"
   ]
 }

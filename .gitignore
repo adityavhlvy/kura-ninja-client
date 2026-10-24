@@ -35,3 +35,4 @@ data/geospatial-data/
 .codegraph/
 anti-slop/
 .taste-skill/
+/dist-ssr

@@ -18,6 +18,22 @@ export function JourneyMarker({ type, className }: { type: JourneyType; classNam
   );
 }
 
+const tag: Record<JourneyType, string> = {
+  work: "bg-sea text-paper",
+  education: "bg-ink text-paper",
+  org: "border border-ink text-ink",
+  achievement: "border border-sea text-sea",
+};
+
+/** Kind as a small pill, same colour code as the hex marker. */
+export function JourneyTag({ type }: { type: JourneyType }) {
+  return (
+    <span className={clsx("inline-block px-2 py-0.5 font-mono text-[11px] uppercase tracking-wide", tag[type])}>
+      {journeyTypeLabel[type]}
+    </span>
+  );
+}
+
 export function JourneyLegend() {
   return (
     <ul className="flex flex-wrap gap-x-5 gap-y-2 text-xs text-mute" aria-label="Milestone kinds">

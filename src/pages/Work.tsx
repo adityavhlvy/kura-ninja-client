@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { chipClass, fieldClass } from "@/components/button";
 import clsx from "clsx";
 import { flagships, projects, shortTitle, statusLabel, type Project } from "@/data/portfolio";
 import { PageIntro } from "@/components/PageIntro";
@@ -61,12 +62,6 @@ export default function Work() {
     );
   }, [tool, query]);
 
-  const chip = (active: boolean) =>
-    clsx(
-      "h-9 border px-3 text-sm transition-colors",
-      active ? "border-ink bg-ink text-paper" : "border-line text-mute hover:border-ink hover:text-ink",
-    );
-
   return (
     <>
       <PageIntro title="Work">
@@ -77,7 +72,7 @@ export default function Work() {
       <div className="mx-auto max-w-[1440px] px-5 md:px-10">
         <div className="flex flex-col gap-5 border-y border-line py-5 lg:flex-row lg:items-center">
           <div className="flex flex-col gap-1.5">
-            <label htmlFor="work-search" className="text-xs text-mute">
+            <label htmlFor="work-search" className="label">
               Search
             </label>
             <input
@@ -86,11 +81,11 @@ export default function Work() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="Title, tool, or topic"
-              className="h-10 w-full border border-line bg-transparent px-3 text-sm outline-none placeholder:text-mute focus:border-sea lg:w-64"
+              className={`${fieldClass} text-sm lg:w-64`}
             />
           </div>
           <div role="group" aria-label="Filter by tool" className="flex flex-wrap gap-2 lg:ml-4">
-            <button type="button" aria-pressed={!tool} onClick={() => setTool(null)} className={chip(!tool)}>
+            <button type="button" aria-pressed={!tool} onClick={() => setTool(null)} className={chipClass(!tool)}>
               Everything
             </button>
             {TOOLS.map((t) => (
@@ -99,7 +94,7 @@ export default function Work() {
                 type="button"
                 aria-pressed={tool === t}
                 onClick={() => setTool(tool === t ? null : t)}
-                className={chip(tool === t)}
+                className={chipClass(tool === t)}
               >
                 {t}
               </button>

@@ -19,6 +19,7 @@ export function useTheme() {
   const theme = useSyncExternalStore(
     (l) => (listeners.add(l), () => listeners.delete(l)),
     read,
+    () => "light" as Theme,
   );
   return { theme, toggle: () => setTheme(theme === "dark" ? "light" : "dark") };
 }

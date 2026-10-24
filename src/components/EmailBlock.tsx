@@ -14,10 +14,11 @@ export function EmailBlock() {
     <div>
       <a
         href={`mailto:${email}`}
-        className="display group block text-[clamp(1.6rem,5.2vw,5rem)] break-all transition-colors hover:text-sea"
+        className="display group block text-[clamp(1.6rem,5.2vw,5rem)] leading-[1.05] [overflow-wrap:anywhere] transition-colors hover:text-sea"
       >
         {user}
         <span className="text-sea transition-colors group-hover:text-ink">@</span>
+        <wbr />
         {domain}
       </a>
       <div className="mt-8 flex flex-wrap items-center gap-3">

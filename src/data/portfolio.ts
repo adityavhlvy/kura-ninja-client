@@ -121,6 +121,25 @@ export const certifications = (
 export const profile = profileJson as Profile;
 export const archipelago = archipelagoJson as Archipelago;
 
+// "@user" when the URL ends in a readable name, the bare host for opaque IDs like Spotify's.
+const handleOf = (url: string) => {
+  const u = new URL(url);
+  const last = u.pathname.split("/").filter(Boolean).pop();
+  return last && last.length <= 24 && !/\d{4,}/.test(last) ? `@${last}` : u.hostname.replace(/^www\./, "");
+};
+
+/** Every way to reach me, one shape, one order. Views render this list, never pick from it. */
+export const channels: { name: string; handle: string; href: string; external: boolean }[] = [
+  { name: "Email", handle: profile.contact.email, href: `mailto:${profile.contact.email}`, external: false },
+  { name: "Phone", handle: profile.contact.phone, href: `tel:${profile.contact.phone.replace(/-/g, "")}`, external: false },
+  ...profile.contact.socials.map((s) => ({
+    name: s.name,
+    handle: handleOf(s.url),
+    href: s.url,
+    external: true,
+  })),
+];
+
 /** The three platforms in production at Pupuk Indonesia, each with real screenshots. */
 export const flagships = ["pinter", "aegis-atlas", "nexus"]
   .map((slug) => projects.find((p) => p.slug === slug))

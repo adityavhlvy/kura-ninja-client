@@ -2,67 +2,86 @@ import { Link } from "react-router-dom";
 import { journey, profile } from "@/data/portfolio";
 import { Reveal } from "@/components/Reveal";
 import { Roll } from "@/components/Roll";
+import { JourneyLegend, JourneyMarker } from "@/components/JourneyMarker";
 import { wrap } from "@/lib/wrap";
 
-const FACTS = [
-  { label: "Now", value: "Software & AI Engineer, Pupuk Indonesia" },
-  { label: "Studied", value: "Computer Science, Universitas Pertamina, cum laude" },
-  { label: "Scholarship", value: "APERTI BUMN" },
-];
-
-/** Two rows that share one vertical line at 34%: facts and story, then the path. */
-export function AboutBrief() {
-  const half = Math.ceil(journey.length / 2);
-  const cols = [journey.slice(0, half), journey.slice(half)];
+function PathGroup({ title, items }: { title: string; items: typeof journey }) {
   return (
-    <section aria-labelledby="about-brief" className={`${wrap} pt-24 md:pt-32`}>
-      <div className="grid gap-10 md:grid-cols-[34fr_66fr] md:gap-0">
-        <dl className="order-2 grid grid-cols-2 gap-5 md:order-none md:block md:w-48 md:space-y-5">
-          {FACTS.map((f) => (
-            <div key={f.label}>
-              <dt className="text-mute">{f.label}</dt>
-              <dd>{f.value}</dd>
-            </div>
-          ))}
-        </dl>
-        <Reveal className="md:pr-[10%]">
-          <h2 id="about-brief" className="sr-only">
+    <div>
+      <p className="mb-3 border-b border-ink pb-2 text-sm font-semibold">{title}</p>
+      <ul className="divide-y divide-line">
+        {items.map((n) => (
+          <li key={n.id} className="flex items-center gap-3 py-3.5">
+            <JourneyMarker type={n.type} />
+            <span className="min-w-0 flex-1">
+              <strong className="block font-medium text-ink">{n.details.role}</strong>
+              <span className="block text-sm text-mute">{n.details.company ?? n.label}</span>
+            </span>
+            <span className="shrink-0 font-mono text-xs text-mute tabular-nums">{n.year}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export function AboutBrief() {
+  const workAndResearch = journey
+    .filter((j) => j.type === "work" || j.type === "achievement")
+    .slice()
+    .reverse()
+    .slice(0, 4);
+
+  const leadership = journey.filter((j) => j.type === "org").reverse().slice(0, 2);
+  const education = journey.filter((j) => j.type === "education").reverse().slice(0, 2);
+
+  return (
+    <section aria-labelledby="about-brief-title" className={`${wrap} pt-24 md:pt-32`}>
+      {/* Top: Bio story & Structured Facts */}
+      <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <Reveal className="lg:col-span-9">
+          <h2 id="about-brief-title" className="label">
             About
           </h2>
-          <p className="text-[clamp(1.25rem,1.7vw,1.625rem)] leading-[1.35]">
+          <p className="mt-6 text-[clamp(1.25rem,1.7vw,1.625rem)] leading-[1.4] text-ink">
             I work where AI orchestration, geospatial intelligence and fullstack engineering meet. Before Pupuk Indonesia I
             digitised production planning at Astra Otoparts, then forecast rice yield from satellite imagery as a research
             assistant. I think about system design more than is healthy at 2am.
           </p>
-          <Link to="/about" className="group mt-6 inline-flex font-medium text-sea">
-            <Roll>More about me</Roll>
-          </Link>
+          <div className="mt-8">
+            <Link to="/about" className="group inline-flex items-center gap-2 font-medium text-sea">
+              <Roll>More about me</Roll>
+              <span aria-hidden="true">→</span>
+            </Link>
+          </div>
         </Reveal>
+
       </div>
 
-      <div className="mt-20 grid gap-6 md:grid-cols-[34fr_66fr] md:gap-0">
-        <p className="font-semibold">Path</p>
-        <div className="grid gap-10 md:grid-cols-2 md:gap-16 md:pr-[10%]">
-          {cols.map((col, i) => (
-            <ul key={i} className="space-y-2.5">
-              {col.map((n) => (
-                <li key={n.id} className="flex justify-between gap-6">
-                  <span>
-                    {n.details.role}, {n.details.company ?? n.label}
-                  </span>
-                  <span className="shrink-0 text-mute tabular-nums">{n.year}</span>
-                </li>
-              ))}
-            </ul>
-          ))}
+      {/* Middle: the latest of each kind; the full path lives on /about */}
+      <Reveal delay={0.2} className="mt-20 border-t border-line pt-12 md:mt-28">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
+          <h3 className="label">Path</h3>
+          <JourneyLegend />
         </div>
-      </div>
+        <div className="grid gap-12 md:grid-cols-2 md:gap-16">
+          <PathGroup title="Work & Research" items={workAndResearch} />
+          <div className="space-y-10">
+            <PathGroup title="Leadership" items={leadership} />
+            <PathGroup title="Education" items={education} />
+          </div>
+        </div>
+      </Reveal>
 
-      <Reveal className="mt-20 md:ml-[34%]">
-        <blockquote className="max-w-[30ch] text-[clamp(1.375rem,2.5vw,2.25rem)] leading-tight font-semibold tracking-tight">
-          <p>{profile.philosophy.quote}</p>
-        </blockquote>
-        <p className="mt-3 text-mute">{profile.philosophy.comment}</p>
+      {/* Bottom: Philosophy Callout Card */}
+      <Reveal delay={0.25} className="mt-16 md:mt-24">
+        <div className="border-l-2 border-sea bg-sunk p-8 md:p-12">
+          <p className="label">Philosophy</p>
+          <blockquote className="mt-4 max-w-[36ch] text-[clamp(1.25rem,2vw,1.75rem)] font-semibold leading-snug tracking-tight text-ink">
+            “{profile.philosophy.quote}”
+          </blockquote>
+          <p className="mt-4 text-sm text-mute">{profile.philosophy.comment}</p>
+        </div>
       </Reveal>
     </section>
   );

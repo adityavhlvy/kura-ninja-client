@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Command } from "cmdk";
 import { PiArrowUpRightBold, PiCopyBold, PiFileTextBold, PiMoonBold, PiNotePencilBold, PiSunBold } from "react-icons/pi";
-import { posts, profile, projects } from "@/data/portfolio";
+import { channels, posts, profile, projects } from "@/data/portfolio";
 import { setTheme } from "@/lib/theme";
 import { NAV } from "@/layout/Header";
 
@@ -86,7 +86,7 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
         )}
 
         <Command.Group heading="Actions" className={group}>
-          <Command.Item value="copy email address" onSelect={run(() => navigator.clipboard?.writeText(profile.contact.email))} className={item}>
+          <Command.Item value="copy email address" onSelect={run(() => navigator.clipboard?.writeText(profile.contact.email).catch(() => prompt("Copy the address", profile.contact.email)))} className={item}>
             <PiCopyBold aria-hidden="true" /> Copy email address
           </Command.Item>
           <Command.Item value="theme light" onSelect={run(() => setTheme("light"))} className={item}>
@@ -95,8 +95,8 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
           <Command.Item value="theme dark" onSelect={run(() => setTheme("dark"))} className={item}>
             <PiMoonBold aria-hidden="true" /> Dark theme
           </Command.Item>
-          {profile.contact.socials.map((s) => (
-            <Command.Item key={s.name} value={`open ${s.name}`} onSelect={run(() => window.open(s.url, "_blank", "noreferrer"))} className={item}>
+          {channels.map((s) => (
+            <Command.Item key={s.name} value={`open ${s.name}`} onSelect={run(() => (s.external ? window.open(s.href, "_blank", "noreferrer") : (location.href = s.href)))} className={item}>
               <PiArrowUpRightBold aria-hidden="true" /> Open {s.name}
             </Command.Item>
           ))}

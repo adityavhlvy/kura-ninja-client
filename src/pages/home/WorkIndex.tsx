@@ -20,7 +20,7 @@ export function WorkIndex() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: i * 0.07 }}
+            transition={{ duration: 0.6, delay: Math.min(i, 5) * 0.07 }}
           >
             <Link
               to={`/projects/${p.slug}`}

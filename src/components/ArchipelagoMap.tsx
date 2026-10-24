@@ -63,13 +63,17 @@ const CELL_COUNT = archipelago.provinces.map((_, i) => CELLS.filter((c) => c.p =
 
 export function ArchipelagoMap({
   onProvince,
+  selected = null,
   className,
 }: {
   onProvince?: (p: Province | null) => void;
+  /** Province index picked outside the map, e.g. from the keyboard list. */
+  selected?: number | null;
   className?: string;
 }) {
   const svgRef = useRef<SVGSVGElement>(null);
-  const [active, setActive] = useState<number | null>(null);
+  const [hovered, setActive] = useState<number | null>(null);
+  const active = hovered ?? selected;
   const maskId = useId();
   const glowId = useId();
 
@@ -83,7 +87,7 @@ export function ArchipelagoMap({
   const activeCells = useMemo(() => (active === null ? [] : CELLS.filter((c) => c.p === active)), [active]);
 
   const pick = (p: number | null) => {
-    if (p === active) return;
+    if (p === hovered) return;
     setActive(p);
     onProvince?.(p === null ? null : { ...archipelago.provinces[p], cells: CELL_COUNT[p] });
   };
