@@ -181,7 +181,7 @@
         "role": "Software Engineer",
         "company": "PT Pupuk Indonesia (Persero)",
         "date": "Oct 2025 - Present",
-        "description": "Engineering PINTER AI agent orchestration platform with visual canvas and Jev smart model routing, AeGIS (Module Atlas) geospatial dashboard, and NEXUS (Module Delta & Vista) logistics & pathfinding platform.",
+        "description": "Build PINTER, an AI agent platform with Jev smart routing, AeGIS Atlas, a fertilizer demand planning map across 34 provinces, and NEXUS, contract, tariff, route, and stock tools for 122 warehouses. Work with users from workshops and UAT to release.",
         "skills": [
           "Google ADK",
           "React Flow",
