@@ -1,6 +1,7 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { Analytics } from "@vercel/analytics/react";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
 import { ease } from "./components/Reveal";
@@ -137,6 +138,7 @@ export default function App() {
       </AnimatePresence>
 
       <Footer />
+      <Analytics />
     </MotionConfig>
   );
 }
