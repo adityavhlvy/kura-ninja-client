@@ -80,6 +80,7 @@ interface Profile {
     paragraphs: string[];
   };
   skills: { category: string; items: string[] }[];
+  thanks: { intro: string; groups: { context: string; people: string[] }[] };
 }
 
 export interface Archipelago {

@@ -44,7 +44,7 @@ export function AboutBrief() {
             About
           </h2>
           <p className="mt-6 text-[clamp(1.25rem,1.7vw,1.625rem)] leading-[1.4] text-ink">
-            I work where AI orchestration, geospatial intelligence and fullstack engineering meet. Before Pupuk Indonesia I
+            I learn how a business process really works, then build the software for it, from web apps to AI and maps. Before Pupuk Indonesia I
             digitised production planning at Astra Otoparts, then forecast rice yield from satellite imagery as a research
             assistant. I think about system design more than is healthy at 2am.
           </p>

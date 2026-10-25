@@ -131,7 +131,7 @@ export default function Hire() {
           Open for a few side projects
         </span>
         <br />
-        I take on freelance work alongside my role at Pupuk Indonesia: AI agents, maps, and fullstack apps. Pricing depends on
+        I take on freelance work alongside my role at Pupuk Indonesia: AI agents, maps, and full-stack apps. Pricing depends on
         scope, so tell me about the project and we start from there.
       </PageIntro>
 

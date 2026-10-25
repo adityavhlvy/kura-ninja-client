@@ -52,8 +52,8 @@ function Intro() {
         </h1>
         <Reveal delay={0.35} className="mt-10">
           <p className="max-w-[34ch] text-[clamp(1.25rem,1.7vw,1.625rem)] leading-snug">
-            {bio.current_role_detail.replace("PT ", "").replace(" (Persero)", "")}. I build AI agent platforms and the
-            maps that plan fertilizer for Indonesia.
+            {bio.current_role_detail.replace("PT ", "").replace(" (Persero)", "")}. I turn business processes into
+            software: AI agents, planning maps, and logistics tools.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3">
             <Magnet padding={60} magnetStrength={4} maxOffset={10}>

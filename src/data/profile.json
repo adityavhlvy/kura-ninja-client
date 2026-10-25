@@ -27,7 +27,7 @@
   },
   "tagline": "Building things that",
   "tagline_highlight": "(mostly)",
-  "tagline_suffix": "work. Currently wrangling AI orchestration & geospatial platform.",
+  "tagline_suffix": "work. Currently turning business processes into AI, GIS, and full-stack software.",
   "philosophy": {
     "tag": "philosophy",
     "quote": "If it works, don't touch it. If it breaks, blame the compiler.",
@@ -39,10 +39,10 @@
     "alias": "adityavhlvy",
     "avatar": "/assets/profile-photos/professional-portrait-in-charcoal-suit.png",
     "degree_detail": "Computer Science graduate from Universitas Pertamina (Cum Laude, GPA 3.58)",
-    "current_role_detail": "Software & AI Engineer at PT Pupuk Indonesia (Persero)",
+    "current_role_detail": "Software Engineer at PT Pupuk Indonesia (Persero)",
     "paragraphs": [
-      "My expertise lies at the intersection of AI Engineering/Orchestration, Geospatial Intelligence, and Fullstack Software Development. Currently engineering PINTER (an AI agent orchestration platform with a visual builder canvas, multi-agent workflows, and Jev smart model routing using FastAPI, Google ADK, React Flow, and TanStack Router), AeGIS Module Atlas (a geospatial dashboard for fertilizer demand visualization and soil nutrient analysis using Go Fiber v3, React 19, OpenLayers, and PostgreSQL), and NEXUS Module Delta & Vista (an enterprise logistics coordination and automated route pathfinding platform using FastAPI, React 19, and OpenLayers).",
-      "I have a background in predictive modeling (Satellite Imagery + Deep Learning) and have spent time in the industry digitizing mission-critical operations at Astra Otoparts. Whether it's architecting Clean Architecture systems or fine-tuning LightGBM models with Optuna, I thrive on solving complex problems with code.",
+      "I build three internal platforms at Pupuk Indonesia. PINTER lets business teams build Google ADK agents on a visual canvas, connect MCP tools, and chat through a smart router that sends each message to a model that fits it. AeGIS Atlas is a fertilizer demand planning map where numbers update as planners change their assumptions. NEXUS moves carrier contracts, freight tariffs, and route costs out of spreadsheets.",
+      "I work across the stack: FastAPI and Go services on PostgreSQL and Neo4j, React 19 frontends, and the tests that keep the business logic honest. Before this I predicted rice yield from Sentinel-2 imagery with LightGBM and Optuna, and digitized a rejection tracking workflow at Astra Otoparts.",
       "Beyond the screen, I'm an APERTI BUMN Scholarship awardee, a former Vice President of my student association, and someone who probably thinks about system design way too much at 2am."
     ]
   },
@@ -52,48 +52,90 @@
       "items": [
         "TypeScript",
         "Python",
-        "Golang",
-        "SQL (PostgreSQL)"
+        "Go",
+        "SQL"
       ]
     },
     {
-      "category": "Frameworks",
+      "category": "AI & ML",
       "items": [
-        "React",
+        "Google ADK (multi-agent graphs)",
+        "MCP (Model Context Protocol)",
+        "LiteLLM",
+        "Model routing and LLM guardrails",
+        "Qdrant (vector search)",
+        "LightGBM, XGBoost, PyTorch",
+        "Google Earth Engine (Sentinel-2)"
+      ]
+    },
+    {
+      "category": "Backend & Data",
+      "items": [
         "FastAPI",
         "Go Fiber",
-        "Rsbuild / Rspack (Modern build compilation)",
-        "Turborepo / Bun Workspaces (Monorepo orchestration)",
-        "TanStack Router",
+        "SQLAlchemy 2.0 (async) and Alembic",
+        "PostgreSQL / PostGIS",
+        "Neo4j (Cypher)",
+        "SSE streaming",
+        "SSO and RBAC"
+      ]
+    },
+    {
+      "category": "Frontend",
+      "items": [
+        "React 19",
+        "TanStack Router and Query",
+        "React Flow (@xyflow/react)",
+        "OpenLayers",
         "Zustand",
-        "Tailwind CSS",
-        "shadcn/ui",
-        "Google ADK (Agent Development Kit)"
+        "Tailwind CSS v4 and shadcn/ui"
       ]
     },
     {
-      "category": "Databases & Caching",
+      "category": "Ways of Working",
       "items": [
-        "PostgreSQL (with PostGIS spatial indexing)",
-        "Qdrant (Vector Database)"
+        "Requirements discovery and process mapping",
+        "User workshops and UAT",
+        "Technical writing and design write-ups",
+        "Agile and Scrum"
       ]
     },
     {
-      "category": "Tools & Platforms",
+      "category": "Tooling",
       "items": [
-        "Docker / Containerization",
-        "Git",
-        "Google Earth Engine (GEE)",
-        "Figma",
-        "Streamlit",
-        "Insomnia"
-      ]
-    },
-    {
-      "category": "IDE",
-      "items": [
-        "Zed"
+        "Rsbuild / Rspack",
+        "Bun Workspaces and Turborepo",
+        "Docker",
+        "GitLab CI",
+        "pytest, Vitest, bun test"
       ]
     }
-  ]
+  ],
+  "thanks": {
+    "intro": "Most of what I know about building software for real users, I learned from people who took the time to show me.",
+    "groups": [
+      {
+        "context": "Internship at Astra Otoparts",
+        "people": [
+          "Pak Aji",
+          "Mas Dihan"
+        ]
+      },
+      {
+        "context": "Joining Pupuk Indonesia",
+        "people": [
+          "Pak Aldy",
+          "Mas Revan",
+          "Mas Kumar",
+          "Mas Iqbal"
+        ]
+      },
+      {
+        "context": "After moving teams",
+        "people": [
+          "Pak Dommy"
+        ]
+      }
+    ]
+  }
 }

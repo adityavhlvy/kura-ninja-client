@@ -37,41 +37,69 @@
       ],
       "date": "2026",
       "featured": true,
-      "summary": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company, built on FastAPI, Google ADK, and React 19. I co-developed it with one other engineer. My main work is the TypeSafe Jev smart router, the routing trace in chat, Jev guardrails, and IDENTIK SSO with encrypted assertions.",
+      "summary": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company, built on FastAPI, Google ADK, and React 19. I have worked on it since January 2026, through the move from CrewAI to ADK and the later refactor. My main work is the async SQLAlchemy backend, the agent runtime behind the canvas (HITL, conditional agents, sub-agents), prompt extraction defense, RBAC and sharing, CI speed, and the TypeSafe Jev smart router.",
       "fiveWOneH": {
-        "who": "Co-developed by Aditya Vahlevy Nugraha and one other engineer. Aditya authored 247 of 487 backend commits and 224 of 439 frontend commits.",
-        "what": "An agent platform with a visual ADK graph builder, MCP tool servers, virtual models (combos, round-robin, smart router), and chat with an inline execution trace.",
-        "when": "September to October 2026, on the refactor repositories.",
+        "who": "Aditya Vahlevy Nugraha as the second-largest contributor in a team of two to four engineers. Original repositories: 331 of 865 backend and 212 of 717 frontend commits. Refactor repositories: 247 of 498 backend and 236 of 457 frontend commits. About 40% of 2,500+ commits overall.",
+        "what": "An agent platform with a visual ADK graph builder, MCP tool servers, virtual models (combos, round-robin, smart router), role-based sharing, and chat with an inline execution trace.",
+        "when": "January 2026 to now. Original repositories until early September 2026, then the refactor repositories.",
         "where": "Internal deployment at Pupuk Indonesia Holding Company, with sign-in through the IDENTIK SSO.",
-        "why": "Let business teams build and run agents without code, and send each query to a model that fits it instead of one fixed model.",
-        "how": "FastAPI and Google ADK on the backend, React 19 with React Flow and TanStack on the frontend, and an httpx client for the TypeSafe Jev System One endpoint."
+        "why": "Let business teams build and run agents without code, safely, and send each query to a model that fits it instead of one fixed model.",
+        "how": "FastAPI, Google ADK, and async SQLAlchemy on the backend, React 19 with React Flow and TanStack on the frontend, GitLab CI on pre-baked images, and an httpx client for the TypeSafe Jev System One endpoint."
       },
       "problemChangeResult": [
         {
-          "problem": "Every agent call went to one fixed model, whatever the query.",
-          "change": "Added a smart router virtual model. The TypeSafe Jev client scores the query against route criteria. The router picks a route when confidence passes a threshold (default 0.65) and falls back to a general model otherwise.",
-          "result": "Routing logic and threshold covered by frontend tests in virtual-models.test.ts. Cost and latency effect: Not measured."
+          "problem": "The first backend used raw psycopg2 SQL and CrewAI-era routes, which made schema changes risky.",
+          "change": "Moved to async SQLAlchemy with Alembic, new /api/v2 routes with execution tracing and per-user quotas, and wrote a v1 to v2 migration guide so old routes kept working (ad20a97).",
+          "result": "Schema changes go through Alembic revisions. Old routes stayed available during the switch."
         },
         {
-          "problem": "Users could not see why chat used a given model or what an agent did.",
-          "change": "Streamed smart routing decisions to the client and rendered them in the inline trace with probability bars, next to tool calls and agent transfers.",
-          "result": "Routing decisions and active model visible per message. User impact: Not measured."
+          "problem": "Agents could leak their system prompt when users asked for it (CWE-1427).",
+          "change": "Built a two-layer prompt guard: an input filter that refuses extraction attempts before the model call, and an output filter that redacts leaked instruction sections before streaming or storage (f737fd2).",
+          "result": "Extraction attempts get a safe refusal, and leaked sections never reach the client or the database. Attack success rate: Not measured."
+        },
+        {
+          "problem": "Backend lint and audit jobs reinstalled their tools on every pipeline.",
+          "change": "Pre-baked a dependency image tagged by the requirements hash and moved the verify jobs onto it, with a drift guard between the image and its checks (c080472, 5d7a69b, e8a9302).",
+          "result": "Measured on MR 341: each job went from 6m11s to 7m28s down to 1m24s cold and 13s warm."
+        },
+        {
+          "problem": "Every agent call went to one fixed model, whatever the query.",
+          "change": "Added a smart router virtual model. The TypeSafe Jev client scores the query against route criteria. The router picks a route when confidence passes a threshold (default 0.65) and falls back to a general model otherwise.",
+          "result": "Routing logic and threshold covered by frontend tests in virtual-models.test.ts. List-price estimate: about 34% cheaper than sending everything to the strongest model. Real cost and latency: Not measured."
         }
       ],
       "contributions": [
+        "Moved the backend to async SQLAlchemy and Alembic behind /api/v2 routes and wrote the migration guide (ad20a97).",
+        "Added human-in-the-loop and conditional agents and split the executor into runner and persister (dbbc163).",
+        "Built sub-agent support on the canvas: toggle, promotion with template diffing, single sub-agent testing, and transfer tracing over SSE (8507390, bc54086, 1be5d56, dfe7a01).",
+        "Built the two-layer prompt extraction guard (f737fd2).",
+        "Built L1 to L4 RBAC, marketplace approvals, access mapping, and resource sharing, then closed P0 RBAC bypasses (7dd419b, e781d08, f1a8879, cda057b).",
+        "Pre-baked the CI dependency image and moved verify jobs onto it (c080472, 5d7a69b).",
         "Built the TypeSafe Jev client and smart router (45dfe2c), then fixed intent encryption and confidence handling (b586fd1).",
-        "Built the model wizard and smart router settings with the confidence threshold slider (a364d2c, c000478).",
         "Streamed routing decisions to chat and rendered them in the inline trace (b35cf93, aed8e68).",
         "Added IDENTIK SSO encrypted assertions with AES-256-GCM, the username claim, and the external user ID backfill (2ee85c9, a8252b7, 662ca70).",
-        "Added the System One Jev guardrail middleware, workspace guardrail policies, and the guardrail settings panel (1a9de34, a3175ea, 8166d62).",
-        "Added Mermaid, ECharts, and HTML rendering in chat (3161291)."
+        "Added the System One Jev guardrail middleware, workspace guardrail policies, and the guardrail settings panel (1a9de34, a3175ea, 8166d62)."
       ],
       "notMeasured": [
+        "Token savings from ADK context caching. Caching is enabled in config (84f1a75) and cached tokens are recorded, but no before and after comparison exists.",
         "Smart router evaluation latency. The UI text says about 150ms, but no measurement exists.",
         "Token cost before and after enabling smart routing.",
+        "Prompt guard detection and false positive rates.",
         "Concurrent SSE stream capacity."
       ],
       "beforeAfter": [
+        {
+          "measure": "CI lint and audit job time",
+          "before": "6m11s to 7m28s per job",
+          "after": "1m24s cold, 13s warm",
+          "evidence": "Commit 5d7a69b, measured on MR 341"
+        },
+        {
+          "measure": "Data access",
+          "before": "Raw psycopg2 SQL",
+          "after": "Async SQLAlchemy with Alembic migrations",
+          "evidence": "MIGRATION_NOTES.md, commit ad20a97"
+        },
         {
           "measure": "Virtual model types",
           "before": "Combos and round-robin",
@@ -89,15 +117,13 @@
           "before": "Not measured",
           "after": "AES-256-GCM encrypted assertions",
           "evidence": "projects/pinter/pinter-be/shared/utils/assertion.py, commit 2ee85c9"
-        },
-        {
-          "measure": "Smart router latency",
-          "before": "Not measured",
-          "after": "Not measured",
-          "evidence": "No benchmark in the repositories"
         }
       ],
       "keyDecisions": [
+        {
+          "decision": "Guard the prompt on both sides",
+          "explanation": "The input filter stops obvious extraction attempts before a model call is paid for. The output filter catches what slips through. A fixed clause in every system prompt adds a third check (modules/adk/prompt_guard.py)."
+        },
         {
           "decision": "Dedicated classifier for routing",
           "explanation": "The router calls the TypeSafe Jev System One endpoint through one pooled httpx client instead of asking a general LLM to triage. Trade-off: one more external dependency on the request path (modules/agents/runtime/typesafe_client.py)."
@@ -107,46 +133,52 @@
           "explanation": "A route is used only above a configurable threshold, default 0.65. Below it the request goes to a fallback model, so a weak classification never blocks chat (modules/agents/virtual_models.py)."
         },
         {
-          "decision": "Virtual model abstraction",
-          "explanation": "Combos, round-robin pools, and smart routers share one virtual model type, so agents point at a virtual model instead of a provider endpoint (src/apps/agents/virtual-models/types.ts)."
+          "decision": "Dependency image keyed by the lockfile",
+          "explanation": "The image tag is the requirements hash, so its layer digest stays stable and the registry can reuse it. Trade-off: the image and the CI checks must list the same tools, so a test guards that (c080472, e8a9302)."
         }
       ],
       "evidenceCommits": [
+        "ad20a97",
+        "dbbc163",
+        "f737fd2",
+        "bc54086",
+        "7dd419b",
+        "cda057b",
+        "c080472",
+        "5d7a69b",
         "45dfe2c",
         "b586fd1",
-        "a364d2c",
-        "c000478",
-        "b35cf93",
         "aed8e68",
         "2ee85c9",
-        "1a9de34",
-        "a3175ea",
-        "3161291"
+        "1a9de34"
       ],
-      "caseStudy": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company. Teams build agents on a React Flow canvas that maps to Google ADK graphs: single LLM agents, sequential, parallel, and loop agents. Agents can call MCP tool servers over stdio, SSE, or streamable HTTP. I co-developed the platform with one other engineer and focused on how chat picks a model. Every agent used one fixed model, whatever the query. I added a smart router as a new virtual model type next to the existing combos and round-robin pools. The backend sends the query to the TypeSafe Jev System One endpoint through a pooled client. It gets back a confidence score per route. Above the threshold, default 0.65, the router uses the matching model. Below it, the request goes to a fallback model. The decision streams to the client and shows in the inline chat trace as probability bars, next to tool calls and agent transfers. I also added Jev guardrail middleware with workspace policies, and IDENTIK SSO with AES-256-GCM encrypted assertions. Latency and cost effects of routing are not measured yet.",
+      "caseStudy": "PINTER is the internal AI agent platform of Pupuk Indonesia Holding Company. Teams build agents on a React Flow canvas that maps to Google ADK graphs: single LLM agents, sequential, parallel, and loop agents. Agents can call MCP tool servers over stdio, SSE, or streamable HTTP. I joined the work in January 2026, when the platform still ran on CrewAI and raw SQL. I moved the backend to async SQLAlchemy and Alembic behind new routes, and kept the old ones alive through a written migration guide. On the runtime side I added human-in-the-loop and conditional agents, and sub-agents that can be toggled, promoted, and tested alone on the canvas. Agents could be asked to reveal their system prompt, so I built a guard that refuses those requests before the model call and redacts leaked instructions before anything is streamed or saved. I built the L1 to L4 access levels and sharing by grant or code, and later closed P0 bypasses by moving every route to exact permission checks. Backend CI reinstalled its tools on every run, so I pre-baked a dependency image. Lint and audit jobs went from about 7 minutes to 13 seconds once warm. After the refactor in September 2026, I added a smart router as a new virtual model type. The backend asks the TypeSafe Jev System One endpoint for a confidence score per route. Above the threshold, default 0.65, the router uses the matching model. Below it, the request goes to a fallback model. The decision shows in the chat trace. I also added Jev guardrail middleware and IDENTIK SSO with AES-256-GCM encrypted assertions. Latency and cost effects of routing are not measured yet.",
       "details": [
+        "Moved the backend from raw psycopg2 to async SQLAlchemy with Alembic, new /api/v2 routes, execution tracing, and per-user quotas, with a v1 to v2 migration guide.",
+        "Added human-in-the-loop and conditional agents, and split the executor into runner and persister.",
+        "Built canvas sub-agent support: toggle, promotion with template diffing, single sub-agent testing, and transfer tracing over SSE.",
+        "Built a two-layer guard against system prompt extraction (CWE-1427) with input refusal and output redaction.",
+        "Built L1 to L4 RBAC, marketplace approvals, access mapping, and sharing by grant or redeemable code, with a 1,200-line test suite. Closed P0 RBAC bypasses.",
+        "Pre-baked the CI dependency image. Lint and audit jobs dropped from 6 to 7 minutes to 1m24s cold and 13s warm.",
         "Built the TypeSafe Jev client with a pooled httpx connection and the smart router virtual model with confidence threshold and fallback.",
-        "Built the model wizard and smart router settings UI, with tests for threshold defaults and route mapping.",
         "Streamed routing decisions and the active model to chat and rendered them in the inline trace.",
         "Added IDENTIK SSO encrypted assertions (AES-256-GCM with an HKDF-derived key) and an external user ID backfill.",
-        "Added System One Jev guardrail middleware, workspace guardrail policies, and a guardrail settings panel.",
-        "Added Mermaid, ECharts, and HTML blocks to chat rendering.",
-        "Worked on the visual agent builder that maps canvas graphs to ADK LlmAgent, SequentialAgent, ParallelAgent, and LoopAgent, shared with another engineer.",
-        "Added reasoning effort settings, a curated provider list, chat share expiry, and prompt and completion token split in usage reports."
+        "Added System One Jev guardrail middleware, workspace guardrail policies, and a guardrail settings panel."
       ],
       "rationale": "Internal tool that lets teams at Pupuk Indonesia Holding Company build AI agents without code and route each query to a suitable model.",
       "competencies": [
         "AI Agent Orchestration",
         "Smart Model Routing",
-        "LLM Guardrails",
-        "API Design & SSE Streaming",
-        "Enterprise SSO",
-        "MCP Protocol Integration"
+        "LLM Security and Guardrails",
+        "Database Migration",
+        "RBAC and Enterprise SSO",
+        "CI/CD Performance"
       ],
       "technicalChallenges": [
+        "Kept old routes working while the backend moved to a new ORM and schema, through deprecated shims and a written migration path.",
+        "Redacted leaked system prompt sections from model output before streaming or storage, without blocking normal questions about the agent's role.",
         "Kept routing safe when the classifier is unsure: below the confidence threshold the request falls back to a general model instead of failing.",
-        "Fixed intent encryption and confidence parsing in the smart router after the first release (b586fd1, c000478).",
-        "Carried routing metadata through the SSE chat stream so the client can show the decision and active model per message (b35cf93)."
+        "Kept the CI image and its checks in sync with a guard test that fails when a tool is added to one and not the other (e8a9302)."
       ],
       "readiness": {
         "tests": 80,

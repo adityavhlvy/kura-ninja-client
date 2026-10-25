@@ -142,7 +142,7 @@
           "ASP.NET",
           "VB.NET",
           "Oracle DB",
-          "Fullstack",
+          "Full-stack",
           "Manufacturing IT"
         ],
         "highlight": "95% error reduction",
@@ -178,7 +178,7 @@
       "year": "Now",
       "emoji": "🚀",
       "details": {
-        "role": "Software & AI Engineer",
+        "role": "Software Engineer",
         "company": "PT Pupuk Indonesia (Persero)",
         "date": "Oct 2025 - Present",
         "description": "Engineering PINTER AI agent orchestration platform with visual canvas and Jev smart model routing, AeGIS (Module Atlas) geospatial dashboard, and NEXUS (Module Delta & Vista) logistics & pathfinding platform.",

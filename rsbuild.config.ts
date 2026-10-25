@@ -7,9 +7,9 @@ const { publicVars } = loadEnv({ prefixes: ["PUBLIC_"] });
 
 const SITE_URL = "https://adityavhlvy.vercel.app";
 const DEFAULT_IMAGE = "/assets/og.jpg";
-const SITE_TITLE = "Aditya Vahlevy Nugraha (adityavhlvy) | Software & AI Engineer";
+const SITE_TITLE = "Aditya Vahlevy Nugraha (adityavhlvy) | Software Engineer";
 const SITE_DESCRIPTION =
-  "Portfolio of Aditya Vahlevy Nugraha (adityavhlvy), Software and AI Engineer at Pupuk Indonesia. AI agent platforms, geospatial planning, and fullstack systems.";
+  "Portfolio of Aditya Vahlevy Nugraha (adityavhlvy), Software Engineer at Pupuk Indonesia. AI, GIS, and full-stack systems that turn business processes into software.";
 
 const escapeAttr = (s: string) => s.replace(/&/g, "&amp;").replace(/"/g, "&quot;").replace(/</g, "&lt;");
 
@@ -35,7 +35,7 @@ function pages(root: string): Page[] {
     alternateName: "adityavhlvy",
     url: SITE_URL,
     image: `${SITE_URL}/assets/profile.webp`,
-    jobTitle: "Software & AI Engineer",
+    jobTitle: "Software Engineer",
     worksFor: { "@type": "Organization", name: "Pupuk Indonesia" },
     alumniOf: { "@type": "CollegeOrUniversity", name: "Universitas Pertamina" },
     email: `mailto:${profile.contact.email}`,
@@ -43,9 +43,9 @@ function pages(root: string): Page[] {
   };
   return [
     { path: "/", title: SITE_TITLE, description: SITE_DESCRIPTION, jsonLd: person },
-    { path: "/projects", title: "Work | adityavhlvy", description: "Every project by Aditya Vahlevy Nugraha: AI agent platforms, geospatial planning, logistics, and fullstack apps." },
+    { path: "/projects", title: "Work | adityavhlvy", description: "Every project by Aditya Vahlevy Nugraha: AI agent platforms, geospatial planning, logistics, and full-stack apps." },
     { path: "/blog", title: "Blog | adityavhlvy", description: "Notes on AI routing, geospatial systems, and building platforms at Pupuk Indonesia." },
-    { path: "/about", title: "About | adityavhlvy", description: "Aditya Vahlevy Nugraha, Software & AI Engineer. Computer Science cum laude, Universitas Pertamina.", jsonLd: person },
+    { path: "/about", title: "About | adityavhlvy", description: "Aditya Vahlevy Nugraha, Software Engineer turning business processes into software. Computer Science cum laude, Universitas Pertamina.", jsonLd: person },
     { path: "/certifications", title: "Credentials | adityavhlvy", description: "Certifications and credentials of Aditya Vahlevy Nugraha." },
     { path: "/contact", title: "Contact | adityavhlvy", description: "Email, phone, LinkedIn, GitHub, GitLab, Instagram, and Spotify for Aditya Vahlevy Nugraha." },
     { path: "/hire", title: "Hire me | adityavhlvy", description: "Freelance AI integration and automation, maps and geospatial apps, and software development by Aditya Vahlevy Nugraha. Send a brief." },

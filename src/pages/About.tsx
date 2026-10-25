@@ -12,7 +12,7 @@ const RECT = "polygon(50% 0%, 100% 0%, 100% 100%, 50% 100%, 0% 100%, 0% 0%)";
 
 export default function About() {
   useTitle("About");
-  const { bio, skills, philosophy } = profile;
+  const { bio, skills, philosophy, thanks } = profile;
 
   return (
     <>
@@ -99,6 +99,23 @@ export default function About() {
                 </li>
               ))}
             </ol>
+          </section>
+
+          <section aria-labelledby="thanks-h" className="mt-24">
+            <Reveal>
+              <h2 id="thanks-h" className="display text-3xl md:text-4xl">Thank you</h2>
+              <p className="mt-6 max-w-[62ch] leading-relaxed text-mute">{thanks.intro}</p>
+            </Reveal>
+            <dl className="mt-8">
+              {thanks.groups.map((g, i) => (
+                <Reveal key={g.context} delay={i * 0.05} y={12}>
+                  <div className="grid gap-2 border-t border-line py-5 sm:grid-cols-[11rem_1fr]">
+                    <dt className="label pt-1">{g.context}</dt>
+                    <dd className="leading-relaxed">{g.people.join(", ")}</dd>
+                  </div>
+                </Reveal>
+              ))}
+            </dl>
           </section>
 
           <Reveal className="mt-24 border-t border-ink pt-8">

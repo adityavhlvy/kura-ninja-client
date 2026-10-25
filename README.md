@@ -1,7 +1,7 @@
 # Kura Ninja Client
 
-Personal portfolio of Aditya Vahlevy Nugraha, Software and AI Engineer working
-across geospatial analytics, AI agent orchestration, and fullstack engineering.
+Personal portfolio of Aditya Vahlevy Nugraha, Software Engineer working
+across geospatial analytics, AI agent orchestration, and full-stack engineering.
 
 A client-rendered React app built around one motif: Indonesia drawn as
 hexagonal map cells, which is also a turtle shell. The design system is in
@@ -41,6 +41,7 @@ bun run dev      # http://localhost:3000
 | `bun run build` | Sync data, then production build to `dist/` |
 | `bun run preview` | Serve the production build |
 | `bun run map` | Rebuild the hex map from the province CSV |
+| `bun run og` | Rebuild the social card `public/assets/og.jpg` |
 | `bun run typecheck` | `tsc --noEmit` |
 | `bun run knip` | Report unused files, deps, and exports |
 
