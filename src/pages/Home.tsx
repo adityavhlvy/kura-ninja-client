@@ -1,12 +1,13 @@
 import { Hero } from "./home/Hero";
-import { Flagships, MapScreen } from "./home/Flagships";
+import { Flagships } from "./home/Flagships";
 import { WorkIndex } from "./home/WorkIndex";
+import { Journey } from "./home/Journey";
 import { AboutBrief } from "./home/AboutBrief";
 import { WriteTo } from "./home/WriteTo";
 import { useTitle } from "@/lib/useTitle";
 
-// Who and what under the pinned name, the three platforms as full screens,
-// the rest as a line-up, the live map, the short story, and the address as the close.
+// The claim, the three platforms, the rest of the work, the path on the map,
+// the short story, and the address as the close.
 export default function Home() {
   useTitle();
   return (
@@ -14,7 +15,7 @@ export default function Home() {
       <Hero />
       <Flagships />
       <WorkIndex />
-      <MapScreen />
+      <Journey />
       <AboutBrief />
       <WriteTo />
     </>

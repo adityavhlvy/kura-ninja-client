@@ -6,6 +6,7 @@ import { PiArrowLeftBold, PiArrowUpRightBold } from "react-icons/pi";
 import { getProject, projects, shortTitle, statusLabel, type Project } from "@/data/portfolio";
 import { Reveal, RiseWords, ease } from "@/components/Reveal";
 import { Lightbox } from "@/components/Lightbox";
+import { AutoVideo } from "@/components/AutoVideo";
 import { Roll } from "@/components/Roll";
 import { ProjectLogo } from "@/components/ProjectLogo";
 import { useTitle } from "@/lib/useTitle";
@@ -192,6 +193,7 @@ function buildSections(p: Project): SectionDef[] {
   return s;
 }
 
+// Placed above the gallery so a project with a video leads with it.
 function ProductVideo({ project }: { project: Project }) {
   if (!project.video) return null;
   return (
@@ -208,18 +210,7 @@ function ProductVideo({ project }: { project: Project }) {
           <span className="font-mono">{shortTitle(project)} overview</span>
         </div>
         <div className="relative aspect-video w-full bg-[#0e1113]">
-          <video
-            src={project.video}
-            controls
-            autoPlay
-            loop
-            muted
-            playsInline
-            poster={project.image}
-            className="size-full object-contain"
-          >
-            Your browser does not support the video tag.
-          </video>
+          <AutoVideo src={project.video} controls poster={project.image} className="size-full object-contain" />
         </div>
       </motion.div>
     </section>

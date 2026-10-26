@@ -17,6 +17,9 @@ export const NAV = [
   { to: "/brand", label: "Brand" },
 ];
 
+// Hire me leaves the link row because it is the one accent action on the right.
+const TOP = NAV.filter((n) => n.to !== "/hire");
+
 export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
   const { theme, toggle } = useTheme();
   const { pathname } = useLocation();
@@ -53,8 +56,12 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
         animate={{ y: hidden && !menuOpen ? "-100%" : 0 }}
         transition={{ duration: 0.45, ease }}
         className={clsx(
-          "fixed inset-x-0 top-0 z-40 transition-colors duration-300",
-          scrolled || menuOpen ? "bg-paper" : "bg-transparent",
+          "fixed inset-x-0 top-0 z-40 border-b transition-colors duration-300",
+          menuOpen
+            ? "border-transparent bg-paper"
+            : scrolled
+              ? "border-line bg-paper/80 backdrop-blur-md"
+              : "border-transparent bg-transparent",
         )}
       >
         <div className="mx-auto flex h-16 max-w-[1440px] items-center gap-6 px-5 md:px-10">
@@ -67,7 +74,7 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
 
           <nav aria-label="Primary" className="hidden md:block">
             <ul className="flex items-center gap-1">
-              {NAV.map((item) => (
+              {TOP.map((item) => (
                 <li key={item.to}>
                   <NavLink to={item.to} className="relative block px-3 py-2 text-sm">
                     {({ isActive }) => (
@@ -94,11 +101,13 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
             <button
               type="button"
               onClick={onOpenCommand}
-              className="hidden h-9 items-center gap-2 bg-sunk px-3 text-sm whitespace-nowrap text-mute transition-colors hover:bg-ink hover:text-paper sm:flex"
+              aria-label="Jump to a page or project"
+              className="hidden h-9 items-center gap-2 px-2 text-mute transition-colors hover:text-ink sm:flex"
             >
               <PiMagnifyingGlassBold aria-hidden="true" />
-              <span className="hidden lg:inline">Jump to</span>
-              <kbd className="font-sans text-[13px]">{isMac ? "⌘K" : "Ctrl K"}</kbd>
+              <kbd className="border border-line px-1.5 py-0.5 font-mono text-[11px] leading-none">
+                {isMac ? "⌘K" : "Ctrl K"}
+              </kbd>
             </button>
             <button
               type="button"
@@ -118,6 +127,16 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
                 </motion.span>
               </AnimatePresence>
             </button>
+            <Link
+              to="/hire"
+              className="ml-2 hidden h-9 items-center gap-2 bg-sea px-4 text-sm font-medium text-on-sea transition-colors hover:bg-ink hover:text-paper md:inline-flex"
+            >
+              <span aria-hidden="true" className="relative flex size-1.5">
+                <span className="absolute inset-0 animate-ping rounded-full bg-current opacity-60" />
+                <span className="relative size-1.5 rounded-full bg-current" />
+              </span>
+              Hire me
+            </Link>
             <button
               type="button"
               onClick={() => setMenuOpen((o) => !o)}

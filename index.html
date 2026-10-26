@@ -22,7 +22,7 @@
   <link rel="manifest" href="/site.webmanifest" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,300..800;1,100..125,300..800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,100..125,300..800;1,100..125,300..800&family=IBM+Plex+Mono:wght@400;500&family=Caveat:wght@500&display=swap" rel="stylesheet" />
   <script>
     // Resolve the theme before first paint so the wrong palette never flashes.
     try {
@@ -35,11 +35,28 @@
   </script>
 </head>
 <body>
-  <!-- Shown until React mounts and replaces it. The loader follows the OS
-       theme and holds still under reduced motion. -->
+  <!-- The only loader. Shown until React mounts and replaces it; prerendered
+       pages swap it for real HTML at build time, so they never show it.
+       Inline, so it needs no request, and coloured from the theme resolved
+       above. It waits 250ms before appearing so a fast load never flashes it,
+       then a pen runs the mark. Holds still under reduced motion. -->
+  <style>
+    .boot{display:grid;place-items:center;min-height:100dvh;background:#eceee9;color:#121518;animation:boot-in .3s .25s both}
+    [data-theme=dark] .boot{background:#0e1113;color:#e7e9e4}
+    .boot svg{width:56px;overflow:visible}
+    .boot .l{stroke-dasharray:.4 1.6;animation:boot-pen 1.4s cubic-bezier(.65,0,.35,1) infinite}
+    @keyframes boot-in{from{opacity:0}}
+    @keyframes boot-pen{from{stroke-dashoffset:1.4}to{stroke-dashoffset:-1}}
+    @media (prefers-reduced-motion:reduce){.boot{animation:none}.boot .l{animation:none;stroke-dasharray:none}}
+  </style>
   <div id="root">
-    <div style="display:grid;place-items:center;min-height:100dvh" role="status" aria-label="Loading">
-      <img src="/brand/loader.svg" width="64" height="41" alt="" />
+    <div class="boot" role="status" aria-label="Loading">
+      <svg viewBox="-1.009 -0.473 33.979 21.947" aria-hidden="true">
+        <mask id="boot-m" maskUnits="userSpaceOnUse"><path class="l" d="M-0.654 22.777L6.893 2.268L12.951 18.732L19.01 2.268L25.068 18.732L32.615 -1.777" pathLength="1" fill="none" stroke="#fff" stroke-width="7.574"/></mask>
+        <defs><g id="boot-g"><path fill="currentColor" d="M1.009 21L6.893 5.01L12.951 21.473L19.01 5.01L25.068 21.473L32.97 0L30.952 0L25.068 15.99L19.01 -0.473L12.951 15.99L6.893 -0.473L-1.009 21Z"/><path stroke="currentColor" fill="none" stroke-width="1.894" d="M0.654 19.223L3.864 10.5A3.228 3.228 0 0 1 9.922 10.5L9.922 10.5A3.228 3.228 0 0 0 15.981 10.5L15.981 10.5A3.228 3.228 0 0 1 22.039 10.5L22.039 10.5A3.228 3.228 0 0 0 28.097 10.5L31.307 1.777"/></g></defs>
+        <use href="#boot-g" opacity=".15"/>
+        <use href="#boot-g" mask="url(#boot-m)"/>
+      </svg>
     </div>
   </div>
 </body>

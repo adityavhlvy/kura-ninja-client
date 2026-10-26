@@ -14,6 +14,7 @@
 
   --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-hand: "Caveat", "Segoe Print", cursive;
 
   --ease-out-quint: cubic-bezier(0.22, 1, 0.36, 1);
 }
@@ -92,6 +93,46 @@
     font-variation-settings: "wdth" 100;
     letter-spacing: -0.02em;
   }
+  /* Text rules for the whole site: balanced headings, no orphans in prose. */
+  h1, h2, h3 {
+    text-wrap: balance;
+  }
+  p, li, blockquote {
+    text-wrap: pretty;
+  }
+
+  /* Film grain plus a faint sea glow. Effect layer only, tokens unchanged. */
+  .grain {
+    position: relative;
+    isolation: isolate;
+  }
+  .grain::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(60% 50% at 70% 30%, color-mix(in oklab, var(--sea) 22%, transparent), transparent 70%),
+      radial-gradient(40% 40% at 10% 90%, color-mix(in oklab, var(--sea) 12%, transparent), transparent 70%);
+  }
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.09;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  [data-theme="light"] .grain::after {
+    opacity: 0.05;
+  }
+  .hand {
+    font-family: var(--font-hand);
+    font-weight: 500;
+    color: var(--sea);
+    line-height: 1;
+  }
+
   .label {
     font-family: var(--font-mono);
     font-size: 0.75rem;

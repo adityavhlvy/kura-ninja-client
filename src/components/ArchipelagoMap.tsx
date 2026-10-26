@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, useId } from "react";
+import { useMemo, useRef, useState, useId, type ReactNode } from "react";
 import { motion, useMotionValue, useSpring } from "framer-motion";
 import { archipelago } from "@/data/portfolio";
 
@@ -8,8 +8,11 @@ const K = 20;
 const R = archipelago.radiusDeg * K;
 const W = Math.sqrt(3) * R;
 const H = 1.5 * R;
-const VIEW_W = Math.ceil(archipelago.cols * W + W);
-const VIEW_H = Math.ceil(archipelago.rows * H + R);
+export const VIEW_W = Math.ceil(archipelago.cols * W + W);
+export const VIEW_H = Math.ceil(archipelago.rows * H + R);
+
+/** Lon/lat to SVG units, using the grid's bbox origin in scripts/build-archipelago.ts. */
+export const project = (lon: number, lat: number): [number, number] => [(lon - 94.8) * K + W / 2, (6.3 - lat) * K + R];
 
 const centre = (q: number, r: number): [number, number] => [q * W + (r & 1 ? W / 2 : 0) + W / 2, r * H + R];
 
@@ -65,7 +68,10 @@ export function ArchipelagoMap({
   onProvince,
   selected = null,
   className,
+  children,
 }: {
+  /** Extra SVG drawn on top, in the map's own coordinates (see `project`). */
+  children?: ReactNode;
   onProvince?: (p: Province | null) => void;
   /** Province index picked outside the map, e.g. from the keyboard list. */
   selected?: number | null;
@@ -166,6 +172,7 @@ export function ArchipelagoMap({
           />
         ))}
       </g>
+      {children}
     </svg>
   );
 }

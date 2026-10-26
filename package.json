@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "bun run scripts/sync-data.ts && rsbuild dev",
     "build": "bun run scripts/sync-data.ts && rsbuild build",
-    "preview": "rsbuild preview",
+    "preview": "rsbuild preview --environment web",
     "map": "bun run scripts/build-archipelago.ts",
     "brand": "bun run scripts/build-brand.ts",
     "og": "bun run scripts/build-og.ts",
@@ -41,6 +41,12 @@
   "overrides": {
     "smol-toml": "^1.6.1",
     "ajv": "^8.18.0",
+    "@eslint/eslintrc": {
+      "ajv": "^6.14.0"
+    },
+    "eslint": {
+      "ajv": "^6.14.0"
+    },
     "brace-expansion": "^1.1.13",
     "undici": "^6.23.0",
     "minimatch": "^10.2.1",

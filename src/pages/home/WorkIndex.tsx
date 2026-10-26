@@ -12,7 +12,7 @@ const ROW = "text-[clamp(1.375rem,2.5vw,2.25rem)] leading-[1.5]";
 export function WorkIndex() {
   return (
     <section className={`${wrap} pt-24 md:pt-32`}>
-      <h2 className={`${ROW} mb-5 font-semibold text-sea`}>Before, and on the side</h2>
+      <h2 className="label mb-8">02 Before, and on the side</h2>
       <ul>
         {otherProjects.map((p, i) => (
           <motion.li

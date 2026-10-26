@@ -5,6 +5,7 @@ import { chipClass, fieldClass } from "@/components/button";
 import clsx from "clsx";
 import { flagships, projects, shortTitle, statusLabel, type Project } from "@/data/portfolio";
 import { PageIntro } from "@/components/PageIntro";
+import { AutoVideo } from "@/components/AutoVideo";
 import { ease } from "@/components/Reveal";
 import { useTitle } from "@/lib/useTitle";
 
@@ -19,20 +20,29 @@ const TOOLS = Object.entries(
   .sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]))
   .map(([t]) => t);
 
+const media =
+  "w-full object-cover object-top transition-transform duration-700 ease-out-quint group-hover:scale-[1.03]";
+
 function Card({ project, wide }: { project: Project; wide: boolean }) {
   return (
     <Link to={`/projects/${project.slug}`} className="group block">
       <div className="relative overflow-hidden border border-line bg-sunk">
-        <img
-          src={project.image}
-          alt={`${project.title}, main screen`}
-          loading="lazy"
-          decoding="async"
-          className={clsx(
-            "w-full object-cover object-top transition-transform duration-700 ease-out-quint group-hover:scale-[1.03]",
-            wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]",
-          )}
-        />
+        {project.video ? (
+          <AutoVideo
+            src={project.video}
+            poster={project.image}
+            aria-label={`${project.title}, product video`}
+            className={clsx(media, wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]")}
+          />
+        ) : (
+          <img
+            src={project.image}
+            alt={`${project.title}, main screen`}
+            loading="lazy"
+            decoding="async"
+            className={clsx(media, wide ? "aspect-[4/3] md:aspect-[21/9]" : "aspect-[4/3]")}
+          />
+        )}
       </div>
       <div className="mt-4 flex items-baseline justify-between gap-4">
         <h2 className="text-xl font-semibold tracking-tight transition-colors group-hover:text-sea">

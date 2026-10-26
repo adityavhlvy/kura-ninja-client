@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, MotionConfig, motion, useReducedMotion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
@@ -26,43 +26,6 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 export default function App() {
   const location = useLocation();
   const [commandOpen, setCommandOpen] = useState(false);
-  const [ready, setReady] = useState(false);
-  const reduceMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (reduceMotion) {
-      setReady(true);
-      return;
-    }
-    let minTimePassed = false;
-    let pageLoaded = document.readyState === "complete";
-
-    const check = () => {
-      if (minTimePassed && pageLoaded) setReady(true);
-    };
-
-    // A short floor so a fast load does not flash the loader. Longer than this
-    // hides the first screen from everyone, so keep it small.
-    const timer = window.setTimeout(() => {
-      minTimePassed = true;
-      check();
-    }, 400);
-
-    const onLoad = () => {
-      pageLoaded = true;
-      check();
-    };
-
-    if (!pageLoaded) {
-      window.addEventListener("load", onLoad);
-    }
-
-    return () => {
-      window.clearTimeout(timer);
-      window.removeEventListener("load", onLoad);
-    };
-  }, [reduceMotion]);
-
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
@@ -76,20 +39,6 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <AnimatePresence>
-        {!ready && (
-          <motion.div
-            key="initial-loader"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.35, ease }}
-            className="fixed inset-0 z-[100] grid place-items-center bg-paper text-ink"
-            aria-busy="true"
-          >
-            <MarkLoader className="w-16" label="Loading page" />
-          </motion.div>
-        )}
-      </AnimatePresence>
       <a
         href="#main"
         className="fixed top-2 left-2 z-[60] -translate-y-20 bg-sea px-4 py-2 text-sm text-on-sea focus:translate-y-0"

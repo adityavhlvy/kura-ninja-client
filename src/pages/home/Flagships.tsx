@@ -1,9 +1,8 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
+import { AutoVideo } from "@/components/AutoVideo";
 import { Link } from "react-router-dom";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { archipelago, flagships, shortTitle, type Project } from "@/data/portfolio";
-import { ArchipelagoMap, type Province } from "@/components/ArchipelagoMap";
-import { fieldClass } from "@/components/button";
+import { flagships, shortTitle, type Project } from "@/data/portfolio";
 import { Reveal } from "@/components/Reveal";
 import { Roll } from "@/components/Roll";
 import { wrap } from "@/lib/wrap";
@@ -22,19 +21,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
-  const video = useRef<HTMLVideoElement>(null);
   const title = shortTitle(project);
-
-  // Play only while on screen, and never for readers who asked for less motion.
-  useEffect(() => {
-    const v = video.current;
-    if (!v || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    const io = new IntersectionObserver(([e]) => (e.isIntersecting ? v.play().catch(() => {}) : v.pause()), {
-      threshold: 0.25,
-    });
-    io.observe(v);
-    return () => io.disconnect();
-  }, []);
   const facts = (project.beforeAfter ?? []).filter((f) => f.after !== "Not measured").slice(0, 3);
 
   return (
@@ -45,6 +32,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
       className="scroll-mt-16 bg-paper py-20 text-ink md:py-24"
     >
       <div className={wrap}>
+        {index === 0 && <p className="label mb-6">01 Three platforms at Pupuk Indonesia</p>}
         <header className="flex flex-wrap items-baseline gap-x-8 gap-y-2">
           <h2 className="display text-[clamp(2.25rem,4.2vw,3.75rem)]">{title}</h2>
           <span className="tabular-nums text-mute">{project.date}</span>
@@ -69,17 +57,14 @@ function Panel({ project, index }: { project: Project; index: number }) {
           </Reveal>
           <div className="overflow-hidden lg:col-span-8">
             {project.video ? (
-              <motion.video
-                ref={video}
-                src={project.video}
-                preload="none"
-                loop
-                muted
-                playsInline
-                poster={PLATE[project.slug] ?? project.image}
-                style={{ scale }}
-                className="aspect-[16/10] w-full object-cover object-left-top"
-              />
+              <motion.div style={{ scale }}>
+                <AutoVideo
+                  src={project.video}
+                  poster={PLATE[project.slug] ?? project.image}
+                  aria-label={`${title}, product video`}
+                  className="aspect-[16/10] w-full object-cover object-left-top"
+                />
+              </motion.div>
             ) : (
               <motion.img
                 src={PLATE[project.slug] ?? project.image}
@@ -94,53 +79,6 @@ function Panel({ project, index }: { project: Project; index: number }) {
         </div>
       </div>
     </article>
-  );
-}
-
-// The live map from Atlas, closing the work on the home page.
-/** The live thing: the map of Indonesia, binned into hex cells. */
-export function MapScreen() {
-  const [province, setProvince] = useState<Province | null>(null);
-  const [picked, setPicked] = useState<number | null>(null);
-  const shown = province ?? (picked === null ? null : archipelago.provinces[picked]);
-  return (
-    <div className="mt-24 bg-sunk py-20 md:mt-32 md:py-28">
-      <div className={`${wrap} grid gap-10 lg:grid-cols-12 lg:items-center lg:gap-6`}>
-        <Reveal delay={0.12} className="lg:col-span-4">
-          <h2 className="text-[clamp(1.375rem,2.5vw,2.25rem)] leading-tight font-semibold tracking-tight">
-            Explore Indonesia
-          </h2>
-          <p aria-live="polite" className="mt-4 min-h-[4lh] text-[clamp(1.25rem,1.7vw,1.625rem)] leading-snug">
-            {shown ? (
-              <span className="font-semibold text-sea">{shown.name}</span>
-            ) : (
-              <>
-                An interactive hex map across all {archipelago.provinces.length} provinces. Hover or tap on any province
-                to inspect.
-              </>
-            )}
-          </p>
-          <label className="mt-6 block">
-            <span className="label">Or pick one</span>
-            <select
-              value={picked ?? ""}
-              onChange={(e) => setPicked(e.target.value === "" ? null : Number(e.target.value))}
-              className={`${fieldClass} mt-2`}
-            >
-              <option value="">All provinces</option>
-              {archipelago.provinces.map((p, i) => (
-                <option key={p.code} value={i}>
-                  {p.name}
-                </option>
-              ))}
-            </select>
-          </label>
-        </Reveal>
-        <Reveal className="lg:col-span-8">
-          <ArchipelagoMap onProvince={setProvince} selected={picked} className="h-auto w-full touch-pan-y" />
-        </Reveal>
-      </div>
-    </div>
   );
 }
 
