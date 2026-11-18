@@ -49,7 +49,7 @@ export function CommandMenu({ open, onOpenChange }: { open: boolean; onOpenChang
 
         <Command.Group heading="Pages" className={group}>
           {[{ to: "/", label: "Home" }, ...NAV].map((n) => (
-            <Command.Item key={n.to} value={`page ${n.label}`} onSelect={run(() => navigate(n.to))} className={item}>
+            <Command.Item key={n.to} value={`page ${n.label}`} onSelect={run(() => (n.external ? window.location.assign(n.to) : navigate(n.to)))} className={item}>
               <PiFileTextBold aria-hidden="true" /> {n.label}
             </Command.Item>
           ))}

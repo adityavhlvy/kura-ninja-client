@@ -7,13 +7,18 @@ import { LogoMark } from "@/components/LogoMark";
 import { useTheme } from "@/lib/theme";
 import { ease } from "@/components/Reveal";
 
-export const NAV = [
+type NavItem = { to: string; label: string; external?: boolean };
+
+export const NAV: NavItem[] = [
   { to: "/projects", label: "Work" },
   { to: "/blog", label: "Blog" },
   { to: "/about", label: "About" },
   { to: "/certifications", label: "Credentials" },
   { to: "/hire", label: "Hire me" },
   { to: "/contact", label: "Contact" },
+  // Served by the separate QR project and proxied by Vercel, so this is a
+  // plain anchor rather than a router link.
+  { to: "/tools/qr", label: "Tools", external: true },
   { to: "/brand", label: "Brand" },
 ];
 
@@ -72,28 +77,39 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
             </span>
           </Link>
 
-          <nav aria-label="Primary" className="hidden md:block">
+          <nav aria-label="Primary" className="hidden lg:block">
             <ul className="flex items-center gap-1">
-              {TOP.map((item) => (
-                <li key={item.to}>
-                  <NavLink to={item.to} className="relative block px-3 py-2 text-sm">
-                    {({ isActive }) => (
-                      <>
-                        <span className={clsx("transition-colors", isActive ? "text-ink" : "text-mute hover:text-ink")}>
-                          {item.label}
-                        </span>
-                        {isActive && (
-                          <motion.span
-                            layoutId="nav-mark"
-                            className="absolute inset-x-3 -bottom-px h-0.5 bg-sea"
-                            transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                          />
-                        )}
-                      </>
-                    )}
-                  </NavLink>
-                </li>
-              ))}
+              {TOP.map((item) =>
+                item.external ? (
+                  <li key={item.to}>
+                    <a
+                      href={item.to}
+                      className="relative block px-3 py-2 text-sm text-mute transition-colors hover:text-ink"
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={item.to}>
+                    <NavLink to={item.to} className="relative block px-3 py-2 text-sm">
+                      {({ isActive }) => (
+                        <>
+                          <span className={clsx("transition-colors", isActive ? "text-ink" : "text-mute hover:text-ink")}>
+                            {item.label}
+                          </span>
+                          {isActive && (
+                            <motion.span
+                              layoutId="nav-mark"
+                              className="absolute inset-x-3 -bottom-px h-0.5 bg-sea"
+                              transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                            />
+                          )}
+                        </>
+                      )}
+                    </NavLink>
+                  </li>
+                ),
+              )}
             </ul>
           </nav>
 
@@ -143,7 +159,7 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
               aria-label={menuOpen ? "Close menu" : "Open menu"}
-              className="grid size-9 place-items-center md:hidden"
+              className="grid size-9 place-items-center lg:hidden"
             >
               {menuOpen ? <PiXBold aria-hidden="true" /> : <PiListBold aria-hidden="true" />}
             </button>
@@ -159,7 +175,7 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
             animate={{ clipPath: "inset(0 0 0% 0)" }}
             exit={{ clipPath: "inset(0 0 100% 0)" }}
             transition={{ duration: 0.5, ease }}
-            className="fixed inset-0 z-30 flex flex-col bg-paper px-5 pt-24 pb-8 md:hidden"
+            className="fixed inset-0 z-30 flex flex-col bg-paper px-5 pt-24 pb-8 lg:hidden"
           >
             <nav aria-label="Mobile">
               <ul className="space-y-1">
@@ -170,15 +186,21 @@ export function Header({ onOpenCommand }: { onOpenCommand: () => void }) {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.12 + i * 0.05, duration: 0.5, ease }}
                   >
-                    <NavLink
-                      to={item.to}
-                      end
-                      className={({ isActive }) =>
-                        clsx("display block py-2 text-5xl", isActive ? "text-sea" : "text-ink")
-                      }
-                    >
-                      {item.label}
-                    </NavLink>
+                    {item.external ? (
+                      <a href={item.to} className="display block py-2 text-5xl text-ink">
+                        {item.label}
+                      </a>
+                    ) : (
+                      <NavLink
+                        to={item.to}
+                        end
+                        className={({ isActive }) =>
+                          clsx("display block py-2 text-5xl", isActive ? "text-sea" : "text-ink")
+                        }
+                      >
+                        {item.label}
+                      </NavLink>
+                    )}
                   </motion.li>
                 ))}
               </ul>

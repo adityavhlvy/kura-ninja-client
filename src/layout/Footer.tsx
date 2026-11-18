@@ -16,9 +16,15 @@ export function Footer() {
           <ul className="space-y-2">
             {NAV.map((n) => (
               <li key={n.to}>
-                <Link to={n.to} className="hover:text-sea">
-                  {n.label}
-                </Link>
+                {n.external ? (
+                  <a href={n.to} className="hover:text-sea">
+                    {n.label}
+                  </a>
+                ) : (
+                  <Link to={n.to} className="hover:text-sea">
+                    {n.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
