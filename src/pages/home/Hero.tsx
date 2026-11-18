@@ -36,7 +36,7 @@ function Sentence({ x }: { x?: boolean }) {
           >
             {w}
             {x && tag && (
-              <span className="absolute -top-1 left-0 -translate-y-full bg-sea px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-normal text-on-sea not-italic [-webkit-text-stroke:0]">
+              <span className="absolute -top-1 left-0 hidden -translate-y-full bg-sea px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-normal text-on-sea not-italic [-webkit-text-stroke:0] md:block">
                 {tag}
               </span>
             )}
@@ -54,6 +54,12 @@ function Lens() {
 
   useEffect(() => {
     const b = box.current!;
+    let centers: Array<readonly [number, number]> = [];
+    let t = 0;
+    let raf = 0;
+    let visible = true;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     // Radius follows the type size: about one line tall, 56px on a phone, 110px on desktop.
     const radius = () => Math.min(110, Math.max(56, b.clientWidth * 0.08));
     const set = (x: number, y: number) => {
@@ -65,46 +71,81 @@ function Lens() {
         transform: `translate(${x - R}px, ${y - R}px)`,
       });
     };
-    // While the pointer is away (touch, first paint, after leaving) the lens glides
-    // from word to word, so it never parks on empty space. Word centres are read
-    // live, so wrapping at any width is handled.
-    let t = 0;
-    let raf = 0;
-    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const words = () => {
+
+    // Word centres are measured on resize and after fonts load, never per frame.
+    const measure = () => {
       const o = b.getBoundingClientRect();
-      return [...b.querySelectorAll("h1 > span > span")].map((el) => {
+      centers = [...b.querySelectorAll("h1 > span > span")].map((el) => {
         const r = el.getBoundingClientRect();
         return [r.left - o.left + r.width / 2, r.top - o.top + r.height / 2] as const;
       });
     };
+
+    const stop = () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+    };
+
     const drift = () => {
-      const w = words();
+      if (!centers.length) measure();
+      if (!centers.length) return;
       t += 0.006; // one word every ~2.8s at 60fps
-      const i = Math.floor(t) % w.length;
-      const [a, c] = [w[i], w[(i + 1) % w.length]];
+      const i = Math.floor(t) % centers.length;
+      const [a, c] = [centers[i], centers[(i + 1) % centers.length]];
       const k = t % 1;
       const e = k < 0.5 ? 4 * k ** 3 : 1 - (-2 * k + 2) ** 3 / 2; // ease in-out, rests on each word
       set(a[0] + (c[0] - a[0]) * e, a[1] + (c[1] - a[1]) * e);
-      if (!reduce) raf = requestAnimationFrame(drift);
+      if (!reduce && visible) raf = requestAnimationFrame(drift);
     };
-    drift();
+
+    const start = () => {
+      stop();
+      if (!visible) return;
+      if (reduce) {
+        if (!centers.length) measure();
+        if (centers.length) set(centers[0][0], centers[0][1]);
+        return;
+      }
+      drift();
+    };
+
+    measure();
+    start();
+
     const move = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
-      cancelAnimationFrame(raf);
+      stop();
       const r = b.getBoundingClientRect();
       set(e.clientX - r.left, e.clientY - r.top);
     };
-    const leave = () => {
-      cancelAnimationFrame(raf);
-      drift();
+    const leave = () => start();
+    const resize = () => {
+      measure();
+      if (reduce) start();
     };
+
+    // The loop runs only while the hero is on screen.
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) start();
+      else stop();
+    });
+    observer.observe(b);
+
     b.addEventListener("pointermove", move);
     b.addEventListener("pointerleave", leave);
+    window.addEventListener("resize", resize);
+    document.fonts?.ready.then(() => {
+      measure();
+      if (reduce) start();
+    }).catch(() => {});
+
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      observer.disconnect();
       b.removeEventListener("pointermove", move);
       b.removeEventListener("pointerleave", leave);
+      window.removeEventListener("resize", resize);
     };
   }, []);
 

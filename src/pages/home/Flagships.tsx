@@ -11,9 +11,9 @@ import { wrap } from "@/lib/wrap";
 // route on the map. Text never sits on top of it, because the interfaces are
 // full of their own text and the two fought each other.
 const PLATE: Record<string, string> = {
-  pinter: "/assets/pinter/galleries/pinter-agent-builder-canvas.png",
-  "aegis-atlas": "/assets/aegis-atlas/galleries/aegis-atlas-fertilizer-demand-map.png",
-  nexus: "/assets/nexus/galleries/nexus-vista-home.png",
+  pinter: "/assets/pinter/galleries/pinter-agent-builder-canvas.webp",
+  "aegis-atlas": "/assets/aegis-atlas/galleries/aegis-atlas-fertilizer-demand-map.webp",
+  nexus: "/assets/nexus/galleries/nexus-vista-home.webp",
 };
 
 /** One plate per platform: the title on top, the story on the left, its real interface on the right. */
