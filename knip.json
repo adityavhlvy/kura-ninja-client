@@ -7,7 +7,7 @@
     "magick"
   ],
   "ignore": [
-
+    "qr-ninja/**",
     "src/**/*.check.ts"
   ]
 }

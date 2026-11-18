@@ -5,6 +5,7 @@ const eslintConfig = defineConfig([
     "dist/**",
     "dist-ssr/**",
     "node_modules/**",
+    "qr-ninja/**",
   ]),
 ]);
 
