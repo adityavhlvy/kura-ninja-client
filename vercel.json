@@ -6,9 +6,9 @@
     { "source": "/tools/qr", "destination": "/tools/qr/", "permanent": false }
   ],
   "rewrites": [
-    { "source": "/q/:slug", "destination": "https://adityavhlvy-qr.vercel.app/api/q/:slug" },
-    { "source": "/tools/qr/", "destination": "https://adityavhlvy-qr.vercel.app/" },
-    { "source": "/tools/qr/:path*", "destination": "https://adityavhlvy-qr.vercel.app/:path*" },
+    { "source": "/q/:slug", "destination": "https://qr-ninja-sigma.vercel.app/api/q/:slug" },
+    { "source": "/tools/qr/", "destination": "https://qr-ninja-sigma.vercel.app/" },
+    { "source": "/tools/qr/:path*", "destination": "https://qr-ninja-sigma.vercel.app/:path*" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
