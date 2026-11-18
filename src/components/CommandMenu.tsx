@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Command } from "cmdk";
 import { PiArrowUpRightBold, PiCopyBold, PiFileTextBold, PiMoonBold, PiNotePencilBold, PiSunBold } from "react-icons/pi";
 import { channels, posts, profile, projects } from "@/data/portfolio";
-import { setTheme } from "@/lib/theme";
+import { setTheme } from "@adityavhlvy/design-system";
 import { NAV } from "@/layout/Header";
 
 const item =
