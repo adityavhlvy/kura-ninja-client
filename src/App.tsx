@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
+import { AnimatePresence, MotionConfig, motion, useScroll } from "framer-motion";
 import { Analytics } from "@vercel/analytics/react";
 import { Header } from "./layout/Header";
 import { Footer } from "./layout/Footer";
@@ -26,6 +26,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
   const location = useLocation();
+  const { scrollYProgress } = useScroll();
   const [commandOpen, setCommandOpen] = useState(false);
   // The QR app's search button hands off to the palette on arrival.
   useEffect(() => {
@@ -50,6 +51,11 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
+      <motion.div
+        aria-hidden="true"
+        style={{ scaleX: scrollYProgress }}
+        className="fixed inset-x-0 top-0 z-50 h-0.5 origin-left bg-sea"
+      />
       <a
         href="#main"
         className="fixed top-2 left-2 z-[60] -translate-y-20 bg-sea px-4 py-2 text-sm text-on-sea focus:translate-y-0"

@@ -25,21 +25,16 @@ const WORDS: { w: string; tag?: string; cls?: string }[] = [
 function Sentence({ x }: { x?: boolean }) {
   return (
     <>
-      {WORDS.map(({ w, tag, cls }, i) => (
+      {WORDS.map(({ w, cls }, i) => (
         <span key={i}>
           <span
             className={clsx(
               "relative inline-block",
               cls,
-              x && "text-transparent [-webkit-text-stroke:1.5px_var(--sea)] outline-1 outline-sea/50 outline-dashed",
+              x && "text-transparent [-webkit-text-stroke:2px_var(--sea)] outline-1 outline-sea/50 outline-dashed",
             )}
           >
             {w}
-            {x && tag && (
-              <span className="absolute -top-1 left-0 hidden -translate-y-full bg-sea px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-normal text-on-sea not-italic [-webkit-text-stroke:0] md:block">
-                {tag}
-              </span>
-            )}
           </span>{" "}
         </span>
       ))}
@@ -51,6 +46,7 @@ function Lens() {
   const box = useRef<HTMLDivElement>(null);
   const top = useRef<HTMLDivElement>(null);
   const ring = useRef<HTMLDivElement>(null);
+  const tagRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const b = box.current!;
@@ -70,6 +66,23 @@ function Lens() {
         height: `${R * 2}px`,
         transform: `translate(${x - R}px, ${y - R}px)`,
       });
+      // The label lives outside the clipped layer, so the circle never cuts it.
+      const tag = tagRef.current;
+      if (!tag) return;
+      let best = -1;
+      let bestDistance = Infinity;
+      centers.forEach(([cx, cy], i) => {
+        const distance = (cx - x) ** 2 + (cy - y) ** 2;
+        if (distance < bestDistance) {
+          bestDistance = distance;
+          best = i;
+        }
+      });
+      const label = WORDS[best]?.tag;
+      tag.textContent = label ?? "";
+      tag.style.opacity = label ? "1" : "0";
+      tag.style.left = `${x}px`;
+      tag.style.top = `${y - R - 10}px`;
     };
 
     // Word centres are measured on resize and after fonts load, never per frame.
@@ -156,9 +169,25 @@ function Lens() {
       <h1 className={type}>
         <Sentence />
       </h1>
-      <div ref={top} aria-hidden="true" className={`${type} bg-paper`} style={{ clipPath: "circle(0 at 0 0)" }}>
+      <div
+        ref={top}
+        aria-hidden="true"
+        className={`${type} bg-sunk`}
+        style={{
+          clipPath: "circle(0 at 0 0)",
+          backgroundImage:
+            "linear-gradient(color-mix(in oklab, var(--line) 65%, transparent) 1px, transparent 1px), linear-gradient(90deg, color-mix(in oklab, var(--line) 65%, transparent) 1px, transparent 1px)",
+          backgroundSize: "18px 18px",
+        }}
+      >
         <Sentence x />
       </div>
+      <div
+        ref={tagRef}
+        aria-hidden="true"
+        className="pointer-events-none absolute z-10 hidden -translate-x-1/2 -translate-y-full whitespace-nowrap bg-sea px-1.5 py-0.5 font-mono text-[11px] font-medium tracking-normal text-on-sea md:block"
+        style={{ opacity: 0 }}
+      />
       <div
         ref={ring}
         aria-hidden="true"

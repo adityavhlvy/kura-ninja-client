@@ -1,10 +1,27 @@
+import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import { profile } from "@/data/portfolio";
 import { Reveal } from "@/components/Reveal";
 import { Roll } from "@/components/Roll";
 import { wrap } from "@/lib/wrap";
 
+function Word({ children, progress, start, end }: { children: string; progress: MotionValue<number>; start: number; end: number }) {
+  const reduce = useReducedMotion();
+  const opacity = useTransform(progress, [start, end], [0.2, 1]);
+  return (
+    <motion.span style={{ opacity: reduce ? 1 : opacity }} className="inline-block">
+      {children}&nbsp;
+    </motion.span>
+  );
+}
+
 export function AboutBrief() {
+  const quoteRef = useRef<HTMLQuoteElement>(null);
+  const { scrollYProgress } = useScroll({ target: quoteRef, offset: ["start 0.9", "center 0.6"] });
+  const quote = `“${profile.philosophy.quote}”`;
+  const words = quote.split(" ");
+
   return (
     <section aria-labelledby="about-brief-title" className={`${wrap} pt-24 md:pt-32`}>
 
@@ -42,8 +59,15 @@ export function AboutBrief() {
       <Reveal delay={0.25} className="mt-16 md:mt-24">
         <div className="border-t border-line pt-12">
           <p className="label">Philosophy</p>
-          <blockquote className="mt-4 max-w-[36ch] text-[clamp(1.25rem,2vw,1.75rem)] font-semibold leading-snug tracking-tight text-ink">
-            “{profile.philosophy.quote}”
+          <blockquote
+            ref={quoteRef}
+            className="mt-4 max-w-[36ch] text-[clamp(1.25rem,2vw,1.75rem)] font-semibold leading-snug tracking-tight text-ink"
+          >
+            {words.map((word, index) => (
+              <Word key={`${word}-${index}`} progress={scrollYProgress} start={index / words.length} end={(index + 1) / words.length}>
+                {word}
+              </Word>
+            ))}
           </blockquote>
           <p className="mt-4 text-sm text-mute">{profile.philosophy.comment}</p>
         </div>

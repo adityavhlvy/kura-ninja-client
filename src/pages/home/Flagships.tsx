@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { AutoVideo } from "@/components/AutoVideo";
 import { Link } from "react-router-dom";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { flagships, shortTitle, type Project } from "@/data/portfolio";
 import { Reveal } from "@/components/Reveal";
 import { Roll } from "@/components/Roll";
@@ -21,6 +21,8 @@ function Panel({ project, index }: { project: Project; index: number }) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const scale = useTransform(scrollYProgress, [0, 1], [1.08, 1]);
+  const clip = useTransform(scrollYProgress, [0.08, 0.38], ["inset(100% 0 0 0)", "inset(0% 0 0 0)"]);
+  const reduce = useReducedMotion();
   const title = shortTitle(project);
   const facts = (project.beforeAfter ?? []).filter((f) => f.after !== "Not measured").slice(0, 3);
 
@@ -56,6 +58,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
             </Link>
           </Reveal>
           <div className="overflow-hidden lg:col-span-8">
+            <motion.div style={{ clipPath: reduce ? "none" : clip }} className="overflow-hidden">
             {project.video ? (
               <motion.div style={{ scale }}>
                 <AutoVideo
@@ -75,6 +78,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
                 className="aspect-[16/10] w-full object-cover object-left-top"
               />
             )}
+            </motion.div>
           </div>
         </div>
       </div>
