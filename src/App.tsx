@@ -21,11 +21,22 @@ const Credentials = lazy(() => import("./pages/Credentials"));
 const Contact = lazy(() => import("./pages/Contact"));
 const Hire = lazy(() => import("./pages/Hire"));
 const Brand = lazy(() => import("./pages/Brand"));
+const Tools = lazy(() => import("./pages/Tools"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 export default function App() {
   const location = useLocation();
   const [commandOpen, setCommandOpen] = useState(false);
+  // The QR app's search button hands off to the palette on arrival.
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    if (params.get("palette") !== "open") return;
+    setCommandOpen(true);
+    params.delete("palette");
+    const next = `${location.pathname}${params.toString() ? `?${params}` : ""}${location.hash}`;
+    window.history.replaceState(null, "", next);
+  }, [location.pathname, location.search, location.hash]);
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key.toLowerCase() === "k" && (e.metaKey || e.ctrlKey)) {
@@ -80,6 +91,7 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/hire" element={<Hire />} />
               <Route path="/brand" element={<Brand />} />
+              <Route path="/tools" element={<Tools />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </Suspense>

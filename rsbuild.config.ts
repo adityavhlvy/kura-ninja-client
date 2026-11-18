@@ -50,6 +50,7 @@ function pages(root: string): Page[] {
     { path: "/contact", title: "Contact | adityavhlvy", description: "Email, phone, LinkedIn, GitHub, GitLab, Instagram, and Spotify for Aditya Vahlevy Nugraha." },
     { path: "/hire", title: "Hire me | adityavhlvy", description: "Freelance AI integration and automation, maps and geospatial apps, and software development by Aditya Vahlevy Nugraha. Send a brief." },
     { path: "/brand", title: "Brand | adityavhlvy", description: "The adityavhlvy identity: mark, type, colour, and usage." },
+    { path: "/tools", title: "Tools | adityavhlvy", description: "Small tools by Aditya Vahlevy Nugraha, starting with QR Ninja." },
     ...projects.map((p) => ({
       path: `/projects/${p.slug}`,
       title: `${p.title} | adityavhlvy`,
