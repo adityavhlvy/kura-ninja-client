@@ -23,7 +23,7 @@ export function AboutBrief() {
   const words = quote.split(" ");
 
   return (
-    <section aria-labelledby="about-brief-title" className={`${wrap} pt-24 md:pt-32`}>
+    <section aria-labelledby="about-brief-title" className={`${wrap} flex min-h-[calc(100svh-4rem)] snap-start scroll-mt-16 flex-col justify-center py-8`}>
 
       <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
         <Reveal className="lg:col-span-9">
@@ -56,7 +56,7 @@ export function AboutBrief() {
       </div>
 
 
-      <Reveal delay={0.25} className="mt-16 md:mt-24">
+      <Reveal delay={0.25} className="mt-8">
         <div className="border-t border-line pt-12">
           <p className="label">Philosophy</p>
           <blockquote

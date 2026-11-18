@@ -13,7 +13,7 @@ export function WriteTo() {
   const { state, copy } = useCopy();
 
   return (
-    <section aria-labelledby="write" className="mt-24 bg-ink py-20 text-paper md:mt-32 md:py-28">
+    <section aria-labelledby="write" className="flex min-h-[calc(100svh-4rem)] snap-start scroll-mt-16 flex-col justify-center bg-ink py-5 text-paper">
       <div className={wrap}>
         <Reveal>
           <p className="label text-paper/70">05 Contact</p>
@@ -21,7 +21,7 @@ export function WriteTo() {
             Processes in. <span className="text-sea">Software out.</span>
           </h2>
           <p className="mt-6 max-w-[40ch] text-paper/80">Working on something with maps, agents, or both? Write to me.</p>
-          <ul className="mt-14 grid gap-6 sm:grid-cols-3 lg:gap-8">
+          <ul className="mt-6 grid gap-6 sm:grid-cols-3 lg:gap-8">
             {services.map((s) => (
               <li key={s.id} className="border-t border-paper/25 pt-5">
                 <p className="text-lg font-semibold">{s.title}</p>
@@ -29,14 +29,14 @@ export function WriteTo() {
               </li>
             ))}
           </ul>
-          <Link to="/hire" className={`${buttonClass("primary")} mt-8 hover:bg-paper hover:text-ink`}>
+          <Link to="/hire" className={`${buttonClass("primary")} mt-6 hover:bg-paper hover:text-ink`}>
             Send a project brief
           </Link>
         </Reveal>
-        <Reveal delay={0.1} className="mt-20">
+        <Reveal delay={0.1} className="mt-6">
           <a
             href={`mailto:${email}`}
-            className="display block text-[7.1vw] leading-[0.92] [overflow-wrap:anywhere] transition-colors duration-300 hover:text-sea md:text-[min(6.6vw,96px)]"
+            className="display block text-[6.6vw] leading-[0.92] [overflow-wrap:anywhere] transition-colors duration-300 hover:text-sea md:text-[min(6.2vw,88px)]"
           >
             {user}@
             <br />

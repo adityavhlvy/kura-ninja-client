@@ -31,7 +31,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
       ref={ref}
       id={index === 0 ? "work" : undefined}
       data-theme="dark"
-      className="scroll-mt-16 bg-paper py-20 text-ink md:py-24"
+      className="flex min-h-[calc(100svh-4rem)] snap-start scroll-mt-16 flex-col justify-center bg-paper py-10 text-ink"
     >
       <div className={wrap}>
         {index === 0 && <p className="label mb-6">01 Three platforms at Pupuk Indonesia</p>}
@@ -65,7 +65,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
                   src={project.video}
                   poster={PLATE[project.slug] ?? project.image}
                   aria-label={`${title}, product video`}
-                  className="aspect-[16/10] w-full object-cover object-left-top"
+                  className="aspect-[16/10] max-h-[54svh] w-full object-cover object-left-top"
                 />
               </motion.div>
             ) : (
@@ -75,7 +75,7 @@ function Panel({ project, index }: { project: Project; index: number }) {
                 loading="lazy"
                 decoding="async"
                 style={{ scale }}
-                className="aspect-[16/10] w-full object-cover object-left-top"
+                className="aspect-[16/10] max-h-[54svh] w-full object-cover object-left-top"
               />
             )}
             </motion.div>

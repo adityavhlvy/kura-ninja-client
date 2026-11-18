@@ -200,7 +200,7 @@ function Lens() {
 export function Hero() {
   const { bio, contact } = profile;
   return (
-    <section className="grain overflow-hidden">
+    <section className="grain snap-start overflow-hidden">
       <div className={`${wrap} flex min-h-[100svh] flex-col justify-between gap-10 pt-24 pb-8 md:gap-16 md:pt-28 md:pb-10`}>
         <p className="label">
           {bio.name}

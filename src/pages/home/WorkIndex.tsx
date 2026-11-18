@@ -20,14 +20,14 @@ const DOT: Record<string, string> = {
 
 export function WorkIndex() {
   return (
-    <section id="work-index" className={`${wrap} scroll-mt-20 pt-24 md:pt-32`}>
+    <section id="work-index" className={`${wrap} flex min-h-[calc(100svh-4rem)] snap-start scroll-mt-16 flex-col justify-center py-6`}>
       <p className="label">02 / Before, and on the side</p>
       <h2 className="display mt-4 max-w-[18ch] text-[clamp(2rem,3.6vw,3.25rem)]">The rest of the work.</h2>
       <p className="mt-4 max-w-[52ch] text-mute">
         Shipped, in development, and the side quests that taught me the stack. Every row opens a case study.
       </p>
 
-      <div className="mt-12 hidden border-b border-line pb-3 font-mono text-[10px] tracking-[0.12em] text-mute md:grid md:grid-cols-[42fr_20fr_22fr_8fr_4fr]">
+      <div className="mt-6 hidden border-b border-line pb-3 font-mono text-[10px] tracking-[0.12em] text-mute md:grid md:grid-cols-[42fr_20fr_22fr_8fr_4fr]">
         <span>PROJECT</span>
         <span>STACK</span>
         <span>STATUS</span>
@@ -46,7 +46,7 @@ export function WorkIndex() {
           >
             <Link
               to={`/projects/${p.slug}`}
-              className={`group relative block border-t border-line py-5 md:grid md:grid-cols-[42fr_20fr_22fr_8fr_4fr] md:items-baseline ${ROW}`}
+              className={`group relative block border-t border-line py-2 md:grid md:grid-cols-[42fr_20fr_22fr_8fr_4fr] md:items-baseline ${ROW}`}
             >
               <motion.span
                 aria-hidden="true"
@@ -76,7 +76,7 @@ export function WorkIndex() {
         ))}
       </ul>
 
-      <Link to="/projects" className={`${buttonClass("outline")} mt-10`}>
+      <Link to="/projects" className={`${buttonClass("outline")} mt-4 self-start`}>
         <Roll>All work, with search and filters</Roll>
         <PiArrowUpRightBold aria-hidden="true" />
       </Link>
