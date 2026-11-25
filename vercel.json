@@ -7,6 +7,11 @@
       "source": "/tools/qr",
       "destination": "/tools/qr/",
       "permanent": false
+    },
+    {
+      "source": "/tools/mcp-xray",
+      "destination": "/tools/mcp-xray/",
+      "permanent": false
     }
   ],
   "rewrites": [
@@ -21,6 +26,14 @@
     {
       "source": "/tools/qr/:path*",
       "destination": "https://qr-ninja-sigma.vercel.app/:path*"
+    },
+    {
+      "source": "/tools/mcp-xray/",
+      "destination": "https://mcp-xray.vercel.app/"
+    },
+    {
+      "source": "/tools/mcp-xray/:path*",
+      "destination": "https://mcp-xray.vercel.app/:path*"
     },
     {
       "source": "/(.*)",
