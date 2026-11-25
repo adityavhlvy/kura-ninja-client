@@ -17,8 +17,6 @@
 # misc
 .DS_Store
 
-# separate repo, deployed on its own
-qr-ninja/
 *.pem
 
 # debug
