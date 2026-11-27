@@ -5,7 +5,7 @@
     "": {
       "name": "kura-ninja-client",
       "dependencies": {
-        "@adityavhlvy/design-system": "github:adityavhlvy/design-system#v1",
+        "@adityavhlvy/design-system": "github:adityavhlvy/design-system#v1.1.0",
         "@vercel/analytics": "^2.0.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.1.1",
@@ -48,7 +48,7 @@
     "undici": "^6.23.0",
   },
   "packages": {
-    "@adityavhlvy/design-system": ["@adityavhlvy/design-system@github:adityavhlvy/design-system#f585182", { "peerDependencies": { "clsx": ">=2", "framer-motion": ">=12", "react": ">=19", "react-dom": ">=19", "react-icons": ">=5" } }, "adityavhlvy-design-system-f585182", "sha512-1nlq71YLARv17LDfAB5BhB7M2pSSq1scEbFtvk5z83OtlAOskdko1SrS9NPCXwzV1denNIn8Nb87teiG+9Cj0g=="],
+    "@adityavhlvy/design-system": ["@adityavhlvy/design-system@github:adityavhlvy/design-system#941e1d3", { "peerDependencies": { "clsx": ">=2", "framer-motion": ">=12", "react": ">=19", "react-dom": ">=19", "react-icons": ">=5", "tailwindcss": ">=4" } }, "adityavhlvy-design-system-941e1d3", "sha512-3Lhw3yoikZfceIKrhLeKVpw8TXQfJw03+GJSyYWktF5frXrrLn9XyQC5MKXmcNSsTq2FMAWvJxPWpT7MIGmpug=="],
 
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
 

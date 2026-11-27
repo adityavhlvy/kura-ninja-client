@@ -15,7 +15,7 @@
     "knip": "knip"
   },
   "dependencies": {
-    "@adityavhlvy/design-system": "github:adityavhlvy/design-system#v1",
+    "@adityavhlvy/design-system": "github:adityavhlvy/design-system#v1.1.0",
     "@vercel/analytics": "^2.0.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",

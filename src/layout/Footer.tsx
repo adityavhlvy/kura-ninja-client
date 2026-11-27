@@ -13,7 +13,11 @@ export function Footer() {
   const { bio, philosophy } = profile;
   return (
     <ShellFooter
-      profile={{ name: bio.name, quote: philosophy.vibe_quote }}
+      profile={{
+        name: bio.name,
+        quote: philosophy.vibe_quote,
+        colophon: "Map cells binned from Indonesian province boundaries.",
+      }}
       channels={channels}
       renderLink={renderLink}
     />
